@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_sign"
     android:padding="15dp">
 
     <Button
+        android:id="@+id/button_back"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:background="@drawable/back_icon"
@@ -18,7 +19,7 @@
         android:id="@+id/view"
         android:layout_width="100dp"
         android:layout_height="90dp"
-        android:background="@drawable/porco"
+        android:background="@drawable/logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -36,7 +37,7 @@
         app:layout_constraintTop_toBottomOf="@+id/view" />
 
     <TextView
-        android:id="@+id/text_welcome"
+        android:id="@+id/text_sign_up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="70dp"
@@ -56,7 +57,7 @@
         app:cardElevation="3dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_welcome">
+        app:layout_constraintTop_toBottomOf="@+id/text_sign_up">
 
         <EditText
             android:id="@+id/edit_username"
@@ -86,6 +87,7 @@
             android:layout_height="match_parent"
             android:background="@color/white"
             android:hint="@string/e_mail"
+            android:inputType="textEmailAddress"
             android:maxLength="30"
             android:paddingStart="15dp"
             android:textSize="20sp" />
@@ -106,21 +108,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <EditText
-                android:id="@+id/edit_date"
+            <TextView
+                android:id="@+id/text_date"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:hint="@string/date_of_birth"
-                android:inputType="date"
-                android:maxLength="30"
-                android:paddingStart="15dp"
+                android:layout_height="wrap_content"
+                android:text="@string/date_of_birth"
                 android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/button_calendar"
+                android:layout_marginStart="15dp"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintEnd_toStartOf="@+id/button_calendar"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
             <Button
                 android:id="@+id/button_calendar"
@@ -130,13 +129,15 @@
                 android:background="@drawable/calendar_icon"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/edit_date"
+                app:layout_constraintStart_toEndOf="@+id/text_date"
                 app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
+        android:id="@+id/card_password_sign_up"
         android:layout_width="match_parent"
         android:layout_height="69dp"
         android:layout_marginTop="10dp"
@@ -176,9 +177,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/edit_password"
                 app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_sign_button"
@@ -190,7 +192,7 @@
         app:cardElevation="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView">
+        app:layout_constraintTop_toBottomOf="@+id/card_password_sign_up">
 
         <Button
             android:id="@+id/button_sign"
@@ -199,10 +201,11 @@
             android:background="@drawable/background_login_button"
             android:elevation="10dp"
             android:text="@string/sign_up"
+            android:textAllCaps="false"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
-    </androidx.cardview.widget.CardView>
 
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
