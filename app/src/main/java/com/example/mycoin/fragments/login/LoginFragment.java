@@ -8,11 +8,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.navigation.Navigation;
 
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.mycoin.R;
@@ -24,8 +27,11 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
     public static final String TAG = LoginFragment.class.getSimpleName();
 
     private TextView mTextForgotPassword, mTextSignUp;
-    private Button mButtonLogin;
+    private Button mButtonLogin, mButtonEye;
     private LoginViewModel mViewModel;
+    private EditText mEditPassword;
+
+    private boolean mIsPasswordVisible = false;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -53,6 +59,8 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         mTextForgotPassword = view.findViewById(R.id.text_forgot_password_login);
         mTextSignUp = view.findViewById(R.id.text_sign_up_login);
         mButtonLogin = view.findViewById(R.id.button_login);
+        mButtonEye = view.findViewById(R.id.button_eye_login);
+        mEditPassword = view.findViewById(R.id.edit_password_login);
 
         initListeners();
     }
@@ -61,6 +69,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         mTextForgotPassword.setOnClickListener(this);
         mTextSignUp.setOnClickListener(this);
         mButtonLogin.setOnClickListener(this);
+        mButtonEye.setOnClickListener(this);
     }
 
     private void goHomeScreen(View v) {
@@ -76,6 +85,18 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_signUpFragment);
     }
 
+    private void changePasswordVisibility() {
+        if (mIsPasswordVisible) {
+            mEditPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            mButtonEye.setBackgroundResource(R.drawable.eye_slash_icon);
+        } else {
+            mEditPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            mButtonEye.setBackgroundResource(R.drawable.eye_icon);
+        }
+
+        mIsPasswordVisible = !mIsPasswordVisible;
+    }
+
     @Override
     public void onClick(View v) {
         int id = v.getId();
@@ -86,6 +107,8 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
             goSignUpScreen(v);
         } else if (id == R.id.button_login) {
             goHomeScreen(v);
+        } else if (id == R.id.button_eye_login) {
+            changePasswordVisibility();
         }
     }
 }
