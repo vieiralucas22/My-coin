@@ -6,7 +6,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import android.util.Log;
@@ -17,9 +16,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.mycoin.R;
+import com.example.mycoin.fragments.BaseFragment;
 
 
-public class LoginFragment extends Fragment implements View.OnClickListener {
+public class LoginFragment extends BaseFragment implements View.OnClickListener {
 
     public static final String TAG = LoginFragment.class.getSimpleName();
 
