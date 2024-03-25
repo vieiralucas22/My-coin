@@ -9,6 +9,8 @@ public class User {
     private Date mBirthDate;
     private String mPassword;
 
+
+
     public User(String username, String email, Date birthDate, String password) {
         mUsername = username;
         mEmail = email;

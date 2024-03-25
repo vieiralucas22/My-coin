@@ -49,11 +49,6 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         initObservers();
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
     private void initComponents(View view) {
         mViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
         mTextForgotPassword = view.findViewById(R.id.text_forgot_password_login);
@@ -99,11 +94,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
     }
 
     private void initObservers() {
-        mViewModel.getLoginSuccessful().observe(getViewLifecycleOwner(), isLogged -> {
-            if (isLogged) {
-                goHomeScreen(getView());
-            }
-        });
+
     }
 
     @Override
