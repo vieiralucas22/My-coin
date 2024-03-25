@@ -1,5 +1,5 @@
 package com.example.core.usecases.interfaces;
 
 public interface Login {
-    boolean authenticate(String email, String password);
+    boolean signIn(String email, String password);
 }
