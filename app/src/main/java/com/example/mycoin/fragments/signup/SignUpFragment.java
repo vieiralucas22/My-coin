@@ -31,10 +31,10 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
 
     public static final String TAG = SignUpFragment.class.getSimpleName();
 
-    private Button mButtonBack, mButtonDatePicker, mButtonEye;
+    private Button mButtonBack, mButtonDatePicker, mButtonEye, mButtonSignUp;
     private TextView mTextDate;
     private CardView mCardDatePicker;
-    private EditText mEditPassword;
+    private EditText mEditPassword, mEditEmail;
 
     private boolean mIsPasswordVisible = false;
 
@@ -68,6 +68,8 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
         mButtonDatePicker = view.findViewById(R.id.button_calendar);
         mButtonEye = view.findViewById(R.id.button_eye);
         mEditPassword = view.findViewById(R.id.edit_password);
+        mButtonSignUp = view.findViewById(R.id.button_sign);
+        mEditEmail = view.findViewById(R.id.edit_email_sign_up);
 
         initListeners();
     }
@@ -77,6 +79,7 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
         mCardDatePicker.setOnClickListener(this);
         mButtonDatePicker.setOnClickListener(this);
         mButtonEye.setOnClickListener(this);
+        mButtonSignUp.setOnClickListener(this);
     }
 
     private void showDatePicker() {
@@ -111,6 +114,11 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
             showDatePicker();
         } else if (id == R.id.button_eye) {
             changePasswordVisibility();
+        } else if (id == R.id.button_sign) {
+            String email = mEditEmail.getText().toString();
+            String password = mEditPassword.getText().toString();
+
+            mViewModel.createAccount(email, password, v);
         }
     }
 
