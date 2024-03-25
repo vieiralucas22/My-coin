@@ -1,8 +1,11 @@
 package com.example.mycoin.services;
 
+import android.util.Log;
+
 import com.google.firebase.auth.FirebaseAuth;
 
 public class FirebaseService {
+    private static final String TAG = FirebaseService.class.getSimpleName();
 
     private final FirebaseAuth mAuth;
 
@@ -11,11 +14,6 @@ public class FirebaseService {
     }
 
     public void authenticate(String email, String password) {
-        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-              // return task.isSuccessful();
-            }
-        });
-
+        Log.d(TAG, mAuth.signInWithEmailAndPassword(email, password).getResult().getUser().getEmail());
     }
 }

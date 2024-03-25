@@ -7,6 +7,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
+import com.example.core.usecases.impl.LoginImpl;
+import com.example.core.usecases.interfaces.Login;
 import com.example.mycoin.fragments.signup.SignUpViewModel;
 import com.example.mycoin.services.FirebaseService;
 
@@ -15,26 +17,28 @@ public class LoginViewModel extends AndroidViewModel {
     private static final String TAG = SignUpViewModel.class.getSimpleName();
 
     private final FirebaseService mFirebaseService;
+    private final Login mLogin;
 
     public LoginViewModel(@NonNull Application application) {
         super(application);
         mFirebaseService = new FirebaseService();
+        mLogin = new LoginImpl();
     }
 
 
-    public void login(String email, String password) {
+    public boolean login(String email, String password) {
         if (TextUtils.isEmpty(email)) {
             Toast.makeText(getApplication(), "Email field is empty",
                     Toast.LENGTH_SHORT).show();
-            return;
+            return false;
         }
 
         if (TextUtils.isEmpty(password)) {
             Toast.makeText(getApplication(), "Password field is empty",
                     Toast.LENGTH_SHORT).show();
-            return;
+            return false;
         }
 
-        mFirebaseService.authenticate(email, password);
+        return mLogin.signIn(email, password);
     }
 }
