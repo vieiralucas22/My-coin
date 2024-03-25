@@ -84,7 +84,7 @@
         app:layout_constraintTop_toBottomOf="@+id/card_username">
 
         <EditText
-            android:id="@+id/edit_email"
+            android:id="@+id/edit_email_sign_up"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"

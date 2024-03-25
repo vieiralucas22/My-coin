@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "270564123511",
+    "project_id": "mycoin-79dc1",
+    "storage_bucket": "mycoin-79dc1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:270564123511:android:456944b4c5e6660d01f772",
+        "android_client_info": {
+          "package_name": "com.example.mycoin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvNgFdaGRXRIaS3XoVSCg2-M6Obtruc_k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

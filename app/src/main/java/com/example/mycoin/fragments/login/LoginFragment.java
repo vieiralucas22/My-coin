@@ -1,5 +1,6 @@
 package com.example.mycoin.fragments.login;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -29,7 +30,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
     private TextView mTextForgotPassword, mTextSignUp;
     private Button mButtonLogin, mButtonEye;
     private LoginViewModel mViewModel;
-    private EditText mEditPassword;
+    private EditText mEditPassword, mEditEmail;
 
     private boolean mIsPasswordVisible = false;
 
@@ -45,22 +46,22 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         Log.d(TAG, "Enter in login fragment");
 
         initComponents(view);
-
+        initObservers();
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
-        // TODO: Use the ViewModel
     }
 
     private void initComponents(View view) {
+        mViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
         mTextForgotPassword = view.findViewById(R.id.text_forgot_password_login);
         mTextSignUp = view.findViewById(R.id.text_sign_up_login);
         mButtonLogin = view.findViewById(R.id.button_login);
         mButtonEye = view.findViewById(R.id.button_eye_login);
         mEditPassword = view.findViewById(R.id.edit_password_login);
+        mEditEmail = view.findViewById(R.id.edit_email_login);
 
         initListeners();
     }
@@ -97,6 +98,14 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         mIsPasswordVisible = !mIsPasswordVisible;
     }
 
+    private void initObservers() {
+        mViewModel.getLoginSuccessful().observe(getViewLifecycleOwner(), isLogged -> {
+            if (isLogged) {
+                goHomeScreen(getView());
+            }
+        });
+    }
+
     @Override
     public void onClick(View v) {
         int id = v.getId();
@@ -106,7 +115,10 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         } else if (id == R.id.text_sign_up_login) {
             goSignUpScreen(v);
         } else if (id == R.id.button_login) {
-            goHomeScreen(v);
+            String email = mEditEmail.getText().toString();
+            String password = mEditPassword.getText().toString();
+
+            mViewModel.login(email, password);
         } else if (id == R.id.button_eye_login) {
             changePasswordVisibility();
         }
