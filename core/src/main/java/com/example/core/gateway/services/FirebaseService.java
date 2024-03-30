@@ -1,5 +1,7 @@
 package com.example.core.gateway.services;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 public interface FirebaseService {
-    boolean authenticate(String email, String password);
+    AtomicBoolean authenticate(String email, String password);
 }

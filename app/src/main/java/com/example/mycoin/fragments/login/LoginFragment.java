@@ -1,6 +1,5 @@
 package com.example.mycoin.fragments.login;
 
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -21,11 +20,11 @@ import android.widget.TextView;
 
 import com.example.mycoin.R;
 import com.example.mycoin.fragments.BaseFragment;
-
+import com.example.mycoin.utils.LogcatUtil;
 
 public class LoginFragment extends BaseFragment implements View.OnClickListener {
 
-    public static final String TAG = LoginFragment.class.getSimpleName();
+    public static final String TAG = LogcatUtil.getTag(LoginFragment.class);
 
     private TextView mTextForgotPassword, mTextSignUp;
     private Button mButtonLogin, mButtonEye;
@@ -50,7 +49,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
     }
 
     private void initComponents(View view) {
-        mViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+        mViewModel = getViewModel(LoginViewModel.class);
         mTextForgotPassword = view.findViewById(R.id.text_forgot_password_login);
         mTextSignUp = view.findViewById(R.id.text_sign_up_login);
         mButtonLogin = view.findViewById(R.id.button_login);
@@ -97,6 +96,17 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
 
     }
 
+    private void login(View v) {
+        String email = mEditEmail.getText().toString();
+        String password = mEditPassword.getText().toString();
+
+        if (mViewModel.login(email, password)) {
+            Log.d(TAG, "Hello2");
+            goHomeScreen(v);
+            Log.d(TAG, "User Logged!");
+        }
+    }
+
     @Override
     public void onClick(View v) {
         int id = v.getId();
@@ -106,10 +116,8 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         } else if (id == R.id.text_sign_up_login) {
             goSignUpScreen(v);
         } else if (id == R.id.button_login) {
-            String email = mEditEmail.getText().toString();
-            String password = mEditPassword.getText().toString();
-
-            mViewModel.login(email, password);
+            Log.d(TAG, "Hello");
+            login(v);
         } else if (id == R.id.button_eye_login) {
             changePasswordVisibility();
         }

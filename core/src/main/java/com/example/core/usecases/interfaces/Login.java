@@ -1,5 +1,7 @@
 package com.example.core.usecases.interfaces;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 public interface Login {
-    boolean authenticate(String email, String password);
+    AtomicBoolean authenticate(String email, String password);
 }

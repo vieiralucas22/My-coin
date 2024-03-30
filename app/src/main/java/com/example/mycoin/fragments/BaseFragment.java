@@ -6,14 +6,29 @@ import androidx.fragment.app.Fragment;
 
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
-import com.example.mycoin.fragments.login.LoginViewModel;
+import com.example.mycoin.di.ViewModelFactory;
+import com.example.mycoin.di.components.DaggerAppComponent;
+
+import javax.inject.Inject;
+
+import dagger.internal.DaggerGenerated;
 
 public class BaseFragment extends Fragment {
 
+    @Inject
+    ViewModelFactory viewModelFactory;
+
     protected void backScreen(View v) {
         Navigation.findNavController(v).popBackStack();
+    }
+
+    protected <T extends ViewModel> T getViewModel(Class<T> clazz) {
+        ViewModelFactory factory = DaggerAppComponent.create().getViewModelFactory();
+        ViewModelProvider provider = new ViewModelProvider(this, factory);
+        return provider.get(clazz);
     }
 
 }
