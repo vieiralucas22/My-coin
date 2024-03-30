@@ -10,18 +10,18 @@ import androidx.lifecycle.AndroidViewModel;
 import com.example.core.usecases.impl.LoginImpl;
 import com.example.core.usecases.interfaces.Login;
 import com.example.mycoin.fragments.signup.SignUpViewModel;
-import com.example.mycoin.services.FirebaseService;
+import com.example.mycoin.services.FirebaseServiceImpl;
 
 public class LoginViewModel extends AndroidViewModel {
 
     private static final String TAG = SignUpViewModel.class.getSimpleName();
 
-    private final FirebaseService mFirebaseService;
+    private final FirebaseServiceImpl mFirebaseService;
     private final Login mLogin;
 
     public LoginViewModel(@NonNull Application application) {
         super(application);
-        mFirebaseService = new FirebaseService();
+        mFirebaseService = new FirebaseServiceImpl();
         mLogin = new LoginImpl();
     }
 
@@ -39,6 +39,6 @@ public class LoginViewModel extends AndroidViewModel {
             return false;
         }
 
-        return mLogin.signIn(email, password);
+        return mLogin.authenticate(email, password);
     }
 }
