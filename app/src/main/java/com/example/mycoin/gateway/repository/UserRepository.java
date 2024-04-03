@@ -1,6 +1,6 @@
-package com.example.core.gateway.repository;
+package com.example.mycoin.gateway.repository;
 
-import com.example.core.entities.User;
+import com.example.mycoin.entities.User;
 
 import java.util.List;
 

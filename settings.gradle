@@ -14,4 +14,3 @@ dependencyResolutionManagement {
 }
 rootProject.name = "My Coin"
 include ':app'
-include ':core'

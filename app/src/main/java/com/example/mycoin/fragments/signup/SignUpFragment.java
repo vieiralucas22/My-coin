@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,14 +23,14 @@ import android.widget.TextView;
 import com.example.mycoin.R;
 import com.example.mycoin.fragments.BaseFragment;
 import com.example.mycoin.utils.DateUtil;
-import com.example.mycoin.utils.Logger;
+import com.example.mycoin.utils.LogcatUtil;
 
 import java.util.Calendar;
 
 public class SignUpFragment extends BaseFragment implements View.OnClickListener,
         DatePickerDialog.OnDateSetListener {
 
-    public static final String TAG = SignUpFragment.class.getSimpleName();
+    public static final String TAG = LogcatUtil.getTag(SignUpFragment.class);
 
     private Button mButtonBack, mButtonDatePicker, mButtonEye, mButtonSignUp;
     private TextView mTextDate;
@@ -56,7 +57,7 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Logger.d(TAG, "Enter in sign up fragment");
+        Log.d(TAG, "Enter in sign up fragment");
 
         initComponents(view);
     }

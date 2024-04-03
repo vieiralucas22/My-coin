@@ -1,4 +1,4 @@
-package com.example.core.entities;
+package com.example.mycoin.entities;
 
 import java.util.Date;
 
