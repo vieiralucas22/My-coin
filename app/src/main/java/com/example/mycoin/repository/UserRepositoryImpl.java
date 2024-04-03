@@ -1,7 +1,7 @@
 package com.example.mycoin.repository;
 
-import com.example.core.entities.User;
-import com.example.core.gateway.repository.UserRepository;
+import com.example.mycoin.entities.User;
+import com.example.mycoin.gateway.repository.UserRepository;
 
 import java.util.List;
 

@@ -1,9 +1,7 @@
-package com.example.core.usecases.impl;
+package com.example.mycoin.usecases.impl;
 
-import com.example.core.gateway.services.FirebaseService;
-import com.example.core.usecases.interfaces.Login;
-
-import java.util.concurrent.atomic.AtomicBoolean;
+import com.example.mycoin.gateway.services.FirebaseService;
+import com.example.mycoin.usecases.interfaces.Login;
 
 import javax.inject.Inject;
 
@@ -17,7 +15,7 @@ public class LoginImpl implements Login {
     }
 
     @Override
-    public AtomicBoolean authenticate(String email, String password) {
+    public boolean authenticate(String email, String password) {
         return mFirebaseService.authenticate(email, password);
     }
 }

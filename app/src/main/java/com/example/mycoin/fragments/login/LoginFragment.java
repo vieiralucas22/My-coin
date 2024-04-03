@@ -100,11 +100,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         String email = mEditEmail.getText().toString();
         String password = mEditPassword.getText().toString();
 
-        if (mViewModel.login(email, password)) {
-            Log.d(TAG, "Hello2");
-            goHomeScreen(v);
-            Log.d(TAG, "User Logged!");
-        }
+        mViewModel.login(email, password);
     }
 
     @Override
