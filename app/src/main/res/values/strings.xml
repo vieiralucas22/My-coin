@@ -19,4 +19,6 @@
     <string name="confirm_new_password">Confirm new password</string>
     <string name="new_password">New password</string>
     <string name="change">Change</string>
+    <string name="missing_email">E-mail is missing!</string>
+    <string name="missing_password">Password is missing!</string>
 </resources>

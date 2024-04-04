@@ -7,15 +7,19 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mycoin.R;
 import com.example.mycoin.fragments.BaseFragment;
+import com.example.mycoin.fragments.login.LoginFragment;
+import com.example.mycoin.utils.LogcatUtil;
 
 public class HomeFragment extends BaseFragment {
-
+    public static final String TAG = LogcatUtil.getTag(HomeFragment.class);
     private HomeViewModel mViewModel;
 
     @Override

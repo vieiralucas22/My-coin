@@ -1,5 +1,6 @@
 package com.example.mycoin.fragments.login;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mycoin.R;
 import com.example.mycoin.fragments.BaseFragment;
@@ -93,7 +95,14 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
     }
 
     private void initObservers() {
-
+        mViewModel.getNeedNavigate().observe(getViewLifecycleOwner(), navigate -> {
+            if (navigate) {
+                Log.d(TAG, "Logar!");
+                goHomeScreen(getView());
+                return;
+            }
+            Toast.makeText(getContext(), "Login fail", Toast.LENGTH_SHORT).show();
+        });
     }
 
     private void login(View v) {
@@ -101,6 +110,12 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         String password = mEditPassword.getText().toString();
 
         mViewModel.login(email, password);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy!");
     }
 
     @Override
@@ -112,7 +127,6 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         } else if (id == R.id.text_sign_up_login) {
             goSignUpScreen(v);
         } else if (id == R.id.button_login) {
-            Log.d(TAG, "Hello");
             login(v);
         } else if (id == R.id.button_eye_login) {
             changePasswordVisibility();

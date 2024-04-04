@@ -2,6 +2,7 @@ package com.example.mycoin.services;
 
 import android.util.Log;
 
+import com.example.mycoin.callbacks.LoginCallback;
 import com.example.mycoin.gateway.services.FirebaseService;
 import com.example.mycoin.utils.LogcatUtil;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,14 +21,16 @@ public class FirebaseServiceImpl implements FirebaseService {
         mAuth = auth;
     }
 
-    public boolean authenticate(String email, String password) {
-        AtomicBoolean x = new AtomicBoolean();
+    public void authenticate(String email, String password, LoginCallback loginCallback) {
+        Log.d(TAG, email);
+        Log.d(TAG, password);
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
-            x.set(task.isSuccessful());
-            Log.d(TAG, "Atomic -> " + task.isSuccessful());
+            if (task.isSuccessful()) {
+                loginCallback.onSuccess();
+                Log.d(TAG, "Bateu aqui");
+                return;
+            }
+            loginCallback.onFailure();
         });
-
-        Log.d(TAG, "Atomic1 -> " + x.get());
-        return x.get();
     }
 }

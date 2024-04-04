@@ -1,7 +1,7 @@
 package com.example.mycoin.usecases.interfaces;
 
-import java.util.concurrent.atomic.AtomicBoolean;
+import com.example.mycoin.callbacks.LoginCallback;
 
 public interface Login {
-    boolean authenticate(String email, String password);
+    void authenticate(String email, String password, LoginCallback loginCallback);
 }
