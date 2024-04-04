@@ -33,4 +33,15 @@ public class FirebaseServiceImpl implements FirebaseService {
             loginCallback.onFailure();
         });
     }
+
+    @Override
+    public void signUp(String email, String password, String dateBirth, String username) {
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+
+                    } else {
+
+                    }
+                });
+    }
 }

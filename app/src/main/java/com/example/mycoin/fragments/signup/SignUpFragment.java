@@ -35,7 +35,7 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
     private Button mButtonBack, mButtonDatePicker, mButtonEye, mButtonSignUp;
     private TextView mTextDate;
     private CardView mCardDatePicker;
-    private EditText mEditPassword, mEditEmail;
+    private EditText mEditPassword, mEditEmail, mEditUsername;
 
     private boolean mIsPasswordVisible = false;
 
@@ -48,13 +48,6 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(SignUpViewModel.class);
-        // TODO: Use the ViewModel
-    }
-
-    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Log.d(TAG, "Enter in sign up fragment");
@@ -63,6 +56,7 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
     }
 
     private void initComponents(View view) {
+        mViewModel = getViewModel(SignUpViewModel.class);
         mButtonBack = view.findViewById(R.id.button_back);
         mCardDatePicker = view.findViewById(R.id.card_date);
         mTextDate = view.findViewById(R.id.text_date);
@@ -71,6 +65,7 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
         mEditPassword = view.findViewById(R.id.edit_password);
         mButtonSignUp = view.findViewById(R.id.button_sign);
         mEditEmail = view.findViewById(R.id.edit_email_sign_up);
+        mEditUsername = view.findViewById(R.id.edit_username);
 
         initListeners();
     }
@@ -119,7 +114,8 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
             String email = mEditEmail.getText().toString();
             String password = mEditPassword.getText().toString();
 
-            mViewModel.createAccount(email, password, v);
+            mViewModel.createAccount(email, password, mTextDate.toString(),
+                    mEditUsername.getText().toString());
         }
     }
 

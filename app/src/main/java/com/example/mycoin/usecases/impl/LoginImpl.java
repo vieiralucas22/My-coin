@@ -28,8 +28,6 @@ public class LoginImpl implements Login {
 
     @Override
     public void authenticate(String email, String password, LoginCallback loginCallback) {
-        Log.d(TAG, email);
-        Log.d(TAG, password);
 
         if (TextUtils.isEmpty(email)) {
            // MessageUtil.showToast(mContext, R.string.missing_email);
