@@ -3,11 +3,10 @@ package com.example.mycoin.services;
 import android.util.Log;
 
 import com.example.mycoin.callbacks.LoginCallback;
+import com.example.mycoin.callbacks.RegisterCallback;
 import com.example.mycoin.gateway.services.FirebaseService;
 import com.example.mycoin.utils.LogcatUtil;
 import com.google.firebase.auth.FirebaseAuth;
-
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.inject.Inject;
 
@@ -27,7 +26,6 @@ public class FirebaseServiceImpl implements FirebaseService {
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 loginCallback.onSuccess();
-                Log.d(TAG, "Bateu aqui");
                 return;
             }
             loginCallback.onFailure();
@@ -35,13 +33,13 @@ public class FirebaseServiceImpl implements FirebaseService {
     }
 
     @Override
-    public void signUp(String email, String password, String dateBirth, String username) {
+    public void signUp(String email, String password, RegisterCallback registerCallback) {
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-
-                    } else {
-
-                    }
-                });
+            if (task.isSuccessful()) {
+                registerCallback.onSuccess();
+                return;
+            }
+            registerCallback.onFailure();
+        });
     }
 }

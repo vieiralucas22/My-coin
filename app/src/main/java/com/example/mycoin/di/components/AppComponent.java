@@ -1,6 +1,7 @@
 package com.example.mycoin.di.components;
 
 import com.example.mycoin.di.ViewModelFactory;
+import com.example.mycoin.di.modules.AppModule;
 import com.example.mycoin.di.modules.FirebaseModule;
 import com.example.mycoin.di.modules.ServicesModule;
 import com.example.mycoin.di.modules.UseCaseModule;
@@ -12,10 +13,15 @@ import dagger.Component;
 @Component(
         modules = {
                 ViewModelModule.class, ServicesModule.class, UseCaseModule.class,
-                FirebaseModule.class
+                FirebaseModule.class, AppModule.class
         }
 )
 @Singleton
 public interface AppComponent {
+    @Component.Builder
+    interface Builder {
+        AppComponent.Builder applicationModule(AppModule appModule);
+        AppComponent build();
+    }
     ViewModelFactory getViewModelFactory();
 }

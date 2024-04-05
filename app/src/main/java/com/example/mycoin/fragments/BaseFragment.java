@@ -11,6 +11,7 @@ import androidx.navigation.Navigation;
 
 import com.example.mycoin.di.ViewModelFactory;
 import com.example.mycoin.di.components.DaggerAppComponent;
+import com.example.mycoin.di.modules.AppModule;
 
 import javax.inject.Inject;
 
@@ -26,7 +27,10 @@ public class BaseFragment extends Fragment {
     }
 
     protected <T extends ViewModel> T getViewModel(Class<T> clazz) {
-        ViewModelFactory factory = DaggerAppComponent.create().getViewModelFactory();
+        ViewModelFactory factory = DaggerAppComponent.builder()
+                .applicationModule(new AppModule(getContext()))
+                .build()
+                .getViewModelFactory();
         ViewModelProvider provider = new ViewModelProvider(this, factory);
         return provider.get(clazz);
     }

@@ -18,24 +18,23 @@ import javax.inject.Inject;
 public class LoginImpl implements Login {
     public static final String TAG = LogcatUtil.getTag(LoginImpl.class);
     private FirebaseService mFirebaseService;
-    //private Context mContext;
+    private Context mContext;
 
     @Inject
-    public LoginImpl(FirebaseService firebaseService) {
+    public LoginImpl(FirebaseService firebaseService, Context context) {
         mFirebaseService = firebaseService;
-        //mContext = context;
+        mContext = context;
     }
 
     @Override
     public void authenticate(String email, String password, LoginCallback loginCallback) {
-
         if (TextUtils.isEmpty(email)) {
-           // MessageUtil.showToast(mContext, R.string.missing_email);
+            MessageUtil.showToast(mContext, R.string.missing_email);
             return;
         }
 
         if (TextUtils.isEmpty(password)) {
-            //MessageUtil.showToast(mContext, R.string.missing_password);
+            MessageUtil.showToast(mContext, R.string.missing_password);
             return;
         }
 

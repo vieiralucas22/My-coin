@@ -21,4 +21,6 @@
     <string name="change">Change</string>
     <string name="missing_email">E-mail is missing!</string>
     <string name="missing_password">Password is missing!</string>
+    <string name="register_fail">Register fail!!</string>
+    <string name="login_fail">Login fail!!</string>
 </resources>

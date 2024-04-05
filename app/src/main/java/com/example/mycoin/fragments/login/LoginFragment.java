@@ -97,11 +97,8 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
     private void initObservers() {
         mViewModel.getNeedNavigate().observe(getViewLifecycleOwner(), navigate -> {
             if (navigate) {
-                Log.d(TAG, "Logar!");
                 goHomeScreen(getView());
-                return;
             }
-            Toast.makeText(getContext(), "Login fail", Toast.LENGTH_SHORT).show();
         });
     }
 
