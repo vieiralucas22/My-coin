@@ -1,6 +1,7 @@
 package com.example.mycoin.fragments.signup;
 
 import androidx.cardview.widget.CardView;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.DatePickerDialog;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.navigation.Navigation;
 
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -35,7 +37,7 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
     private Button mButtonBack, mButtonDatePicker, mButtonEye, mButtonSignUp;
     private TextView mTextDate;
     private CardView mCardDatePicker;
-    private EditText mEditPassword, mEditEmail, mEditUsername;
+    private EditText mEditPassword, mEditEmail, mEditName;
 
     private boolean mIsPasswordVisible = false;
 
@@ -53,6 +55,8 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
         Log.d(TAG, "Enter in sign up fragment");
 
         initComponents(view);
+        initListeners();
+        initObservers();
     }
 
     private void initComponents(View view) {
@@ -65,9 +69,7 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
         mEditPassword = view.findViewById(R.id.edit_password);
         mButtonSignUp = view.findViewById(R.id.button_sign);
         mEditEmail = view.findViewById(R.id.edit_email_sign_up);
-        mEditUsername = view.findViewById(R.id.edit_username);
-
-        initListeners();
+        mEditName = view.findViewById(R.id.edit_username);
     }
 
     private void initListeners() {
@@ -76,6 +78,21 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
         mButtonDatePicker.setOnClickListener(this);
         mButtonEye.setOnClickListener(this);
         mButtonSignUp.setOnClickListener(this);
+    }
+
+    private void initObservers() {
+        mViewModel.getSignUpSuccessful().observe(getViewLifecycleOwner(), navigate -> {
+            if (navigate) {
+                goLoginScreen();
+            }
+        });
+    }
+
+    private void goLoginScreen() {
+        if (getView() == null) return;
+
+        Navigation.findNavController(getView())
+                .navigate(R.id.action_signUpFragment_to_loginFragment);
     }
 
     private void showDatePicker() {
@@ -113,9 +130,11 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
         } else if (id == R.id.button_sign) {
             String email = mEditEmail.getText().toString();
             String password = mEditPassword.getText().toString();
+            String dateBirth = mTextDate.getText().toString();
+            String name = mEditName.getText().toString();
+            Log.d(TAG, dateBirth);
 
-            mViewModel.createAccount(email, password, mTextDate.toString(),
-                    mEditUsername.getText().toString());
+            mViewModel.createAccount(email, password, dateBirth, name);
         }
     }
 

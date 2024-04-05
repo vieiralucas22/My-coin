@@ -4,27 +4,27 @@ import java.util.Date;
 
 public class User {
 
-    private String mUsername;
+    private String mName;
     private String mEmail;
-    private Date mBirthDate;
+    private String mBirthDate;
     private String mPassword;
 
-    public User(String username, String email, Date birthDate, String password) {
-        mUsername = username;
+    public User(String name, String email, String birthDate, String password) {
+        mName = name;
         mEmail = email;
         mBirthDate = birthDate;
         mPassword = password;
     }
 
-    public String getUsername() {
-        return mUsername;
+    public String getName() {
+        return mName;
     }
 
     public String getEmail() {
         return mEmail;
     }
 
-    public Date getBirthDate() {
+    public String getBirthDate() {
         return mBirthDate;
     }
 

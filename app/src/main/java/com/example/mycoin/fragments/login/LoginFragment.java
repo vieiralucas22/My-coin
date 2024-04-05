@@ -47,6 +47,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         Log.d(TAG, "Enter in login fragment");
 
         initComponents(view);
+        initListeners();
         initObservers();
     }
 
@@ -58,8 +59,6 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         mButtonEye = view.findViewById(R.id.button_eye_login);
         mEditPassword = view.findViewById(R.id.edit_password_login);
         mEditEmail = view.findViewById(R.id.edit_email_login);
-
-        initListeners();
     }
 
     private void initListeners() {

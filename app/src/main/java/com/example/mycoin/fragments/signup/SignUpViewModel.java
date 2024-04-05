@@ -11,6 +11,7 @@ import androidx.navigation.Navigation;
 
 import com.example.mycoin.R;
 import com.example.mycoin.callbacks.RegisterCallback;
+import com.example.mycoin.entities.User;
 import com.example.mycoin.usecases.interfaces.Register;
 import com.example.mycoin.utils.MessageUtil;
 
@@ -31,8 +32,9 @@ public class SignUpViewModel extends ViewModel {
         mContext = context;
     }
 
-    protected void createAccount(String email, String password, String date, String username) {
-        mRegister.signUp(email, password, new RegisterCallback() {
+    protected void createAccount(String email, String password, String date, String name) {
+        User user = new User(name, email, date, password);
+        mRegister.signUp(user, new RegisterCallback() {
             @Override
             public void onSuccess() {
                 mSignUpSuccessful.postValue(true);
@@ -46,4 +48,7 @@ public class SignUpViewModel extends ViewModel {
         });
     }
 
+    public MutableLiveData<Boolean> getSignUpSuccessful() {
+        return mSignUpSuccessful;
+    }
 }

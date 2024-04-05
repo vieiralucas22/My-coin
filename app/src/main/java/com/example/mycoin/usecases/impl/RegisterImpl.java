@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.example.mycoin.R;
 import com.example.mycoin.callbacks.RegisterCallback;
+import com.example.mycoin.entities.User;
 import com.example.mycoin.gateway.services.FirebaseService;
 import com.example.mycoin.usecases.interfaces.Register;
 import com.example.mycoin.utils.LogcatUtil;
@@ -27,19 +28,27 @@ public class RegisterImpl implements Register {
     }
 
     @Override
-    public void signUp(String email, String password, RegisterCallback registerCallback) {
-        Log.d(TAG, email);
-        Log.d(TAG, password);
-        if (TextUtils.isEmpty(email)) {
+    public void signUp(User user, RegisterCallback registerCallback) {
+        if (TextUtils.isEmpty(user.getName())) {
+            MessageUtil.showToast(mContext, R.string.missing_name);
+            return;
+        }
+
+        if (TextUtils.isEmpty(user.getEmail())) {
              MessageUtil.showToast(mContext, R.string.missing_email);
             return;
         }
 
-        if (TextUtils.isEmpty(password)) {
+        if (user.getBirthDate().equals("Date of Birth")) {
+            MessageUtil.showToast(mContext, R.string.select_date);
+            return;
+        }
+
+        if (TextUtils.isEmpty(user.getPassword())) {
             MessageUtil.showToast(mContext, R.string.missing_password);
             return;
         }
 
-        mFirebaseService.signUp(email, password, registerCallback);
+        mFirebaseService.signUp(user, registerCallback);
     }
 }
