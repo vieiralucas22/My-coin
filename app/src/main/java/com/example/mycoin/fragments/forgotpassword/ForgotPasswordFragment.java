@@ -13,16 +13,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.example.mycoin.R;
 import com.example.mycoin.fragments.BaseFragment;
 import com.example.mycoin.fragments.login.LoginFragment;
+import com.example.mycoin.utils.LogcatUtil;
 
 public class ForgotPasswordFragment extends BaseFragment implements View.OnClickListener {
-    public static final String TAG = LoginFragment.class.getSimpleName();
+    public static final String TAG = LogcatUtil.getTag(ForgotPasswordFragment.class);
 
-    private Button mButtonSendCode;
-    private Button mButtonBack;
+    private Button mButtonSendCode, mButtonBack;
+    private EditText mEditEmail;
+
     private ForgotPasswordViewModel mViewModel;
 
     @Override
@@ -32,25 +35,18 @@ public class ForgotPasswordFragment extends BaseFragment implements View.OnClick
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(ForgotPasswordViewModel.class);
-        // TODO: Use the ViewModel
-    }
-
-    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Log.d(TAG, "Enter in forgot password fragment");
 
         initComponents(view);
-
+        initListeners();
     }
 
     private void initComponents(View view) {
+        mViewModel = getViewModel(ForgotPasswordViewModel.class);
         mButtonSendCode = view.findViewById(R.id.button_send_code);
         mButtonBack = view.findViewById(R.id.button_back);
-        initListeners();
     }
 
     private void goConfirmCodeScreen(View v) {
@@ -68,7 +64,9 @@ public class ForgotPasswordFragment extends BaseFragment implements View.OnClick
         int id = v.getId();
 
         if (id == R.id.button_send_code) {
-            goConfirmCodeScreen(v);
+            String email = mEditEmail.getText().toString();
+
+            mViewModel.sendEmailToGetConfirmCode(email);
         } else if (id == R.id.button_back) {
             backScreen(v);
         }
