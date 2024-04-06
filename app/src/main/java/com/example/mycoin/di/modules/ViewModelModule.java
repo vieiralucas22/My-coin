@@ -3,6 +3,7 @@ package com.example.mycoin.di.modules;
 import androidx.lifecycle.ViewModel;
 
 import com.example.mycoin.di.ViewModelKey;
+import com.example.mycoin.fragments.forgotpassword.ForgotPasswordViewModel;
 import com.example.mycoin.fragments.login.LoginViewModel;
 import com.example.mycoin.fragments.signup.SignUpViewModel;
 
@@ -21,5 +22,10 @@ public interface ViewModelModule {
     @IntoMap
     @ViewModelKey(SignUpViewModel.class)
     ViewModel bindsSignUpViewModel(SignUpViewModel signUpViewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ForgotPasswordViewModel.class)
+    ViewModel bindsForgotPasswordViewModel(ForgotPasswordViewModel forgotPasswordViewModel);
 
 }
