@@ -27,6 +27,11 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    packagingOptions {
+        exclude "META-INF/NOTICE.md"
+        exclude "META-INF/LICENSE.md"
+    }
 }
 
 dependencies {
@@ -43,6 +48,8 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
     implementation 'com.google.firebase:firebase-firestore:24.11.0'
+    implementation 'com.sun.mail:android-mail:1.6.6'
+    implementation 'com.sun.mail:android-activation:1.6.7'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.38.1'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
