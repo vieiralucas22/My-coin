@@ -17,4 +17,8 @@ public class Constants {
     public static final String SMTP_HOST_VALUE = "smtp.gmail.com";
     public static final String SMTP_PORT_KEY = "mail.smtp.port";
     public static final String SMTP_PORT_VALUE = "465";
+
+    // Confirmation code
+
+    public static final String CONFIRMATION_CODE_KEY = "confirmation_code";
 }

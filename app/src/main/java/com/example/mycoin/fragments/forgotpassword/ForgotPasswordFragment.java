@@ -1,5 +1,6 @@
 package com.example.mycoin.fragments.forgotpassword;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import com.example.mycoin.R;
 import com.example.mycoin.fragments.BaseFragment;
 import com.example.mycoin.fragments.login.LoginFragment;
 import com.example.mycoin.utils.LogcatUtil;
+import com.example.mycoin.utils.MessageUtil;
 
 public class ForgotPasswordFragment extends BaseFragment implements View.OnClickListener {
     public static final String TAG = LogcatUtil.getTag(ForgotPasswordFragment.class);
@@ -41,6 +43,7 @@ public class ForgotPasswordFragment extends BaseFragment implements View.OnClick
 
         initComponents(view);
         initListeners();
+        initObservers();
     }
 
     private void initComponents(View view) {
@@ -50,14 +53,24 @@ public class ForgotPasswordFragment extends BaseFragment implements View.OnClick
         mEditEmail = view.findViewById(R.id.edit_email);
     }
 
-    private void goConfirmCodeScreen(View v) {
-        Navigation.findNavController(v)
-                .navigate(R.id.action_forgotPasswordFragment_to_confirmCodeFragment);
-    }
-
     private void initListeners() {
         mButtonSendCode.setOnClickListener(this);
         mButtonBack.setOnClickListener(this);
+    }
+
+    private void initObservers() {
+        mViewModel.getNeedNavigate().observe(getViewLifecycleOwner(), navigate -> {
+            if (navigate) {
+                goConfirmCodeScreen(getView());
+                return;
+            }
+            MessageUtil.showToast(getContext(), R.string.email_invalid);
+        });
+    }
+
+    private void goConfirmCodeScreen(View v) {
+        Navigation.findNavController(v)
+                .navigate(R.id.action_forgotPasswordFragment_to_confirmCodeFragment);
     }
 
     @Override
