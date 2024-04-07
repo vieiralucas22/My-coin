@@ -1,6 +1,7 @@
 package com.example.mycoin.preferences;
 
-import android.content.Context;
+import static com.example.mycoin.constants.Constants.CONFIRMATION_CODE_KEY;
+
 import android.content.SharedPreferences;
 
 import javax.inject.Inject;
@@ -14,5 +15,15 @@ public class AppPreferences {
         mSharedPreferences = sharedPreferences;
     }
 
+    public void setConfirmationCode(int value) {
+        mSharedPreferences.edit().putInt(CONFIRMATION_CODE_KEY, value).apply();
+    }
 
+    public int getConfirmationCode() {
+        return mSharedPreferences.getInt(CONFIRMATION_CODE_KEY, 0);
+    }
+
+    public void removeConfirmationCode() {
+         mSharedPreferences.edit().remove(CONFIRMATION_CODE_KEY).apply();
+    }
 }

@@ -12,6 +12,7 @@ import static com.example.mycoin.constants.Constants.SMTP_SSL_KEY;
 import android.util.Log;
 
 import com.example.mycoin.gateway.services.EmailService;
+import com.example.mycoin.preferences.AppPreferences;
 import com.example.mycoin.utils.LogcatUtil;
 
 import java.util.Properties;
@@ -29,12 +30,15 @@ import javax.mail.internet.MimeMessage;
 public class EmailServiceImpl implements EmailService {
 
     public static final String TAG = LogcatUtil.getTag(EmailServiceImpl.class);
+
+    private final AppPreferences mAppPreferences;
     @Inject
-    public EmailServiceImpl() {
+    public EmailServiceImpl(AppPreferences appPreferences) {
+        mAppPreferences = appPreferences;
     }
 
     @Override
-    public void sendForgotPasswordEmail(String userEmail) {
+    public boolean sendForgotPasswordEmail(String userEmail) {
         Properties props = new Properties();
         props.put(SMTP_AUTH_KEY, "true");
         props.put(SMTP_SSL_KEY, "true");
@@ -60,7 +64,8 @@ public class EmailServiceImpl implements EmailService {
 
             String htmlContent = "<h1 style='color: blue;'>Olá,</h1>"
                     + "<p style='font-size: 18px;'>Aqui está seu código!</p>"
-                    +  "<p style='font-size: 18px color: purple;'>"+ "" + "</p>";
+                    +  "<p style='font-size: 18px'>"
+                    + mAppPreferences.getConfirmationCode() + "</p>";
             message.setContent(htmlContent, "text/html");
 
             Thread thread = new Thread(() -> {
@@ -74,8 +79,10 @@ public class EmailServiceImpl implements EmailService {
             thread.start();
 
             Log.d(TAG, "Success to send a email");
+            return true;
         } catch (MessagingException e) {
             Log.e(TAG, "Error: " + e.getMessage());
         }
+        return false;
     }
 }
