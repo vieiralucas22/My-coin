@@ -47,6 +47,7 @@ public class ForgotPasswordFragment extends BaseFragment implements View.OnClick
         mViewModel = getViewModel(ForgotPasswordViewModel.class);
         mButtonSendCode = view.findViewById(R.id.button_send_code);
         mButtonBack = view.findViewById(R.id.button_back);
+        mEditEmail = view.findViewById(R.id.edit_email);
     }
 
     private void goConfirmCodeScreen(View v) {
