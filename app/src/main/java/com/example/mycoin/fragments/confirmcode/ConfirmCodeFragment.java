@@ -1,5 +1,6 @@
 package com.example.mycoin.fragments.confirmcode;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -13,16 +14,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.example.mycoin.R;
 import com.example.mycoin.fragments.BaseFragment;
 import com.example.mycoin.fragments.login.LoginFragment;
+import com.example.mycoin.utils.LogcatUtil;
+import com.example.mycoin.utils.MessageUtil;
 
 public class ConfirmCodeFragment extends BaseFragment implements View.OnClickListener {
 
-    public static final String TAG = LoginFragment.class.getSimpleName();
+    public static final String TAG = LogcatUtil.getTag(LoginFragment.class);
 
     private Button mButtonConfirm, mButtonBack;
+    private EditText mEditTextFieldOne, mEditTextFieldTwo, mEditTextFieldThree , mEditTextFieldFour;
     private ConfirmCodeViewModel mViewModel;
 
 
@@ -33,25 +38,23 @@ public class ConfirmCodeFragment extends BaseFragment implements View.OnClickLis
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(ConfirmCodeViewModel.class);
-        // TODO: Use the ViewModel
-    }
-
-    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Log.d(TAG, "Enter in confirm code fragment");
 
         initComponents(view);
+        initListeners();
+        initObservers();
     }
 
     private void initComponents(View view) {
+        mViewModel = getViewModel(ConfirmCodeViewModel.class);
         mButtonConfirm = view.findViewById(R.id.button_confirm);
         mButtonBack = view.findViewById(R.id.button_back);
-
-        initListeners();
+        mEditTextFieldOne = view.findViewById(R.id.edit_code_one);
+        mEditTextFieldTwo = view.findViewById(R.id.edit_code_two);
+        mEditTextFieldThree = view.findViewById(R.id.edit_code_three);
+        mEditTextFieldFour = view.findViewById(R.id.edit_code_four);
     }
 
     private void initListeners() {
@@ -59,9 +62,29 @@ public class ConfirmCodeFragment extends BaseFragment implements View.OnClickLis
         mButtonBack.setOnClickListener(this);
     }
 
+    private void initObservers() {
+        mViewModel.getNeedNavigate().observe(getViewLifecycleOwner(), navigate -> {
+            if (navigate) {
+                goChangePasswordScreen(getView());
+                return;
+            }
+            MessageUtil.showToast(getContext(), R.string.code_wrong);
+        });
+    }
+
     private void goChangePasswordScreen(View v) {
         Navigation.findNavController(v)
                 .navigate(R.id.action_confirmCodeFragment_to_changePasswordFragment);
+    }
+
+    private int formatConfirmationCode() {
+        String fieldOne = mEditTextFieldOne.getText().toString();
+        String fieldTwo = mEditTextFieldTwo.getText().toString();
+        String fieldThree = mEditTextFieldThree.getText().toString();
+        String fieldFour = mEditTextFieldFour.getText().toString();
+
+        String confirmationCode = fieldOne + fieldTwo + fieldThree + fieldFour;
+        return Integer.parseInt(confirmationCode);
     }
 
     @Override
@@ -69,7 +92,7 @@ public class ConfirmCodeFragment extends BaseFragment implements View.OnClickLis
         int id = v.getId();
 
         if (id == R.id.button_confirm) {
-            goChangePasswordScreen(v);
+            mViewModel.confirmCode(formatConfirmationCode());
         } else if (id == R.id.button_back) {
             backScreen(v);
         }

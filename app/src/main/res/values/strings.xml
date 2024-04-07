@@ -28,4 +28,5 @@
     <string name="register_fail">Register fail!</string>
     <string name="login_fail">Login fail!</string>
     <string name="email_invalid">This email is not valid!</string>
+    <string name="code_wrong">Confirmation code is wrong!</string>
 </resources>
