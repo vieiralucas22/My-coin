@@ -1,6 +1,4 @@
 package com.example.mycoin.callbacks;
 
-public interface LoginCallback {
-    void onSuccess();
-    void onFailure();
+public interface LoginCallback extends Callback {
 }

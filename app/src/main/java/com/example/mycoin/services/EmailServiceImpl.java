@@ -14,6 +14,9 @@ import android.util.Log;
 import com.example.mycoin.gateway.services.EmailService;
 import com.example.mycoin.preferences.AppPreferences;
 import com.example.mycoin.utils.LogcatUtil;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.EmailAuthCredential;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Properties;
 
@@ -32,6 +35,7 @@ public class EmailServiceImpl implements EmailService {
     public static final String TAG = LogcatUtil.getTag(EmailServiceImpl.class);
 
     private final AppPreferences mAppPreferences;
+
     @Inject
     public EmailServiceImpl(AppPreferences appPreferences) {
         mAppPreferences = appPreferences;
@@ -78,6 +82,7 @@ public class EmailServiceImpl implements EmailService {
 
             thread.start();
 
+            mAppPreferences.setUserEmail(userEmail);
             Log.d(TAG, "Success to send a email");
             return true;
         } catch (MessagingException e) {

@@ -32,7 +32,7 @@ public class SendForgotPasswordEmailImpl implements SendForgotPasswordEmail {
     private void generateConfirmationCode() {
         Random random = new Random();
 
-        int confirmationCode = random.nextInt(9999);
+        int confirmationCode = random.nextInt(8999) + 1000;
 
         mAppPreferences.setConfirmationCode(confirmationCode);
     }
