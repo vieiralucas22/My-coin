@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +33,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
     private Button mButtonLogin, mButtonEye;
     private LoginViewModel mViewModel;
     private EditText mEditPassword, mEditEmail;
+    private CheckBox mCheckRememberMe;
 
     private boolean mIsPasswordVisible = false;
 
@@ -44,6 +46,9 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mViewModel = getViewModel(LoginViewModel.class);
+
+        if (mViewModel.rememberMeWasChecked()) goHomeScreen(view);
         Log.d(TAG, "Enter in login fragment");
 
         initComponents(view);
@@ -52,13 +57,13 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
     }
 
     private void initComponents(View view) {
-        mViewModel = getViewModel(LoginViewModel.class);
         mTextForgotPassword = view.findViewById(R.id.text_forgot_password_login);
         mTextSignUp = view.findViewById(R.id.text_sign_up_login);
         mButtonLogin = view.findViewById(R.id.button_login);
         mButtonEye = view.findViewById(R.id.button_eye_login);
         mEditPassword = view.findViewById(R.id.edit_password_login);
         mEditEmail = view.findViewById(R.id.edit_email_login);
+        mCheckRememberMe = view.findViewById(R.id.checkbox_remember_me);
     }
 
     private void initListeners() {
@@ -105,7 +110,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         String email = mEditEmail.getText().toString();
         String password = mEditPassword.getText().toString();
 
-        mViewModel.login(email, password);
+        mViewModel.login(email, password, mCheckRememberMe.isChecked());
     }
 
     @Override

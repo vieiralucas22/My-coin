@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.navigation.Navigation;
 
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,7 @@ import com.example.mycoin.fragments.login.LoginFragment;
 import com.example.mycoin.utils.LogcatUtil;
 import com.example.mycoin.utils.MessageUtil;
 
-public class ConfirmCodeFragment extends BaseFragment implements View.OnClickListener {
+public class ConfirmCodeFragment extends BaseFragment implements View.OnClickListener, View.OnKeyListener {
 
     public static final String TAG = LogcatUtil.getTag(LoginFragment.class);
 
@@ -60,6 +61,9 @@ public class ConfirmCodeFragment extends BaseFragment implements View.OnClickLis
     private void initListeners() {
         mButtonConfirm.setOnClickListener(this);
         mButtonBack.setOnClickListener(this);
+        mEditTextFieldOne.setOnKeyListener(this);
+        mEditTextFieldTwo.setOnKeyListener(this);
+        mEditTextFieldThree.setOnKeyListener(this);
     }
 
     private void initObservers() {
@@ -98,4 +102,20 @@ public class ConfirmCodeFragment extends BaseFragment implements View.OnClickLis
         }
     }
 
+    @Override
+    public boolean onKey(View v, int keyCode, KeyEvent event) {
+        if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+            if (v.getId() == R.id.edit_code_one) {
+                mEditTextFieldTwo.requestFocus();
+                return true;
+            } else if (v.getId() == R.id.edit_code_two) {
+                mEditTextFieldThree.requestFocus();
+                return true;
+            } else if (v.getId() == R.id.edit_code_three) {
+                mEditTextFieldFour.requestFocus();
+                return true;
+            }
+        }
+        return false;
+    }
 }

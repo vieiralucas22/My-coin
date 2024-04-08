@@ -1,6 +1,7 @@
 package com.example.mycoin.preferences;
 
 import static com.example.mycoin.constants.Constants.CONFIRMATION_CODE_KEY;
+import static com.example.mycoin.constants.Constants.REMEMBER_ME;
 import static com.example.mycoin.constants.Constants.USER_EMAIL;
 
 import android.content.SharedPreferences;
@@ -38,5 +39,17 @@ public class AppPreferences {
 
     public void removeUserEmail() {
         mSharedPreferences.edit().remove(USER_EMAIL).apply();
+    }
+
+    public void setRememberMe(Boolean isChecked) {
+        mSharedPreferences.edit().putBoolean(REMEMBER_ME, isChecked).apply();
+    }
+
+    public Boolean getRememberMe() {
+        return mSharedPreferences.getBoolean(REMEMBER_ME, false);
+    }
+
+    public void removeRememberMe() {
+        mSharedPreferences.edit().remove(REMEMBER_ME).apply();
     }
 }

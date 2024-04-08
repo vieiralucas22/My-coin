@@ -21,4 +21,5 @@ public class Constants {
     // Preferences Keys
     public static final String CONFIRMATION_CODE_KEY = "confirmation_code";
     public static final String USER_EMAIL = "user_email";
+    public static final String REMEMBER_ME = "remember_me";
 }
