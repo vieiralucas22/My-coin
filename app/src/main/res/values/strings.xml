@@ -24,6 +24,9 @@
     <string name="missing_name">Name is missing!</string>
     <string name="select_date">Please, choose a date!</string>
     <string name="missing_email">E-mail is missing!</string>
+    <string name="missing_new_password">New password is missing!</string>
+    <string name="missing_confirmation_password">Confirmation password is missing!</string>
+    <string name="password_are_different">The passwords are different!</string>
     <string name="missing_password">Password is missing!</string>
     <string name="register_fail">Register fail!</string>
     <string name="login_fail">Login fail!</string>
