@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">My Coin</string>
     <string name="welcome">Welcome!</string>
-    <string name="usernameEmail">Username or e-mail</string>
     <string name="password">Password</string>
     <string name="forgot_password_login">Forgot password?</string>
     <string name="forgot_password">Forgot password</string>f

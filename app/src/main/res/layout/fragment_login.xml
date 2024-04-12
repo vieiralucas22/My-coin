@@ -59,7 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
-            android:hint="@string/usernameEmail"
+            android:hint="@string/e_mail"
             android:inputType="textEmailAddress"
             android:maxLength="30"
             android:paddingStart="15dp"
