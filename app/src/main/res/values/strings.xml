@@ -31,4 +31,14 @@
     <string name="login_fail">Login fail!</string>
     <string name="email_invalid">This email is not valid!</string>
     <string name="code_wrong">Confirmation code is wrong!</string>
+
+    <!--Profile-->
+    <string name="position_number">1º </string>
+    <string name="position"> position</string>
+    <string name="points_number">100</string>
+    <string name="points"> points</string>
+    <string name="edit_profile">Edit profile</string>
+    <string name="edit_password">Edit password</string>
+    <string name="logout">Logout</string>
+
 </resources>

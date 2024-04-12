@@ -3,6 +3,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="subtitlesColor">#8C000000</color>
+    <color name="background_black_40">#66000000</color>
     <color name="text">#9F9F9F</color>
     <color name="primary">#C326DC</color>
+    <color name="position">#FFE500</color>
 </resources>

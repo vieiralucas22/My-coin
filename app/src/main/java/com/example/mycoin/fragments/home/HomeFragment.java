@@ -1,26 +1,26 @@
 package com.example.mycoin.fragments.home;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
 
 import com.example.mycoin.R;
 import com.example.mycoin.fragments.BaseFragment;
-import com.example.mycoin.fragments.login.LoginFragment;
 import com.example.mycoin.utils.LogcatUtil;
 
-public class HomeFragment extends BaseFragment {
+public class HomeFragment extends BaseFragment implements View.OnClickListener {
     public static final String TAG = LogcatUtil.getTag(HomeFragment.class);
 
+    private View mViewTarget, mViewHome, mViewProfile, mViewRanking;
+    private View  mMenuNavigation;
     private HomeViewModel mViewModel;
 
     @Override
@@ -33,9 +33,27 @@ public class HomeFragment extends BaseFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        initComponents();
+        initComponents(view);
+        initListeners();
     }
 
-    private void initComponents() {
+    private void initComponents(View view) {
+        mMenuNavigation = view.findViewById(R.id.navigation_menu);
+        mViewTarget = mMenuNavigation.findViewById(R.id.view_target);
+        mViewHome = mMenuNavigation.findViewById(R.id.view_home);
+        mViewProfile = mMenuNavigation.findViewById(R.id.view_person);
+        mViewRanking = mMenuNavigation.findViewById(R.id.view_ranking);
+    }
+
+    private void initListeners() {
+    mViewProfile.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        Log.d(TAG, "id - " + v.getId());
+        if (v.getId() == R.id.view_person) {
+            Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_generalProfileFragment);
+        }
     }
 }

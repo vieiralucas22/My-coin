@@ -72,5 +72,14 @@
         android:id="@+id/homeFragment"
         android:name="com.example.mycoin.fragments.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_generalProfileFragment"
+            app:destination="@id/generalProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/generalProfileFragment"
+        android:name="com.example.mycoin.fragments.profile.generalprofile.GeneralProfileFragment"
+        android:label="fragment_general_profile"
+        tools:layout="@layout/fragment_general_profile" />
 </navigation>
