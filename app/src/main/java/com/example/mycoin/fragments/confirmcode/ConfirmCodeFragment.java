@@ -1,8 +1,5 @@
 package com.example.mycoin.fragments.confirmcode;
 
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -69,16 +66,16 @@ public class ConfirmCodeFragment extends BaseFragment implements View.OnClickLis
     private void initObservers() {
         mViewModel.getNeedNavigate().observe(getViewLifecycleOwner(), navigate -> {
             if (navigate) {
-                goChangePasswordScreen(getView());
+                goLogin(getView());
                 return;
             }
             MessageUtil.showToast(getContext(), R.string.code_wrong);
         });
     }
 
-    private void goChangePasswordScreen(View v) {
+    private void goLogin(View v) {
         Navigation.findNavController(v)
-                .navigate(R.id.action_confirmCodeFragment_to_changePasswordFragment);
+                .navigate(R.id.action_confirmCodeFragment_to_loginFragment);
     }
 
     private int formatConfirmationCode() {

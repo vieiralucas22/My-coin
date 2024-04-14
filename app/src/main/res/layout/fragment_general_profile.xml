@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -45,10 +44,10 @@
         android:id="@+id/user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
+        android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="@color/white"
-        android:layout_marginVertical="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/user_image"
@@ -58,10 +57,10 @@
         android:id="@+id/position_area"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:background="@drawable/background_position"
         android:paddingHorizontal="5dp"
         android:paddingVertical="3dp"
-        android:layout_marginTop="5dp"
         app:layout_constraintEnd_toStartOf="@+id/points_area"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/user_name">
@@ -70,14 +69,14 @@
             android:id="@+id/position"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/position"
-            tools:text="@string/position_number" />
+            android:text="@string/position_number"
+            android:textColor="@color/position" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/position"
-            tools:text="@string/position" />
+            android:text="@string/position"
+            android:textColor="@color/position" />
     </LinearLayout>
 
     <LinearLayout
@@ -95,174 +94,151 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/position"
-            tools:text="@string/points_number" />
+            android:text="@string/points_number"
+            android:textColor="@color/position" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/position"
-            tools:text="@string/points" />
+            android:text="@string/points"
+            android:textColor="@color/position" />
     </LinearLayout>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_edit_profile"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/edit_profile_area"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="120sp"
-        app:cardBackgroundColor="@color/background_black_40"
-        app:cardCornerRadius="22sp"
-        app:cardElevation="1dp"
+        android:background="@drawable/background_edit_itens"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="15dp"
+        android:layout_marginTop="140dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/position_area">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="15dp">
-////////////////////////////////Remover oos cards
-            <View
-                android:id="@+id/icon_person"
-                android:layout_width="45sp"
-                android:layout_height="45sp"
-                android:background="@drawable/person_icon"
-                app:layout_constraintHorizontal_chainStyle="spread_inside"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/textEditProfile" />
+        <View
+            android:id="@+id/icon_person"
+            android:layout_width="45sp"
+            android:layout_height="45sp"
+            android:background="@drawable/person_icon"
+            app:layout_constraintEnd_toStartOf="@+id/textEditProfile"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/textEditProfile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/edit_profile"
-                android:textColor="@color/white"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/view_arrow_forward"
-                app:layout_constraintStart_toEndOf="@+id/icon_person"
-                app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/textEditProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_profile"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/view_arrow_forward"
+            app:layout_constraintStart_toEndOf="@+id/icon_person"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <View
-                android:id="@+id/view_arrow_forward"
-                android:layout_width="45sp"
-                android:layout_height="45sp"
-                android:background="@drawable/arrow_forward"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textEditProfile"
-                app:layout_constraintEnd_toEndOf="parent"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <View
+            android:id="@+id/view_arrow_forward"
+            android:layout_width="45sp"
+            android:layout_height="45sp"
+            android:background="@drawable/arrow_forward"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textEditProfile"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_edit_password"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/change_password_area"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10sp"
-        app:cardBackgroundColor="@color/background_black_40"
-        app:cardCornerRadius="22sp"
-        app:cardElevation="1dp"
+        android:background="@drawable/background_edit_itens"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/logout_area"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/card_edit_profile">
+        app:layout_constraintTop_toBottomOf="@+id/edit_profile_area">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="15dp">
+        <View
+            android:id="@+id/icon_key"
+            android:layout_width="45sp"
+            android:layout_height="45sp"
+            android:background="@drawable/key_icon"
+            app:layout_constraintEnd_toStartOf="@+id/textEditPassword"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <View
-                android:id="@+id/icon_key"
-                android:layout_width="45sp"
-                android:layout_height="45sp"
-                android:background="@drawable/key_icon"
-                app:layout_constraintHorizontal_chainStyle="spread_inside"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/textEditPassword" />
+        <TextView
+            android:id="@+id/textEditPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_password"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/view_arrow_forward2"
+            app:layout_constraintStart_toEndOf="@+id/icon_key"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/textEditPassword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/edit_password"
-                android:textColor="@color/white"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/view_arrow_forward2"
-                app:layout_constraintStart_toEndOf="@+id/icon_key"
-                app:layout_constraintTop_toTopOf="parent" />
+        <View
+            android:id="@+id/view_arrow_forward2"
+            android:layout_width="45sp"
+            android:layout_height="45sp"
+            android:background="@drawable/arrow_forward"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textEditPassword"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <View
-                android:id="@+id/view_arrow_forward2"
-                android:layout_width="45sp"
-                android:layout_height="45sp"
-                android:background="@drawable/arrow_forward"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textEditPassword"
-                app:layout_constraintEnd_toEndOf="parent"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_logout"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/logout_area"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10sp"
-        app:cardBackgroundColor="@color/background_black_40"
-        app:cardCornerRadius="22sp"
-        app:cardElevation="1dp"
+        android:background="@drawable/background_edit_itens"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/card_edit_password">
+        app:layout_constraintTop_toBottomOf="@+id/change_password_area">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="15dp">
+        <View
+            android:id="@+id/icon_logout"
+            android:layout_width="45sp"
+            android:layout_height="45sp"
+            android:background="@drawable/logout_icon"
+            app:layout_constraintEnd_toStartOf="@+id/textLogout"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <View
-                android:id="@+id/icon_logout"
-                android:layout_width="45sp"
-                android:layout_height="45sp"
-                android:background="@drawable/logout_icon"
-                app:layout_constraintHorizontal_chainStyle="spread_inside"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/textLogout" />
+        <TextView
+            android:id="@+id/textLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/logout"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/view_arrow_forward3"
+            app:layout_constraintStart_toEndOf="@+id/icon_logout"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/textLogout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/logout"
-                android:textColor="@color/white"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/view_arrow_forward3"
-                app:layout_constraintStart_toEndOf="@+id/icon_logout"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <View
-                android:id="@+id/view_arrow_forward3"
-                android:layout_width="45sp"
-                android:layout_height="45sp"
-                android:background="@drawable/arrow_forward"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textLogout"
-                app:layout_constraintEnd_toEndOf="parent"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
+        <View
+            android:id="@+id/view_arrow_forward3"
+            android:layout_width="45sp"
+            android:layout_height="45sp"
+            android:background="@drawable/arrow_forward"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textLogout"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include
         android:id="@+id/navigation_menu"

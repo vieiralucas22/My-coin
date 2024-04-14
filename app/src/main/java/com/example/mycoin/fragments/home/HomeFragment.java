@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
+import android.widget.Button;
 
 import com.example.mycoin.R;
 import com.example.mycoin.fragments.BaseFragment;

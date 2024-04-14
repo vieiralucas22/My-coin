@@ -40,9 +40,6 @@
         android:label="fragment_confirm_code"
         tools:layout="@layout/fragment_confirm_code" >
         <action
-            android:id="@+id/action_confirmCodeFragment_to_changePasswordFragment"
-            app:destination="@id/changePasswordFragment" />
-        <action
             android:id="@+id/action_confirmCodeFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>

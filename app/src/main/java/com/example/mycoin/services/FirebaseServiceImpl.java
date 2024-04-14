@@ -1,6 +1,5 @@
 package com.example.mycoin.services;
 
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.example.mycoin.callbacks.ChangePasswordCallback;
@@ -29,15 +28,16 @@ public class FirebaseServiceImpl implements FirebaseService {
 
     @Inject
     public FirebaseServiceImpl(FirebaseAuth auth, FirebaseFirestore firebaseFirestore,
-            AppPreferences appPreferences) {
+                               AppPreferences appPreferences) {
         mAuth = auth;
         mFirebaseFirestore = firebaseFirestore;
         mAppPreferences = appPreferences;
     }
 
+    @Override
     public void authenticate(String email, String password, LoginCallback loginCallback) {
-        checkUserExist(email, userPassword -> {
-            if (!TextUtils.isEmpty(userPassword) && userPassword.equals(password)) {
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
                 loginCallback.onSuccess();
                 return;
             }
@@ -47,14 +47,18 @@ public class FirebaseServiceImpl implements FirebaseService {
 
     @Override
     public void signUp(User user, RegisterCallback registerCallback) {
-        checkUserExist(user.getEmail(), password -> {
-            if (password == null) {
-                createUser(user, registerCallback);
-            }
-        });
+        mAuth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword())
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        registerCallback.onSuccess();
+                        createUser(user);
+                        return;
+                    }
+                    registerCallback.onFailure();
+                });
     }
 
-    private void createUser(User user, RegisterCallback registerCallback) {
+    private void createUser(User user) {
         Map<String, String> newUser = new HashMap<>();
         newUser.put(Constants.NAME, user.getName());
         newUser.put(Constants.EMAIL, user.getEmail());
@@ -66,22 +70,33 @@ public class FirebaseServiceImpl implements FirebaseService {
                 .set(newUser).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Log.d(TAG, "User created!");
-                        registerCallback.onSuccess();
                         return;
                     }
-                    registerCallback.onFailure();
+                    Log.e(TAG, "User was not created!");
                 });
+    }
+
+    @Override
+    public void sendLinkToChangeForgotPassword(String email, ChangePasswordCallback callback) {
+        mAuth.sendPasswordResetEmail(email).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Log.d(TAG, "Link sent successful! " + task);
+                callback.onSuccess();
+                return;
+            }
+            callback.onFailure();
+        });
     }
 
     @Override
     public void changeForgotPassword(String newPassword, ChangePasswordCallback callback) {
         mFirebaseFirestore.collection(Constants.USERS).document(mAppPreferences.getUserEmail())
-                .update(Constants.PASSWORD, newPassword).addOnCompleteListener( task ->{
-                   if (task.isSuccessful()) {
-                       callback.onSuccess();
-                       return;
-                   }
-                   callback.onFailure();
+                .update(Constants.PASSWORD, newPassword).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        callback.onSuccess();
+                        return;
+                    }
+                    callback.onFailure();
                 });
     }
 

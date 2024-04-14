@@ -24,24 +24,13 @@ public class ChangePasswordImpl implements ChangePassword {
     }
 
     @Override
-    public void changeForgotPassword(String newPassword, String newPasswordConfirmed,
-                 ChangePasswordCallback callback) {
-        if (TextUtils.isEmpty(newPassword)) {
+    public void changeForgotPassword(String email, ChangePasswordCallback callback) {
+        if (TextUtils.isEmpty(email)) {
             MessageUtil.showToast(mContext, R.string.missing_new_password);
             return;
         }
 
-        if (TextUtils.isEmpty(newPasswordConfirmed)) {
-            MessageUtil.showToast(mContext, R.string.missing_confirmation_password);
-            return;
-        }
-
-        if (!newPassword.equals(newPasswordConfirmed)) {
-            MessageUtil.showToast(mContext, R.string.password_are_different);
-            return;
-        }
-
-        mFirebaseService.changeForgotPassword(newPassword, callback);
+        mFirebaseService.sendLinkToChangeForgotPassword(email, callback);
     }
 
     @Override

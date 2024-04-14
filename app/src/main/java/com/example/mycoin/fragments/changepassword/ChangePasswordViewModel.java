@@ -20,18 +20,7 @@ public class ChangePasswordViewModel extends ViewModel {
     }
 
     public void changePassword(String newPassword, String newConfirmedPassword) {
-        mChangePassword.changeForgotPassword(newPassword, newConfirmedPassword, new ChangePasswordCallback() {
 
-            @Override
-            public void onSuccess() {
-                mNeedNavigate.postValue(true);
-            }
-
-            @Override
-            public void onFailure() {
-                mNeedNavigate.postValue(false);
-            }
-        });
     }
 
     public MutableLiveData<Boolean> getNeedNavigate() {
