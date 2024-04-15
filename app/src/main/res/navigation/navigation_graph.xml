@@ -78,5 +78,22 @@
         android:id="@+id/generalProfileFragment"
         android:name="com.example.mycoin.fragments.profile.generalprofile.GeneralProfileFragment"
         android:label="fragment_general_profile"
-        tools:layout="@layout/fragment_general_profile" />
+        tools:layout="@layout/fragment_general_profile" >
+        <action
+            android:id="@+id/action_generalProfileFragment_to_editUserProfileFragment"
+            app:destination="@id/editUserProfileFragment" />
+        <action
+            android:id="@+id/action_generalProfileFragment_to_changeUserPasswordFragment"
+            app:destination="@id/changeUserPasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editUserProfileFragment"
+        android:name="com.example.mycoin.fragments.profile.editprofile.EditUserProfileFragment"
+        android:label="fragment_edit_user_profile"
+        tools:layout="@layout/fragment_edit_user_profile" />
+    <fragment
+        android:id="@+id/changeUserPasswordFragment"
+        android:name="com.example.mycoin.fragments.profile.changeuserpassword.ChangeUserPasswordFragment"
+        android:label="fragment_change_user_password"
+        tools:layout="@layout/fragment_change_user_password" />
 </navigation>
