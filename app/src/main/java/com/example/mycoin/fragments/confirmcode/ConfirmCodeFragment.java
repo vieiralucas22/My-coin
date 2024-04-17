@@ -6,8 +6,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.navigation.Navigation;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,13 +21,14 @@ import com.example.mycoin.fragments.login.LoginFragment;
 import com.example.mycoin.utils.LogcatUtil;
 import com.example.mycoin.utils.MessageUtil;
 
-public class ConfirmCodeFragment extends BaseFragment implements View.OnClickListener, View.OnKeyListener {
+public class ConfirmCodeFragment extends BaseFragment implements View.OnClickListener {
 
     public static final String TAG = LogcatUtil.getTag(LoginFragment.class);
 
     private Button mButtonConfirm, mButtonBack;
     private EditText mEditTextFieldOne, mEditTextFieldTwo, mEditTextFieldThree , mEditTextFieldFour;
     private ConfirmCodeViewModel mViewModel;
+
 
 
     @Override
@@ -58,9 +60,43 @@ public class ConfirmCodeFragment extends BaseFragment implements View.OnClickLis
     private void initListeners() {
         mButtonConfirm.setOnClickListener(this);
         mButtonBack.setOnClickListener(this);
-        mEditTextFieldOne.setOnKeyListener(this);
-        mEditTextFieldTwo.setOnKeyListener(this);
-        mEditTextFieldThree.setOnKeyListener(this);
+        mEditTextFieldOne.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mEditTextFieldTwo.requestFocus();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+        mEditTextFieldTwo.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mEditTextFieldThree.requestFocus();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+        mEditTextFieldThree.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mEditTextFieldFour.requestFocus();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
     }
 
     private void initObservers() {
@@ -99,20 +135,4 @@ public class ConfirmCodeFragment extends BaseFragment implements View.OnClickLis
         }
     }
 
-    @Override
-    public boolean onKey(View v, int keyCode, KeyEvent event) {
-        if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-            if (v.getId() == R.id.edit_code_one) {
-                mEditTextFieldTwo.requestFocus();
-                return true;
-            } else if (v.getId() == R.id.edit_code_two) {
-                mEditTextFieldThree.requestFocus();
-                return true;
-            } else if (v.getId() == R.id.edit_code_three) {
-                mEditTextFieldFour.requestFocus();
-                return true;
-            }
-        }
-        return false;
-    }
 }
