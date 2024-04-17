@@ -16,4 +16,9 @@ public class DateUtil {
         return formatter.format(calendar.getTime());
     }
 
+    public static int getCurrentYear() {
+        Calendar calendar =Calendar.getInstance();
+        return calendar.get(Calendar.YEAR);
+    }
+
 }

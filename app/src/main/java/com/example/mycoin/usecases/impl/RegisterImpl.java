@@ -9,8 +9,11 @@ import com.example.mycoin.callbacks.RegisterCallback;
 import com.example.mycoin.entities.User;
 import com.example.mycoin.gateway.services.FirebaseService;
 import com.example.mycoin.usecases.interfaces.Register;
+import com.example.mycoin.utils.DateUtil;
 import com.example.mycoin.utils.LogcatUtil;
 import com.example.mycoin.utils.MessageUtil;
+
+import java.util.Calendar;
 
 import javax.inject.Inject;
 
@@ -39,8 +42,8 @@ public class RegisterImpl implements Register {
             return;
         }
 
-        if (user.getBirthDate().equals("Date of Birth")) {
-            MessageUtil.showToast(mContext, R.string.select_date);
+        if (user.getBirthDate().equals("Date of Birth") || isValidDate(user.getBirthDate())) {
+            MessageUtil.showToast(mContext, R.string.select_valid_date);
             return;
         }
 
@@ -50,5 +53,13 @@ public class RegisterImpl implements Register {
         }
 
         mFirebaseService.signUp(user, registerCallback);
+    }
+
+    private boolean isValidDate(String date) {
+        String[] birthData = date.split("/");
+
+        int ano = Integer.parseInt(birthData[2]);
+
+        return DateUtil.getCurrentYear() - ano <= 12;
     }
 }
