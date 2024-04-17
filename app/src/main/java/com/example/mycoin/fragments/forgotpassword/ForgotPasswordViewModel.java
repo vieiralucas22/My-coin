@@ -25,10 +25,6 @@ public class ForgotPasswordViewModel extends ViewModel {
     }
 
     public void sendEmailToGetConfirmCode(String email) {
-        if (TextUtils.isEmpty(email)) {
-            return;
-        }
-
         if (mSendForgotPasswordEmail.trySendEmailToGetCode(email)) {
             mNeedNavigate.postValue(true);
             return;

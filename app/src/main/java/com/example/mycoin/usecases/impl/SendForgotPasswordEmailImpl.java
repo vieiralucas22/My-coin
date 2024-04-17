@@ -1,11 +1,13 @@
 package com.example.mycoin.usecases.impl;
 
-import android.annotation.SuppressLint;
-import android.content.SharedPreferences;
+import android.content.Context;
+import android.text.TextUtils;
 
+import com.example.mycoin.R;
 import com.example.mycoin.gateway.services.EmailService;
 import com.example.mycoin.preferences.AppPreferences;
 import com.example.mycoin.usecases.interfaces.SendForgotPasswordEmail;
+import com.example.mycoin.utils.MessageUtil;
 
 import java.util.Random;
 
@@ -15,16 +17,23 @@ public class SendForgotPasswordEmailImpl implements SendForgotPasswordEmail {
 
     private final EmailService mEmailService;
     private final AppPreferences mAppPreferences;
+    private final Context mContext;
 
     @Inject
     public SendForgotPasswordEmailImpl(EmailService emailService,
-            AppPreferences appPreferences) {
+            AppPreferences appPreferences, Context context) {
         mEmailService = emailService;
         mAppPreferences = appPreferences;
+        mContext = context;
     }
 
     @Override
     public boolean trySendEmailToGetCode(String email) {
+        if (TextUtils.isEmpty(email)) {
+            MessageUtil.showToast(mContext, R.string.missing_email);
+            return false;
+        }
+
         generateConfirmationCode();
         return mEmailService.sendForgotPasswordEmail(email);
     }
