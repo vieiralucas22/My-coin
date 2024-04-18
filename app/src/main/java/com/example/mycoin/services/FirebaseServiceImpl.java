@@ -77,8 +77,8 @@ public class FirebaseServiceImpl implements FirebaseService {
     }
 
     @Override
-    public void sendLinkToChangeForgotPassword(String email, ChangePasswordCallback callback) {
-        mAuth.sendPasswordResetEmail(email).addOnCompleteListener(task -> {
+    public void sendLinkToChangeForgotPassword(ChangePasswordCallback callback) {
+        mAuth.sendPasswordResetEmail(mAppPreferences.getUserEmail()).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 Log.d(TAG, "Link sent successful! " + task);
                 callback.onSuccess();

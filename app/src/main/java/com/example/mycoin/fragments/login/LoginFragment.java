@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
     private LoginViewModel mViewModel;
     private EditText mEditPassword, mEditEmail;
     private CheckBox mCheckRememberMe;
+    private ProgressBar mProgressBar;
 
     private boolean mIsPasswordVisible = false;
 
@@ -64,6 +66,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         mEditPassword = view.findViewById(R.id.edit_password_login);
         mEditEmail = view.findViewById(R.id.edit_email_login);
         mCheckRememberMe = view.findViewById(R.id.checkbox_remember_me);
+        mProgressBar = view.findViewById(R.id.progressBar);
     }
 
     private void initListeners() {
@@ -102,7 +105,16 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         mViewModel.getNeedNavigate().observe(getViewLifecycleOwner(), navigate -> {
             if (navigate) {
                 goHomeScreen(getView());
+                responseArrivedUI();
             }
+        });
+
+        mViewModel.getHandleResponseLayout().observe(getViewLifecycleOwner(), responseSuccess -> {
+            if (responseSuccess) {
+                awaitResponseUI();
+                return;
+            }
+            responseArrivedUI();
         });
     }
 
@@ -110,7 +122,18 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         String email = mEditEmail.getText().toString();
         String password = mEditPassword.getText().toString();
 
+        mViewModel.setUpUIToWaitResponse();
         mViewModel.login(email, password, mCheckRememberMe.isChecked());
+    }
+
+    private void awaitResponseUI() {
+        mButtonLogin.setVisibility(View.INVISIBLE);
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    private void responseArrivedUI() {
+        mButtonLogin.setVisibility(View.VISIBLE);
+        mProgressBar.setVisibility(View.INVISIBLE);
     }
 
     @Override

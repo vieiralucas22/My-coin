@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.mycoin.R;
@@ -38,6 +39,7 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
     private TextView mTextDate;
     private CardView mCardDatePicker;
     private EditText mEditPassword, mEditEmail, mEditName;
+    private ProgressBar mProgressBar;
 
     private boolean mIsPasswordVisible = false;
 
@@ -70,6 +72,7 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
         mButtonSignUp = view.findViewById(R.id.button_sign);
         mEditEmail = view.findViewById(R.id.edit_email_sign_up);
         mEditName = view.findViewById(R.id.edit_username);
+        mProgressBar = view.findViewById(R.id.progressBar);
     }
 
     private void initListeners() {
@@ -84,7 +87,17 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
         mViewModel.getSignUpSuccessful().observe(getViewLifecycleOwner(), navigate -> {
             if (navigate) {
                 goLoginScreen();
+                responseArrivedUI();
             }
+        });
+
+
+        mViewModel.getHandleResponseLayout().observe(getViewLifecycleOwner(), responseSuccess -> {
+            if (responseSuccess) {
+                awaitResponseUI();
+                return;
+            }
+            responseArrivedUI();
         });
     }
 
@@ -132,10 +145,20 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
             String password = mEditPassword.getText().toString();
             String dateBirth = mTextDate.getText().toString();
             String name = mEditName.getText().toString();
-            Log.d(TAG, dateBirth);
 
+            mViewModel.setUpUIToWaitResponse();
             mViewModel.createAccount(email, password, dateBirth, name);
         }
+    }
+
+    private void awaitResponseUI() {
+        mButtonSignUp.setVisibility(View.INVISIBLE);
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    private void responseArrivedUI() {
+        mButtonSignUp.setVisibility(View.VISIBLE);
+        mProgressBar.setVisibility(View.INVISIBLE);
     }
 
     @Override

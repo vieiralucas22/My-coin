@@ -31,6 +31,7 @@
     <string name="login_fail">Login fail!</string>
     <string name="email_invalid">This email is not valid!</string>
     <string name="code_wrong">Confirmation code is wrong!</string>
+    <string name="code_invalid">Confirmation code is invalid!</string>
 
     <!--Profile-->
     <string name="position_number">1º </string>

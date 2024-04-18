@@ -34,21 +34,25 @@ public class RegisterImpl implements Register {
     public void signUp(User user, RegisterCallback registerCallback) {
         if (TextUtils.isEmpty(user.getName())) {
             MessageUtil.showToast(mContext, R.string.missing_name);
+            registerCallback.onFailure();
             return;
         }
 
         if (TextUtils.isEmpty(user.getEmail())) {
-             MessageUtil.showToast(mContext, R.string.missing_email);
+            MessageUtil.showToast(mContext, R.string.missing_email);
+            registerCallback.onFailure();
             return;
         }
 
         if (user.getBirthDate().equals("Date of Birth") || isValidDate(user.getBirthDate())) {
             MessageUtil.showToast(mContext, R.string.select_valid_date);
+            registerCallback.onFailure();
             return;
         }
 
         if (TextUtils.isEmpty(user.getPassword())) {
             MessageUtil.showToast(mContext, R.string.missing_password);
+            registerCallback.onFailure();
             return;
         }
 

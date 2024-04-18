@@ -24,7 +24,8 @@ public class SignUpViewModel extends ViewModel {
     private final Register mRegister;
     private final Context mContext;
 
-    private MutableLiveData<Boolean> mSignUpSuccessful = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> mSignUpSuccessful = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> mHandleResponseLayout = new MutableLiveData<>();
 
     @Inject
     public SignUpViewModel(Register register, Context context) {
@@ -42,8 +43,11 @@ public class SignUpViewModel extends ViewModel {
 
             @Override
             public void onFailure() {
-                MessageUtil.showToast(mContext, R.string.register_fail);
+                if (registerFieldsAreFilled(email, password, date, name)) {
+                    MessageUtil.showToast(mContext, R.string.register_fail);
+                }
                 mSignUpSuccessful.postValue(false);
+                mHandleResponseLayout.postValue(false);
             }
         });
     }
@@ -51,4 +55,18 @@ public class SignUpViewModel extends ViewModel {
     public MutableLiveData<Boolean> getSignUpSuccessful() {
         return mSignUpSuccessful;
     }
+
+    public MutableLiveData<Boolean> getHandleResponseLayout() {
+        return mHandleResponseLayout;
+    }
+
+    public void setUpUIToWaitResponse() {
+        mHandleResponseLayout.setValue(true);
+    }
+
+    private boolean registerFieldsAreFilled(String email, String password, String date, String name) {
+        return !TextUtils.isEmpty(email) || !TextUtils.isEmpty(password) ||
+                !date.equals("Date of Birth") || !TextUtils.isEmpty(name);
+    }
+
 }

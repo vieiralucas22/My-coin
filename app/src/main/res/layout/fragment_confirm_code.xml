@@ -160,6 +160,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/buttons_code_area">
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/background_login_button"/>
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:indeterminateTint="@color/primary"
+                android:background="#F5F4FB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                android:layout_marginTop="12dp"
+                android:layout_marginHorizontal="20sp"/>
+
             <Button
                 android:id="@+id/button_confirm"
                 android:layout_width="match_parent"

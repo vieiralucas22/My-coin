@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.navigation.Navigation;
 
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import com.example.mycoin.R;
 import com.example.mycoin.fragments.BaseFragment;
@@ -28,7 +30,7 @@ public class ConfirmCodeFragment extends BaseFragment implements View.OnClickLis
     private Button mButtonConfirm, mButtonBack;
     private EditText mEditTextFieldOne, mEditTextFieldTwo, mEditTextFieldThree , mEditTextFieldFour;
     private ConfirmCodeViewModel mViewModel;
-
+    private ProgressBar mProgressBar;
 
 
     @Override
@@ -55,6 +57,7 @@ public class ConfirmCodeFragment extends BaseFragment implements View.OnClickLis
         mEditTextFieldTwo = view.findViewById(R.id.edit_code_two);
         mEditTextFieldThree = view.findViewById(R.id.edit_code_three);
         mEditTextFieldFour = view.findViewById(R.id.edit_code_four);
+        mProgressBar = view.findViewById(R.id.progressBar);
     }
 
     private void initListeners() {
@@ -96,16 +99,25 @@ public class ConfirmCodeFragment extends BaseFragment implements View.OnClickLis
             @Override
             public void afterTextChanged(Editable s) {}
         });
-
     }
 
     private void initObservers() {
         mViewModel.getNeedNavigate().observe(getViewLifecycleOwner(), navigate -> {
             if (navigate) {
                 goLogin(getView());
+                responseArrivedUI();
                 return;
             }
             MessageUtil.showToast(getContext(), R.string.code_wrong);
+        });
+
+
+        mViewModel.getHandleResponseLayout().observe(getViewLifecycleOwner(), responseSuccess -> {
+            if (responseSuccess) {
+                awaitResponseUI();
+                return;
+            }
+            responseArrivedUI();
         });
     }
 
@@ -120,8 +132,22 @@ public class ConfirmCodeFragment extends BaseFragment implements View.OnClickLis
         String fieldThree = mEditTextFieldThree.getText().toString();
         String fieldFour = mEditTextFieldFour.getText().toString();
 
-        String confirmationCode = fieldOne + fieldTwo + fieldThree + fieldFour;
-        return Integer.parseInt(confirmationCode);
+        if (mViewModel.codeIsValid(fieldOne, fieldTwo, fieldThree, fieldFour)) {
+            String confirmationCode = fieldOne + fieldTwo + fieldThree + fieldFour;
+            return Integer.parseInt(confirmationCode);
+        }
+
+        return -1;
+    }
+
+    private void awaitResponseUI() {
+        mButtonConfirm.setVisibility(View.INVISIBLE);
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    private void responseArrivedUI() {
+        mButtonConfirm.setVisibility(View.VISIBLE);
+        mProgressBar.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -129,6 +155,7 @@ public class ConfirmCodeFragment extends BaseFragment implements View.OnClickLis
         int id = v.getId();
 
         if (id == R.id.button_confirm) {
+            mViewModel.setUpUIToWaitResponse();
             mViewModel.confirmCode(formatConfirmationCode());
         } else if (id == R.id.button_back) {
             backScreen(v);

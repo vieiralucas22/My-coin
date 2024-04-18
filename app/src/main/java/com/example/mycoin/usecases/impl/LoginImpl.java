@@ -33,11 +33,13 @@ public class LoginImpl implements Login {
     public void authenticate(String email, String password, LoginCallback loginCallback) {
         if (TextUtils.isEmpty(email)) {
             MessageUtil.showToast(mContext, R.string.missing_email);
+            loginCallback.onFailure();
             return;
         }
 
         if (TextUtils.isEmpty(password)) {
             MessageUtil.showToast(mContext, R.string.missing_password);
+            loginCallback.onFailure();
             return;
         }
 

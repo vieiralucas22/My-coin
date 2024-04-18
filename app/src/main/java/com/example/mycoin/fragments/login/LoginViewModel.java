@@ -1,6 +1,7 @@
 package com.example.mycoin.fragments.login;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -21,7 +22,8 @@ public class LoginViewModel extends ViewModel {
     private final Context mContext;
     private final AppPreferences mAppPreferences;
 
-    private MutableLiveData<Boolean> mNeedNavigate = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> mNeedNavigate = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> mHandleResponseLayout = new MutableLiveData<>();
 
     @Inject
     public LoginViewModel(Login login, Context context, AppPreferences appPreferences) {
@@ -42,8 +44,11 @@ public class LoginViewModel extends ViewModel {
 
             @Override
             public void onFailure() {
-                MessageUtil.showToast(mContext, R.string.login_fail);
+                if (loginFieldsAreFilled(email, password)) {
+                    MessageUtil.showToast(mContext, R.string.login_fail);
+                }
                 mNeedNavigate.postValue(false);
+                mHandleResponseLayout.setValue(false);
             }
         });
     }
@@ -52,7 +57,19 @@ public class LoginViewModel extends ViewModel {
         return mNeedNavigate;
     }
 
+    public MutableLiveData<Boolean> getHandleResponseLayout() {
+        return mHandleResponseLayout;
+    }
+
+    public void setUpUIToWaitResponse() {
+        mHandleResponseLayout.setValue(true);
+    }
+
     public boolean rememberMeWasChecked() {
         return mAppPreferences.getRememberMe();
+    }
+
+    private boolean loginFieldsAreFilled(String email, String password) {
+        return !TextUtils.isEmpty(email) || !TextUtils.isEmpty(password);
     }
 }
