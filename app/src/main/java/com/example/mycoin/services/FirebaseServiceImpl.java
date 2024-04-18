@@ -5,6 +5,7 @@ import android.util.Log;
 import com.example.mycoin.callbacks.ChangePasswordCallback;
 import com.example.mycoin.callbacks.LoginCallback;
 import com.example.mycoin.callbacks.RegisterCallback;
+import com.example.mycoin.callbacks.UserDataCallback;
 import com.example.mycoin.callbacks.UserExistCallback;
 import com.example.mycoin.constants.Constants;
 import com.example.mycoin.entities.User;
@@ -12,6 +13,7 @@ import com.example.mycoin.gateway.services.FirebaseService;
 import com.example.mycoin.preferences.AppPreferences;
 import com.example.mycoin.utils.LogcatUtil;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -86,6 +88,26 @@ public class FirebaseServiceImpl implements FirebaseService {
             }
             callback.onFailure();
         });
+    }
+
+    @Override
+    public void getUserByEmail(String email, UserDataCallback callback) {
+        mFirebaseFirestore.collection(Constants.USERS).document(email)
+                .get().addOnSuccessListener(document -> {
+                    if (document.exists()) {
+                        callback.OnSuccess(getUser(document));
+                        return;
+                    }
+                    callback.OnFailure();
+                });
+    }
+
+    private User getUser(DocumentSnapshot document) {
+        User user = new User();
+        user.setName(document.getString(Constants.NAME));
+        user.setEmail(document.getString(Constants.EMAIL));
+        user.setBirthDate(document.getString(Constants.BIRTHDATE));
+        return user;
     }
 
     @Override

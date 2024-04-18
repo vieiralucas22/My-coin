@@ -9,6 +9,9 @@ public class User {
     private String mBirthDate;
     private String mPassword;
 
+    public User() {
+    }
+
     public User(String name, String email, String birthDate, String password) {
         mName = name;
         mEmail = email;
@@ -30,5 +33,21 @@ public class User {
 
     public String getPassword() {
         return mPassword;
+    }
+
+    public void setName(String mName) {
+        this.mName = mName;
+    }
+
+    public void setEmail(String mEmail) {
+        this.mEmail = mEmail;
+    }
+
+    public void setBirthDate(String mBirthDate) {
+        this.mBirthDate = mBirthDate;
+    }
+
+    public void setPassword(String mPassword) {
+        this.mPassword = mPassword;
     }
 }
