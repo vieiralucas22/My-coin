@@ -1,17 +1,21 @@
 package com.example.mycoin.fragments.profile.editprofile;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -19,16 +23,24 @@ import com.example.mycoin.R;
 import com.example.mycoin.entities.User;
 import com.example.mycoin.fragments.BaseFragment;
 import com.example.mycoin.fragments.signup.SignUpFragment;
+import com.example.mycoin.utils.DateUtil;
 import com.example.mycoin.utils.LogcatUtil;
+import com.example.mycoin.utils.MessageUtil;
 
-public class EditUserProfileFragment extends BaseFragment implements View.OnClickListener {
+import java.util.Calendar;
+
+public class EditUserProfileFragment extends BaseFragment implements View.OnClickListener,
+        DatePickerDialog.OnDateSetListener {
     public static final String TAG = LogcatUtil.getTag(EditUserProfileFragment.class);
 
     private EditText mEditName;
     private EditText mEditEmail;
     private TextView mTextDateBirth;
-    private Button mButtonEditProfile, mButtonBack;
+    private Button mButtonEditProfile, mButtonBack, mButtonDatePicker;
+    private CardView mCardDatePicker;
     private EditUserProfileViewModel mViewModel;
+
+    private String userBirth;
 
     public static EditUserProfileFragment newInstance() {
         return new EditUserProfileFragment();
@@ -44,8 +56,10 @@ public class EditUserProfileFragment extends BaseFragment implements View.OnClic
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Log.d(TAG, "Enter in edit profile fragment");
+
         initComponents(view);
         loadUserData();
+        initListeners();
         initObservers();
     }
 
@@ -56,6 +70,14 @@ public class EditUserProfileFragment extends BaseFragment implements View.OnClic
         mTextDateBirth = view.findViewById(R.id.text_date);
         mButtonEditProfile = view.findViewById(R.id.button_edit_profile);
         mButtonBack = view.findViewById(R.id.button_back);
+        mCardDatePicker = view.findViewById(R.id.edit_profile_date_birth_card);
+        mButtonDatePicker = view.findViewById(R.id.button_calendar);
+    }
+
+    private void initListeners() {
+        mButtonBack.setOnClickListener(this);
+        mCardDatePicker.setOnClickListener(this);
+        mButtonDatePicker.setOnClickListener(this);
     }
 
     private void loadUserData() {
@@ -64,22 +86,47 @@ public class EditUserProfileFragment extends BaseFragment implements View.OnClic
 
     private void initObservers() {
         mViewModel.getUserDataLoaded().observe(getViewLifecycleOwner(), user -> {
-            if (user != null) {
 
-                Log.d(TAG, user.getEmail());
-                Log.d(TAG, user.getName());
-                Log.d(TAG, user.getBirthDate());
+            if (user != null) {
+                userBirth = user.getBirthDate();
+
                 mEditEmail.setText(user.getEmail());
                 mEditName.setText(user.getName());
-                mTextDateBirth.setText(user.getBirthDate());
+                mTextDateBirth.setText(userBirth);
             }
         });
     }
 
+    private void showDatePicker() {
+        int day, month, year;
+
+        if (!TextUtils.isEmpty(userBirth)) {
+            day = DateUtil.getDayByFormattedDate(userBirth);
+            month = DateUtil.getMonthByFormattedDate(userBirth);
+            year = DateUtil.getYearByFormattedDate(userBirth);
+        } else {
+            Calendar calendar = Calendar.getInstance();
+            day = calendar.get(Calendar.DAY_OF_MONTH);
+            month = calendar.get(Calendar.MONTH);
+            year = calendar.get(Calendar.YEAR);
+        }
+
+        new DatePickerDialog(getContext(), this, year, month, day).show();
+    }
+
     @Override
     public void onClick(View v) {
-//        if (v.getId() == R.id.button_edit_profile) {
-//
-//        }
+        int id = v.getId();
+        if (id == R.id.button_edit_profile) {
+
+        } else if (id == R.id.edit_profile_date_birth_card || id == R.id.button_calendar) {
+            showDatePicker();
+        }
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        mTextDateBirth.setText(DateUtil.getDateFormatted(dayOfMonth, month, year));
+
     }
 }

@@ -96,7 +96,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/edit_profile_date_birth"
+        android:id="@+id/edit_profile_date_birth_card"
         android:layout_width="match_parent"
         android:layout_height="69dp"
         android:layout_marginTop="10dp"
@@ -148,7 +148,7 @@
         app:cardElevation="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_profile_date_birth">
+        app:layout_constraintTop_toBottomOf="@+id/edit_profile_date_birth_card">
 
         <Button
             android:id="@+id/button_edit_profile"

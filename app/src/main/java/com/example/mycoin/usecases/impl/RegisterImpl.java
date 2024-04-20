@@ -44,7 +44,8 @@ public class RegisterImpl implements Register {
             return;
         }
 
-        if (user.getBirthDate().equals("Date of Birth") || isValidDate(user.getBirthDate())) {
+        if (user.getBirthDate().equals("Date of Birth")
+                || DateUtil.isValidBirthDate(user.getBirthDate())) {
             MessageUtil.showToast(mContext, R.string.select_valid_date);
             registerCallback.onFailure();
             return;
@@ -59,11 +60,4 @@ public class RegisterImpl implements Register {
         mFirebaseService.signUp(user, registerCallback);
     }
 
-    private boolean isValidDate(String date) {
-        String[] birthData = date.split("/");
-
-        int ano = Integer.parseInt(birthData[2]);
-
-        return DateUtil.getCurrentYear() - ano <= 12;
-    }
 }

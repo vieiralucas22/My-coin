@@ -11,5 +11,5 @@ public interface FirebaseService {
     void signUp(User user, RegisterCallback registerCallback);
     void changeForgotPassword(String newPassword, ChangePasswordCallback callback);
     void sendLinkToChangeForgotPassword(ChangePasswordCallback callback);
-    void getUserByEmail(String email, UserDataCallback callback);
+    void setUserByEmail(String email);
 }

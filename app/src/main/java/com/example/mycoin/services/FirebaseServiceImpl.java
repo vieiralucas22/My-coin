@@ -91,14 +91,12 @@ public class FirebaseServiceImpl implements FirebaseService {
     }
 
     @Override
-    public void getUserByEmail(String email, UserDataCallback callback) {
+    public void setUserByEmail(String email) {
         mFirebaseFirestore.collection(Constants.USERS).document(email)
                 .get().addOnSuccessListener(document -> {
                     if (document.exists()) {
-                        callback.OnSuccess(getUser(document));
-                        return;
+                        mAppPreferences.setCurrentUser(getUser(document));
                     }
-                    callback.OnFailure();
                 });
     }
 

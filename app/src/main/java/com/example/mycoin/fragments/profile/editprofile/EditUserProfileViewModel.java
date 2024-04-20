@@ -33,17 +33,8 @@ public class EditUserProfileViewModel extends ViewModel {
 
         if (user == null) return;
 
-        mEditProfile.loadDataUser(user.getEmail(), new UserDataCallback() {
-            @Override
-            public void OnSuccess(User user) {
-                mUserDataLoaded.postValue(user);
-            }
-
-            @Override
-            public void OnFailure() {
-                mUserDataLoaded.postValue(null);
-            }
-        });
+        User currentUser = mEditProfile.loadDataUser(user.getEmail());
+        mUserDataLoaded.postValue(currentUser);
     }
 
     public MutableLiveData<User> getUserDataLoaded() {

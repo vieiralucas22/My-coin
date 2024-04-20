@@ -22,4 +22,8 @@ public class Constants {
     public static final String CONFIRMATION_CODE_KEY = "confirmation_code";
     public static final String USER_EMAIL = "user_email";
     public static final String REMEMBER_ME = "remember_me";
+    public static final String CURRENT_USER_EMAIL = "current_user_email";
+    public static final String CURRENT_USER_BIRTH = "current_user_birth";
+    public static final String CURRENT_USER_NAME = "current_user_name";
+
 }

@@ -1,10 +1,15 @@
 package com.example.mycoin.preferences;
 
 import static com.example.mycoin.constants.Constants.CONFIRMATION_CODE_KEY;
+import static com.example.mycoin.constants.Constants.CURRENT_USER_BIRTH;
+import static com.example.mycoin.constants.Constants.CURRENT_USER_EMAIL;
+import static com.example.mycoin.constants.Constants.CURRENT_USER_NAME;
 import static com.example.mycoin.constants.Constants.REMEMBER_ME;
 import static com.example.mycoin.constants.Constants.USER_EMAIL;
 
 import android.content.SharedPreferences;
+
+import com.example.mycoin.entities.User;
 
 import javax.inject.Inject;
 
@@ -51,5 +56,25 @@ public class AppPreferences {
 
     public void removeRememberMe() {
         mSharedPreferences.edit().remove(REMEMBER_ME).apply();
+    }
+
+    public void setCurrentUser(User currentUser) {
+        mSharedPreferences.edit().putString(CURRENT_USER_NAME, currentUser.getName()).apply();
+        mSharedPreferences.edit().putString(CURRENT_USER_BIRTH, currentUser.getBirthDate()).apply();
+        mSharedPreferences.edit().putString(CURRENT_USER_EMAIL, currentUser.getEmail()).apply();
+    }
+
+    public User getCurrentUser() {
+        User user = new User();
+        user.setName(mSharedPreferences.getString(CURRENT_USER_NAME, ""));
+        user.setEmail(mSharedPreferences.getString(CURRENT_USER_EMAIL, ""));
+        user.setBirthDate(mSharedPreferences.getString(CURRENT_USER_BIRTH, ""));
+        return user;
+    }
+
+    public void removeCurrentUser() {
+        mSharedPreferences.edit().remove(CURRENT_USER_NAME).apply();
+        mSharedPreferences.edit().remove(CURRENT_USER_BIRTH).apply();
+        mSharedPreferences.edit().remove(CURRENT_USER_EMAIL).apply();
     }
 }

@@ -130,6 +130,16 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
         mIsPasswordVisible = !mIsPasswordVisible;
     }
 
+    private void awaitResponseUI() {
+        mButtonSignUp.setVisibility(View.INVISIBLE);
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    private void responseArrivedUI() {
+        mButtonSignUp.setVisibility(View.VISIBLE);
+        mProgressBar.setVisibility(View.INVISIBLE);
+    }
+
     @Override
     public void onClick(View v) {
         int id = v.getId();
@@ -149,16 +159,6 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
             mViewModel.setUpUIToWaitResponse();
             mViewModel.createAccount(email, password, dateBirth, name);
         }
-    }
-
-    private void awaitResponseUI() {
-        mButtonSignUp.setVisibility(View.INVISIBLE);
-        mProgressBar.setVisibility(View.VISIBLE);
-    }
-
-    private void responseArrivedUI() {
-        mButtonSignUp.setVisibility(View.VISIBLE);
-        mProgressBar.setVisibility(View.INVISIBLE);
     }
 
     @Override

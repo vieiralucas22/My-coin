@@ -33,9 +33,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mViewModel = getViewModel(HomeViewModel.class);
 
         initComponents(view);
         initListeners();
+        setCurrentUserData();
     }
 
     private void initComponents(View view) {
@@ -50,9 +52,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     mViewProfile.setOnClickListener(this);
     }
 
+    private void setCurrentUserData() {
+        mViewModel.setCurrentUser();
+    }
     @Override
     public void onClick(View v) {
-        Log.d(TAG, "id - " + v.getId());
         if (v.getId() == R.id.view_person) {
             Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_generalProfileFragment);
         }
