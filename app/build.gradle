@@ -44,12 +44,18 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.7.7'
     implementation 'androidx.navigation:navigation-fragment:2.7.7'
     implementation 'com.google.firebase:firebase-auth:22.3.1'
+    implementation 'com.google.firebase:firebase-database:20.3.1'
+    implementation 'com.google.firebase:firebase-storage:20.3.0'
     implementation 'com.google.dagger:dagger:2.38.1'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
-    implementation 'com.google.firebase:firebase-firestore:24.11.0'
+    implementation 'com.google.firebase:firebase-firestore:24.11.1'
     implementation 'com.sun.mail:android-mail:1.6.6'
     implementation 'com.sun.mail:android-activation:1.6.7'
+    //libs for camera
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    ////
     annotationProcessor 'com.google.dagger:dagger-compiler:2.38.1'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
