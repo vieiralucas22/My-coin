@@ -31,11 +31,11 @@
             android:background="@drawable/camera_icon" />
     </RelativeLayout>
 
-    <View
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/user_image"
         android:layout_width="120sp"
         android:layout_height="120sp"
-        android:background="@drawable/no_photo_selected"
+        android:background="@drawable/profile_pic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header" />

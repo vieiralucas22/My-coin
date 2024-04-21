@@ -1,10 +1,7 @@
 package com.example.mycoin.usecases.impl;
 
-import android.util.Log;
-
 import com.example.mycoin.callbacks.UserDataCallback;
 import com.example.mycoin.entities.User;
-import com.example.mycoin.fragments.home.HomeFragment;
 import com.example.mycoin.gateway.services.FirebaseService;
 import com.example.mycoin.preferences.AppPreferences;
 import com.example.mycoin.usecases.interfaces.EditProfile;
