@@ -42,5 +42,7 @@
     <string name="edit_password">Edit password</string>
     <string name="logout">Logout</string>
     <string name="old_password">Old password</string>
+    <string name="are_you_sure_that_you_wanna_logout">Are you sure that you wanna logout?</string>
+    <string name="naah_just_kidding">Naah, Just Kidding</string>
 
 </resources>

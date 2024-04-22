@@ -38,7 +38,7 @@ public class GeneralProfileViewModel extends ViewModel {
         this.storage = storage;
     }
 
-    public void changePhoto(Uri uri) {
+    public void uploadPhoto(Uri uri) {
         String path = "UsersImages/" + mAuth.getUid();
 
         StorageReference reference = storageReference.child(path);
@@ -51,4 +51,10 @@ public class GeneralProfileViewModel extends ViewModel {
     }
 
     public void loadPhoto(CircleImageView mUserImage) {}
+
+    public boolean logout() {
+        mAuth.signOut();
+
+        return mAuth.getUid() == null;
+    }
 }
