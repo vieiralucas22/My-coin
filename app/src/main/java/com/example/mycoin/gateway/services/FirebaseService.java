@@ -3,7 +3,7 @@ package com.example.mycoin.gateway.services;
 import com.example.mycoin.callbacks.ChangePasswordCallback;
 import com.example.mycoin.callbacks.LoginCallback;
 import com.example.mycoin.callbacks.RegisterCallback;
-import com.example.mycoin.callbacks.UserDataCallback;
+import com.example.mycoin.callbacks.UserDataChangeCallback;
 import com.example.mycoin.entities.User;
 
 public interface FirebaseService {
@@ -12,4 +12,6 @@ public interface FirebaseService {
     void changePassword(String newPassword, ChangePasswordCallback callback);
     void sendLink(ChangePasswordCallback callback);
     void setUserByEmail(String email);
+
+    void editUser(String name, String dataBirth, UserDataChangeCallback callback);
 }

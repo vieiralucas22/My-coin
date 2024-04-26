@@ -91,7 +91,7 @@ public class ChangeUserPasswordFragment extends BaseFragment implements View.OnC
         mIsPasswordVisible = !mIsPasswordVisible;
     }
 
-    private void awaitResponseUI() {
+    private void waitResponseUI() {
         mButtonChangePassword.setVisibility(View.INVISIBLE);
         mProgressBar.setVisibility(View.VISIBLE);
     }
@@ -112,7 +112,7 @@ public class ChangeUserPasswordFragment extends BaseFragment implements View.OnC
             String newPassword = mEditNewPassword.getText().toString();
             String confirmNewPassword = mEditConfirmPassword.getText().toString();
 
-            awaitResponseUI();
+            waitResponseUI();
             mViewModel.changeUserPassword(oldPassword, newPassword, confirmNewPassword);
         }
     }

@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.mycoin.R;
@@ -34,11 +35,11 @@ public class EditUserProfileFragment extends BaseFragment implements View.OnClic
     public static final String TAG = LogcatUtil.getTag(EditUserProfileFragment.class);
 
     private EditText mEditName;
-    private EditText mEditEmail;
     private TextView mTextDateBirth;
     private Button mButtonEditProfile, mButtonBack, mButtonDatePicker;
     private CardView mCardDatePicker;
     private EditUserProfileViewModel mViewModel;
+    private ProgressBar mProgressBar;
 
     private String userBirth;
 
@@ -66,18 +67,19 @@ public class EditUserProfileFragment extends BaseFragment implements View.OnClic
     private void initComponents(View view) {
         mViewModel = getViewModel(EditUserProfileViewModel.class);
         mEditName = view.findViewById(R.id.edit_profile_name);
-        mEditEmail = view.findViewById(R.id.edit_profile_email);
         mTextDateBirth = view.findViewById(R.id.text_date);
         mButtonEditProfile = view.findViewById(R.id.button_edit_profile);
         mButtonBack = view.findViewById(R.id.button_back);
         mCardDatePicker = view.findViewById(R.id.edit_profile_date_birth_card);
         mButtonDatePicker = view.findViewById(R.id.button_calendar);
+        mProgressBar = view.findViewById(R.id.progressBar);
     }
 
     private void initListeners() {
         mButtonBack.setOnClickListener(this);
         mCardDatePicker.setOnClickListener(this);
         mButtonDatePicker.setOnClickListener(this);
+        mButtonEditProfile.setOnClickListener(this);
     }
 
     private void loadUserData() {
@@ -86,14 +88,15 @@ public class EditUserProfileFragment extends BaseFragment implements View.OnClic
 
     private void initObservers() {
         mViewModel.getUserDataLoaded().observe(getViewLifecycleOwner(), user -> {
-
             if (user != null) {
                 userBirth = user.getBirthDate();
-
-                mEditEmail.setText(user.getEmail());
                 mEditName.setText(user.getName());
                 mTextDateBirth.setText(userBirth);
             }
+        });
+
+        mViewModel.getHandleResponseLayout().observe(getViewLifecycleOwner(), isEdited -> {
+            responseArrivedUI();
         });
     }
 
@@ -114,11 +117,25 @@ public class EditUserProfileFragment extends BaseFragment implements View.OnClic
         new DatePickerDialog(getContext(), this, year, month, day).show();
     }
 
+    private void waitResponseUI() {
+        mButtonEditProfile.setVisibility(View.INVISIBLE);
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    private void responseArrivedUI() {
+        mButtonEditProfile.setVisibility(View.VISIBLE);
+        mProgressBar.setVisibility(View.INVISIBLE);
+    }
+
     @Override
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.button_edit_profile) {
+            String name = mEditName.getText().toString();
+            String dataBirth = mTextDateBirth.getText().toString();
 
+            waitResponseUI();
+            mViewModel.editUserData(name, dataBirth);
         } else if (id == R.id.edit_profile_date_birth_card || id == R.id.button_calendar) {
             showDatePicker();
         }
@@ -127,6 +144,5 @@ public class EditUserProfileFragment extends BaseFragment implements View.OnClic
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         mTextDateBirth.setText(DateUtil.getDateFormatted(dayOfMonth, month, year));
-
     }
 }

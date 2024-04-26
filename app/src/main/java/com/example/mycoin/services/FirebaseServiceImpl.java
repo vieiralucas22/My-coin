@@ -2,16 +2,21 @@ package com.example.mycoin.services;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.example.mycoin.R;
 import com.example.mycoin.callbacks.ChangePasswordCallback;
 import com.example.mycoin.callbacks.LoginCallback;
 import com.example.mycoin.callbacks.RegisterCallback;
+import com.example.mycoin.callbacks.UserDataChangeCallback;
 import com.example.mycoin.callbacks.UserExistCallback;
 import com.example.mycoin.constants.Constants;
 import com.example.mycoin.entities.User;
 import com.example.mycoin.gateway.services.FirebaseService;
 import com.example.mycoin.preferences.AppPreferences;
 import com.example.mycoin.utils.LogcatUtil;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
@@ -133,6 +138,27 @@ public class FirebaseServiceImpl implements FirebaseService {
                     if (document.exists()) {
                         mAppPreferences.setCurrentUser(getUser(document));
                     }
+                });
+    }
+
+    @Override
+    public void editUser(String name, String dateBirth, UserDataChangeCallback callback) {
+        User currentUser = mAppPreferences.getCurrentUser();
+
+        Map<String, Object> updates = new HashMap<>();
+        updates.put(Constants.NAME, name);
+        updates.put(Constants.BIRTHDATE, dateBirth);
+
+        mFirebaseFirestore.collection(Constants.USERS).document(currentUser.getEmail())
+                .update(updates).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        currentUser.setName(name);
+                        currentUser.setBirthDate(dateBirth);
+                        mAppPreferences.setCurrentUser(currentUser);
+                        callback.onSuccess();
+                        return;
+                    }
+                    callback.onFailure();
                 });
     }
 

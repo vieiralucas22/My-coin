@@ -6,13 +6,12 @@ import android.util.Log;
 
 import com.example.mycoin.R;
 import com.example.mycoin.callbacks.ChangePasswordCallback;
-import com.example.mycoin.callbacks.UserDataCallback;
+import com.example.mycoin.callbacks.UserDataChangeCallback;
 import com.example.mycoin.entities.User;
 import com.example.mycoin.gateway.services.FirebaseService;
 import com.example.mycoin.preferences.AppPreferences;
 import com.example.mycoin.usecases.interfaces.EditProfile;
 import com.example.mycoin.utils.LogcatUtil;
-import com.example.mycoin.utils.MessageUtil;
 
 import javax.inject.Inject;
 
@@ -31,13 +30,13 @@ public class EditProfileImpl implements EditProfile {
     }
 
     @Override
-    public User loadDataUser(String email) {
+    public User loadDataUser() {
         return mAppPreferences.getCurrentUser();
     }
 
     @Override
-    public void editUserData(String email, UserDataCallback callback) {
-
+    public void editUserData(String name, String dataBirth, UserDataChangeCallback callback) {
+        mFirebaseService.editUser(name, dataBirth, callback);
     }
 
     @Override

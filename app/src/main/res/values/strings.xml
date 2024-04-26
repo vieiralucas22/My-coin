@@ -35,6 +35,7 @@
     <string name="missing_old_password">Old password is missing!</string>
     <string name="old_password_is_wrong">Old password is wrong!</string>
     <string name="change_password_fail">Change password fail!</string>
+    <string name="edit_user_data_fail">Edit user fail!</string>
     <string name="send_link_fail">Fail: link was not send!</string>
 
     <!--Profile-->
@@ -50,6 +51,7 @@
     <string name="naah_just_kidding">Naah, Just Kidding</string>
 
     <!--Success messages-->
-    <string name="change_password_success">Password was changed</string>
+    <string name="change_password_success">Password was changed!</string>
+    <string name="edit_user_data_success">User data edited!</string>
 
 </resources>
