@@ -7,6 +7,7 @@ import static com.example.mycoin.constants.Constants.CURRENT_USER_NAME;
 import static com.example.mycoin.constants.Constants.CURRENT_USER_PASSWORD;
 import static com.example.mycoin.constants.Constants.REMEMBER_ME;
 import static com.example.mycoin.constants.Constants.USER_EMAIL;
+import static com.example.mycoin.constants.Constants.USER_PASSWORD_PREFERENCES;
 
 import android.content.SharedPreferences;
 
@@ -47,6 +48,18 @@ public class AppPreferences {
         mSharedPreferences.edit().remove(USER_EMAIL).apply();
     }
 
+    public void setUserPassword(String value) {
+        mSharedPreferences.edit().putString(USER_PASSWORD_PREFERENCES, value).apply();
+    }
+
+    public String getUserPassword() {
+        return mSharedPreferences.getString(USER_PASSWORD_PREFERENCES, "");
+    }
+
+    public void removeUserPassword() {
+        mSharedPreferences.edit().remove(USER_PASSWORD_PREFERENCES).apply();
+    }
+
     public void setRememberMe(Boolean isChecked) {
         mSharedPreferences.edit().putBoolean(REMEMBER_ME, isChecked).apply();
     }
@@ -63,7 +76,7 @@ public class AppPreferences {
         mSharedPreferences.edit().putString(CURRENT_USER_NAME, currentUser.getName()).apply();
         mSharedPreferences.edit().putString(CURRENT_USER_BIRTH, currentUser.getBirthDate()).apply();
         mSharedPreferences.edit().putString(CURRENT_USER_EMAIL, currentUser.getEmail()).apply();
-        mSharedPreferences.edit().putString(CURRENT_USER_PASSWORD, currentUser.getPassword()).apply();
+        mSharedPreferences.edit().putString(CURRENT_USER_PASSWORD, getUserPassword()).apply();
     }
 
     public User getCurrentUser() {

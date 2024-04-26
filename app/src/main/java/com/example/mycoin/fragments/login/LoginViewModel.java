@@ -37,8 +37,8 @@ public class LoginViewModel extends ViewModel {
 
             @Override
             public void onSuccess() {
+                mAppPreferences.setUserPassword(password);
                 mAppPreferences.setRememberMe(checked);
-                mAppPreferences.setUserEmail(email);
                 mNeedNavigate.postValue(true);
             }
 

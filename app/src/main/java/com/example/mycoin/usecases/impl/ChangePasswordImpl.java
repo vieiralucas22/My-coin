@@ -28,13 +28,13 @@ public class ChangePasswordImpl implements ChangePassword {
     }
 
     @Override
-    public void changeForgotPassword(int confirmationCode, ChangePasswordCallback callback) {
+    public void sendLinkToChangeForgotPassword(int confirmationCode, ChangePasswordCallback callback) {
         if (confirmationCode != mAppPreferences.getConfirmationCode()) {
             callback.onFailure(R.string.code_wrong);
             return;
         }
 
-        mFirebaseService.sendLinkToChangeForgotPassword(callback);
+        mFirebaseService.sendLink(callback);
     }
 
     @Override

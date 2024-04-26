@@ -58,6 +58,7 @@ public class GeneralProfileViewModel extends ViewModel {
     public boolean logout() {
         mAuth.signOut();
         mAppPreferences.removeCurrentUser();
+        mAppPreferences.removeRememberMe();
         return mAuth.getUid() == null;
     }
 }

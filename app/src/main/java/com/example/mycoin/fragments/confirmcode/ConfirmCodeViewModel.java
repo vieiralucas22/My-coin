@@ -42,7 +42,7 @@ public class ConfirmCodeViewModel extends ViewModel {
             return;
         }
 
-        mChangePassword.changeForgotPassword(confirmationCode, new ChangePasswordCallback() {
+        mChangePassword.sendLinkToChangeForgotPassword(confirmationCode, new ChangePasswordCallback() {
             @Override
             public void onSuccess() {
                 mNeedNavigate.postValue(true);
