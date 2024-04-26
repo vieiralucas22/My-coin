@@ -30,7 +30,7 @@ public class ChangePasswordImpl implements ChangePassword {
     @Override
     public void changeForgotPassword(int confirmationCode, ChangePasswordCallback callback) {
         if (confirmationCode != mAppPreferences.getConfirmationCode()) {
-            callback.onFailure();
+            callback.onFailure(R.string.code_wrong);
             return;
         }
 

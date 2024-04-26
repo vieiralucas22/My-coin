@@ -70,6 +70,6 @@ public class LoginViewModel extends ViewModel {
     }
 
     private boolean loginFieldsAreFilled(String email, String password) {
-        return !TextUtils.isEmpty(email) || !TextUtils.isEmpty(password);
+        return !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password);
     }
 }

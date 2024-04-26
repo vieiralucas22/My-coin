@@ -8,6 +8,7 @@ import android.util.Log;
 
 import androidx.lifecycle.ViewModel;
 
+import com.example.mycoin.preferences.AppPreferences;
 import com.example.mycoin.usecases.interfaces.EditProfile;
 import com.example.mycoin.utils.LogcatUtil;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,16 +27,18 @@ public class GeneralProfileViewModel extends ViewModel {
     private final Context mContext;
     private final StorageReference storageReference;
     private final FirebaseStorage storage;
-
+    private final AppPreferences mAppPreferences;
 
 
     @Inject
-    public GeneralProfileViewModel(FirebaseAuth auth, EditProfile editProfile, Context mContext, StorageReference storageReference, FirebaseStorage storage) {
+    public GeneralProfileViewModel(FirebaseAuth auth, EditProfile editProfile, Context mContext,
+            StorageReference storageReference, FirebaseStorage storage, AppPreferences appPreferences) {
         mAuth = auth;
         mEditProfile = editProfile;
         this.mContext = mContext;
         this.storageReference = storageReference;
         this.storage = storage;
+        mAppPreferences = appPreferences;
     }
 
     public void uploadPhoto(Uri uri) {
@@ -54,7 +57,7 @@ public class GeneralProfileViewModel extends ViewModel {
 
     public boolean logout() {
         mAuth.signOut();
-
+        mAppPreferences.removeCurrentUser();
         return mAuth.getUid() == null;
     }
 }

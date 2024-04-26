@@ -32,6 +32,10 @@
     <string name="email_invalid">This email is not valid!</string>
     <string name="code_wrong">Confirmation code is wrong!</string>
     <string name="code_invalid">Confirmation code is invalid!</string>
+    <string name="missing_old_password">Old password is missing!</string>
+    <string name="old_password_is_wrong">Old password is wrong!</string>
+    <string name="change_password_fail">Change password fail!</string>
+    <string name="send_link_fail">Fail: link was not send!</string>
 
     <!--Profile-->
     <string name="position_number">1º </string>
@@ -44,5 +48,8 @@
     <string name="old_password">Old password</string>
     <string name="are_you_sure_that_you_wanna_logout">Are you sure that you wanna logout?</string>
     <string name="naah_just_kidding">Naah, Just Kidding</string>
+
+    <!--Success messages-->
+    <string name="change_password_success">Password was changed</string>
 
 </resources>

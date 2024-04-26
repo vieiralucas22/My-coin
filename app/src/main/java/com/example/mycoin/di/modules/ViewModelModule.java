@@ -8,6 +8,7 @@ import com.example.mycoin.fragments.confirmcode.ConfirmCodeViewModel;
 import com.example.mycoin.fragments.forgotpassword.ForgotPasswordViewModel;
 import com.example.mycoin.fragments.home.HomeViewModel;
 import com.example.mycoin.fragments.login.LoginViewModel;
+import com.example.mycoin.fragments.profile.changeuserpassword.ChangeUserPasswordViewModel;
 import com.example.mycoin.fragments.profile.editprofile.EditUserProfileViewModel;
 import com.example.mycoin.fragments.profile.generalprofile.GeneralProfileViewModel;
 import com.example.mycoin.fragments.signup.SignUpViewModel;
@@ -57,5 +58,10 @@ public interface ViewModelModule {
     @IntoMap
     @ViewModelKey(HomeViewModel.class)
     ViewModel bindsHomeViewModel(HomeViewModel homeViewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ChangeUserPasswordViewModel.class)
+    ViewModel bindsChangeUserPasswordViewModel(ChangeUserPasswordViewModel changeUserPasswordViewModel);
 
 }

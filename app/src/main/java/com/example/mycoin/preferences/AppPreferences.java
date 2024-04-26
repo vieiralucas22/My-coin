@@ -4,6 +4,7 @@ import static com.example.mycoin.constants.Constants.CONFIRMATION_CODE_KEY;
 import static com.example.mycoin.constants.Constants.CURRENT_USER_BIRTH;
 import static com.example.mycoin.constants.Constants.CURRENT_USER_EMAIL;
 import static com.example.mycoin.constants.Constants.CURRENT_USER_NAME;
+import static com.example.mycoin.constants.Constants.CURRENT_USER_PASSWORD;
 import static com.example.mycoin.constants.Constants.REMEMBER_ME;
 import static com.example.mycoin.constants.Constants.USER_EMAIL;
 
@@ -62,6 +63,7 @@ public class AppPreferences {
         mSharedPreferences.edit().putString(CURRENT_USER_NAME, currentUser.getName()).apply();
         mSharedPreferences.edit().putString(CURRENT_USER_BIRTH, currentUser.getBirthDate()).apply();
         mSharedPreferences.edit().putString(CURRENT_USER_EMAIL, currentUser.getEmail()).apply();
+        mSharedPreferences.edit().putString(CURRENT_USER_PASSWORD, currentUser.getPassword()).apply();
     }
 
     public User getCurrentUser() {
@@ -69,6 +71,7 @@ public class AppPreferences {
         user.setName(mSharedPreferences.getString(CURRENT_USER_NAME, ""));
         user.setEmail(mSharedPreferences.getString(CURRENT_USER_EMAIL, ""));
         user.setBirthDate(mSharedPreferences.getString(CURRENT_USER_BIRTH, ""));
+        user.setPassword(mSharedPreferences.getString(CURRENT_USER_PASSWORD, ""));
         return user;
     }
 
@@ -76,5 +79,6 @@ public class AppPreferences {
         mSharedPreferences.edit().remove(CURRENT_USER_NAME).apply();
         mSharedPreferences.edit().remove(CURRENT_USER_BIRTH).apply();
         mSharedPreferences.edit().remove(CURRENT_USER_EMAIL).apply();
+        mSharedPreferences.edit().remove(CURRENT_USER_PASSWORD).apply();
     }
 }

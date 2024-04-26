@@ -106,9 +106,7 @@ public class ConfirmCodeFragment extends BaseFragment implements View.OnClickLis
             if (navigate) {
                 goLogin(getView());
                 responseArrivedUI();
-                return;
             }
-            MessageUtil.showToast(getContext(), R.string.code_wrong);
         });
 
 

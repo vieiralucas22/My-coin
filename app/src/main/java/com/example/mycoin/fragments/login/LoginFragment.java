@@ -1,8 +1,5 @@
 package com.example.mycoin.fragments.login;
 
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -118,7 +115,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         });
     }
 
-    private void login(View v) {
+    private void login() {
         String email = mEditEmail.getText().toString();
         String password = mEditPassword.getText().toString();
 
@@ -151,7 +148,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         } else if (id == R.id.text_sign_up_login) {
             goSignUpScreen(v);
         } else if (id == R.id.button_login) {
-            login(v);
+            login();
         } else if (id == R.id.button_eye_login) {
             changePasswordVisibility();
         }

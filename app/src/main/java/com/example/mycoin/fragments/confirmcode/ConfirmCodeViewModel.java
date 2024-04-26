@@ -49,7 +49,8 @@ public class ConfirmCodeViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(int messageId) {
+                MessageUtil.showToast(mContext, messageId);
                 mNeedNavigate.postValue(false);
                 mHandleResponseLayout.postValue(false);
             }
