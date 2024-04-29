@@ -6,6 +6,7 @@ public class Constants {
     public static final String EMAIL = "email";
     public static final String PASSWORD = "password";
     public static final String BIRTHDATE = "dateBirth";
+    public static final String PHOTO = "photo";
     public static final String USERS = "Users";
 
     // Email service

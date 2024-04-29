@@ -1,10 +1,9 @@
 package com.example.mycoin.fragments.profile.generalprofile;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -23,6 +22,7 @@ import android.widget.Button;
 import com.example.mycoin.R;
 import com.example.mycoin.fragments.BaseFragment;
 import com.example.mycoin.utils.LogcatUtil;
+import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -40,6 +40,7 @@ public class GeneralProfileFragment extends BaseFragment implements View.OnClick
             new ActivityResultContracts.StartActivityForResult(), result -> {
                 if (result.getResultCode() == Activity.RESULT_OK) {
                     Intent data = result.getData();
+
                     mUserImage.setImageURI(data.getData());
                     mViewModel.uploadPhoto(data.getData());
                 }
@@ -59,7 +60,7 @@ public class GeneralProfileFragment extends BaseFragment implements View.OnClick
         Log.d(TAG, "Enter in user profile fragment");
 
         initComponents(view);
-        mViewModel.loadPhoto(mUserImage);
+        mViewModel.loadPhoto();
         initListeners();
         initObservers();
     }
@@ -87,6 +88,10 @@ public class GeneralProfileFragment extends BaseFragment implements View.OnClick
     }
 
     private void initObservers() {
+        mViewModel.getLoadImage().observe(getViewLifecycleOwner(), imageLink -> {
+            Uri uri = Uri.parse(imageLink);
+            Picasso.get().load(uri).into(mUserImage);
+        });
     }
 
     private void goEditProfileScreen() {

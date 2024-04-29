@@ -105,6 +105,7 @@ public class FirebaseServiceImpl implements FirebaseService {
         newUser.put(Constants.EMAIL, user.getEmail());
         newUser.put(Constants.PASSWORD, user.getPassword());
         newUser.put(Constants.BIRTHDATE, user.getBirthDate());
+        newUser.put(Constants.PHOTO, "");
 
         mFirebaseFirestore.collection(Constants.USERS)
                 .document(user.getEmail())

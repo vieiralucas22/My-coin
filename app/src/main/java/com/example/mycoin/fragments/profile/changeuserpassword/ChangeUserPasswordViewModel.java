@@ -23,15 +23,12 @@ public class ChangeUserPasswordViewModel extends ViewModel {
     private final EditProfile mEditProfile;
     private final Context mContext;
 
-    private final AppPreferences mAppPreferences;
-
     private final MutableLiveData<Boolean> mHandleResponseLayout = new MutableLiveData<>();
 
     @Inject
-    public ChangeUserPasswordViewModel(EditProfile editProfile, Context context, AppPreferences appPreferences) {
+    public ChangeUserPasswordViewModel(EditProfile editProfile, Context context) {
         mEditProfile = editProfile;
         mContext = context;
-        mAppPreferences = appPreferences;
     }
 
     public void changeUserPassword(String oldPassword, String newPassword, String confirmNewPassword) {
