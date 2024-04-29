@@ -1,8 +1,11 @@
 package com.example.mycoin.gateway.services;
 
+import android.net.Uri;
+
 import com.example.mycoin.callbacks.ChangePasswordCallback;
 import com.example.mycoin.callbacks.LoginCallback;
 import com.example.mycoin.callbacks.RegisterCallback;
+import com.example.mycoin.callbacks.UploadPhotoCallback;
 import com.example.mycoin.callbacks.UserDataChangeCallback;
 import com.example.mycoin.entities.User;
 
@@ -14,4 +17,6 @@ public interface FirebaseService {
     void setUserByEmail(String email);
 
     void editUser(String name, String dataBirth, UserDataChangeCallback callback);
+
+    void uploadPhoto(Uri uri, UploadPhotoCallback uploadPhotoCallback);
 }

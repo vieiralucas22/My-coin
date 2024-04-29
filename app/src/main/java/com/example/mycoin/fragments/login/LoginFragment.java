@@ -17,7 +17,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.mycoin.R;
 import com.example.mycoin.fragments.BaseFragment;
@@ -108,7 +107,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
 
         mViewModel.getHandleResponseLayout().observe(getViewLifecycleOwner(), responseSuccess -> {
             if (responseSuccess) {
-                awaitResponseUI();
+                waitResponseUI();
                 return;
             }
             responseArrivedUI();
@@ -123,7 +122,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         mViewModel.login(email, password, mCheckRememberMe.isChecked());
     }
 
-    private void awaitResponseUI() {
+    private void waitResponseUI() {
         mButtonLogin.setVisibility(View.INVISIBLE);
         mProgressBar.setVisibility(View.VISIBLE);
     }

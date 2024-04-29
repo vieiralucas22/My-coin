@@ -1,8 +1,6 @@
 package com.example.mycoin.fragments.signup;
 
 import androidx.cardview.widget.CardView;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;

@@ -1,11 +1,9 @@
 package com.example.mycoin.usecases.impl;
 
 import android.content.Context;
-import android.text.TextUtils;
-import android.util.Log;
+import android.net.Uri;
 
-import com.example.mycoin.R;
-import com.example.mycoin.callbacks.ChangePasswordCallback;
+import com.example.mycoin.callbacks.UploadPhotoCallback;
 import com.example.mycoin.callbacks.UserDataChangeCallback;
 import com.example.mycoin.entities.User;
 import com.example.mycoin.gateway.services.FirebaseService;
@@ -40,38 +38,7 @@ public class EditProfileImpl implements EditProfile {
     }
 
     @Override
-    public void editUserPassword(String oldPassword, String newPassword, String confirmPassword, ChangePasswordCallback callback) {
-
-        User currentUser = mAppPreferences.getCurrentUser();
-
-        Log.d(TAG, currentUser.getPassword());
-
-        if (TextUtils.isEmpty(oldPassword)) {
-            callback.onFailure(R.string.missing_old_password);
-            return;
-        }
-
-        if (!oldPassword.equals(currentUser.getPassword())) {
-            callback.onFailure(R.string.old_password_is_wrong);
-            return;
-        }
-
-        if (TextUtils.isEmpty(newPassword)) {
-            callback.onFailure(R.string.missing_new_password);
-            return;
-        }
-
-        if (TextUtils.isEmpty(confirmPassword)) {
-            callback.onFailure(R.string.missing_confirmation_password);
-            return;
-        }
-
-        if (!newPassword.equals(confirmPassword)) {
-            callback.onFailure(R.string.password_are_different);
-            return;
-        }
-
-        mFirebaseService.changePassword(newPassword, callback);
-
+    public void uploadUserPhoto(Uri uri, UploadPhotoCallback uploadPhotoCallback) {
+        mFirebaseService.uploadPhoto(uri, uploadPhotoCallback);
     }
 }

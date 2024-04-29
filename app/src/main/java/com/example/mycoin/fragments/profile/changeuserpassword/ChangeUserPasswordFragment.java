@@ -60,18 +60,18 @@ public class ChangeUserPasswordFragment extends BaseFragment implements View.OnC
     private void initListeners() {
         mButtonEye.setOnClickListener(this);
         mButtonChangePassword.setOnClickListener(this);
+        mButtonBack.setOnClickListener(this);
     }
 
     private void initObservers() {
         mViewModel.getHandleResponseLayout().observe(getViewLifecycleOwner(), responseSuccess -> {
-            if (!responseSuccess) {
-                responseArrivedUI();
-                return;
-            }
+            responseArrivedUI();
+
+            if (!responseSuccess) return;
+
             mEditOldPassword.setText("");
             mEditNewPassword.setText("");
             mEditConfirmPassword.setText("");
-            responseArrivedUI();
         });
     }
 

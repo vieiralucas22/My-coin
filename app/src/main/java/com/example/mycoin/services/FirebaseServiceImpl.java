@@ -1,13 +1,13 @@
 package com.example.mycoin.services;
 
+import android.net.Uri;
 import android.util.Log;
-
-import androidx.annotation.NonNull;
 
 import com.example.mycoin.R;
 import com.example.mycoin.callbacks.ChangePasswordCallback;
 import com.example.mycoin.callbacks.LoginCallback;
 import com.example.mycoin.callbacks.RegisterCallback;
+import com.example.mycoin.callbacks.UploadPhotoCallback;
 import com.example.mycoin.callbacks.UserDataChangeCallback;
 import com.example.mycoin.callbacks.UserExistCallback;
 import com.example.mycoin.constants.Constants;
@@ -15,14 +15,13 @@ import com.example.mycoin.entities.User;
 import com.example.mycoin.gateway.services.FirebaseService;
 import com.example.mycoin.preferences.AppPreferences;
 import com.example.mycoin.utils.LogcatUtil;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,13 +33,15 @@ public class FirebaseServiceImpl implements FirebaseService {
 
     private final FirebaseAuth mAuth;
     private final FirebaseFirestore mFirebaseFirestore;
+    private final StorageReference mStorageReference;
     private final AppPreferences mAppPreferences;
 
     @Inject
     public FirebaseServiceImpl(FirebaseAuth auth, FirebaseFirestore firebaseFirestore,
-                               AppPreferences appPreferences) {
+                               AppPreferences appPreferences, StorageReference storageReference) {
         mAuth = auth;
         mFirebaseFirestore = firebaseFirestore;
+        mStorageReference = storageReference;
         mAppPreferences = appPreferences;
     }
 
@@ -51,7 +52,7 @@ public class FirebaseServiceImpl implements FirebaseService {
                 loginCallback.onSuccess();
                 return;
             }
-            loginCallback.onFailure();
+            loginCallback.onFailure(R.string.login_fail);
         });
     }
 
@@ -64,7 +65,7 @@ public class FirebaseServiceImpl implements FirebaseService {
                         createUser(user);
                         return;
                     }
-                    registerCallback.onFailure();
+                    registerCallback.onFailure(R.string.register_fail);
                 });
     }
 
@@ -161,6 +162,37 @@ public class FirebaseServiceImpl implements FirebaseService {
                     }
                     callback.onFailure();
                 });
+    }
+
+    @Override
+    public void uploadPhoto(Uri uri, UploadPhotoCallback uploadPhotoCallback) {
+        String path = "UsersImages/" + mAuth.getUid();
+        User user = mAppPreferences.getCurrentUser();
+
+        StorageReference reference = mStorageReference.child(path);
+
+        reference.putFile(uri).addOnSuccessListener(task -> {
+            task.getStorage().getDownloadUrl().addOnCompleteListener(uri1 -> {
+                if (uri1.isSuccessful()) {
+                    String  downloadUri= uri1.getResult().toString();
+                    HashMap<String, Object> map = new HashMap<>();
+                    map.put(Constants.PHOTO, downloadUri);
+                    mFirebaseFirestore.collection(Constants.USERS).document(user.getEmail())
+                            .update(map).addOnCompleteListener(uploadFirestore -> {
+                                if (uploadFirestore.isSuccessful()) {
+                                    Log.d(TAG, "upload done");
+                                    uploadPhotoCallback.onSuccess();
+                                } else {
+                                    Log.d(TAG, "upload fail");
+                                    uploadPhotoCallback.onFailure(R.string.upload_fail);
+                                }
+                            });
+                }
+            });
+
+        }).addOnFailureListener(e -> {
+            Log.d(TAG, e.getMessage());
+        });
     }
 
     private User getUser(DocumentSnapshot document) {

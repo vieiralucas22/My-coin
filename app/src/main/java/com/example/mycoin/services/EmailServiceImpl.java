@@ -14,9 +14,6 @@ import android.util.Log;
 import com.example.mycoin.gateway.services.EmailService;
 import com.example.mycoin.preferences.AppPreferences;
 import com.example.mycoin.utils.LogcatUtil;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.EmailAuthCredential;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Properties;
 
@@ -64,7 +61,7 @@ public class EmailServiceImpl implements EmailService {
 
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(userEmail));
 
-            message.setSubject("Email de Teste com JavaMail");
+            message.setSubject("Email de verificação!");
 
             String htmlContent = "<h1 style='color: blue;'>Olá,</h1>"
                     + "<p style='font-size: 18px;'>Aqui está seu código!</p>"

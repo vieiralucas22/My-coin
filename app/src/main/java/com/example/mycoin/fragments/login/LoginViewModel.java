@@ -43,10 +43,8 @@ public class LoginViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure() {
-                if (loginFieldsAreFilled(email, password)) {
-                    MessageUtil.showToast(mContext, R.string.login_fail);
-                }
+            public void onFailure(int messageError) {
+                MessageUtil.showToast(mContext, messageError);
                 mNeedNavigate.postValue(false);
                 mHandleResponseLayout.setValue(false);
             }
@@ -67,9 +65,5 @@ public class LoginViewModel extends ViewModel {
 
     public boolean rememberMeWasChecked() {
         return mAppPreferences.getRememberMe();
-    }
-
-    private boolean loginFieldsAreFilled(String email, String password) {
-        return !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password);
     }
 }

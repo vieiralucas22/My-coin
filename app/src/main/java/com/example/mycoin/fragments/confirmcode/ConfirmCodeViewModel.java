@@ -20,7 +20,6 @@ import javax.inject.Inject;
 public class ConfirmCodeViewModel extends ViewModel {
     public static final String TAG = LogcatUtil.getTag(ConfirmCodeViewModel.class);
 
-    private final AppPreferences mAppPreferences;
     private final ChangePassword mChangePassword;
     private final Context mContext;
 
@@ -28,9 +27,7 @@ public class ConfirmCodeViewModel extends ViewModel {
     private final MutableLiveData<Boolean> mHandleResponseLayout = new MutableLiveData<>();
 
     @Inject
-    public ConfirmCodeViewModel(AppPreferences appPreferences, ChangePassword changePassword,
-                                Context context) {
-        mAppPreferences = appPreferences;
+    public ConfirmCodeViewModel(ChangePassword changePassword, Context context) {
         mChangePassword = changePassword;
         mContext = context;
     }
@@ -70,9 +67,9 @@ public class ConfirmCodeViewModel extends ViewModel {
     }
 
     public boolean codeIsValid(String code1, String code2, String code3, String code4) {
-        return !TextUtils.isEmpty(String.valueOf(code1)) && !TextUtils.isEmpty(String.valueOf(code2))
-                && !TextUtils.isEmpty(String.valueOf(code3)) &&
-                !TextUtils.isEmpty(String.valueOf(code4));
+        return !TextUtils.isEmpty(String.valueOf(code1))
+                && !TextUtils.isEmpty(String.valueOf(code2))
+                && !TextUtils.isEmpty(String.valueOf(code3))
+                && !TextUtils.isEmpty(String.valueOf(code4));
     }
-
 }

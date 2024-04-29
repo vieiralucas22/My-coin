@@ -2,7 +2,6 @@ package com.example.mycoin.usecases.impl;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.example.mycoin.R;
 import com.example.mycoin.callbacks.RegisterCallback;
@@ -12,8 +11,6 @@ import com.example.mycoin.usecases.interfaces.Register;
 import com.example.mycoin.utils.DateUtil;
 import com.example.mycoin.utils.LogcatUtil;
 import com.example.mycoin.utils.MessageUtil;
-
-import java.util.Calendar;
 
 import javax.inject.Inject;
 
@@ -33,27 +30,23 @@ public class RegisterImpl implements Register {
     @Override
     public void signUp(User user, RegisterCallback registerCallback) {
         if (TextUtils.isEmpty(user.getName())) {
-            MessageUtil.showToast(mContext, R.string.missing_name);
-            registerCallback.onFailure();
+            registerCallback.onFailure(R.string.missing_name);
             return;
         }
 
         if (TextUtils.isEmpty(user.getEmail())) {
-            MessageUtil.showToast(mContext, R.string.missing_email);
-            registerCallback.onFailure();
+            registerCallback.onFailure(R.string.missing_email);
             return;
         }
 
         if (user.getBirthDate().equals("Date of Birth")
                 || DateUtil.isValidBirthDate(user.getBirthDate())) {
-            MessageUtil.showToast(mContext, R.string.select_valid_date);
-            registerCallback.onFailure();
+            registerCallback.onFailure(R.string.select_valid_date);
             return;
         }
 
         if (TextUtils.isEmpty(user.getPassword())) {
-            MessageUtil.showToast(mContext, R.string.missing_password);
-            registerCallback.onFailure();
+            registerCallback.onFailure(R.string.missing_password);
             return;
         }
 

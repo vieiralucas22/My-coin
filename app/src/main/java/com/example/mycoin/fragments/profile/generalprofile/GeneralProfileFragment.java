@@ -32,11 +32,11 @@ public class GeneralProfileFragment extends BaseFragment implements View.OnClick
     private Button mButtonBack, mButtonCamera, mButtonCancel, mButtonConfirm;
     private ViewGroup mEditUserProfileArea, mChangePasswordArea, mLogoutArea;
     private CircleImageView mUserImage;
-    private GeneralProfileViewModel mViewModel;
-
     private Dialog mDialog;
 
-    ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
+    private GeneralProfileViewModel mViewModel;
+
+    private final ActivityResultLauncher<Intent> pickPhotoResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(), result -> {
                 if (result.getResultCode() == Activity.RESULT_OK) {
                     Intent data = result.getData();
@@ -128,6 +128,11 @@ public class GeneralProfileFragment extends BaseFragment implements View.OnClick
         }
     }
 
+    private void pickPhotoToProfileFromGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        pickPhotoResultLauncher.launch(intent);
+    }
+
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.button_back) {
@@ -137,8 +142,7 @@ public class GeneralProfileFragment extends BaseFragment implements View.OnClick
         } else if (v.getId() == R.id.change_password_area) {
             goChangePasswordScreen();
         } else if (v.getId() == R.id.button_change_photo) {
-            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-            someActivityResultLauncher.launch(intent);
+            pickPhotoToProfileFromGallery();
         } else if (v.getId() == R.id.logout_area) {
             mDialog.show();
         } else if (v.getId() == R.id.button_cancel) {

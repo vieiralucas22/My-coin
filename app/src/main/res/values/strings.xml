@@ -53,5 +53,7 @@
     <!--Success messages-->
     <string name="change_password_success">Password was changed!</string>
     <string name="edit_user_data_success">User data edited!</string>
+    <string name="upload_success">Upload was success!</string>
+    <string name="upload_fail">Upload fail!</string>
 
 </resources>

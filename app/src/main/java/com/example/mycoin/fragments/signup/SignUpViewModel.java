@@ -2,12 +2,9 @@ package com.example.mycoin.fragments.signup;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.view.View;
-import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import androidx.navigation.Navigation;
 
 import com.example.mycoin.R;
 import com.example.mycoin.callbacks.RegisterCallback;
@@ -42,10 +39,8 @@ public class SignUpViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure() {
-                if (registerFieldsAreFilled(email, password, date, name)) {
-                    MessageUtil.showToast(mContext, R.string.register_fail);
-                }
+            public void onFailure(int messageError) {
+                MessageUtil.showToast(mContext, messageError);
                 mSignUpSuccessful.postValue(false);
                 mHandleResponseLayout.postValue(false);
             }
@@ -62,11 +57,6 @@ public class SignUpViewModel extends ViewModel {
 
     public void setUpUIToWaitResponse() {
         mHandleResponseLayout.setValue(true);
-    }
-
-    private boolean registerFieldsAreFilled(String email, String password, String date, String name) {
-        return !TextUtils.isEmpty(email) || !TextUtils.isEmpty(password) ||
-                !date.equals("Date of Birth") || !TextUtils.isEmpty(name);
     }
 
 }

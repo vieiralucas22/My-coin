@@ -1,8 +1,5 @@
 package com.example.mycoin.fragments.forgotpassword;
 
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,7 +15,6 @@ import android.widget.EditText;
 
 import com.example.mycoin.R;
 import com.example.mycoin.fragments.BaseFragment;
-import com.example.mycoin.fragments.login.LoginFragment;
 import com.example.mycoin.utils.LogcatUtil;
 import com.example.mycoin.utils.MessageUtil;
 

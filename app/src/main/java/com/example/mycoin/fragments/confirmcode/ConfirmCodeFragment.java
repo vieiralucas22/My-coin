@@ -7,7 +7,6 @@ import androidx.annotation.Nullable;
 import androidx.navigation.Navigation;
 
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,7 +20,6 @@ import com.example.mycoin.R;
 import com.example.mycoin.fragments.BaseFragment;
 import com.example.mycoin.fragments.login.LoginFragment;
 import com.example.mycoin.utils.LogcatUtil;
-import com.example.mycoin.utils.MessageUtil;
 
 public class ConfirmCodeFragment extends BaseFragment implements View.OnClickListener {
 
@@ -109,10 +107,9 @@ public class ConfirmCodeFragment extends BaseFragment implements View.OnClickLis
             }
         });
 
-
         mViewModel.getHandleResponseLayout().observe(getViewLifecycleOwner(), responseSuccess -> {
             if (responseSuccess) {
-                awaitResponseUI();
+                waitResponseUI();
                 return;
             }
             responseArrivedUI();
@@ -124,7 +121,7 @@ public class ConfirmCodeFragment extends BaseFragment implements View.OnClickLis
                 .navigate(R.id.action_confirmCodeFragment_to_loginFragment);
     }
 
-    private int formatConfirmationCode() {
+    private int confirmationCodeFormatted() {
         String fieldOne = mEditTextFieldOne.getText().toString();
         String fieldTwo = mEditTextFieldTwo.getText().toString();
         String fieldThree = mEditTextFieldThree.getText().toString();
@@ -138,7 +135,7 @@ public class ConfirmCodeFragment extends BaseFragment implements View.OnClickLis
         return -1;
     }
 
-    private void awaitResponseUI() {
+    private void waitResponseUI() {
         mButtonConfirm.setVisibility(View.INVISIBLE);
         mProgressBar.setVisibility(View.VISIBLE);
     }
@@ -154,10 +151,9 @@ public class ConfirmCodeFragment extends BaseFragment implements View.OnClickLis
 
         if (id == R.id.button_confirm) {
             mViewModel.setUpUIToWaitResponse();
-            mViewModel.confirmCode(formatConfirmationCode());
+            mViewModel.confirmCode(confirmationCodeFormatted());
         } else if (id == R.id.button_back) {
             backScreen(v);
         }
     }
-
 }

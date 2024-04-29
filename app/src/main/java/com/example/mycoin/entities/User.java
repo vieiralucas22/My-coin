@@ -1,7 +1,5 @@
 package com.example.mycoin.entities;
 
-import java.util.Date;
-
 public class User {
 
     private String mName;
