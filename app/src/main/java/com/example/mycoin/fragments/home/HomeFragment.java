@@ -6,13 +6,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.navigation.Navigation;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mycoin.R;
-import com.example.mycoin.databinding.FragmentForgotPasswordBinding;
 import com.example.mycoin.databinding.FragmentHomeBinding;
 import com.example.mycoin.databinding.NavigationMenuBinding;
 import com.example.mycoin.fragments.BaseFragment;
@@ -59,6 +57,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private void setCurrentUserData() {
         mViewModel.setCurrentUser();
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mBinding = null;
+    }
+
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.view_person) {

@@ -19,7 +19,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.mycoin.R;
-import com.example.mycoin.constants.Constants;
 import com.example.mycoin.databinding.FragmentLoginBinding;
 import com.example.mycoin.fragments.BaseFragment;
 import com.example.mycoin.utils.LogcatUtil;
@@ -139,9 +138,9 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d(TAG, "onDestroy!");
+    public void onDestroyView() {
+        super.onDestroyView();
+        mBinding = null;
     }
 
     @Override

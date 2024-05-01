@@ -150,6 +150,12 @@ public class ConfirmCodeFragment extends BaseFragment implements View.OnClickLis
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mBinding = null;
+    }
+
+    @Override
     public void onClick(View v) {
         int id = v.getId();
 

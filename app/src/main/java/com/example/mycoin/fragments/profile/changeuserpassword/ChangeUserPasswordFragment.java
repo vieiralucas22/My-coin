@@ -16,7 +16,6 @@ import android.widget.ProgressBar;
 
 import com.example.mycoin.R;
 import com.example.mycoin.databinding.FragmentChangeUserPasswordBinding;
-import com.example.mycoin.databinding.FragmentLoginBinding;
 import com.example.mycoin.fragments.BaseFragment;
 
 public class ChangeUserPasswordFragment extends BaseFragment implements View.OnClickListener {
@@ -99,6 +98,12 @@ public class ChangeUserPasswordFragment extends BaseFragment implements View.OnC
     private void responseArrivedUI() {
         mButtonChangePassword.setVisibility(View.VISIBLE);
         mProgressBar.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mBinding = null;
     }
 
     @Override

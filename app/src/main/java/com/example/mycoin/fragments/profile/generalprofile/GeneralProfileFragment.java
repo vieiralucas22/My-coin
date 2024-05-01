@@ -21,7 +21,6 @@ import android.widget.Button;
 
 import com.example.mycoin.R;
 import com.example.mycoin.databinding.FragmentGeneralProfileBinding;
-import com.example.mycoin.databinding.FragmentSignUpBinding;
 import com.example.mycoin.fragments.BaseFragment;
 import com.example.mycoin.utils.LogcatUtil;
 import com.squareup.picasso.Picasso;
@@ -136,6 +135,12 @@ public class GeneralProfileFragment  extends BaseFragment implements View.OnClic
     private void pickPhotoToProfileFromGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         pickPhotoResultLauncher.launch(intent);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mBinding = null;
     }
 
     @Override

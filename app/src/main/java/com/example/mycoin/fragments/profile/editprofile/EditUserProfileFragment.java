@@ -6,8 +6,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 
 import android.text.TextUtils;
 import android.util.Log;
@@ -21,14 +19,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.mycoin.R;
-import com.example.mycoin.databinding.FragmentChangeUserPasswordBinding;
 import com.example.mycoin.databinding.FragmentEditUserProfileBinding;
-import com.example.mycoin.entities.User;
 import com.example.mycoin.fragments.BaseFragment;
-import com.example.mycoin.fragments.signup.SignUpFragment;
 import com.example.mycoin.utils.DateUtil;
 import com.example.mycoin.utils.LogcatUtil;
-import com.example.mycoin.utils.MessageUtil;
 
 import java.util.Calendar;
 
@@ -126,6 +120,12 @@ public class EditUserProfileFragment extends BaseFragment implements View.OnClic
     private void responseArrivedUI() {
         mButtonEditProfile.setVisibility(View.VISIBLE);
         mProgressBar.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mBinding = null;
     }
 
     @Override

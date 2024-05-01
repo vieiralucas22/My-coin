@@ -75,6 +75,12 @@ public class ForgotPasswordFragment extends BaseFragment implements View.OnClick
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mBinding = null;
+    }
+
+    @Override
     public void onClick(View v) {
         int id = v.getId();
 
