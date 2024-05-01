@@ -1,10 +1,11 @@
 package com.example.mycoin.fragments.login;
 
+import static com.example.mycoin.utils.NavigationUtil.navigate;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.navigation.Navigation;
 
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -19,6 +20,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.mycoin.R;
+import com.example.mycoin.constants.Constants;
+import com.example.mycoin.databinding.FragmentLoginBinding;
 import com.example.mycoin.fragments.BaseFragment;
 import com.example.mycoin.utils.LogcatUtil;
 
@@ -32,13 +35,16 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
     private EditText mEditPassword, mEditEmail;
     private CheckBox mCheckRememberMe;
     private ProgressBar mProgressBar;
+    private FragmentLoginBinding mBinding;
 
     private boolean mIsPasswordVisible = false;
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_login, container, false);
+        mBinding = FragmentLoginBinding.inflate(inflater, container, false);
+        return mBinding.getRoot();
     }
 
     @Override
@@ -46,23 +52,26 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         super.onViewCreated(view, savedInstanceState);
         mViewModel = getViewModel(LoginViewModel.class);
 
-        if (mViewModel.rememberMeWasChecked()) goHomeScreen(view);
+        if (mViewModel.rememberMeWasChecked()) {
+            navigate(view, Constants.LOGIN_FRAGMENT, Constants.HOME_FRAGMENT);
+        }
+
         Log.d(TAG, "Enter in login fragment");
 
-        initComponents(view);
+        initComponents();
         initListeners();
         initObservers();
     }
 
-    private void initComponents(View view) {
-        mTextForgotPassword = view.findViewById(R.id.text_forgot_password_login);
-        mTextSignUp = view.findViewById(R.id.text_sign_up_login);
-        mButtonLogin = view.findViewById(R.id.button_login);
-        mButtonEye = view.findViewById(R.id.button_eye_login);
-        mEditPassword = view.findViewById(R.id.edit_password_login);
-        mEditEmail = view.findViewById(R.id.edit_email_login);
-        mCheckRememberMe = view.findViewById(R.id.checkbox_remember_me);
-        mProgressBar = view.findViewById(R.id.progressBar);
+    private void initComponents() {
+        mTextForgotPassword = mBinding.textForgotPasswordLogin;
+        mTextSignUp = mBinding.textSignUpLogin;
+        mButtonLogin = mBinding.buttonLogin;
+        mButtonEye = mBinding.buttonEyeLogin;
+        mEditPassword = mBinding.editPasswordLogin;
+        mEditEmail = mBinding.editEmailLogin;
+        mCheckRememberMe = mBinding.checkboxRememberMe;
+        mProgressBar = mBinding.progressBar;
     }
 
     private void initListeners() {
@@ -70,19 +79,6 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         mTextSignUp.setOnClickListener(this);
         mButtonLogin.setOnClickListener(this);
         mButtonEye.setOnClickListener(this);
-    }
-
-    private void goHomeScreen(View v) {
-        Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_homeFragment);
-    }
-
-    private void goForgotPasswordScreen(View v) {
-        Navigation.findNavController(v)
-                .navigate(R.id.action_loginFragment_to_forgotPasswordFragment);
-    }
-
-    private void goSignUpScreen(View v) {
-        Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_signUpFragment);
     }
 
     private void changePasswordVisibility() {
@@ -100,7 +96,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
     private void initObservers() {
         mViewModel.getNeedNavigate().observe(getViewLifecycleOwner(), navigate -> {
             if (navigate) {
-                goHomeScreen(getView());
+                navigate(getView(), Constants.LOGIN_FRAGMENT, Constants.HOME_FRAGMENT);;
                 responseArrivedUI();
             }
         });
@@ -143,9 +139,9 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         int id = v.getId();
 
         if (id == R.id.text_forgot_password_login) {
-            goForgotPasswordScreen(v);
+            navigate(v, Constants.LOGIN_FRAGMENT, Constants.FORGOT_PASSWORD_FRAGMENT);
         } else if (id == R.id.text_sign_up_login) {
-            goSignUpScreen(v);
+            navigate(v, Constants.LOGIN_FRAGMENT, Constants.SIGN_UP_FRAGMENT);
         } else if (id == R.id.button_login) {
             login();
         } else if (id == R.id.button_eye_login) {

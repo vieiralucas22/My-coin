@@ -21,6 +21,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.mycoin.R;
+import com.example.mycoin.databinding.FragmentChangeUserPasswordBinding;
+import com.example.mycoin.databinding.FragmentEditUserProfileBinding;
 import com.example.mycoin.entities.User;
 import com.example.mycoin.fragments.BaseFragment;
 import com.example.mycoin.fragments.signup.SignUpFragment;
@@ -40,17 +42,15 @@ public class EditUserProfileFragment extends BaseFragment implements View.OnClic
     private CardView mCardDatePicker;
     private EditUserProfileViewModel mViewModel;
     private ProgressBar mProgressBar;
+    private FragmentEditUserProfileBinding mBinding;
 
     private String userBirth;
-
-    public static EditUserProfileFragment newInstance() {
-        return new EditUserProfileFragment();
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_edit_user_profile, container, false);
+        mBinding = FragmentEditUserProfileBinding.inflate(inflater, container, false);
+        return mBinding.getRoot();
     }
 
     @Override
@@ -58,21 +58,22 @@ public class EditUserProfileFragment extends BaseFragment implements View.OnClic
         super.onViewCreated(view, savedInstanceState);
         Log.d(TAG, "Enter in edit profile fragment");
 
-        initComponents(view);
+        mViewModel = getViewModel(EditUserProfileViewModel.class);
+
+        initComponents();
         loadUserData();
         initListeners();
         initObservers();
     }
 
-    private void initComponents(View view) {
-        mViewModel = getViewModel(EditUserProfileViewModel.class);
-        mEditName = view.findViewById(R.id.edit_profile_name);
-        mTextDateBirth = view.findViewById(R.id.text_date);
-        mButtonEditProfile = view.findViewById(R.id.button_edit_profile);
-        mButtonBack = view.findViewById(R.id.button_back);
-        mCardDatePicker = view.findViewById(R.id.edit_profile_date_birth_card);
-        mButtonDatePicker = view.findViewById(R.id.button_calendar);
-        mProgressBar = view.findViewById(R.id.progressBar);
+    private void initComponents() {
+        mEditName = mBinding.editProfileName;
+        mTextDateBirth = mBinding.textDate;
+        mButtonEditProfile = mBinding.buttonEditProfile;
+        mButtonBack = mBinding.buttonBack;
+        mCardDatePicker = mBinding.editProfileDateBirthCard;
+        mButtonDatePicker = mBinding.buttonCalendar;
+        mProgressBar = mBinding.progressBar;
     }
 
     private void initListeners() {

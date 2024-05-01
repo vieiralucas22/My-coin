@@ -22,6 +22,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.mycoin.R;
+import com.example.mycoin.databinding.FragmentForgotPasswordBinding;
+import com.example.mycoin.databinding.FragmentHomeBinding;
+import com.example.mycoin.databinding.FragmentSignUpBinding;
 import com.example.mycoin.fragments.BaseFragment;
 import com.example.mycoin.utils.DateUtil;
 import com.example.mycoin.utils.LogcatUtil;
@@ -38,6 +41,7 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
     private CardView mCardDatePicker;
     private EditText mEditPassword, mEditEmail, mEditName;
     private ProgressBar mProgressBar;
+    private FragmentSignUpBinding mBinding;
 
     private boolean mIsPasswordVisible = false;
 
@@ -46,7 +50,8 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_sign_up, container, false);
+        mBinding = FragmentSignUpBinding.inflate(inflater, container, false);
+        return mBinding.getRoot();
     }
 
     @Override
@@ -54,23 +59,24 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
         super.onViewCreated(view, savedInstanceState);
         Log.d(TAG, "Enter in sign up fragment");
 
-        initComponents(view);
+        mViewModel = getViewModel(SignUpViewModel.class);
+
+        initComponents();
         initListeners();
         initObservers();
     }
 
-    private void initComponents(View view) {
-        mViewModel = getViewModel(SignUpViewModel.class);
-        mButtonBack = view.findViewById(R.id.button_back);
-        mCardDatePicker = view.findViewById(R.id.card_date);
-        mTextDate = view.findViewById(R.id.text_date);
-        mButtonDatePicker = view.findViewById(R.id.button_calendar);
-        mButtonEye = view.findViewById(R.id.button_eye);
-        mEditPassword = view.findViewById(R.id.edit_password);
-        mButtonSignUp = view.findViewById(R.id.button_sign);
-        mEditEmail = view.findViewById(R.id.edit_email_sign_up);
-        mEditName = view.findViewById(R.id.edit_username);
-        mProgressBar = view.findViewById(R.id.progressBar);
+    private void initComponents() {
+        mButtonBack = mBinding.buttonBack;
+        mCardDatePicker = mBinding.cardDate;
+        mTextDate = mBinding.textDate;
+        mButtonDatePicker = mBinding.buttonCalendar;
+        mButtonEye = mBinding.buttonEye;
+        mEditPassword = mBinding.editPassword;
+        mButtonSignUp = mBinding.buttonSign;
+        mEditEmail = mBinding.editEmailSignUp;
+        mEditName = mBinding.editUsername;
+        mProgressBar = mBinding.progressBar;
     }
 
     private void initListeners() {

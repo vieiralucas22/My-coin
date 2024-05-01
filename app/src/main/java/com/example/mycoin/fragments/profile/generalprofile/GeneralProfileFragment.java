@@ -20,19 +20,23 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.mycoin.R;
+import com.example.mycoin.databinding.FragmentGeneralProfileBinding;
+import com.example.mycoin.databinding.FragmentSignUpBinding;
 import com.example.mycoin.fragments.BaseFragment;
 import com.example.mycoin.utils.LogcatUtil;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class GeneralProfileFragment extends BaseFragment implements View.OnClickListener {
+public class GeneralProfileFragment  extends BaseFragment implements View.OnClickListener {
     public static final String TAG = LogcatUtil.getTag(GeneralProfileFragment.class);
 
     private Button mButtonBack, mButtonCamera, mButtonCancel, mButtonConfirm;
     private ViewGroup mEditUserProfileArea, mChangePasswordArea, mLogoutArea;
     private CircleImageView mUserImage;
     private Dialog mDialog;
+
+    private FragmentGeneralProfileBinding mBinding;
 
     private GeneralProfileViewModel mViewModel;
 
@@ -49,7 +53,8 @@ public class GeneralProfileFragment extends BaseFragment implements View.OnClick
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_general_profile, container, false);
+        mBinding = FragmentGeneralProfileBinding.inflate(inflater, container, false);
+        return mBinding.getRoot();
     }
 
     @Override
@@ -59,19 +64,19 @@ public class GeneralProfileFragment extends BaseFragment implements View.OnClick
 
         Log.d(TAG, "Enter in user profile fragment");
 
-        initComponents(view);
+        initComponents();
         mViewModel.loadPhoto();
         initListeners();
         initObservers();
     }
 
-    private void initComponents(View view) {
-        mButtonBack = view.findViewById(R.id.button_back);
-        mEditUserProfileArea = view.findViewById(R.id.edit_profile_area);
-        mChangePasswordArea = view.findViewById(R.id.change_password_area);
-        mLogoutArea = view.findViewById(R.id.logout_area);
-        mButtonCamera = view.findViewById(R.id.button_change_photo);
-        mUserImage = view.findViewById(R.id.user_image);
+    private void initComponents() {
+        mButtonBack = mBinding.buttonBack;
+        mEditUserProfileArea = mBinding.editProfileArea;
+        mChangePasswordArea = mBinding.changePasswordArea;
+        mLogoutArea = mBinding.logoutArea;
+        mButtonCamera = mBinding.buttonChangePhoto;
+        mUserImage = mBinding.userImage;
         setUpAlertDialogLogout();
         mButtonCancel = mDialog.findViewById(R.id.button_cancel);
         mButtonConfirm = mDialog.findViewById(R.id.button_confirm_logout);

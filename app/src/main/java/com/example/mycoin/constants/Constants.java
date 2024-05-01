@@ -29,4 +29,14 @@ public class Constants {
     public static final String CURRENT_USER_NAME = "current_user_name";
     public static final String CURRENT_USER_PASSWORD = "current_user_password";
 
+    // Navigation
+    public static final String LOGIN_FRAGMENT = "LOGIN_FRAGMENT";
+    public static final String SIGN_UP_FRAGMENT = "SIGN_UP_FRAGMENT";
+    public static final String CONFIRMATION_CODE_FRAGMENT = "CONFIRMATION_CODE_FRAGMENT";
+    public static final String FORGOT_PASSWORD_FRAGMENT = "FORGOT_PASSWORD_FRAGMENT";
+    public static final String HOME_FRAGMENT = "HOME_FRAGMENT";
+    public static final String CHANGE_PASSWORD_FRAGMENT = "CHANGE_PASSWORD_FRAGMENT";
+    public static final String EDIT_USER_FRAGMENT = "EDIT_USER_FRAGMENT";
+    public static final String GENERAL_PROFILE_FRAGMENT = "GENERAL_PROFILE_FRAGMENT";
+
 }

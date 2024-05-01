@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.example.mycoin.R;
+import com.example.mycoin.databinding.FragmentChangeUserPasswordBinding;
+import com.example.mycoin.databinding.FragmentLoginBinding;
 import com.example.mycoin.fragments.BaseFragment;
 
 public class ChangeUserPasswordFragment extends BaseFragment implements View.OnClickListener {
@@ -23,38 +25,36 @@ public class ChangeUserPasswordFragment extends BaseFragment implements View.OnC
     private EditText mEditOldPassword, mEditNewPassword, mEditConfirmPassword;
     private View mMenu;
     private ProgressBar mProgressBar;
+    private FragmentChangeUserPasswordBinding mBinding;
 
     private ChangeUserPasswordViewModel mViewModel;
 
     private boolean mIsPasswordVisible = false;
 
-    public static ChangeUserPasswordFragment newInstance() {
-        return new ChangeUserPasswordFragment();
-    }
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_change_user_password, container, false);
+        mBinding = FragmentChangeUserPasswordBinding.inflate(inflater, container, false);
+        return mBinding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mViewModel = getViewModel(ChangeUserPasswordViewModel.class);
-        initComponents(view);
+        initComponents();
         initListeners();
         initObservers();
     }
 
-    private void initComponents(View view) {
-        mButtonBack = view.findViewById(R.id.button_back);
-        mButtonEye = view.findViewById(R.id.button_eye_change_password);
-        mButtonChangePassword = view.findViewById(R.id.button_change_user_password);
-        mEditOldPassword = view.findViewById(R.id.edit_old_password);
-        mEditNewPassword = view.findViewById(R.id.edit_new_password_user);
-        mEditConfirmPassword = view.findViewById(R.id.edit_confirm_new_password_user);
-        mProgressBar = view.findViewById(R.id.progressBar);
+    private void initComponents() {
+        mButtonBack = mBinding.buttonBack;
+        mButtonEye = mBinding.buttonEyeChangePassword;
+        mButtonChangePassword = mBinding.buttonChangeUserPassword;
+        mEditOldPassword = mBinding.editOldPassword;
+        mEditNewPassword = mBinding.editNewPasswordUser;
+        mEditConfirmPassword = mBinding.editConfirmNewPasswordUser;
+        mProgressBar = mBinding.progressBar;
     }
 
     private void initListeners() {

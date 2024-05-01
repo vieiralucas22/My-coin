@@ -1,5 +1,7 @@
 package com.example.mycoin.fragments.forgotpassword;
 
+import static com.example.mycoin.utils.NavigationUtil.navigate;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +16,9 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.mycoin.R;
+import com.example.mycoin.constants.Constants;
+import com.example.mycoin.databinding.FragmentConfirmCodeBinding;
+import com.example.mycoin.databinding.FragmentForgotPasswordBinding;
 import com.example.mycoin.fragments.BaseFragment;
 import com.example.mycoin.utils.LogcatUtil;
 import com.example.mycoin.utils.MessageUtil;
@@ -23,13 +28,15 @@ public class ForgotPasswordFragment extends BaseFragment implements View.OnClick
 
     private Button mButtonSendCode, mButtonBack;
     private EditText mEditEmail;
+    private FragmentForgotPasswordBinding mBinding;
 
     private ForgotPasswordViewModel mViewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_forgot_password, container, false);
+        mBinding = FragmentForgotPasswordBinding.inflate(inflater, container, false);
+        return mBinding.getRoot();
     }
 
     @Override
@@ -37,16 +44,17 @@ public class ForgotPasswordFragment extends BaseFragment implements View.OnClick
         super.onViewCreated(view, savedInstanceState);
         Log.d(TAG, "Enter in forgot password fragment");
 
-        initComponents(view);
+        mViewModel = getViewModel(ForgotPasswordViewModel.class);
+
+        initComponents();
         initListeners();
         initObservers();
     }
 
-    private void initComponents(View view) {
-        mViewModel = getViewModel(ForgotPasswordViewModel.class);
-        mButtonSendCode = view.findViewById(R.id.button_send_code);
-        mButtonBack = view.findViewById(R.id.button_back);
-        mEditEmail = view.findViewById(R.id.edit_email);
+    private void initComponents() {
+        mButtonSendCode = mBinding.buttonSendCode;
+        mButtonBack = mBinding.buttonBack;
+        mEditEmail = mBinding.editEmail;
     }
 
     private void initListeners() {
@@ -57,16 +65,11 @@ public class ForgotPasswordFragment extends BaseFragment implements View.OnClick
     private void initObservers() {
         mViewModel.getNeedNavigate().observe(getViewLifecycleOwner(), navigate -> {
             if (navigate) {
-                goConfirmCodeScreen(getView());
+                navigate(getView(), Constants.FORGOT_PASSWORD_FRAGMENT, Constants.CONFIRMATION_CODE_FRAGMENT);
                 return;
             }
             MessageUtil.showToast(getContext(), R.string.email_invalid);
         });
-    }
-
-    private void goConfirmCodeScreen(View v) {
-        Navigation.findNavController(v)
-                .navigate(R.id.action_forgotPasswordFragment_to_confirmCodeFragment);
     }
 
     @Override

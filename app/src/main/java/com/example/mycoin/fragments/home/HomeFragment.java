@@ -12,6 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mycoin.R;
+import com.example.mycoin.databinding.FragmentForgotPasswordBinding;
+import com.example.mycoin.databinding.FragmentHomeBinding;
+import com.example.mycoin.databinding.NavigationMenuBinding;
 import com.example.mycoin.fragments.BaseFragment;
 import com.example.mycoin.utils.LogcatUtil;
 
@@ -19,13 +22,16 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     public static final String TAG = LogcatUtil.getTag(HomeFragment.class);
 
     private View mViewTarget, mViewHome, mViewProfile, mViewRanking;
-    private View  mMenuNavigation;
+    private NavigationMenuBinding mMenuNavigation;
+    private FragmentHomeBinding mBinding;
+
     private HomeViewModel mViewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        mBinding = FragmentHomeBinding.inflate(inflater, container, false);
+        return mBinding.getRoot();
     }
 
     @Override
@@ -33,17 +39,17 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         super.onViewCreated(view, savedInstanceState);
         mViewModel = getViewModel(HomeViewModel.class);
 
-        initComponents(view);
+        initComponents();
         initListeners();
         setCurrentUserData();
     }
 
-    private void initComponents(View view) {
-        mMenuNavigation = view.findViewById(R.id.navigation_menu);
-        mViewTarget = mMenuNavigation.findViewById(R.id.view_target);
-        mViewHome = mMenuNavigation.findViewById(R.id.view_home);
-        mViewProfile = mMenuNavigation.findViewById(R.id.view_person);
-        mViewRanking = mMenuNavigation.findViewById(R.id.view_ranking);
+    private void initComponents() {
+        mMenuNavigation = mBinding.navigationMenu;
+        mViewTarget = mMenuNavigation.viewTarget;
+        mViewHome = mMenuNavigation.viewHome;
+        mViewProfile = mMenuNavigation.viewPerson;
+        mViewRanking = mMenuNavigation.viewRanking;
     }
 
     private void initListeners() {
