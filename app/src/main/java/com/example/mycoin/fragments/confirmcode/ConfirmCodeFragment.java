@@ -1,7 +1,5 @@
 package com.example.mycoin.fragments.confirmcode;
 
-import static com.example.mycoin.utils.NavigationUtil.navigate;
-
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,10 +17,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.example.mycoin.R;
-import com.example.mycoin.constants.Constants;
 import com.example.mycoin.databinding.FragmentConfirmCodeBinding;
-import com.example.mycoin.databinding.FragmentEditUserProfileBinding;
-import com.example.mycoin.databinding.FragmentGeneralProfileBinding;
 import com.example.mycoin.fragments.BaseFragment;
 import com.example.mycoin.fragments.login.LoginFragment;
 import com.example.mycoin.utils.LogcatUtil;
@@ -111,7 +106,7 @@ public class ConfirmCodeFragment extends BaseFragment implements View.OnClickLis
     private void initObservers() {
         mViewModel.getNeedNavigate().observe(getViewLifecycleOwner(), navigate -> {
             if (navigate) {
-                navigate(getView(), Constants.CONFIRMATION_CODE_FRAGMENT, Constants.LOGIN_FRAGMENT);
+                goLogin(getView());
                 responseArrivedUI();
             }
         });
@@ -147,6 +142,11 @@ public class ConfirmCodeFragment extends BaseFragment implements View.OnClickLis
     private void responseArrivedUI() {
         mButtonConfirm.setVisibility(View.VISIBLE);
         mProgressBar.setVisibility(View.INVISIBLE);
+    }
+
+    private void goLogin(View v) {
+        Navigation.findNavController(v)
+                .navigate(R.id.action_confirmCodeFragment_to_loginFragment);
     }
 
     @Override

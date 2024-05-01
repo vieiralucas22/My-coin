@@ -1,11 +1,10 @@
 package com.example.mycoin.fragments.login;
 
-import static com.example.mycoin.utils.NavigationUtil.navigate;
-
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.navigation.Navigation;
 
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -52,9 +51,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         super.onViewCreated(view, savedInstanceState);
         mViewModel = getViewModel(LoginViewModel.class);
 
-        if (mViewModel.rememberMeWasChecked()) {
-            navigate(view, Constants.LOGIN_FRAGMENT, Constants.HOME_FRAGMENT);
-        }
+        if (mViewModel.rememberMeWasChecked()) goHomeScreen(view);
 
         Log.d(TAG, "Enter in login fragment");
 
@@ -96,7 +93,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
     private void initObservers() {
         mViewModel.getNeedNavigate().observe(getViewLifecycleOwner(), navigate -> {
             if (navigate) {
-                navigate(getView(), Constants.LOGIN_FRAGMENT, Constants.HOME_FRAGMENT);;
+                goHomeScreen(getView());
                 responseArrivedUI();
             }
         });
@@ -128,6 +125,19 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         mProgressBar.setVisibility(View.INVISIBLE);
     }
 
+    private void goHomeScreen(View v) {
+        Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_homeFragment);
+    }
+
+    private void goForgotPasswordScreen(View v) {
+        Navigation.findNavController(v)
+                .navigate(R.id.action_loginFragment_to_forgotPasswordFragment);
+    }
+
+    private void goSignUpScreen(View v) {
+        Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_signUpFragment);
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -139,9 +149,9 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         int id = v.getId();
 
         if (id == R.id.text_forgot_password_login) {
-            navigate(v, Constants.LOGIN_FRAGMENT, Constants.FORGOT_PASSWORD_FRAGMENT);
+            goForgotPasswordScreen(v);
         } else if (id == R.id.text_sign_up_login) {
-            navigate(v, Constants.LOGIN_FRAGMENT, Constants.SIGN_UP_FRAGMENT);
+            goSignUpScreen(v);
         } else if (id == R.id.button_login) {
             login();
         } else if (id == R.id.button_eye_login) {

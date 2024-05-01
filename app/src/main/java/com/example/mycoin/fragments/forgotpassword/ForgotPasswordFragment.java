@@ -1,7 +1,5 @@
 package com.example.mycoin.fragments.forgotpassword;
 
-import static com.example.mycoin.utils.NavigationUtil.navigate;
-
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,7 +15,6 @@ import android.widget.EditText;
 
 import com.example.mycoin.R;
 import com.example.mycoin.constants.Constants;
-import com.example.mycoin.databinding.FragmentConfirmCodeBinding;
 import com.example.mycoin.databinding.FragmentForgotPasswordBinding;
 import com.example.mycoin.fragments.BaseFragment;
 import com.example.mycoin.utils.LogcatUtil;
@@ -65,11 +62,16 @@ public class ForgotPasswordFragment extends BaseFragment implements View.OnClick
     private void initObservers() {
         mViewModel.getNeedNavigate().observe(getViewLifecycleOwner(), navigate -> {
             if (navigate) {
-                navigate(getView(), Constants.FORGOT_PASSWORD_FRAGMENT, Constants.CONFIRMATION_CODE_FRAGMENT);
+                goConfirmCodeScreen(getView());
                 return;
             }
             MessageUtil.showToast(getContext(), R.string.email_invalid);
         });
+    }
+
+    private void goConfirmCodeScreen(View v) {
+        Navigation.findNavController(v)
+                .navigate(R.id.action_forgotPasswordFragment_to_confirmCodeFragment);
     }
 
     @Override
