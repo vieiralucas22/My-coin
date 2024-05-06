@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -60,7 +61,7 @@
             android:id="@+id/text_position"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1"
+            android:text="1º "
             android:textColor="@color/position" />
 
         <TextView
@@ -85,7 +86,7 @@
         android:id="@+id/introduction_card"
         android:layout_width="180sp"
         android:layout_height="180sp"
-        android:layout_marginTop="110dp"
+        android:layout_marginTop="120dp"
         android:background="@drawable/corners_16"
         android:padding="10dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -125,7 +126,7 @@
             android:layout_toEndOf="@+id/progress_bar_introduction"
             android:text="50%"
             android:textColor="@color/white"
-            android:textSize="10sp"
+            android:textSize="12sp"
             android:textStyle="bold" />
 
     </RelativeLayout>
@@ -173,7 +174,7 @@
             android:layout_toEndOf="@+id/progress_bar_manage_financial"
             android:text="50%"
             android:textColor="@color/white"
-            android:textSize="10sp"
+            android:textSize="12sp"
             android:textStyle="bold" />
     </RelativeLayout>
 
@@ -221,7 +222,7 @@
             android:layout_toEndOf="@+id/progress_bar_target_goals"
             android:text="50%"
             android:textColor="@color/white"
-            android:textSize="10sp"
+            android:textSize="12sp"
             android:textStyle="bold"
              />
     </RelativeLayout>
@@ -269,7 +270,7 @@
             android:layout_toEndOf="@+id/progress_bar_extra"
             android:text="50%"
             android:textColor="@color/white"
-            android:textSize="10sp"
+            android:textSize="12sp"
             android:textStyle="bold" />
     </RelativeLayout>
 

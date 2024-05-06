@@ -9,6 +9,7 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.mycoin.R;
 import com.example.mycoin.databinding.FragmentHomeBinding;
@@ -20,6 +21,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     public static final String TAG = LogcatUtil.getTag(HomeFragment.class);
 
     private View mViewTarget, mViewHome, mViewProfile, mViewRanking;
+    private TextView mUserName;
     private NavigationMenuBinding mMenuNavigation;
     private FragmentHomeBinding mBinding;
 
@@ -40,6 +42,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         initComponents();
         initListeners();
         setCurrentUserData();
+        initObservers();
     }
 
     private void initComponents() {
@@ -48,6 +51,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         mViewHome = mMenuNavigation.viewHome;
         mViewProfile = mMenuNavigation.viewPerson;
         mViewRanking = mMenuNavigation.viewRanking;
+        mUserName = mBinding.userName;
     }
 
     private void initListeners() {
@@ -56,6 +60,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     private void setCurrentUserData() {
         mViewModel.setCurrentUser();
+        mUserName.setText(mViewModel.getUserName());
+    }
+
+    private void initObservers() {
     }
 
     @Override
