@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_general"
+    android:background="@drawable/background_home"
     android:padding="10dp"
     tools:context=".fragments.home.HomeFragment">
 
@@ -12,12 +12,266 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Home"
-        android:textSize="40sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="15sp"
+        android:layout_marginTop="15sp"
+        android:text="@string/welcome_coma"
+        android:textColor="@color/white"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2sp"
+        android:layout_marginTop="15sp"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Xastre!" />
+
+    <TextView
+        android:id="@+id/sub_message"
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5sp"
+        android:text="@string/the_best_place_to_learn_about_financial_education"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8sp"
+        android:background="@drawable/background_position"
+        android:paddingHorizontal="5dp"
+        android:paddingVertical="3dp"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/sub_message">
+
+        <TextView
+            android:id="@+id/text_position"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:textColor="@color/position" />
+
+        <TextView
+            android:id="@+id/position"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/position"
+            android:textColor="@color/position" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="140dp"
+        android:layout_height="126dp"
+        android:layout_marginTop="30sp"
+        android:background="@drawable/logo"
+        android:rotation="-45"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RelativeLayout
+        android:id="@+id/introduction_card"
+        android:layout_width="180sp"
+        android:layout_height="180sp"
+        android:layout_marginTop="110dp"
+        android:background="@drawable/corners_16"
+        android:padding="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <ImageView
+            android:id="@+id/image_pig"
+            android:layout_width="65sp"
+            android:layout_height="65sp"
+            android:src="@drawable/pig" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/introduction"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar_introduction"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="120sp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20sp"
+            android:progress="50"
+            android:progressBackgroundTint="@color/background_progress_running"
+            android:progressTint="@color/background_progress_running" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/progress_bar_introduction"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/progress_bar_introduction"
+            android:text="50%"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/card_manage_financial"
+        android:layout_width="180sp"
+        android:layout_height="180sp"
+        android:background="@drawable/corners_16"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/introduction_card">
+
+        <ImageView
+            android:id="@+id/image_manage_financial"
+            android:layout_width="65sp"
+            android:layout_height="65sp"
+            android:src="@drawable/notes" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/organize_home"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar_manage_financial"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="120sp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20sp"
+            android:progress="50"
+            android:progressBackgroundTint="@color/background_progress_running"
+            android:progressTint="@color/background_progress_running" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/progress_bar_manage_financial"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/progress_bar_manage_financial"
+            android:text="50%"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/card_target_goals"
+        android:layout_width="180sp"
+        android:layout_height="180sp"
+        android:layout_marginTop="20sp"
+        android:background="@drawable/corners_16"
+        android:padding="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/introduction_card">
+
+        <ImageView
+            android:id="@+id/image_target_goals"
+            android:layout_width="65sp"
+            android:layout_height="65sp"
+            android:src="@drawable/target" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/action_time"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar_target_goals"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="120sp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20sp"
+            android:progress="50"
+            android:progressBackgroundTint="@color/background_progress_running"
+            android:progressTint="@color/background_progress_running" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/progress_bar_target_goals"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/progress_bar_target_goals"
+            android:text="50%"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            android:textStyle="bold"
+             />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/card_extra"
+        android:layout_width="180sp"
+        android:layout_height="180sp"
+        android:background="@drawable/corners_16"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/card_target_goals">
+
+        <ImageView
+            android:id="@+id/image_extra"
+            android:layout_width="65sp"
+            android:layout_height="65sp"
+            android:src="@drawable/variable_income" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="Extra"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar_extra"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="120sp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20sp"
+            android:progress="50"
+            android:progressBackgroundTint="@color/background_progress_running"
+            android:progressTint="@color/background_progress_running" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/progress_bar_extra"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/progress_bar_extra"
+            android:text="50%"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
 
     <include
         android:id="@+id/navigation_menu"

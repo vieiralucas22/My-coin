@@ -7,4 +7,6 @@
     <color name="text">#9F9F9F</color>
     <color name="primary">#C326DC</color>
     <color name="position">#FFE500</color>
+    <color name="background_progress_bar">#38BC7D</color>
+    <color name="background_progress_running">#34E390</color>
 </resources>

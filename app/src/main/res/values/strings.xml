@@ -55,5 +55,10 @@
     <string name="edit_user_data_success">User data edited!</string>
     <string name="upload_success">Upload was success!</string>
     <string name="upload_fail">Upload fail!</string>
+    <string name="welcome_coma">Welcome,</string>
+    <string name="the_best_place_to_learn_about_financial_education">The best place to learn about financial education</string>
+    <string name="introduction">Introduction</string>
+    <string name="organize_home">Organize home</string>
+    <string name="action_time">Action time</string>
 
 </resources>
