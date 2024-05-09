@@ -60,5 +60,9 @@
     <string name="introduction">Introduction</string>
     <string name="organize_home">Organize home</string>
     <string name="action_time">Action time</string>
+    <string name="introduction_classes">Introduction Classes</string>
+    <string name="video_icon">Video icon</string>
+    <string name="class_title">Class</string>
+    <string name="arrow">Arrow</string>
 
 </resources>

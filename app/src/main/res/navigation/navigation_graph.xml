@@ -64,6 +64,9 @@
         <action
             android:id="@+id/action_homeFragment_to_generalProfileFragment"
             app:destination="@id/generalProfileFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_introductionClassesFragment"
+            app:destination="@id/introductionClassesFragment" />
     </fragment>
     <fragment
         android:id="@+id/generalProfileFragment"
@@ -90,4 +93,9 @@
         android:name="com.example.mycoin.fragments.profile.changeuserpassword.ChangeUserPasswordFragment"
         android:label="fragment_change_user_password"
         tools:layout="@layout/fragment_change_user_password" />
+    <fragment
+        android:id="@+id/introductionClassesFragment"
+        android:name="com.example.mycoin.fragments.classes.introduction.IntroductionClassesFragment"
+        android:label="fragment_introduction_classes"
+        tools:layout="@layout/fragment_introduction_classes" />
 </navigation>

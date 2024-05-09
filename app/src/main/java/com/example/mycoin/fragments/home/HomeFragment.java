@@ -9,6 +9,7 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.mycoin.R;
@@ -23,6 +24,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private View mViewTarget, mViewHome, mViewProfile, mViewRanking;
     private TextView mUserName;
     private NavigationMenuBinding mMenuNavigation;
+    private RelativeLayout mCardIntroduction;
     private FragmentHomeBinding mBinding;
 
     private HomeViewModel mViewModel;
@@ -52,10 +54,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         mViewProfile = mMenuNavigation.viewPerson;
         mViewRanking = mMenuNavigation.viewRanking;
         mUserName = mBinding.userName;
+        mCardIntroduction = mBinding.introductionCard;
     }
 
     private void initListeners() {
     mViewProfile.setOnClickListener(this);
+    mCardIntroduction.setOnClickListener(this);
     }
 
     private void setCurrentUserData() {
@@ -64,6 +68,17 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void initObservers() {
+    }
+
+    private void goIntroductionModule(View v) {
+        Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_generalProfileFragment);
+
+    }
+
+    private void goEditProfileTab(View v) {
+        Navigation.findNavController(v)
+                .navigate(R.id.action_homeFragment_to_introductionClassesFragment);
+
     }
 
     @Override
@@ -75,7 +90,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.view_person) {
-            Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_generalProfileFragment);
+            goIntroductionModule(v);
+        } else if (v.getId() == R.id.introduction_card) {
+            goEditProfileTab(v);
         }
     }
 }
