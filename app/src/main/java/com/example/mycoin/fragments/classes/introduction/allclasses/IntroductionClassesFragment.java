@@ -13,11 +13,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.mycoin.R;
+import com.example.mycoin.databinding.FragmentHomeBinding;
 import com.example.mycoin.databinding.FragmentIntroductionClassesBinding;
 
 public class IntroductionClassesFragment extends Fragment implements View.OnClickListener {
 
-    private TextView mText;
+    private ViewGroup mClassOne;
     private FragmentIntroductionClassesBinding mBinding;
 
     private IntroductionClassesViewModel mViewModel;
@@ -29,19 +30,28 @@ public class IntroductionClassesFragment extends Fragment implements View.OnClic
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_introduction_classes, container, false);
+        mBinding = FragmentIntroductionClassesBinding.inflate(inflater, container, false);
+        return mBinding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mText = view.findViewById(R.id.text_title);
-        mText.setOnClickListener(this);
+        initComponents();
+        initListeners();
+    }
+
+    private void initComponents() {
+        mClassOne = mBinding.lesson1;
+    }
+
+    private void initListeners() {
+        mClassOne.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.text_title) {
+        if (v.getId() == R.id.lesson_1) {
             Navigation.findNavController(v).navigate(R.id.action_introductionClassesFragment_to_introductionVideoPlayerFragment);
         }
     }

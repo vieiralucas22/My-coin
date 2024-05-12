@@ -29,23 +29,261 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ScrollView
-        android:id="@+id/scrollView"
+
+    <RelativeLayout
+        android:id="@+id/lesson_1"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_classes_item"
+        android:paddingHorizontal="15dp"
+        android:paddingVertical="10dp"
         android:layout_marginTop="150dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_title">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:itemCount="5"
-            tools:listitem="@layout/classe_item"/>
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/video_icon"
+            android:src="@drawable/video_icon" />
 
-    </ScrollView>
+        <TextView
+            android:id="@+id/class_title_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_toEndOf="@+id/image"
+            android:text="@string/lesson_1"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/text_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/class_title_1"
+            android:layout_marginStart="15dp"
+            android:layout_toEndOf="@+id/image"
+            android:text="@string/what_s_financial_education"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/arrow"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:contentDescription="@string/arrow"
+            android:src="@drawable/arrow_forward" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/lesson_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_classes_item"
+        android:paddingHorizontal="15dp"
+        android:paddingVertical="10dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lesson_1">
+
+        <ImageView
+            android:id="@+id/image_2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/video_icon"
+            android:src="@drawable/video_icon" />
+
+        <TextView
+            android:id="@+id/class_title_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_toEndOf="@+id/image_2"
+            android:text="@string/lesson_2"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/text_subtitle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/class_title_2"
+            android:layout_marginStart="15dp"
+            android:layout_toEndOf="@+id/image_2"
+            android:text="@string/how_can_we_start"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/arrow2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:contentDescription="@string/arrow"
+            android:src="@drawable/arrow_forward" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/lesson_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_classes_item"
+        android:paddingHorizontal="15dp"
+        android:paddingVertical="10dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lesson_2">
+
+        <ImageView
+            android:id="@+id/image_3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/video_icon"
+            android:src="@drawable/video_icon" />
+
+        <TextView
+            android:id="@+id/class_title_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_toEndOf="@+id/image_3"
+            android:text="@string/lesson_3"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/text_subtitle3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/class_title_3"
+            android:layout_marginStart="15dp"
+            android:layout_toEndOf="@+id/image_3"
+            android:text="@string/organize_your_home"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/arrow3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:contentDescription="@string/arrow"
+            android:src="@drawable/arrow_forward" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/lesson_4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_classes_item"
+        android:paddingHorizontal="15dp"
+        android:paddingVertical="10dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lesson_3">
+
+        <ImageView
+            android:id="@+id/image_4"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/video_icon"
+            android:src="@drawable/video_icon" />
+
+        <TextView
+            android:id="@+id/class_title_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_toEndOf="@+id/image_4"
+            android:text="@string/lesson_4"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/text_subtitle4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/class_title_4"
+            android:layout_marginStart="15dp"
+            android:layout_toEndOf="@+id/image_4"
+            android:text="@string/define_your_target"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/arrow4"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:contentDescription="@string/arrow"
+            android:src="@drawable/arrow_forward" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/lesson_5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_classes_item"
+        android:paddingHorizontal="15dp"
+        android:paddingVertical="10dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lesson_4">
+
+        <ImageView
+            android:id="@+id/image_5"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/video_icon"
+            android:src="@drawable/video_icon" />
+
+        <TextView
+            android:id="@+id/class_title_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_toEndOf="@+id/image_5"
+            android:text="@string/lesson_5"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/text_subtitle5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/class_title_5"
+            android:layout_marginStart="15dp"
+            android:layout_toEndOf="@+id/image_5"
+            android:text="@string/the_value_of_tomorrow"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/arrow5"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:contentDescription="@string/arrow"
+            android:src="@drawable/arrow_forward" />
+
+    </RelativeLayout>
 
     <include
         android:id="@+id/navigation_menu"

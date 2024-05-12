@@ -64,5 +64,15 @@
     <string name="video_icon">Video icon</string>
     <string name="class_title">Class</string>
     <string name="arrow">Arrow</string>
+    <string name="lesson_1">Lesson 1</string>
+    <string name="lesson_2">Lesson 2</string>
+    <string name="lesson_3">Lesson 3</string>
+    <string name="lesson_4">Lesson 4</string>
+    <string name="lesson_5">Lesson 5</string>
+    <string name="what_s_financial_education">What\'s financial education</string>
+    <string name="organize_your_home">Organize your home</string>
+    <string name="how_can_we_start">How can we start?</string>
+    <string name="define_your_target">Define your target</string>
+    <string name="the_value_of_tomorrow">The value of tomorrow</string>
 
 </resources>
