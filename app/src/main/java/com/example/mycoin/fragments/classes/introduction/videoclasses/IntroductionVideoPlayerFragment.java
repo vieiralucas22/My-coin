@@ -50,7 +50,7 @@ public class IntroductionVideoPlayerFragment extends BaseFragment implements Vie
     private void initObservers() {
         mViewModel.getServerResponse().observe(getViewLifecycleOwner(), response -> {
             mProgressBar.setVisibility(View.GONE);
-            mView.setVisibility(View.GONE);
+            mView.setVisibility(View.INVISIBLE);
             mWebView.setVisibility(View.VISIBLE);
 
             WebSettings webSettings = mWebView.getSettings();
