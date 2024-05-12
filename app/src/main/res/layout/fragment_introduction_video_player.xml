@@ -16,23 +16,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <View
+        android:id="@+id/view2"
+        android:layout_width="350dp"
+        android:layout_height="230dp"
         android:layout_marginTop="20dp"
-        app:cardCornerRadius="24dp"
-        app:cardElevation="10dp"
+        android:background="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_back">
+        app:layout_constraintTop_toBottomOf="@+id/button_back" />
 
-        <VideoView
-            android:id="@+id/video_view"
-            android:layout_width="350dp"
-            android:layout_height="230dp" />
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:progressBackgroundTint="@color/primary"
+        app:layout_constraintBottom_toBottomOf="@+id/view2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view2" />
 
-    </androidx.cardview.widget.CardView>
-
+    <WebView
+        android:id="@+id/video_view"
+        android:layout_width="350dp"
+        android:layout_height="230dp"
+        android:visibility="gone"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_back" />
 
     <include
         android:id="@+id/navigation_menu"

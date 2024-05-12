@@ -3,6 +3,7 @@ package com.example.mycoin.di.modules;
 import androidx.lifecycle.ViewModel;
 
 import com.example.mycoin.di.ViewModelKey;
+import com.example.mycoin.fragments.classes.introduction.videoclasses.IntroductionVideoPlayerViewModel;
 import com.example.mycoin.fragments.confirmcode.ConfirmCodeViewModel;
 import com.example.mycoin.fragments.forgotpassword.ForgotPasswordViewModel;
 import com.example.mycoin.fragments.home.HomeViewModel;
@@ -21,41 +22,46 @@ public interface ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(LoginViewModel.class)
-    ViewModel bindsLoginViewModel(LoginViewModel loginViewModel);
+    ViewModel bindsLoginViewModel(LoginViewModel viewModel);
 
     @Binds
     @IntoMap
     @ViewModelKey(SignUpViewModel.class)
-    ViewModel bindsSignUpViewModel(SignUpViewModel signUpViewModel);
+    ViewModel bindsSignUpViewModel(SignUpViewModel viewModel);
 
     @Binds
     @IntoMap
     @ViewModelKey(ForgotPasswordViewModel.class)
-    ViewModel bindsForgotPasswordViewModel(ForgotPasswordViewModel forgotPasswordViewModel);
+    ViewModel bindsForgotPasswordViewModel(ForgotPasswordViewModel viewModel);
 
     @Binds
     @IntoMap
     @ViewModelKey(ConfirmCodeViewModel.class)
-    ViewModel bindsConfirmCodeViewModel(ConfirmCodeViewModel confirmCodeViewModel);
+    ViewModel bindsConfirmCodeViewModel(ConfirmCodeViewModel viewModel);
 
     @Binds
     @IntoMap
     @ViewModelKey(GeneralProfileViewModel.class)
-    ViewModel bindsGeneralProfileViewModel(GeneralProfileViewModel generalProfileViewModel);
+    ViewModel bindsGeneralProfileViewModel(GeneralProfileViewModel viewModel);
 
     @Binds
     @IntoMap
     @ViewModelKey(EditUserProfileViewModel.class)
-    ViewModel bindsEditUserProfileViewModel(EditUserProfileViewModel editUserProfileViewModel);
+    ViewModel bindsEditUserProfileViewModel(EditUserProfileViewModel viewModel);
 
     @Binds
     @IntoMap
     @ViewModelKey(HomeViewModel.class)
-    ViewModel bindsHomeViewModel(HomeViewModel homeViewModel);
+    ViewModel bindsHomeViewModel(HomeViewModel viewModel);
 
     @Binds
     @IntoMap
     @ViewModelKey(ChangeUserPasswordViewModel.class)
-    ViewModel bindsChangeUserPasswordViewModel(ChangeUserPasswordViewModel changeUserPasswordViewModel);
+    ViewModel bindsChangeUserPasswordViewModel(ChangeUserPasswordViewModel viewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(IntroductionVideoPlayerViewModel.class)
+    ViewModel bindsIntroductionVideoPlayerViewModel(IntroductionVideoPlayerViewModel viewModel);
 
 }
