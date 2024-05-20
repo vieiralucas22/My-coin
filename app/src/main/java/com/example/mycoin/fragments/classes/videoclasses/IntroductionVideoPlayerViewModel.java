@@ -1,9 +1,7 @@
-package com.example.mycoin.fragments.classes.introduction.videoclasses;
+package com.example.mycoin.fragments.classes.videoclasses;
 
 import android.annotation.SuppressLint;
 import android.util.Log;
-import android.view.View;
-import android.webkit.WebChromeClient;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;

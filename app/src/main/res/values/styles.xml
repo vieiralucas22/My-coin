@@ -5,4 +5,15 @@
         <item name="minHeight">2dp</item>
         <item name="maxHeight">2dp</item>
     </style>
+
+    <style name="CardTest">
+        <item name="cardCornerRadius">10dp</item>
+        <item name="cardElevation">5dp</item>
+        <item name="strokeWidth">0dp</item>
+        <item name="android:layout_marginLeft">25dp</item>
+        <item name="android:layout_marginRight">25dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+    </style>
+
 </resources>

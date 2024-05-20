@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background_all_classes"
     android:padding="10dp"
-    tools:context=".fragments.classes.introduction.allclasses.IntroductionClassesFragment">
+    tools:context=".fragments.classes.allclasses.IntroductionClassesFragment">
 
     <Button
         android:id="@+id/button_back"

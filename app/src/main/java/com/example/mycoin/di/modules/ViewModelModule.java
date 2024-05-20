@@ -3,7 +3,7 @@ package com.example.mycoin.di.modules;
 import androidx.lifecycle.ViewModel;
 
 import com.example.mycoin.di.ViewModelKey;
-import com.example.mycoin.fragments.classes.introduction.videoclasses.IntroductionVideoPlayerViewModel;
+import com.example.mycoin.fragments.classes.videoclasses.IntroductionVideoPlayerViewModel;
 import com.example.mycoin.fragments.confirmcode.ConfirmCodeViewModel;
 import com.example.mycoin.fragments.forgotpassword.ForgotPasswordViewModel;
 import com.example.mycoin.fragments.home.HomeViewModel;

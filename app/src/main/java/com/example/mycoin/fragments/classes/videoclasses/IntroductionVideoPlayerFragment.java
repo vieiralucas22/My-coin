@@ -1,24 +1,20 @@
-package com.example.mycoin.fragments.classes.introduction.videoclasses;
+package com.example.mycoin.fragments.classes.videoclasses;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
 
 import com.example.mycoin.databinding.FragmentIntroductionVideoPlayerBinding;
 import com.example.mycoin.fragments.BaseFragment;
-import com.example.mycoin.fragments.home.HomeFragment;
 import com.example.mycoin.utils.LogcatUtil;
 
 public class IntroductionVideoPlayerFragment extends BaseFragment implements View.OnClickListener {

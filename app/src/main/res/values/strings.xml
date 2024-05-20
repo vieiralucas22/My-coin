@@ -75,5 +75,8 @@
     <string name="define_your_target">Define your target</string>
     <string name="the_value_of_tomorrow">The value of tomorrow</string>
     <string name="next_classes">Next classes</string>
+    <string name="submit">Submit</string>
+    <string name="right_answer">Right answer</string>
+    <string name="wrong_answer">Wrong answer</string>
 
 </resources>

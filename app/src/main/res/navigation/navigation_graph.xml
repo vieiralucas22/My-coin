@@ -95,7 +95,7 @@
         tools:layout="@layout/fragment_change_user_password" />
     <fragment
         android:id="@+id/introductionClassesFragment"
-        android:name="com.example.mycoin.fragments.classes.introduction.allclasses.IntroductionClassesFragment"
+        android:name="com.example.mycoin.fragments.classes.allclasses.IntroductionClassesFragment"
         android:label="fragment_introduction_classes"
         tools:layout="@layout/fragment_introduction_classes" >
         <action
@@ -104,7 +104,7 @@
     </fragment>
     <fragment
         android:id="@+id/introductionVideoPlayerFragment"
-        android:name="com.example.mycoin.fragments.classes.introduction.videoclasses.IntroductionVideoPlayerFragment"
+        android:name="com.example.mycoin.fragments.classes.videoclasses.IntroductionVideoPlayerFragment"
         android:label="fragment_introduction_video_player"
         tools:layout="@layout/fragment_introduction_video_player" />
 </navigation>

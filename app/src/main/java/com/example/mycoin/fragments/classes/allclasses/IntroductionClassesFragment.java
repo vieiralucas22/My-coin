@@ -1,4 +1,4 @@
-package com.example.mycoin.fragments.classes.introduction.allclasses;
+package com.example.mycoin.fragments.classes.allclasses;
 
 import android.os.Bundle;
 
@@ -10,10 +10,8 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.mycoin.R;
-import com.example.mycoin.databinding.FragmentHomeBinding;
 import com.example.mycoin.databinding.FragmentIntroductionClassesBinding;
 
 public class IntroductionClassesFragment extends Fragment implements View.OnClickListener {
