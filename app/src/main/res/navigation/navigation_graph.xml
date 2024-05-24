@@ -106,5 +106,23 @@
         android:id="@+id/introductionVideoPlayerFragment"
         android:name="com.example.mycoin.fragments.classes.videoclasses.IntroductionVideoPlayerFragment"
         android:label="fragment_introduction_video_player"
-        tools:layout="@layout/fragment_introduction_video_player" />
+        tools:layout="@layout/fragment_introduction_video_player" >
+        <action
+            android:id="@+id/action_introductionVideoPlayerFragment_to_quizFragment"
+            app:destination="@id/quizFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/resultFragment"
+        android:name="com.example.mycoin.fragments.classes.result.ResultFragment"
+        android:label="fragment_result"
+        tools:layout="@layout/fragment_result" />
+    <fragment
+        android:id="@+id/quizFragment"
+        android:name="com.example.mycoin.fragments.classes.quiz.QuizFragment"
+        android:label="fragment_quiz"
+        tools:layout="@layout/fragment_quiz" >
+        <action
+            android:id="@+id/action_quizFragment_to_resultFragment"
+            app:destination="@id/resultFragment" />
+    </fragment>
 </navigation>

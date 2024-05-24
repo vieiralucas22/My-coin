@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
 
+import com.example.mycoin.R;
 import com.example.mycoin.databinding.FragmentIntroductionVideoPlayerBinding;
 import com.example.mycoin.fragments.BaseFragment;
 import com.example.mycoin.utils.LogcatUtil;
@@ -22,6 +24,7 @@ public class IntroductionVideoPlayerFragment extends BaseFragment implements Vie
     public static final String TAG = LogcatUtil.getTag(IntroductionVideoPlayerFragment.class);
     private WebView mWebView;
     private ProgressBar mProgressBar;
+    private View mButtonQuiz;
     private View mView;
     private FragmentIntroductionVideoPlayerBinding mBinding;
 
@@ -40,6 +43,7 @@ public class IntroductionVideoPlayerFragment extends BaseFragment implements Vie
         initComponents();
         initObservers();
         mViewModel.sendClassForServer();
+        initListeners();
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -55,16 +59,22 @@ public class IntroductionVideoPlayerFragment extends BaseFragment implements Vie
         });
     }
 
-
     private void initComponents() {
         mViewModel = getViewModel(IntroductionVideoPlayerViewModel.class);
         mWebView = mBinding.videoView;
         mView = mBinding.view2;
         mProgressBar = mBinding.progressBar;
+        mButtonQuiz = mBinding.buttonQuiz;
+    }
+
+    private void initListeners() {
+        mButtonQuiz.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-
+        if (v.getId() == R.id.button_quiz) {
+            Navigation.findNavController(v).navigate(R.id.action_introductionVideoPlayerFragment_to_quizFragment);
+        }
     }
 }

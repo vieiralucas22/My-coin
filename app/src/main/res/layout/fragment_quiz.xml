@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/current_and_total_questions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
@@ -29,7 +29,7 @@
         tools:text="1/10" />
 
     <ProgressBar
-        android:id="@+id/progress_bar_introduction"
+        android:id="@+id/progress_bar_quiz"
         style="@style/ProgressBarClasses"
         android:layout_width="match_parent"
         android:layout_height="12dp"
@@ -38,8 +38,8 @@
         android:progress="25"
         android:progressBackgroundTint="@color/background_progress_running"
         android:progressTint="@color/background_progress_running"
-        app:layout_constraintStart_toStartOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintStart_toStartOf="@+id/current_and_total_questions"
+        app:layout_constraintTop_toBottomOf="@+id/current_and_total_questions" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
@@ -47,9 +47,9 @@
         android:backgroundTint="@color/background_black_40"
         app:cardCornerRadius="30dp"
         app:cardElevation="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView3"
+        app:layout_constraintBottom_toBottomOf="@+id/current_and_total_questions"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView3">
+        app:layout_constraintTop_toTopOf="@+id/current_and_total_questions">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -65,6 +65,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/timer_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="@+id/timer_icon"
@@ -81,10 +82,11 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
+        android:id="@+id/text_question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/materialCardView"
         app:layout_constraintStart_toStartOf="@+id/materialCardView"
@@ -95,9 +97,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginTop="90dp"
         app:cardCornerRadius="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -120,7 +123,7 @@
                     android:layout_marginBottom="15dp"
                     android:checked="true"
                     android:textColor="@color/subtitlesColor"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:textStyle="bold"
                     tools:text="Example 1" />
 
@@ -131,7 +134,7 @@
                     android:layout_marginBottom="15dp"
                     android:checked="true"
                     android:textColor="@color/subtitlesColor"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:textStyle="bold"
                     tools:text="Example 2" />
 
@@ -142,7 +145,7 @@
                     android:layout_marginBottom="15dp"
                     android:checked="true"
                     android:textColor="@color/subtitlesColor"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:textStyle="bold"
                     tools:text="Example 3" />
 
@@ -153,18 +156,19 @@
                     android:layout_marginBottom="15dp"
                     android:checked="true"
                     android:textColor="@color/subtitlesColor"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:textStyle="bold"
                     tools:text="Example 4" />
 
             </RadioGroup>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/materialButton"
+            <Button
+                android:id="@+id/button_submit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_button_submit"
                 android:text="@string/submit"
+                android:textSize="14sp"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -174,10 +178,10 @@
     </androidx.cardview.widget.CardView>
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginBottom="20dp"
+        android:id="@+id/image_right"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginBottom="30dp"
         android:contentDescription="@string/right_answer"
         android:src="@drawable/right_answer"
         android:visibility="invisible"
@@ -186,9 +190,10 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginBottom="20dp"
+        android:id="@+id/image_wrong"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginBottom="30dp"
         android:contentDescription="@string/wrong_answer"
         android:src="@drawable/wrong_answer"
         android:visibility="invisible"
