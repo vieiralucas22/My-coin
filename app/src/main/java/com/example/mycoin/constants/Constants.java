@@ -28,4 +28,8 @@ public class Constants {
     public static final String CURRENT_USER_BIRTH = "current_user_birth";
     public static final String CURRENT_USER_NAME = "current_user_name";
     public static final String CURRENT_USER_PASSWORD = "current_user_password";
+
+    ///
+    public static final int TOTAL_PROGRESS_BAR = 100;
+
 }

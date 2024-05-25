@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.navigation.Navigation;
 
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,9 +16,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.mycoin.R;
+import com.example.mycoin.constants.Constants;
+import com.example.mycoin.constants.TimeConstants;
 import com.example.mycoin.databinding.FragmentQuizBinding;
 import com.example.mycoin.entities.Question;
 import com.example.mycoin.fragments.BaseFragment;
@@ -29,6 +33,7 @@ import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -36,19 +41,21 @@ import java.util.List;
 public class QuizFragment extends BaseFragment implements View.OnClickListener {
     public static final String TAG = LogcatUtil.getTag(QuizFragment.class);
 
+    private final long QUESTION_TIME = TimeConstants.ONE_MINUTE;
+
     private RadioButton mRadioA, mRadioB, mRadioC, mRadioD;
+    private RadioGroup mRadioGroup;
     private Button mButtonSubmit, mButtonBack;
     private ImageView mImageRight, mImageWrong;
     private TextView mTextNumberOfQuestions, mTimer, mTextQuestion;
     private ProgressBar mProgressBar;
-    private List<Question> mQuestionItens;
-    private int currentQuestion = 0;
+    private List<Question> mQuestionItems;
+    private FragmentQuizBinding mBinding;
+    private QuizViewModel mViewModel;
+    private CountDownTimer mCountDownTimer;
+    private int mCurrentQuestion;
     private int correct = 0;
     private int wrong = 0;
-
-    private FragmentQuizBinding mBinding;
-
-    private QuizViewModel mViewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -60,10 +67,11 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mCurrentQuestion = 0;
         initComponents();
-
+        initCountdownTimer();
         loadAllQuestions();
-        Collections.shuffle(mQuestionItens);
+        Collections.shuffle(mQuestionItems);
         setQuestionsScreen();
 
         setListeners();
@@ -82,10 +90,45 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
         mTimer = mBinding.timerTime;
         mProgressBar = mBinding.progressBarQuiz;
         mTextQuestion = mBinding.textQuestion;
+        mRadioGroup = mBinding.radioGroup;
+        mTextNumberOfQuestions.setText((mCurrentQuestion + 1) + "/4");
     }
 
+    private void initCountdownTimer() {
+        mCountDownTimer = new CountDownTimer(QUESTION_TIME, TimeConstants.ONE_SECOND) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                int timeUntilFinish = (int) ((QUESTION_TIME - (QUESTION_TIME - millisUntilFinished)) / 1000);
+                int progress = (int) ((Constants.TOTAL_PROGRESS_BAR - (timeUntilFinish * 1.12)) );
+
+                mProgressBar.setProgress(progress);
+                mTimer.setText(formatTime(millisUntilFinished));
+            }
+
+            @Override
+            public void onFinish() {
+                if (hasMoreQuestions()) {
+                    mCountDownTimer.start();
+                    mRadioGroup.clearCheck();
+                    handleWithQuestionAnswer(getView());
+                    showQuestions();
+                    return;
+                }
+                Navigation.findNavController(getView())
+                        .navigate(R.id.action_quizFragment_to_resultFragment);
+
+            }
+        }.start();
+    }
+
+    private String formatTime(long millisUntilFinished) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm:ss");
+        return simpleDateFormat.format(millisUntilFinished);
+    }
+
+
     private void loadAllQuestions() {
-        mQuestionItens = new ArrayList<>();
+        mQuestionItems = new ArrayList<>();
         String jsonQuiz = loadJsonFromAsset("questions.json");
 
         try {
@@ -101,7 +144,7 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
                 String answer4 = question.getString("answer4");
                 String correct = question.getString("correctAnswer");
 
-                mQuestionItens.add(new Question(questionString, answer1, answer2,
+                mQuestionItems.add(new Question(questionString, answer1, answer2,
                         answer3, answer4, correct));
             }
 
@@ -128,22 +171,24 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void setQuestionsScreen() {
-        mTextQuestion.setText(mQuestionItens.get(currentQuestion).getQuestion());
-        mRadioA.setText(mQuestionItens.get(currentQuestion).getAnswer1());
-        mRadioB.setText(mQuestionItens.get(currentQuestion).getAnswer2());
-        mRadioC.setText(mQuestionItens.get(currentQuestion).getAnswer3());
-        mRadioD.setText(mQuestionItens.get(currentQuestion).getAnswer4());
+        mTextQuestion.setText(mQuestionItems.get(mCurrentQuestion).getQuestion());
+        mRadioA.setText(mQuestionItems.get(mCurrentQuestion).getAnswer1());
+        mRadioB.setText(mQuestionItems.get(mCurrentQuestion).getAnswer2());
+        mRadioC.setText(mQuestionItems.get(mCurrentQuestion).getAnswer3());
+        mRadioD.setText(mQuestionItems.get(mCurrentQuestion).getAnswer4());
     }
 
     private void setListeners() {
         mButtonSubmit.setOnClickListener(this);
+        mButtonBack.setOnClickListener(this);
     }
 
     private void showQuestions() {
-        if (currentQuestion < mQuestionItens.size() - 1) {
+        if (hasMoreQuestions()) {
+            mCurrentQuestion++;
+            mTextNumberOfQuestions.setText((mCurrentQuestion + 1) + "/4");
             Handler handler = new Handler();
             handler.postDelayed(() -> {
-                currentQuestion++;
                 setQuestionsScreen();
                 mImageWrong.setVisibility(View.INVISIBLE);
                 mImageRight.setVisibility(View.INVISIBLE);
@@ -166,28 +211,33 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private boolean checkIfQuestionIsCorrect(View view) {
-        int id = view.getId();
+        if (view == null) return false;
 
-        if (id == R.id.answer_one) {
-            return mQuestionItens.get(currentQuestion).getAnswer1()
-                    .equals(mQuestionItens.get(currentQuestion).getIsRight());
-        } else if (id == R.id.answer_two) {
-            return mQuestionItens.get(currentQuestion).getAnswer2()
-                    .equals(mQuestionItens.get(currentQuestion).getIsRight());
-        } else if (id == R.id.answer_three) {
-            return mQuestionItens.get(currentQuestion).getAnswer3()
-                    .equals(mQuestionItens.get(currentQuestion).getIsRight());
-        } else if (id == R.id.answer_four) {
-            return mQuestionItens.get(currentQuestion).getAnswer4()
-                    .equals(mQuestionItens.get(currentQuestion).getIsRight());
+        if (mRadioA.isChecked()) {
+            return mQuestionItems.get(mCurrentQuestion).getAnswer1()
+                    .equals(mQuestionItems.get(mCurrentQuestion).getIsRight());
+        } else if (mRadioB.isChecked()) {
+            return mQuestionItems.get(mCurrentQuestion).getAnswer2()
+                    .equals(mQuestionItems.get(mCurrentQuestion).getIsRight());
+        } else if (mRadioC.isChecked()) {
+            return mQuestionItems.get(mCurrentQuestion).getAnswer3()
+                    .equals(mQuestionItems.get(mCurrentQuestion).getIsRight());
+        } else if (mRadioD.isChecked()) {
+            return mQuestionItems.get(mCurrentQuestion).getAnswer4()
+                    .equals(mQuestionItems.get(mCurrentQuestion).getIsRight());
         }
         return false;
+    }
+
+    private boolean hasMoreQuestions() {
+        return mCurrentQuestion < mQuestionItems.size() - 1;
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         mBinding = null;
+        mCountDownTimer.cancel();
     }
 
     @Override
@@ -195,6 +245,10 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
         if (v.getId() == R.id.button_submit) {
             handleWithQuestionAnswer(v);
             showQuestions();
+            mRadioGroup.clearCheck();
+            mCountDownTimer.start();
+        } else if (v.getId() == R.id.button_back) {
+            backScreen(v);
         }
     }
 }

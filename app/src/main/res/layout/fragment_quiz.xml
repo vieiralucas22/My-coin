@@ -35,9 +35,7 @@
         android:layout_height="12dp"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="25dp"
-        android:progress="25"
-        android:progressBackgroundTint="@color/background_progress_running"
-        android:progressTint="@color/background_progress_running"
+        android:background="@drawable/progress_bar_background"
         app:layout_constraintStart_toStartOf="@+id/current_and_total_questions"
         app:layout_constraintTop_toBottomOf="@+id/current_and_total_questions" />
 
