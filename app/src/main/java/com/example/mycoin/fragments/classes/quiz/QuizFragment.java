@@ -36,7 +36,7 @@ import java.util.List;
 public class QuizFragment extends BaseFragment implements View.OnClickListener {
     public static final String TAG = LogcatUtil.getTag(QuizFragment.class);
 
-    private RadioButton mRadioA,mRadioB,mRadioC,mRadioD;
+    private RadioButton mRadioA, mRadioB, mRadioC, mRadioD;
     private Button mButtonSubmit, mButtonBack;
     private ImageView mImageRight, mImageWrong;
     private TextView mTextNumberOfQuestions, mTimer, mTextQuestion;
@@ -60,14 +60,13 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         initComponents();
 
         loadAllQuestions();
         Collections.shuffle(mQuestionItens);
-        setQuestionsScreen(currentQuestion);
-        setListeners();
+        setQuestionsScreen();
 
+        setListeners();
     }
 
     private void initComponents() {
@@ -126,10 +125,9 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
         }
 
         return json;
-
     }
 
-    private void setQuestionsScreen(int currentQuestion) {
+    private void setQuestionsScreen() {
         mTextQuestion.setText(mQuestionItens.get(currentQuestion).getQuestion());
         mRadioA.setText(mQuestionItens.get(currentQuestion).getAnswer1());
         mRadioB.setText(mQuestionItens.get(currentQuestion).getAnswer2());
@@ -138,106 +136,52 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void setListeners() {
-        mRadioA.setOnClickListener( view -> {
-            if (mQuestionItens.get(currentQuestion).getAnswer1()
-                    .equals(mQuestionItens.get(currentQuestion).getIsRight())) {
-                correct++;
-                mImageRight.setVisibility(View.VISIBLE);
-            } else {
-                wrong++;
-                mImageWrong.setVisibility(View.VISIBLE);
-            }
-            ///enquanto nao for a ultima questao fara isso
-            if (currentQuestion < mQuestionItens.size() - 1) {
-                Handler handler = new Handler();
-                handler.postDelayed(()->{
-                    currentQuestion++;
-                    setQuestionsScreen(currentQuestion);
-                    mImageWrong.setVisibility(View.INVISIBLE);
-                    mImageRight.setVisibility(View.INVISIBLE);
-                }, 500);
-            } else {
-                //TODO mandar os corrects e wrongs por safe args
-                Navigation.findNavController(getView())
-                        .navigate(R.id.action_quizFragment_to_resultFragment);
-            }
-        });
+        mButtonSubmit.setOnClickListener(this);
+    }
 
-        mRadioB.setOnClickListener( view -> {
-            if (mQuestionItens.get(currentQuestion).getAnswer2()
-                    .equals(mQuestionItens.get(currentQuestion).getIsRight())) {
-                correct++;
-                mImageRight.setVisibility(View.VISIBLE);
-            } else {
-                wrong++;
-                mImageWrong.setVisibility(View.VISIBLE);
-            }
-            ///enquanto nao for a ultima questao fara isso
-            if (currentQuestion < mQuestionItens.size() - 1) {
-                Handler handler = new Handler();
-                handler.postDelayed(()-> {
-                    currentQuestion++;
-                    setQuestionsScreen(currentQuestion);
-                    mImageWrong.setVisibility(View.INVISIBLE);
-                    mImageRight.setVisibility(View.INVISIBLE);
-                }, 500);
-            } else {
-                //TODO mandar os corrects e wrongs por safe args
-                Navigation.findNavController(getView())
-                        .navigate(R.id.action_quizFragment_to_resultFragment);
-            }
-        });
+    private void showQuestions() {
+        if (currentQuestion < mQuestionItens.size() - 1) {
+            Handler handler = new Handler();
+            handler.postDelayed(() -> {
+                currentQuestion++;
+                setQuestionsScreen();
+                mImageWrong.setVisibility(View.INVISIBLE);
+                mImageRight.setVisibility(View.INVISIBLE);
+            }, 500);
+        } else {
+            //TODO mandar os corrects e wrongs por safe args
+            Navigation.findNavController(getView())
+                    .navigate(R.id.action_quizFragment_to_resultFragment);
+        }
+    }
 
-        mRadioC.setOnClickListener( view -> {
-            if (mQuestionItens.get(currentQuestion).getAnswer3()
-                    .equals(mQuestionItens.get(currentQuestion).getIsRight())) {
-                correct++;
-                mImageRight.setVisibility(View.VISIBLE);
-            } else {
-                wrong++;
-                mImageWrong.setVisibility(View.VISIBLE);
-            }
-            ///enquanto nao for a ultima questao fara isso
-            if (currentQuestion < mQuestionItens.size() - 1) {
-                Handler handler = new Handler();
-                handler.postDelayed(()-> {
-                    currentQuestion++;
-                    setQuestionsScreen(currentQuestion);
-                    mImageWrong.setVisibility(View.INVISIBLE);
-                    mImageRight.setVisibility(View.INVISIBLE);
-                }, 500);
-            } else {
-                //TODO mandar os corrects e wrongs por safe args
-                Navigation.findNavController(getView())
-                        .navigate(R.id.action_quizFragment_to_resultFragment);
-            }
-        });
+    private void handleWithQuestionAnswer(View view) {
+        if (checkIfQuestionIsCorrect(view)) {
+            correct++;
+            mImageRight.setVisibility(View.VISIBLE);
+            return;
+        }
+        wrong++;
+        mImageWrong.setVisibility(View.VISIBLE);
+    }
 
-        mRadioD.setOnClickListener( view -> {
-            if (mQuestionItens.get(currentQuestion).getAnswer4()
-                    .equals(mQuestionItens.get(currentQuestion).getIsRight())) {
-                correct++;
-                mImageRight.setVisibility(View.VISIBLE);
-            } else {
-                wrong++;
-                mImageWrong.setVisibility(View.VISIBLE);
-            }
-            ///enquanto nao for a ultima questao fara isso
-            if (currentQuestion < mQuestionItens.size() - 1) {
-                Handler handler = new Handler();
-                handler.postDelayed(()-> {
-                    currentQuestion++;
-                    setQuestionsScreen(currentQuestion);
-                    mImageWrong.setVisibility(View.INVISIBLE);
-                    mImageRight.setVisibility(View.INVISIBLE);
-                }, 500);
-            } else {
-                //TODO mandar os corrects e wrongs por safe args
-                Navigation.findNavController(getView())
-                        .navigate(R.id.action_quizFragment_to_resultFragment);
-            }
-        });
+    private boolean checkIfQuestionIsCorrect(View view) {
+        int id = view.getId();
 
+        if (id == R.id.answer_one) {
+            return mQuestionItens.get(currentQuestion).getAnswer1()
+                    .equals(mQuestionItens.get(currentQuestion).getIsRight());
+        } else if (id == R.id.answer_two) {
+            return mQuestionItens.get(currentQuestion).getAnswer2()
+                    .equals(mQuestionItens.get(currentQuestion).getIsRight());
+        } else if (id == R.id.answer_three) {
+            return mQuestionItens.get(currentQuestion).getAnswer3()
+                    .equals(mQuestionItens.get(currentQuestion).getIsRight());
+        } else if (id == R.id.answer_four) {
+            return mQuestionItens.get(currentQuestion).getAnswer4()
+                    .equals(mQuestionItens.get(currentQuestion).getIsRight());
+        }
+        return false;
     }
 
     @Override
@@ -248,6 +192,9 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-
+        if (v.getId() == R.id.button_submit) {
+            handleWithQuestionAnswer(v);
+            showQuestions();
+        }
     }
 }
