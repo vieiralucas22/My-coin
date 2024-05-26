@@ -78,5 +78,10 @@
     <string name="submit">Submit</string>
     <string name="right_answer">Right answer</string>
     <string name="wrong_answer">Wrong answer</string>
+    <string name="quiz_result">Quiz Result</string>
+    <string name="happy_face">happy face</string>
+    <string name="total_points">Total points</string>
+    <string name="correct">Correct</string>
+    <string name="wrong">Wrong</string>
 
 </resources>
