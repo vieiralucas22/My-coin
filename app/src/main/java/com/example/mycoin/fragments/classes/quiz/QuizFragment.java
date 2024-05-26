@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
 import android.os.CountDownTimer;
@@ -42,6 +43,7 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
     public static final String TAG = LogcatUtil.getTag(QuizFragment.class);
 
     private final long QUESTION_TIME = TimeConstants.ONE_MINUTE;
+    private final long POINTS_PER_QUESTION = 10;
 
     private RadioButton mRadioA, mRadioB, mRadioC, mRadioD;
     private RadioGroup mRadioGroup;
@@ -99,7 +101,7 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
             @Override
             public void onTick(long millisUntilFinished) {
                 int timeUntilFinish = (int) ((QUESTION_TIME - (QUESTION_TIME - millisUntilFinished)) / 1000);
-                int progress = (int) ((Constants.TOTAL_PROGRESS_BAR - (timeUntilFinish * 1.12)) );
+                int progress = (int) ((Constants.TOTAL_PROGRESS_BAR - (timeUntilFinish * 1.12)));
 
                 mProgressBar.setProgress(progress);
                 mTimer.setText(formatTime(millisUntilFinished));
@@ -114,8 +116,7 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
                     showQuestions();
                     return;
                 }
-                Navigation.findNavController(getView())
-                        .navigate(R.id.action_quizFragment_to_resultFragment);
+                goResultScreen();
 
             }
         }.start();
@@ -193,11 +194,9 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
                 mImageWrong.setVisibility(View.INVISIBLE);
                 mImageRight.setVisibility(View.INVISIBLE);
             }, 500);
-        } else {
-            //TODO mandar os corrects e wrongs por safe args
-            Navigation.findNavController(getView())
-                    .navigate(R.id.action_quizFragment_to_resultFragment);
+            return;
         }
+        goResultScreen();
     }
 
     private void handleWithQuestionAnswer(View view) {
@@ -231,6 +230,17 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
 
     private boolean hasMoreQuestions() {
         return mCurrentQuestion < mQuestionItems.size() - 1;
+    }
+
+    private void goResultScreen() {
+        int totalPointsEarned = (int) (POINTS_PER_QUESTION * correct);
+
+        NavDirections action = QuizFragmentDirections.actionQuizFragmentToResultFragment()
+                .setTotalRightQuestions(correct)
+                .setTotalWrongQuestions(wrong)
+                .setTotalPoints(totalPointsEarned);
+
+        Navigation.findNavController(getView()).navigate(action);
     }
 
     @Override
