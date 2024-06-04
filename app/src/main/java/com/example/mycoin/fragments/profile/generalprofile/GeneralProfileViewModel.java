@@ -65,7 +65,8 @@ public class GeneralProfileViewModel extends ViewModel {
         mStorage.collection(Constants.USERS).document(user.getEmail())
                 .get().addOnSuccessListener(loadedData -> {
                     Log.d(TAG, user.toString());
-                 //   loadUIUsersDetails.postValue(loadedData.getString(Constants.PHOTO));
+                    user.setPhoto(loadedData.getString(Constants.PHOTO));
+                    loadUIUsersDetails.postValue(user);
                 });
     }
 
@@ -77,7 +78,7 @@ public class GeneralProfileViewModel extends ViewModel {
         return mAuth.getUid() == null;
     }
 
-    public LiveData<User> getLoadImage() {
+    public LiveData<User> getLoadUIUsersDetails() {
         return loadUIUsersDetails;
     }
 }

@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.mycoin.R;
 import com.example.mycoin.databinding.FragmentGeneralProfileBinding;
@@ -33,6 +34,7 @@ public class GeneralProfileFragment  extends BaseFragment implements View.OnClic
     private Button mButtonBack, mButtonCamera, mButtonCancel, mButtonConfirm;
     private ViewGroup mEditUserProfileArea, mChangePasswordArea, mLogoutArea;
     private CircleImageView mUserImage;
+    private TextView mTextPosition, mTextPoints;
     private Dialog mDialog;
 
     private FragmentGeneralProfileBinding mBinding;
@@ -76,6 +78,8 @@ public class GeneralProfileFragment  extends BaseFragment implements View.OnClic
         mLogoutArea = mBinding.logoutArea;
         mButtonCamera = mBinding.buttonChangePhoto;
         mUserImage = mBinding.userImage;
+        mTextPoints = mBinding.textPoints;
+        mTextPosition = mBinding.position;
         setUpAlertDialogLogout();
         mButtonCancel = mDialog.findViewById(R.id.button_cancel);
         mButtonConfirm = mDialog.findViewById(R.id.button_confirm_logout);
@@ -92,9 +96,11 @@ public class GeneralProfileFragment  extends BaseFragment implements View.OnClic
     }
 
     private void initObservers() {
-        mViewModel.getLoadImage().observe(getViewLifecycleOwner(), imageLink -> {
-            Uri uri = Uri.parse(imageLink);
+        mViewModel.getLoadUIUsersDetails().observe(getViewLifecycleOwner(), userDetails -> {
+            Uri uri = Uri.parse(userDetails.getPhoto());
             Picasso.get().load(uri).into(mUserImage);
+            mTextPosition.setText(userDetails.getPosition() + " ");
+            mTextPoints.setText(userDetails.getPoints() + " ");
         });
     }
 

@@ -8,6 +8,7 @@ public class Constants {
     public static final String BIRTHDATE = "dateBirth";
     public static final String PHOTO = "photo";
     public static final String POINTS = "points";
+    public static final String POSITION = "position";
     public static final String USERS = "Users";
 
     // Email service
@@ -30,6 +31,8 @@ public class Constants {
     public static final String CURRENT_USER_NAME = "current_user_name";
     public static final String CURRENT_USER_PASSWORD = "current_user_password";
     public static final String CURRENT_USER_POINTS = "current_user_points";
+    public static final String CURRENT_USER_POSITION = "current_user_position";
+    public static final String CURRENT_USER_PHOTO = "current_user_photo";
 
     ///
     public static final int TOTAL_PROGRESS_BAR = 100;
