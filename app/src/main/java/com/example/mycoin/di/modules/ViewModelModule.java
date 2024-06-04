@@ -3,6 +3,7 @@ package com.example.mycoin.di.modules;
 import androidx.lifecycle.ViewModel;
 
 import com.example.mycoin.di.ViewModelKey;
+import com.example.mycoin.fragments.classes.result.ResultViewModel;
 import com.example.mycoin.fragments.classes.videoclasses.IntroductionVideoPlayerViewModel;
 import com.example.mycoin.fragments.confirmcode.ConfirmCodeViewModel;
 import com.example.mycoin.fragments.forgotpassword.ForgotPasswordViewModel;
@@ -63,5 +64,10 @@ public interface ViewModelModule {
     @IntoMap
     @ViewModelKey(IntroductionVideoPlayerViewModel.class)
     ViewModel bindsIntroductionVideoPlayerViewModel(IntroductionVideoPlayerViewModel viewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ResultViewModel.class)
+    ViewModel bindsResultViewModel(ResultViewModel viewModel);
 
 }

@@ -34,8 +34,9 @@ public class ResultFragment extends BaseFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mViewModel = getViewModel(ResultViewModel.class);
         initComponents();
-        getArgs();
+        setUpUI();
     }
 
     private void initComponents() {
@@ -46,12 +47,23 @@ public class ResultFragment extends BaseFragment {
         mTextPoints = mBinding.textPoints;
     }
 
-    private void getArgs() {
-        if (getArguments() == null) return;
+    private ResultFragmentArgs getArgs() {
+        if (getArguments() == null) return null;
 
-        ResultFragmentArgs args = ResultFragmentArgs.fromBundle(getArguments());
-        mTextQuestionsRight.setText(String.valueOf(args.getTotalRightQuestions()));
-        mTextQuestionsWrong.setText(String.valueOf(args.getTotalWrongQuestions()));
-        mTextPoints.setText(String.valueOf(args.getTotalPoints()));
+        return ResultFragmentArgs.fromBundle(getArguments());
+    }
+
+    private void setUpUI() {
+        if (getArgs() == null) return;
+
+        mTextQuestionsRight.setText(String.valueOf(getArgs().getTotalRightQuestions()));
+        mTextQuestionsWrong.setText(String.valueOf(getArgs().getTotalWrongQuestions()));
+        mTextPoints.setText(String.valueOf(getArgs().getTotalPoints()));
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mBinding = null;
     }
 }

@@ -107,6 +107,7 @@ public class FirebaseServiceImpl implements FirebaseService {
         newUser.put(Constants.PASSWORD, user.getPassword());
         newUser.put(Constants.BIRTHDATE, user.getBirthDate());
         newUser.put(Constants.PHOTO, "");
+        newUser.put(Constants.POINTS, String.valueOf(user.getPoints()));
 
         mFirebaseFirestore.collection(Constants.USERS)
                 .document(user.getEmail())
@@ -201,6 +202,7 @@ public class FirebaseServiceImpl implements FirebaseService {
         user.setEmail(document.getString(Constants.EMAIL));
         user.setBirthDate(document.getString(Constants.BIRTHDATE));
         user.setPassword(document.getString(Constants.PASSWORD));
+        user.setPoints(Integer.parseInt(document.getString(Constants.POINTS)));
         return user;
     }
 

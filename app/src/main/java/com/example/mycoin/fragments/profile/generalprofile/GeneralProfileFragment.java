@@ -64,7 +64,7 @@ public class GeneralProfileFragment  extends BaseFragment implements View.OnClic
         Log.d(TAG, "Enter in user profile fragment");
 
         initComponents();
-        mViewModel.loadPhoto();
+        mViewModel.initUI();
         initListeners();
         initObservers();
     }

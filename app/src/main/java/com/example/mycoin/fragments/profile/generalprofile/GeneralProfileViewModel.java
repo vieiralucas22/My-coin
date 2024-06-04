@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -32,7 +33,7 @@ public class GeneralProfileViewModel extends ViewModel {
     private final FirebaseFirestore mStorage;
     private final AppPreferences mAppPreferences;
 
-    private final MutableLiveData<String> loadImage = new MutableLiveData<>();
+    private final MutableLiveData<User> loadUIUsersDetails = new MutableLiveData<>();
 
     @Inject
     public GeneralProfileViewModel(FirebaseAuth auth, EditProfile editProfile, Context context,
@@ -59,11 +60,12 @@ public class GeneralProfileViewModel extends ViewModel {
         });
     }
 
-    public void loadPhoto() {
+    public void initUI() {
         User user = mAppPreferences.getCurrentUser();
         mStorage.collection(Constants.USERS).document(user.getEmail())
                 .get().addOnSuccessListener(loadedData -> {
-                    loadImage.postValue(loadedData.getString(Constants.PHOTO));
+                    Log.d(TAG, user.toString());
+                 //   loadUIUsersDetails.postValue(loadedData.getString(Constants.PHOTO));
                 });
     }
 
@@ -75,7 +77,7 @@ public class GeneralProfileViewModel extends ViewModel {
         return mAuth.getUid() == null;
     }
 
-    public MutableLiveData<String> getLoadImage() {
-        return loadImage;
+    public LiveData<User> getLoadImage() {
+        return loadUIUsersDetails;
     }
 }
