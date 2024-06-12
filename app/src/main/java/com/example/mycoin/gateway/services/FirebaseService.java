@@ -15,8 +15,7 @@ public interface FirebaseService {
     void changePassword(String newPassword, ChangePasswordCallback callback);
     void sendLink(ChangePasswordCallback callback);
     void setUserByEmail(String email);
-
     void editUser(String name, String dataBirth, UserDataChangeCallback callback);
-
     void uploadPhoto(Uri uri, UploadPhotoCallback uploadPhotoCallback);
+    void updateUser(User user);
 }

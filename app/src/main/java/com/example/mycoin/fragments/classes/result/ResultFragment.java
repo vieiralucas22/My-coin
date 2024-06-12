@@ -28,6 +28,7 @@ public class ResultFragment extends BaseFragment implements View.OnClickListener
     private NavigationMenuBinding mMenuNavigation;
     private View mViewTarget, mViewHome, mViewProfile, mViewRanking;
 
+    private int mPoints = 0;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -43,6 +44,7 @@ public class ResultFragment extends BaseFragment implements View.OnClickListener
         initComponents();
         initListeners();
         setUpUI();
+        mViewModel.saveUserPoints(mPoints);
     }
 
     private void initComponents() {
@@ -72,9 +74,11 @@ public class ResultFragment extends BaseFragment implements View.OnClickListener
     private void setUpUI() {
         if (getArgs() == null) return;
 
+        mPoints = getArgs().getTotalPoints();
+
         mTextQuestionsRight.setText(String.valueOf(getArgs().getTotalRightQuestions()));
         mTextQuestionsWrong.setText(String.valueOf(getArgs().getTotalWrongQuestions()));
-        mTextPoints.setText(String.valueOf(getArgs().getTotalPoints()));
+        mTextPoints.setText(String.valueOf(mPoints));
     }
 
     private void goEditProfileTab(View v) {

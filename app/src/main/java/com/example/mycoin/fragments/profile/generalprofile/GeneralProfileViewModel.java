@@ -60,14 +60,10 @@ public class GeneralProfileViewModel extends ViewModel {
         });
     }
 
-    public void initUI() {
+    public void initUIWithUserData() {
         User user = mAppPreferences.getCurrentUser();
-        mStorage.collection(Constants.USERS).document(user.getEmail())
-                .get().addOnSuccessListener(loadedData -> {
-                    Log.d(TAG, user.toString());
-                    user.setPhoto(loadedData.getString(Constants.PHOTO));
-                    loadUIUsersDetails.postValue(user);
-                });
+
+        loadUIUsersDetails.postValue(user);
     }
 
     public boolean logout() {

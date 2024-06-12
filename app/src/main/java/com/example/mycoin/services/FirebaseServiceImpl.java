@@ -197,6 +197,17 @@ public class FirebaseServiceImpl implements FirebaseService {
         });
     }
 
+    @Override
+    public void updateUser(User user) {
+        String userPoints = String.valueOf(user.getPoints());
+        mFirebaseFirestore.collection(Constants.USERS).document(user.getEmail())
+                .update(Constants.POINTS, userPoints).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        mAppPreferences.setCurrentUser(user);
+                    }
+                });
+    }
+
     private User getUser(DocumentSnapshot document) {
         User user = new User();
         user.setName(document.getString(Constants.NAME));

@@ -9,4 +9,5 @@ public interface UserRepository {
     User getUser(int id);
     List<User> getAllUsers();
     void removeUser(int id);
+    void updateCurrentUser(User user);
 }

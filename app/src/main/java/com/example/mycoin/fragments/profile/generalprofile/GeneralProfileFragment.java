@@ -1,5 +1,6 @@
 package com.example.mycoin.fragments.profile.generalprofile;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
@@ -66,7 +67,7 @@ public class GeneralProfileFragment  extends BaseFragment implements View.OnClic
         Log.d(TAG, "Enter in user profile fragment");
 
         initComponents();
-        mViewModel.initUI();
+        mViewModel.initUIWithUserData();
         initListeners();
         initObservers();
     }
@@ -95,6 +96,7 @@ public class GeneralProfileFragment  extends BaseFragment implements View.OnClic
         mButtonConfirm.setOnClickListener(this);
     }
 
+    @SuppressLint("SetTextI18n")
     private void initObservers() {
         mViewModel.getLoadUIUsersDetails().observe(getViewLifecycleOwner(), userDetails -> {
             Uri uri = Uri.parse(userDetails.getPhoto());
