@@ -70,15 +70,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private void initObservers() {
     }
 
-    private void goIntroductionModule(View v) {
-        Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_generalProfileFragment);
-
-    }
-
     private void goEditProfileTab(View v) {
         Navigation.findNavController(v)
-                .navigate(R.id.action_homeFragment_to_introductionClassesFragment);
+                .navigate(R.id.action_homeFragment_to_generalProfileFragment);
+    }
 
+    private void goIntroductionModule(View v) {
+        Navigation.findNavController(v)
+                .navigate(R.id.action_homeFragment_to_introductionClassesFragment);
     }
 
     @Override
@@ -90,9 +89,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.view_person) {
-            goIntroductionModule(v);
-        } else if (v.getId() == R.id.introduction_card) {
             goEditProfileTab(v);
+        } else if (v.getId() == R.id.introduction_card) {
+            goIntroductionModule(v);
         }
     }
 }
