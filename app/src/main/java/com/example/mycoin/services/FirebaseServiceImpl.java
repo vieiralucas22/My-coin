@@ -3,8 +3,12 @@ package com.example.mycoin.services;
 import android.net.Uri;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.example.mycoin.R;
+import com.example.mycoin.callbacks.Callback;
 import com.example.mycoin.callbacks.ChangePasswordCallback;
+import com.example.mycoin.callbacks.LoadClassesCallback;
 import com.example.mycoin.callbacks.LoginCallback;
 import com.example.mycoin.callbacks.RegisterCallback;
 import com.example.mycoin.callbacks.UploadPhotoCallback;
@@ -12,9 +16,12 @@ import com.example.mycoin.callbacks.UserDataChangeCallback;
 import com.example.mycoin.callbacks.UserExistCallback;
 import com.example.mycoin.constants.Constants;
 import com.example.mycoin.entities.User;
+import com.example.mycoin.fragments.classes.allclasses.ClassAdapter;
 import com.example.mycoin.gateway.services.FirebaseService;
 import com.example.mycoin.preferences.AppPreferences;
 import com.example.mycoin.utils.LogcatUtil;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,7 +30,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -205,6 +214,26 @@ public class FirebaseServiceImpl implements FirebaseService {
                     if (task.isSuccessful()) {
                         mAppPreferences.setCurrentUser(user);
                     }
+                });
+    }
+
+    @Override
+    public void getAllClasses(LoadClassesCallback callback) {
+        mFirebaseFirestore.collection(Constants.MODULOS).document(Constants.INTRODUCTION)
+                .get().addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        List<Object> allLessons = new ArrayList<>();
+                        allLessons.add(task.getResult().get("Lesson 1"));
+                        allLessons.add(task.getResult().get("Lesson 2"));
+                        allLessons.add(task.getResult().get("Lesson 3"));
+                        allLessons.add(task.getResult().get("Lesson 4"));
+                        allLessons.add(task.getResult().get("Lesson 5"));
+
+                        callback.onSuccess(allLessons);
+                        return;
+                    }
+                    callback.onFailure("Error to load classes");
+
                 });
     }
 

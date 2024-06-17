@@ -95,11 +95,11 @@
         tools:layout="@layout/fragment_change_user_password" />
     <fragment
         android:id="@+id/introductionClassesFragment"
-        android:name="com.example.mycoin.fragments.classes.allclasses.IntroductionClassesFragment"
+        android:name="com.example.mycoin.fragments.classes.allclasses.ClassesFragment"
         android:label="fragment_introduction_classes"
         tools:layout="@layout/fragment_introduction_classes" >
         <action
-            android:id="@+id/action_introductionClassesFragment_to_introductionVideoPlayerFragment"
+            android:id="@+id/action_classesFragment_to_introductionVideoPlayerFragment"
             app:destination="@id/introductionVideoPlayerFragment" />
     </fragment>
     <fragment
