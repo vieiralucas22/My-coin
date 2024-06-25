@@ -20,12 +20,7 @@ public class ClassRepositoryImpl implements ClassRepository {
     }
 
     @Override
-    public void getAllClassesByCloud(LoadClassesCallback callback) {
-        mFirebaseService.getAllClasses(callback);
-    }
-
-    @Override
-    public List<ClassAdapter.ClassItem> getAllClasses() {
-        return null;
+    public void getAllClassesByModule(String module, LoadClassesCallback callback) {
+        mFirebaseService.getClassesByModule(module, callback);
     }
 }

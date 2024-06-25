@@ -3,8 +3,6 @@ package com.example.mycoin.services;
 import android.net.Uri;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-
 import com.example.mycoin.R;
 import com.example.mycoin.callbacks.Callback;
 import com.example.mycoin.callbacks.ChangePasswordCallback;
@@ -20,8 +18,6 @@ import com.example.mycoin.fragments.classes.allclasses.ClassAdapter;
 import com.example.mycoin.gateway.services.FirebaseService;
 import com.example.mycoin.preferences.AppPreferences;
 import com.example.mycoin.utils.LogcatUtil;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
@@ -218,23 +214,22 @@ public class FirebaseServiceImpl implements FirebaseService {
     }
 
     @Override
-    public void getAllClasses(LoadClassesCallback callback) {
-        mFirebaseFirestore.collection(Constants.MODULOS).document(Constants.INTRODUCTION)
-                .get().addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        List<Object> allLessons = new ArrayList<>();
-                        allLessons.add(task.getResult().get("Lesson 1"));
-                        allLessons.add(task.getResult().get("Lesson 2"));
-                        allLessons.add(task.getResult().get("Lesson 3"));
-                        allLessons.add(task.getResult().get("Lesson 4"));
-                        allLessons.add(task.getResult().get("Lesson 5"));
-
-                        callback.onSuccess(allLessons);
-                        return;
-                    }
-                    callback.onFailure("Error to load classes");
-
-                });
+    public void getClassesByModule(String module, LoadClassesCallback callback) {
+        List<ClassAdapter.ClassItem> classItemList = new ArrayList<>();
+        mFirebaseFirestore.collection(module).get().addOnCompleteListener(task -> {
+            if (task.isComplete()) {
+                for (DocumentSnapshot x : task.getResult().getDocuments()) {
+                    ClassAdapter.ClassItem classItem = new ClassAdapter.ClassItem();
+                    classItem.setTitle(x.getString(Constants.TITLE));
+                    classItem.setDescription(x.getString(Constants.DESCRIPTION));
+                    classItem.setIsDone(Boolean.TRUE.equals(x.getBoolean(Constants.CLASS_DONE)));
+                    classItemList.add(classItem);
+                }
+                callback.onSuccess(classItemList);
+                return;
+            }
+            callback.onFailure("Classes not loaded");
+        });
     }
 
     private User getUser(DocumentSnapshot document) {

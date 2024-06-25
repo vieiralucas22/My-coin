@@ -10,9 +10,6 @@ import com.example.mycoin.callbacks.RegisterCallback;
 import com.example.mycoin.callbacks.UploadPhotoCallback;
 import com.example.mycoin.callbacks.UserDataChangeCallback;
 import com.example.mycoin.entities.User;
-import com.example.mycoin.fragments.classes.allclasses.ClassAdapter;
-
-import java.util.List;
 
 public interface FirebaseService {
     void authenticate(String email, String password, LoginCallback loginCallback);
@@ -23,5 +20,5 @@ public interface FirebaseService {
     void editUser(String name, String dataBirth, UserDataChangeCallback callback);
     void uploadPhoto(Uri uri, UploadPhotoCallback uploadPhotoCallback);
     void updateUser(User user);
-    void getAllClasses(LoadClassesCallback callback);
+    void getClassesByModule(String module, LoadClassesCallback callback);
 }

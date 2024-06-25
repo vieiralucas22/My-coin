@@ -7,6 +7,5 @@ import com.example.mycoin.fragments.classes.allclasses.ClassAdapter;
 import java.util.List;
 
 public interface ClassRepository {
-    void getAllClassesByCloud(LoadClassesCallback callback);
-    List<ClassAdapter.ClassItem> getAllClasses();
+    void getAllClassesByModule(String introduction, LoadClassesCallback callback);
 }

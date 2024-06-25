@@ -7,10 +7,13 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.mycoin.callbacks.Callback;
+import com.example.mycoin.callbacks.LoadClassesCallback;
 import com.example.mycoin.constants.Constants;
 import com.example.mycoin.entities.Question;
 import com.example.mycoin.gateway.repository.ClassRepository;
 import com.example.mycoin.utils.LogcatUtil;
+import com.example.mycoin.utils.MessageUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,46 +43,19 @@ public class ClassesViewModel extends ViewModel {
 
     public void loadClassesInBD() {
         mClassList = new ArrayList<>();
-        String jsonClasses = loadJsonFromAsset("classes.json");
+        mClassRepository.getAllClassesByModule(Constants.INTRODUCTION, new LoadClassesCallback() {
 
-        try {
-            JSONObject jsonObject = new JSONObject(jsonClasses);
-            JSONArray classes = jsonObject.getJSONArray("modules");
-            JSONObject module = classes.getJSONObject(0);
-            JSONArray currentModule = module.getJSONArray(Constants.INTRODUCTION);
+            @Override
+            public void onSuccess(List<ClassAdapter.ClassItem> list) {
+                mClassList = list;
+                mLoadData.postValue(true);            }
 
-            for (int i = 0; i < currentModule.length(); i++) {
-                JSONObject lesson = currentModule.getJSONObject(i);
-                String title = lesson.getString("title");
-                String description = lesson.getString("description");
-                boolean isDone = lesson.getBoolean("isDone");
-                mClassList.add(new ClassAdapter.ClassItem(title, description, isDone));
+            @Override
+            public void onFailure(String message) {
+
             }
+        });
 
-        } catch (JSONException e) {
-            Log.d(TAG, e.getMessage());
-        }
-    }
-
-    private String loadJsonFromAsset(String jsonFile) {
-        String json = "";
-
-        try {
-            InputStream inputStream = mContext.getAssets().open(jsonFile);
-            int size = inputStream.available();
-            byte[] buffer = new byte[size];
-            inputStream.read(buffer);
-            inputStream.close();
-            json = new String(buffer, StandardCharsets.UTF_8);
-        } catch (Exception e) {
-            Log.d(TAG, e.getMessage());
-        }
-
-        return json;
-    }
-
-    public void loadClasses() {
-        mLoadData.postValue(true);
     }
 
     public LiveData<Boolean> getLoadData() {

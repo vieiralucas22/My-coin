@@ -2,6 +2,7 @@ package com.example.mycoin.fragments.classes.allclasses;
 
 import static android.view.LayoutInflater.from;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;

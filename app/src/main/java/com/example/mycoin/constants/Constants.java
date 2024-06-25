@@ -10,7 +10,7 @@ public class Constants {
     public static final String POINTS = "points";
     public static final String POSITION = "position";
     public static final String USERS = "Users";
-    public static final String MODULOS = "Modulos";
+    public static final String MODULES = "Modules";
 
     // Email service
     public static final String MY_COIN_MAIL = "vieiralucas2205@gmail.com";
@@ -39,4 +39,7 @@ public class Constants {
     public static final int TOTAL_PROGRESS_BAR = 100;
 
     public static final String INTRODUCTION = "Introduction";
+    public static final String TITLE = "title";
+    public static final String DESCRIPTION = "description";
+    public static final String CLASS_DONE = "isDone";
 }

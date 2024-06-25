@@ -44,8 +44,6 @@ public class ClassesFragment extends BaseFragment implements View.OnClickListene
         initComponents();
         initListeners();
         initObservers();
-
-        mViewModel.loadClasses();
     }
 
     private void initComponents() {
