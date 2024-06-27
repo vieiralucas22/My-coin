@@ -7,6 +7,7 @@ import com.example.mycoin.di.modules.RepositoryModule;
 import com.example.mycoin.di.modules.ServicesModule;
 import com.example.mycoin.di.modules.UseCaseModule;
 import com.example.mycoin.di.modules.ViewModelModule;
+import com.example.mycoin.fragments.classes.allclasses.ClassesFragment;
 
 import javax.inject.Singleton;
 
@@ -25,4 +26,6 @@ public interface AppComponent {
         AppComponent build();
     }
     ViewModelFactory getViewModelFactory();
+
+    void inject(ClassesFragment classesFragment);
 }

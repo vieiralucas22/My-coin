@@ -2,7 +2,6 @@ package com.example.mycoin.gateway.services;
 
 import android.net.Uri;
 
-import com.example.mycoin.callbacks.Callback;
 import com.example.mycoin.callbacks.ChangePasswordCallback;
 import com.example.mycoin.callbacks.LoadClassesCallback;
 import com.example.mycoin.callbacks.LoginCallback;
@@ -21,4 +20,5 @@ public interface FirebaseService {
     void uploadPhoto(Uri uri, UploadPhotoCallback uploadPhotoCallback);
     void updateUser(User user);
     void getClassesByModule(String module, LoadClassesCallback callback);
+    void updateClassState(int position, boolean checked);
 }

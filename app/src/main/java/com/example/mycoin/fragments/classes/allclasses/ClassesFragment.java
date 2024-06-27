@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -13,10 +12,13 @@ import android.view.ViewGroup;
 
 import com.example.mycoin.R;
 import com.example.mycoin.databinding.FragmentIntroductionClassesBinding;
+import com.example.mycoin.di.components.DaggerAppComponent;
+import com.example.mycoin.di.modules.AppModule;
 import com.example.mycoin.fragments.BaseFragment;
+import com.example.mycoin.gateway.repository.ClassRepository;
 import com.example.mycoin.utils.ListUtil;
 
-import java.util.List;
+import javax.inject.Inject;
 
 public class ClassesFragment extends BaseFragment implements View.OnClickListener {
 
@@ -25,6 +27,9 @@ public class ClassesFragment extends BaseFragment implements View.OnClickListene
     private ClassesViewModel mViewModel;
     private RecyclerView mRecyclerView;
     private ClassAdapter mAdapter;
+
+    @Inject
+    ClassRepository classRepository;
 
     public static ClassesFragment newInstance() {
         return new ClassesFragment();
@@ -40,6 +45,12 @@ public class ClassesFragment extends BaseFragment implements View.OnClickListene
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        DaggerAppComponent.builder()
+                .applicationModule(new AppModule(getContext()))
+                .build()
+                .inject(this);
+
         mViewModel = getViewModel(ClassesViewModel.class);
         initComponents();
         initListeners();
@@ -49,7 +60,7 @@ public class ClassesFragment extends BaseFragment implements View.OnClickListene
     private void initComponents() {
         mRecyclerView = mBinding.recyclerView;
         mViewModel.loadClassesInBD();
-        mAdapter = new ClassAdapter(mViewModel.getClassList());
+        mAdapter = new ClassAdapter(mViewModel.getClassList(), classRepository);
         mRecyclerView.setAdapter(mAdapter);
     }
 

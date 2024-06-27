@@ -12,26 +12,21 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mycoin.R;
-import com.example.mycoin.constants.Constants;
 import com.example.mycoin.databinding.ClassItemBinding;
+import com.example.mycoin.gateway.repository.ClassRepository;
 import com.example.mycoin.utils.LogcatUtil;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHolder> {
     private static final String TAG = LogcatUtil.getTag(ClassAdapter.class);
 
+    private final ClassRepository mClassRepository;
     private List<ClassItem> mListClasses;
 
-    public ClassAdapter(List<ClassItem> listClasses) {
+    public ClassAdapter(List<ClassItem> listClasses, ClassRepository classRepository) {
         mListClasses = listClasses;
+        mClassRepository = classRepository;
     }
 
     @NonNull
@@ -78,6 +73,7 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHol
             });
 
             mBinding.checkboxClassDone.setOnClickListener(view -> {
+                mClassRepository.updateClassState(position, mBinding.checkboxClassDone.isChecked());
             });
         }
     }

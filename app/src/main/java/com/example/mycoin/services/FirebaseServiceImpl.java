@@ -4,7 +4,6 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.example.mycoin.R;
-import com.example.mycoin.callbacks.Callback;
 import com.example.mycoin.callbacks.ChangePasswordCallback;
 import com.example.mycoin.callbacks.LoadClassesCallback;
 import com.example.mycoin.callbacks.LoginCallback;
@@ -230,6 +229,13 @@ public class FirebaseServiceImpl implements FirebaseService {
             }
             callback.onFailure("Classes not loaded");
         });
+    }
+
+    @Override
+    public void updateClassState(int position, boolean checked) {
+        String document = String.valueOf(position);
+        mFirebaseFirestore.collection(Constants.INTRODUCTION).document(document)
+                .update(Constants.CLASS_DONE, checked);
     }
 
     private User getUser(DocumentSnapshot document) {
