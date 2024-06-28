@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
@@ -16,15 +17,16 @@ import com.example.mycoin.R;
 import com.example.mycoin.databinding.FragmentHomeBinding;
 import com.example.mycoin.databinding.NavigationMenuBinding;
 import com.example.mycoin.fragments.BaseFragment;
+import com.example.mycoin.fragments.classes.quiz.QuizFragmentDirections;
 import com.example.mycoin.utils.LogcatUtil;
 
 public class HomeFragment extends BaseFragment implements View.OnClickListener {
     public static final String TAG = LogcatUtil.getTag(HomeFragment.class);
 
     private final String INTRODUCTION = "Introduction";
-    private final String ORGANIZE_HOME = "organize_home";
-    private final String ACTION_TIME = "action_time";
-    private final String EXTRA = "extra";
+    private final String ORGANIZE_HOME = "Organize home";
+    private final String ACTION_TIME = "Action time";
+    private final String EXTRA = "Extra";
 
     private View mViewTarget, mViewHome, mViewProfile, mViewRanking;
     private TextView mUserName;
@@ -65,6 +67,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private void initListeners() {
     mViewProfile.setOnClickListener(this);
     mCardIntroduction.setOnClickListener(this);
+    mBinding.cardManageFinancial.setOnClickListener(this);
+    mBinding.cardTargetGoals.setOnClickListener(this);
+    mBinding.cardExtra.setOnClickListener(this);
     }
 
     private void setCurrentUserData() {
@@ -85,8 +90,31 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void goIntroductionModule(View v) {
-        Navigation.findNavController(v)
-                .navigate(R.id.action_homeFragment_to_introductionClassesFragment);
+        NavDirections action = HomeFragmentDirections
+                .actionHomeFragmentToIntroductionClassesFragment().setModule(INTRODUCTION);
+
+        Navigation.findNavController(v).navigate(action);
+    }
+
+    private void goOrganizeHomeModule(View v) {
+        NavDirections action = HomeFragmentDirections
+                .actionHomeFragmentToIntroductionClassesFragment().setModule(ORGANIZE_HOME);
+
+        Navigation.findNavController(v).navigate(action);
+    }
+
+    private void goActionTimeModule(View v) {
+        NavDirections action = HomeFragmentDirections
+                .actionHomeFragmentToIntroductionClassesFragment().setModule(ACTION_TIME);
+
+        Navigation.findNavController(v).navigate(action);
+    }
+
+    private void goExtraModule(View v) {
+        NavDirections action = HomeFragmentDirections
+                .actionHomeFragmentToIntroductionClassesFragment().setModule(EXTRA);
+
+        Navigation.findNavController(v).navigate(action);
     }
 
     @Override
@@ -101,6 +129,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             goEditProfileTab(v);
         } else if (v.getId() == R.id.introduction_card) {
             goIntroductionModule(v);
+        } else if (v.getId() == R.id.card_manage_financial) {
+            goOrganizeHomeModule(v);
+        } else if (v.getId() == R.id.card_target_goals) {
+            goActionTimeModule(v);
+        } else if (v.getId() == R.id.card_extra) {
+            goExtraModule(v);
         }
     }
 }

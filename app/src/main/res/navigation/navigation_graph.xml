@@ -101,6 +101,11 @@
         <action
             android:id="@+id/action_classesFragment_to_introductionVideoPlayerFragment"
             app:destination="@id/introductionVideoPlayerFragment" />
+
+        <argument
+            android:name="module"
+            app:argType="string"
+            android:defaultValue="Introduction" />
     </fragment>
     <fragment
         android:id="@+id/introductionVideoPlayerFragment"

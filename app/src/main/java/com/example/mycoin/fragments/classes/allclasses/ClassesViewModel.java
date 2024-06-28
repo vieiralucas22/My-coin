@@ -41,9 +41,9 @@ public class ClassesViewModel extends ViewModel {
         mContext = context;
     }
 
-    public void loadClassesInBD() {
+    public void loadClassesInBD(String module) {
         mClassList = new ArrayList<>();
-        mClassRepository.getAllClassesByModule(Constants.INTRODUCTION, new LoadClassesCallback() {
+        mClassRepository.getAllClassesByModule(module, new LoadClassesCallback() {
 
             @Override
             public void onSuccess(List<ClassAdapter.ClassItem> list) {

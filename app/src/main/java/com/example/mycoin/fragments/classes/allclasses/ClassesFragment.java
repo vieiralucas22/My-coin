@@ -15,6 +15,7 @@ import com.example.mycoin.databinding.FragmentIntroductionClassesBinding;
 import com.example.mycoin.di.components.DaggerAppComponent;
 import com.example.mycoin.di.modules.AppModule;
 import com.example.mycoin.fragments.BaseFragment;
+import com.example.mycoin.fragments.classes.result.ResultFragmentArgs;
 import com.example.mycoin.gateway.repository.ClassRepository;
 import com.example.mycoin.utils.ListUtil;
 
@@ -59,7 +60,7 @@ public class ClassesFragment extends BaseFragment implements View.OnClickListene
 
     private void initComponents() {
         mRecyclerView = mBinding.recyclerView;
-        mViewModel.loadClassesInBD();
+        loadClassesByModule();
         mAdapter = new ClassAdapter(mViewModel.getClassList(), classRepository);
         mRecyclerView.setAdapter(mAdapter);
     }
@@ -80,6 +81,20 @@ public class ClassesFragment extends BaseFragment implements View.OnClickListene
 
     private void showClasses() {
         mAdapter.setItems(mViewModel.getClassList());
+    }
+
+    private ClassesFragmentArgs getArgs() {
+        if (getArguments() == null) return null;
+
+        return ClassesFragmentArgs.fromBundle(getArguments());
+    }
+
+    private void loadClassesByModule() {
+        if (getArgs() == null) return;
+
+        String module = getArgs().getModule();
+
+        mViewModel.loadClassesInBD(module);
     }
 
     @Override
