@@ -21,6 +21,11 @@ import com.example.mycoin.utils.LogcatUtil;
 public class HomeFragment extends BaseFragment implements View.OnClickListener {
     public static final String TAG = LogcatUtil.getTag(HomeFragment.class);
 
+    private final String INTRODUCTION = "Introduction";
+    private final String ORGANIZE_HOME = "organize_home";
+    private final String ACTION_TIME = "action_time";
+    private final String EXTRA = "extra";
+
     private View mViewTarget, mViewHome, mViewProfile, mViewRanking;
     private TextView mUserName;
     private NavigationMenuBinding mMenuNavigation;
@@ -40,7 +45,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mViewModel = getViewModel(HomeViewModel.class);
-
+        mViewModel.getModuleProgress(INTRODUCTION);
         initComponents();
         initListeners();
         setCurrentUserData();
@@ -68,6 +73,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void initObservers() {
+        mViewModel.getProgressIntroduction().observe(getViewLifecycleOwner(), percentage -> {
+            mBinding.progressBarIntroduction.setProgress(percentage, true);
+            mBinding.textIntroductionPercentage.setText(percentage + "%");
+        });
     }
 
     private void goEditProfileTab(View v) {

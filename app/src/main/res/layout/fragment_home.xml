@@ -113,17 +113,17 @@
             android:layout_height="5dp"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="20sp"
-            android:progress="25"
             android:background="@drawable/progress_bar_background" />
 
         <TextView
+            android:id="@+id/text_introduction_percentage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/progress_bar_introduction"
             android:layout_marginStart="5dp"
             android:layout_marginTop="-6dp"
             android:layout_toEndOf="@+id/progress_bar_introduction"
-            android:text="25%"
+            android:text="0%"
             android:textColor="@color/white"
             android:textSize="12sp"
             android:textStyle="bold" />
