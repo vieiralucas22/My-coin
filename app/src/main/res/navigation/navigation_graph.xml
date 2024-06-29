@@ -109,9 +109,9 @@
     </fragment>
     <fragment
         android:id="@+id/introductionVideoPlayerFragment"
-        android:name="com.example.mycoin.fragments.classes.videoclasses.IntroductionVideoPlayerFragment"
+        android:name="com.example.mycoin.fragments.classes.videoclasses.VideoPlayerFragment"
         android:label="fragment_introduction_video_player"
-        tools:layout="@layout/fragment_introduction_video_player" >
+        tools:layout="@layout/fragment_video_player" >
         <action
             android:id="@+id/action_introductionVideoPlayerFragment_to_quizFragment"
             app:destination="@id/quizFragment" />

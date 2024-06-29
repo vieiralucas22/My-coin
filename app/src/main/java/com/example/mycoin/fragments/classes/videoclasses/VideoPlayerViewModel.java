@@ -16,13 +16,13 @@ import java.net.Socket;
 
 import javax.inject.Inject;
 
-public class IntroductionVideoPlayerViewModel extends ViewModel {
-    public static final String TAG = LogcatUtil.getTag(IntroductionVideoPlayerViewModel.class);
+public class VideoPlayerViewModel extends ViewModel {
+    public static final String TAG = LogcatUtil.getTag(VideoPlayerViewModel.class);
 
     private final MutableLiveData<String> mServerResponse =  new MutableLiveData<>();
 
     @Inject
-    public IntroductionVideoPlayerViewModel() {
+    public VideoPlayerViewModel() {
     }
 
     @SuppressLint("SetJavaScriptEnabled")

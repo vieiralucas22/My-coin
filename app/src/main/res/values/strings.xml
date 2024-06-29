@@ -84,5 +84,8 @@
     <string name="correct">Correct</string>
     <string name="wrong">Wrong</string>
     <string name="sad_face">sad face</string>
+    <string name="leader_board">Leader board</string>
+    <string name="all_players">All players</string>
+    <string name="crown">crown</string>
 
 </resources>

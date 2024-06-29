@@ -19,16 +19,16 @@ import com.example.mycoin.databinding.FragmentIntroductionVideoPlayerBinding;
 import com.example.mycoin.fragments.BaseFragment;
 import com.example.mycoin.utils.LogcatUtil;
 
-public class IntroductionVideoPlayerFragment extends BaseFragment implements View.OnClickListener {
+public class VideoPlayerFragment extends BaseFragment implements View.OnClickListener {
 
-    public static final String TAG = LogcatUtil.getTag(IntroductionVideoPlayerFragment.class);
+    public static final String TAG = LogcatUtil.getTag(VideoPlayerFragment.class);
     private WebView mWebView;
     private ProgressBar mProgressBar;
     private View mButtonQuiz;
     private View mView;
     private FragmentIntroductionVideoPlayerBinding mBinding;
 
-    private IntroductionVideoPlayerViewModel mViewModel;
+    private VideoPlayerViewModel mViewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -60,7 +60,7 @@ public class IntroductionVideoPlayerFragment extends BaseFragment implements Vie
     }
 
     private void initComponents() {
-        mViewModel = getViewModel(IntroductionVideoPlayerViewModel.class);
+        mViewModel = getViewModel(VideoPlayerViewModel.class);
         mWebView = mBinding.videoView;
         mView = mBinding.view2;
         mProgressBar = mBinding.progressBar;

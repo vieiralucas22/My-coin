@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background_video_player"
     android:padding="10dp"
-    tools:context=".fragments.classes.videoclasses.IntroductionVideoPlayerFragment">
+    tools:context=".fragments.classes.videoclasses.VideoPlayerFragment">
 
     <Button
         android:id="@+id/button_back"
