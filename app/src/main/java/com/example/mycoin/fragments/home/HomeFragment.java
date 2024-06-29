@@ -1,5 +1,10 @@
 package com.example.mycoin.fragments.home;
 
+import static com.example.mycoin.constants.Constants.INTRODUCTION;
+import static com.example.mycoin.constants.Constants.ORGANIZE_HOME;
+import static com.example.mycoin.constants.Constants.ACTION_TIME;
+import static com.example.mycoin.constants.Constants.EXTRA;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -23,11 +28,6 @@ import com.example.mycoin.utils.LogcatUtil;
 public class HomeFragment extends BaseFragment implements View.OnClickListener {
     public static final String TAG = LogcatUtil.getTag(HomeFragment.class);
 
-    private final String INTRODUCTION = "Introduction";
-    private final String ORGANIZE_HOME = "Organize home";
-    private final String ACTION_TIME = "Action time";
-    private final String EXTRA = "Extra";
-
     private View mViewTarget, mViewHome, mViewProfile, mViewRanking;
     private TextView mUserName;
     private NavigationMenuBinding mMenuNavigation;
@@ -47,7 +47,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mViewModel = getViewModel(HomeViewModel.class);
-        mViewModel.getModuleProgress(INTRODUCTION);
+        mViewModel.getModuleProgress();
         initComponents();
         initListeners();
         setCurrentUserData();
@@ -81,6 +81,21 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         mViewModel.getProgressIntroduction().observe(getViewLifecycleOwner(), percentage -> {
             mBinding.progressBarIntroduction.setProgress(percentage, true);
             mBinding.textIntroductionPercentage.setText(percentage + "%");
+        });
+
+        mViewModel.getProgressOrganizeHome().observe(getViewLifecycleOwner(), percentage -> {
+            mBinding.progressBarManageFinancial.setProgress(percentage, true);
+            mBinding.textOrganizeHome.setText(percentage + "%");
+        });
+
+        mViewModel.getProgressActionTime().observe(getViewLifecycleOwner(), percentage -> {
+            mBinding.progressBarTargetGoals.setProgress(percentage, true);
+            mBinding.textActionTime.setText(percentage + "%");
+        });
+
+        mViewModel.getProgressExtra().observe(getViewLifecycleOwner(), percentage -> {
+            mBinding.progressBarExtra.setProgress(percentage, true);
+            mBinding.textExtra.setText(percentage + "%");
         });
     }
 

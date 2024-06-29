@@ -2,8 +2,6 @@ package com.example.mycoin.fragments.classes.allclasses;
 
 import static android.view.LayoutInflater.from;
 
-import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -23,10 +21,12 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHol
 
     private final ClassRepository mClassRepository;
     private List<ClassItem> mListClasses;
+    private String mModule;
 
-    public ClassAdapter(List<ClassItem> listClasses, ClassRepository classRepository) {
+    public ClassAdapter(List<ClassItem> listClasses, ClassRepository classRepository, String module) {
         mListClasses = listClasses;
         mClassRepository = classRepository;
+        mModule = module;
     }
 
     @NonNull
@@ -73,7 +73,7 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHol
             });
 
             mBinding.checkboxClassDone.setOnClickListener(view -> {
-                mClassRepository.updateClassState(position, mBinding.checkboxClassDone.isChecked());
+                mClassRepository.updateClassState(position, mBinding.checkboxClassDone.isChecked(), mModule);
             });
         }
     }

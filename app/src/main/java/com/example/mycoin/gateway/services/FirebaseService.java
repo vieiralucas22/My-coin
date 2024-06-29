@@ -20,5 +20,5 @@ public interface FirebaseService {
     void uploadPhoto(Uri uri, UploadPhotoCallback uploadPhotoCallback);
     void updateUser(User user);
     void getClassesByModule(String module, LoadClassesCallback callback);
-    void updateClassState(int position, boolean checked);
+    void updateClassState(int position, boolean checked, String module);
 }

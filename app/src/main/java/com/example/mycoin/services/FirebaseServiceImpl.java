@@ -232,9 +232,9 @@ public class FirebaseServiceImpl implements FirebaseService {
     }
 
     @Override
-    public void updateClassState(int position, boolean checked) {
+    public void updateClassState(int position, boolean checked, String module) {
         String document = String.valueOf(position);
-        mFirebaseFirestore.collection(Constants.INTRODUCTION).document(document)
+        mFirebaseFirestore.collection(module).document(document)
                 .update(Constants.CLASS_DONE, checked);
     }
 

@@ -23,7 +23,7 @@ public class ClassRepositoryImpl implements ClassRepository {
     }
 
     @Override
-    public void updateClassState(int position, boolean checked) {
-        mFirebaseService.updateClassState(position, checked);
+    public void updateClassState(int position, boolean checked, String module) {
+        mFirebaseService.updateClassState(position, checked, module);
     }
 }

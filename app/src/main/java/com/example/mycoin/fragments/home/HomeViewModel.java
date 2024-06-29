@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.mycoin.callbacks.LoadClassesCallback;
+import com.example.mycoin.constants.Constants;
 import com.example.mycoin.fragments.classes.allclasses.ClassAdapter;
 import com.example.mycoin.gateway.repository.ClassRepository;
 import com.example.mycoin.gateway.services.FirebaseService;
@@ -27,6 +28,9 @@ public class HomeViewModel extends ViewModel {
     private final ClassRepository mClassRepository;
 
     private MutableLiveData<Integer> mProgressIntroduction = new MutableLiveData<>();
+    private MutableLiveData<Integer> mProgressOrganizeHome = new MutableLiveData<>();
+    private MutableLiveData<Integer> mProgressActionTime = new MutableLiveData<>();
+    private MutableLiveData<Integer> mProgressExtra = new MutableLiveData<>();
 
     @Inject
     public HomeViewModel(FirebaseAuth auth, FirebaseService firebaseService,
@@ -49,12 +53,12 @@ public class HomeViewModel extends ViewModel {
         return mAppPreferences.getCurrentUser().getName();
     }
 
-    public void getModuleProgress(String module) {
-        mClassRepository.getAllClassesByModule(module, new LoadClassesCallback() {
+    public void getModuleProgress() {
+        mClassRepository.getAllClassesByModule(Constants.INTRODUCTION, new LoadClassesCallback() {
             @Override
             public void onSuccess(List<ClassAdapter.ClassItem> list) {
                 int percentage = 0;
-                int progressStep = 100/list.size();
+                int progressStep = 100 / list.size();
                 for (ClassAdapter.ClassItem classItem : list) {
                     if (classItem.isDone()) {
                         percentage += progressStep;
@@ -68,9 +72,22 @@ public class HomeViewModel extends ViewModel {
 
             }
         });
+
     }
 
     public LiveData<Integer> getProgressIntroduction() {
         return mProgressIntroduction;
+    }
+
+    public MutableLiveData<Integer> getProgressOrganizeHome() {
+        return mProgressOrganizeHome;
+    }
+
+    public MutableLiveData<Integer> getProgressActionTime() {
+        return mProgressActionTime;
+    }
+
+    public MutableLiveData<Integer> getProgressExtra() {
+        return mProgressExtra;
     }
 }

@@ -28,6 +28,7 @@ public class ClassesFragment extends BaseFragment implements View.OnClickListene
     private ClassesViewModel mViewModel;
     private RecyclerView mRecyclerView;
     private ClassAdapter mAdapter;
+    private String mModule;
 
     @Inject
     ClassRepository classRepository;
@@ -61,7 +62,7 @@ public class ClassesFragment extends BaseFragment implements View.OnClickListene
     private void initComponents() {
         mRecyclerView = mBinding.recyclerView;
         loadClassesByModule();
-        mAdapter = new ClassAdapter(mViewModel.getClassList(), classRepository);
+        mAdapter = new ClassAdapter(mViewModel.getClassList(), classRepository, mModule);
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -92,9 +93,9 @@ public class ClassesFragment extends BaseFragment implements View.OnClickListene
     private void loadClassesByModule() {
         if (getArgs() == null) return;
 
-        String module = getArgs().getModule();
+        mModule = getArgs().getModule();
 
-        mViewModel.loadClassesInBD(module);
+        mViewModel.loadClassesInBD(mModule);
     }
 
     @Override

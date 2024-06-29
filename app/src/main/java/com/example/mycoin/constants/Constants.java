@@ -35,10 +35,12 @@ public class Constants {
     public static final String CURRENT_USER_POSITION = "current_user_position";
     public static final String CURRENT_USER_PHOTO = "current_user_photo";
 
-    ///
+    /// Modules
     public static final int TOTAL_PROGRESS_BAR = 100;
-
     public static final String INTRODUCTION = "Introduction";
+    public static final String ORGANIZE_HOME = "Organize home";
+    public static final String ACTION_TIME = "Action time";
+    public static final String EXTRA = "Extra";
     public static final String TITLE = "title";
     public static final String DESCRIPTION = "description";
     public static final String CLASS_DONE = "isDone";

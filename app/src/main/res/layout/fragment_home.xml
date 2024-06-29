@@ -161,17 +161,17 @@
             android:layout_height="5dp"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="20sp"
-            android:progress="50"
             android:background="@drawable/progress_bar_background" />
 
         <TextView
+            android:id="@+id/text_organize_home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/progress_bar_manage_financial"
             android:layout_marginStart="5dp"
             android:layout_marginTop="-6dp"
             android:layout_toEndOf="@+id/progress_bar_manage_financial"
-            android:text="50%"
+            android:text="0%"
             android:textColor="@color/white"
             android:textSize="12sp"
             android:textStyle="bold" />
@@ -209,17 +209,17 @@
             android:layout_height="5dp"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="20sp"
-            android:progress="75"
             android:background="@drawable/progress_bar_background" />
 
         <TextView
+            android:id="@+id/text_action_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/progress_bar_target_goals"
             android:layout_marginStart="5dp"
             android:layout_marginTop="-6dp"
             android:layout_toEndOf="@+id/progress_bar_target_goals"
-            android:text="75%"
+            android:text="0%"
             android:textColor="@color/white"
             android:textSize="12sp"
             android:textStyle="bold" />
@@ -256,17 +256,17 @@
             android:layout_height="5dp"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="20sp"
-            android:progress="100"
             android:background="@drawable/progress_bar_background" />
 
         <TextView
+            android:id="@+id/text_extra"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/progress_bar_extra"
             android:layout_marginStart="5dp"
             android:layout_marginTop="-6dp"
             android:layout_toEndOf="@+id/progress_bar_extra"
-            android:text="100%"
+            android:text="0%"
             android:textColor="@color/white"
             android:textSize="12sp"
             android:textStyle="bold" />
