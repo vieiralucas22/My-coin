@@ -15,7 +15,7 @@ import android.webkit.WebView;
 import android.widget.ProgressBar;
 
 import com.example.mycoin.R;
-import com.example.mycoin.databinding.FragmentIntroductionVideoPlayerBinding;
+import com.example.mycoin.databinding.FragmentVideoPlayerBinding;
 import com.example.mycoin.fragments.BaseFragment;
 import com.example.mycoin.utils.LogcatUtil;
 
@@ -26,14 +26,14 @@ public class VideoPlayerFragment extends BaseFragment implements View.OnClickLis
     private ProgressBar mProgressBar;
     private View mButtonQuiz;
     private View mView;
-    private FragmentIntroductionVideoPlayerBinding mBinding;
+    private FragmentVideoPlayerBinding mBinding;
 
     private VideoPlayerViewModel mViewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        mBinding = FragmentIntroductionVideoPlayerBinding.inflate(inflater, container, false);
+        mBinding = FragmentVideoPlayerBinding.inflate(inflater, container, false);
         return mBinding.getRoot();
     }
 

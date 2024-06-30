@@ -18,19 +18,20 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
+        android:id="@+id/player_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:textSize="24sp"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/player_photo"
-        app:layout_constraintEnd_toStartOf="@+id/textView6"
+        app:layout_constraintEnd_toStartOf="@+id/player_points"
         app:layout_constraintStart_toEndOf="@+id/player_photo"
         app:layout_constraintTop_toTopOf="@+id/player_photo"
         tools:text="@string/name" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/player_points"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="24sp"
@@ -39,7 +40,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/player_photo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/player_photo"
-        tools:text="1" />
+        tools:text="10" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

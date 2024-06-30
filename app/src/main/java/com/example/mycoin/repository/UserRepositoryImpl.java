@@ -1,11 +1,10 @@
 package com.example.mycoin.repository;
 
+import com.example.mycoin.callbacks.LoadUsersCallback;
 import com.example.mycoin.entities.User;
 import com.example.mycoin.gateway.repository.UserRepository;
 import com.example.mycoin.gateway.services.FirebaseService;
 import com.example.mycoin.utils.LogcatUtil;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -29,8 +28,8 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public List<User> getAllUsers() {
-        return null;
+    public void getAllUsers(LoadUsersCallback loadUsersCallback) {
+        mFirebaseService.getAllUsers(loadUsersCallback);
     }
 
     @Override

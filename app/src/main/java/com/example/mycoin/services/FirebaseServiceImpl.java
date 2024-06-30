@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.mycoin.R;
 import com.example.mycoin.callbacks.ChangePasswordCallback;
 import com.example.mycoin.callbacks.LoadClassesCallback;
+import com.example.mycoin.callbacks.LoadUsersCallback;
 import com.example.mycoin.callbacks.LoginCallback;
 import com.example.mycoin.callbacks.RegisterCallback;
 import com.example.mycoin.callbacks.UploadPhotoCallback;
@@ -14,6 +15,7 @@ import com.example.mycoin.callbacks.UserExistCallback;
 import com.example.mycoin.constants.Constants;
 import com.example.mycoin.entities.User;
 import com.example.mycoin.fragments.classes.allclasses.ClassAdapter;
+import com.example.mycoin.fragments.ranking.RankingListAdapter;
 import com.example.mycoin.gateway.services.FirebaseService;
 import com.example.mycoin.preferences.AppPreferences;
 import com.example.mycoin.utils.LogcatUtil;
@@ -236,6 +238,26 @@ public class FirebaseServiceImpl implements FirebaseService {
         String document = String.valueOf(position);
         mFirebaseFirestore.collection(module).document(document)
                 .update(Constants.CLASS_DONE, checked);
+    }
+
+    @Override
+    public void getAllUsers(LoadUsersCallback callback) {
+        List<RankingListAdapter.RankingItem> rankingItems = new ArrayList<>();
+        mFirebaseFirestore.collection(Constants.USERS).get().addOnCompleteListener(task -> {
+            if (task.isComplete()) {
+                for (DocumentSnapshot x : task.getResult().getDocuments()) {
+                    RankingListAdapter.RankingItem item = new RankingListAdapter.RankingItem();
+
+                    item.setName(x.getString(Constants.NAME));
+                    item.setPoints(x.getString(Constants.POINTS));
+                    item.setPlayerPhoto(x.getString(Constants.PHOTO));
+                    rankingItems.add(item);
+                }
+                callback.onSuccess(rankingItems);
+                return;
+            }
+            callback.onFailure("Users not loaded");
+        });
     }
 
     private User getUser(DocumentSnapshot document) {

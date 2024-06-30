@@ -11,11 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mycoin.R;
-import com.example.mycoin.databinding.FragmentIntroductionClassesBinding;
+import com.example.mycoin.databinding.FragmentAllClassesBinding;
 import com.example.mycoin.di.components.DaggerAppComponent;
 import com.example.mycoin.di.modules.AppModule;
 import com.example.mycoin.fragments.BaseFragment;
-import com.example.mycoin.fragments.classes.result.ResultFragmentArgs;
 import com.example.mycoin.gateway.repository.ClassRepository;
 import com.example.mycoin.utils.ListUtil;
 
@@ -23,7 +22,7 @@ import javax.inject.Inject;
 
 public class ClassesFragment extends BaseFragment implements View.OnClickListener {
 
-    private FragmentIntroductionClassesBinding mBinding;
+    private FragmentAllClassesBinding mBinding;
 
     private ClassesViewModel mViewModel;
     private RecyclerView mRecyclerView;
@@ -33,14 +32,10 @@ public class ClassesFragment extends BaseFragment implements View.OnClickListene
     @Inject
     ClassRepository classRepository;
 
-    public static ClassesFragment newInstance() {
-        return new ClassesFragment();
-    }
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        mBinding = FragmentIntroductionClassesBinding.inflate(inflater, container, false);
+        mBinding = FragmentAllClassesBinding.inflate(inflater, container, false);
         return mBinding.getRoot();
     }
 
@@ -71,17 +66,13 @@ public class ClassesFragment extends BaseFragment implements View.OnClickListene
     }
 
     private void initObservers() {
-        mViewModel.getLoadData().observe(getViewLifecycleOwner(), this::allClassesLoaded);
+        mViewModel.getLoadData().observe(getViewLifecycleOwner(), this::showClasses);
     }
 
-    private void allClassesLoaded(Boolean isLoad) {
+    private void showClasses(Boolean isLoad) {
         if (isLoad && !ListUtil.isEmpty(mViewModel.getClassList())) {
-            showClasses();
+            mAdapter.setItems(mViewModel.getClassList());
         }
-    }
-
-    private void showClasses() {
-        mAdapter.setItems(mViewModel.getClassList());
     }
 
     private ClassesFragmentArgs getArgs() {

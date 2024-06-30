@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,6 @@ import com.example.mycoin.R;
 import com.example.mycoin.databinding.FragmentHomeBinding;
 import com.example.mycoin.databinding.NavigationMenuBinding;
 import com.example.mycoin.fragments.BaseFragment;
-import com.example.mycoin.fragments.classes.quiz.QuizFragmentDirections;
 import com.example.mycoin.utils.LogcatUtil;
 
 public class HomeFragment extends BaseFragment implements View.OnClickListener {
@@ -46,6 +46,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.i(TAG, "Entered in home fragment");
+
         mViewModel = getViewModel(HomeViewModel.class);
         mViewModel.getModuleProgress();
         initComponents();
@@ -66,6 +68,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     private void initListeners() {
     mViewProfile.setOnClickListener(this);
+    mViewRanking.setOnClickListener(this);
     mCardIntroduction.setOnClickListener(this);
     mBinding.cardManageFinancial.setOnClickListener(this);
     mBinding.cardTargetGoals.setOnClickListener(this);
@@ -132,6 +135,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         Navigation.findNavController(v).navigate(action);
     }
 
+    private void goRankingScreen(View v) {
+        Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_rankingFragment);
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -150,6 +157,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             goActionTimeModule(v);
         } else if (v.getId() == R.id.card_extra) {
             goExtraModule(v);
+        } else if (v.getId() == R.id.view_ranking) {
+            goRankingScreen(v);
         }
     }
 }
