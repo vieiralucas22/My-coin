@@ -1,5 +1,6 @@
 package com.example.mycoin.fragments.ranking;
 
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ import com.example.mycoin.fragments.BaseFragment;
 
 import com.example.mycoin.utils.ListUtil;
 import com.example.mycoin.utils.LogcatUtil;
+import com.squareup.picasso.Picasso;
 
 public class RankingFragment extends BaseFragment implements View.OnClickListener {
     public static final String TAG = LogcatUtil.getTag(RankingFragment.class);
@@ -55,12 +57,15 @@ public class RankingFragment extends BaseFragment implements View.OnClickListene
     }
 
     private void initObservers() {
-        mViewModel.getUsersLoaded().observe(getViewLifecycleOwner(),this::showUsersInRanking);
+        mViewModel.getUsersLoaded().observe(getViewLifecycleOwner(), this::showUsersInRanking);
     }
 
     private void showUsersInRanking(Boolean isLoad) {
         if (isLoad && !ListUtil.isEmpty(mViewModel.getRankingItems())) {
             mAdapter.setItems(mViewModel.getRankingItems());
+            Picasso.get().load(Uri.parse(mViewModel.getRankingItems().get(0).getPlayerPhoto())).into(mBinding.userFirst);
+            Picasso.get().load(Uri.parse(mViewModel.getRankingItems().get(1).getPlayerPhoto())).into(mBinding.userSecond);
+            Picasso.get().load(Uri.parse(mViewModel.getRankingItems().get(2).getPlayerPhoto())).into(mBinding.userThird);
         }
     }
 

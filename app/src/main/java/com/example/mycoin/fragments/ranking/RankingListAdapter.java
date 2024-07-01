@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mycoin.R;
 import com.example.mycoin.databinding.PlayerRankingItemBinding;
 import com.example.mycoin.utils.LogcatUtil;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -62,7 +63,7 @@ public class RankingListAdapter
 
     public void bind(RankingItem item) {
         Uri uri = Uri.parse(item.getPlayerPhoto());
-        mBinding.playerPhoto.setImageURI(uri);
+        Picasso.get().load(uri).into(mBinding.playerPhoto);
         mBinding.playerName.setText(item.getName());
         mBinding.playerPoints.setText(item.getPoints());
     }

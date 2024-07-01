@@ -37,7 +37,7 @@ public class RankingViewModel extends ViewModel {
 
             @Override
             public void onSuccess(List<RankingListAdapter.RankingItem> list) {
-                list.sort(Comparator.comparing(RankingListAdapter.RankingItem::getPoints));
+                list.sort((o1, o2) -> o2.getPoints().compareTo(o1.getPoints()));
                 mRankingItems = list;
                 mUsersLoaded.postValue(true);
             }
