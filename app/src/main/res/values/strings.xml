@@ -41,7 +41,7 @@
     <!--Profile-->
     <string name="position_number">1º </string>
     <string name="position"> position</string>
-    <string name="points_number">100</string>
+    <string name="points_number">100 points</string>
     <string name="points"> points</string>
     <string name="edit_profile">Edit profile</string>
     <string name="edit_password">Edit password</string>

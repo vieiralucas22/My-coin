@@ -57,17 +57,10 @@
         app:layout_constraintTop_toBottomOf="@+id/sub_message">
 
         <TextView
-            android:id="@+id/text_position"
+            android:id="@+id/user_points"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1º "
-            android:textColor="@color/position" />
-
-        <TextView
-            android:id="@+id/position"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/position"
+            android:text="0 points"
             android:textColor="@color/position" />
     </LinearLayout>
 

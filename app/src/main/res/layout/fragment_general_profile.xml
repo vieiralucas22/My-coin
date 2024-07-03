@@ -12,7 +12,9 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -53,57 +55,20 @@
         app:layout_constraintTop_toBottomOf="@+id/user_image"
         tools:text="@string/app_name" />
 
-    <LinearLayout
-        android:id="@+id/position_area"
+    <TextView
+        android:id="@+id/text_user_points"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:background="@drawable/background_position"
-        android:paddingHorizontal="5dp"
-        android:paddingVertical="3dp"
-        app:layout_constraintEnd_toStartOf="@+id/points_area"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_name">
-
-        <TextView
-            android:id="@+id/position"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/position_number"
-            android:textColor="@color/position" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/position"
-            android:textColor="@color/position" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/points_area"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/background_position"
-        android:paddingHorizontal="5dp"
-        android:paddingVertical="3dp"
+        android:text="@string/points_number"
+        android:padding="5dp"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/position"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/position_area"
-        app:layout_constraintTop_toBottomOf="@+id/user_name">
-
-        <TextView
-            android:id="@+id/text_points"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/points_number"
-            android:textColor="@color/position" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/points"
-            android:textColor="@color/position" />
-    </LinearLayout>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_name"
+        />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/edit_profile_area"
@@ -115,7 +80,7 @@
         android:layout_marginTop="140dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/position_area">
+        app:layout_constraintTop_toBottomOf="@+id/text_user_points">
 
         <View
             android:id="@+id/icon_person"

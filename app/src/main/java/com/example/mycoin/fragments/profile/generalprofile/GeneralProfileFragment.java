@@ -35,7 +35,7 @@ public class GeneralProfileFragment  extends BaseFragment implements View.OnClic
     private Button mButtonBack, mButtonCamera, mButtonCancel, mButtonConfirm;
     private ViewGroup mEditUserProfileArea, mChangePasswordArea, mLogoutArea;
     private CircleImageView mUserImage;
-    private TextView mTextPosition, mTextPoints;
+    private TextView mTextPoints;
     private Dialog mDialog;
 
     private FragmentGeneralProfileBinding mBinding;
@@ -79,8 +79,7 @@ public class GeneralProfileFragment  extends BaseFragment implements View.OnClic
         mLogoutArea = mBinding.logoutArea;
         mButtonCamera = mBinding.buttonChangePhoto;
         mUserImage = mBinding.userImage;
-        mTextPoints = mBinding.textPoints;
-        mTextPosition = mBinding.position;
+        mTextPoints = mBinding.textUserPoints;
         setUpAlertDialogLogout();
         mButtonCancel = mDialog.findViewById(R.id.button_cancel);
         mButtonConfirm = mDialog.findViewById(R.id.button_confirm_logout);
@@ -101,8 +100,7 @@ public class GeneralProfileFragment  extends BaseFragment implements View.OnClic
         mViewModel.getLoadUIUsersDetails().observe(getViewLifecycleOwner(), userDetails -> {
             Uri uri = Uri.parse(userDetails.getPhoto());
             Picasso.get().load(uri).into(mUserImage);
-            mTextPosition.setText(userDetails.getPosition() + " ");
-            mTextPoints.setText(userDetails.getPoints() + " ");
+            mTextPoints.setText(userDetails.getPoints() + " points");
         });
     }
 

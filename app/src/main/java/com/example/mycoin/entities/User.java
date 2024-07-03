@@ -7,7 +7,6 @@ public class User {
     private String mBirthDate;
     private String mPassword;
     private String mPhoto;
-    private String mPosition;
     private int mPoints = 0;
 
     public User() {
@@ -52,10 +51,6 @@ public class User {
         return mPhoto;
     }
 
-    public String getPosition() {
-        return mPosition;
-    }
-
     public void setName(String mName) {
         this.mName = mName;
     }
@@ -78,9 +73,5 @@ public class User {
 
     public void setPhoto(String mPhoto) {
         this.mPhoto = mPhoto;
-    }
-
-    public void setPosition(String mPosition) {
-        this.mPosition = mPosition;
     }
 }

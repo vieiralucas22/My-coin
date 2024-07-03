@@ -90,4 +90,8 @@ public class HomeViewModel extends ViewModel {
     public MutableLiveData<Integer> getProgressExtra() {
         return mProgressExtra;
     }
+
+    public int getUserPoints() {
+        return mAppPreferences.getCurrentUser().getPoints();
+    }
 }

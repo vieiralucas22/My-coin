@@ -78,6 +78,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private void setCurrentUserData() {
         mViewModel.setCurrentUser();
         mUserName.setText(mViewModel.getUserName());
+        mBinding.userPoints.setText(mViewModel.getUserPoints());
     }
 
     private void initObservers() {
