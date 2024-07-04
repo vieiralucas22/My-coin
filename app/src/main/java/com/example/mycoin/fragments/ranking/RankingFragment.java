@@ -63,6 +63,7 @@ public class RankingFragment extends BaseFragment implements View.OnClickListene
     private void showUsersInRanking(Boolean isLoad) {
         if (isLoad && !ListUtil.isEmpty(mViewModel.getRankingItems())) {
             mAdapter.setItems(mViewModel.getRankingItems());
+            if (mViewModel.getRankingItems().size() < 3) return;
             Picasso.get().load(Uri.parse(mViewModel.getRankingItems().get(0).getPlayerPhoto())).into(mBinding.userFirst);
             Picasso.get().load(Uri.parse(mViewModel.getRankingItems().get(1).getPlayerPhoto())).into(mBinding.userSecond);
             Picasso.get().load(Uri.parse(mViewModel.getRankingItems().get(2).getPlayerPhoto())).into(mBinding.userThird);

@@ -91,7 +91,7 @@ public class HomeViewModel extends ViewModel {
         return mProgressExtra;
     }
 
-    public int getUserPoints() {
-        return mAppPreferences.getCurrentUser().getPoints();
+    public String getUserPoints() {
+        return String.valueOf(mAppPreferences.getCurrentUser().getPoints()) + " points";
     }
 }
