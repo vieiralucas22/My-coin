@@ -42,11 +42,7 @@ public class HomeViewModel extends ViewModel {
     }
 
     public void setCurrentUser() {
-        FirebaseUser user = mAuth.getCurrentUser();
-
-        if (user == null) return;
-
-        mFirebaseService.setUserByEmail(user.getEmail());
+        mFirebaseService.setUserByEmail();
     }
 
     public String getUserName() {
@@ -54,24 +50,24 @@ public class HomeViewModel extends ViewModel {
     }
 
     public void getModuleProgress() {
-        mClassRepository.getAllClassesByModule(Constants.INTRODUCTION, new LoadClassesCallback() {
-            @Override
-            public void onSuccess(List<ClassAdapter.ClassItem> list) {
-                int percentage = 0;
-                int progressStep = 100 / list.size();
-                for (ClassAdapter.ClassItem classItem : list) {
-                    if (classItem.isDone()) {
-                        percentage += progressStep;
-                    }
-                }
-                mProgressIntroduction.postValue(percentage);
-            }
-
-            @Override
-            public void onFailure(String message) {
-
-            }
-        });
+//        mClassRepository.getAllClassesByModule(Constants.INTRODUCTION, new LoadClassesCallback() {
+//            @Override
+//            public void onSuccess(List<ClassAdapter.ClassItem> list) {
+//                int percentage = 0;
+//                int progressStep = 100 / list.size();
+//                for (ClassAdapter.ClassItem classItem : list) {
+//                    if (classItem.isDone()) {
+//                        percentage += progressStep;
+//                    }
+//                }
+//                mProgressIntroduction.postValue(percentage);
+//            }
+//
+//            @Override
+//            public void onFailure(String message) {
+//
+//            }
+//        });
 
     }
 

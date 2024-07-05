@@ -1,6 +1,7 @@
 package com.example.mycoin.services;
 
 import android.net.Uri;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.example.mycoin.R;
@@ -11,7 +12,6 @@ import com.example.mycoin.callbacks.LoginCallback;
 import com.example.mycoin.callbacks.RegisterCallback;
 import com.example.mycoin.callbacks.UploadPhotoCallback;
 import com.example.mycoin.callbacks.UserDataChangeCallback;
-import com.example.mycoin.callbacks.UserExistCallback;
 import com.example.mycoin.constants.Constants;
 import com.example.mycoin.entities.User;
 import com.example.mycoin.fragments.classes.allclasses.ClassAdapter;
@@ -23,8 +23,10 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
@@ -113,17 +115,72 @@ public class FirebaseServiceImpl implements FirebaseService {
         newUser.put(Constants.PASSWORD, user.getPassword());
         newUser.put(Constants.BIRTHDATE, user.getBirthDate());
         newUser.put(Constants.PHOTO, "");
-        newUser.put(Constants.POINTS, String.valueOf(user.getPoints()));
+        newUser.put(Constants.POINTS, "");
 
-        mFirebaseFirestore.collection(Constants.USERS)
-                .document(user.getEmail())
-                .set(newUser).addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Log.d(TAG, "User created!");
-                        return;
-                    }
-                    Log.e(TAG, "User was not created!");
+        DocumentReference userRef = mFirebaseFirestore.collection("Users").document(user.getEmail());
+        userRef.set(user).addOnSuccessListener(aVoid -> {
+                    System.out.println("User added with email ID: " + user.getEmail());
+
+                    addSubCollections(user.getEmail());
+                })
+                .addOnFailureListener(e -> {
+                    System.err.println("Error adding user: " + e.getMessage());
                 });
+    }
+
+    private void addSubCollections(String email) {
+        addIntroductionModule(email);
+        addObjectiveModule(email);
+        addActionModule(email);
+        addExtraModule(email);
+    }
+
+    private void addIntroductionModule(String email) {
+        DocumentReference userRef = mFirebaseFirestore.collection(Constants.USERS).document(email).collection(Constants.INTRODUCTION).document("0");
+        userRef.set(createClass("Lesson 1", "What`s financial education?"), SetOptions.merge());
+        userRef = mFirebaseFirestore.collection(Constants.USERS).document(email).collection(Constants.INTRODUCTION).document("1");
+        userRef.set(createClass("Lesson 2", "How can we start?"), SetOptions.merge());
+        userRef = mFirebaseFirestore.collection(Constants.USERS).document(email).collection(Constants.INTRODUCTION).document("2");
+        userRef.set(createClass("Lesson 3", "Organize your home"), SetOptions.merge());
+        userRef = mFirebaseFirestore.collection(Constants.USERS).document(email).collection(Constants.INTRODUCTION).document("3");
+        userRef.set(createClass("Lesson 4", "Define your target"), SetOptions.merge());
+        userRef = mFirebaseFirestore.collection(Constants.USERS).document(email).collection(Constants.INTRODUCTION).document("4");
+        userRef.set(createClass("Lesson 5", "The value of tomorrow"), SetOptions.merge());
+    }
+
+    private void addObjectiveModule(String email) {
+        DocumentReference userRef = mFirebaseFirestore.collection(Constants.USERS).document(email).collection(Constants.ORGANIZE_HOME).document("0");
+        userRef.set(createClass("Lesson 6", "Basic concepts about financial education"), SetOptions.merge());
+        userRef = mFirebaseFirestore.collection(Constants.USERS).document(email).collection(Constants.ORGANIZE_HOME).document("1");
+        userRef.set(createClass("Lesson 7", "Let`s organize your home"), SetOptions.merge());
+        userRef = mFirebaseFirestore.collection(Constants.USERS).document(email).collection(Constants.ORGANIZE_HOME).document("2");
+        userRef.set(createClass("Lesson 8", "Define your goal"), SetOptions.merge());
+        userRef = mFirebaseFirestore.collection(Constants.USERS).document(email).collection(Constants.ORGANIZE_HOME).document("3");
+        userRef.set(createClass("Lesson 9", "Define your goal example"), SetOptions.merge());
+    }
+
+    private void addActionModule(String email) {
+        DocumentReference userRef = mFirebaseFirestore.collection(Constants.USERS).document(email).collection(Constants.ACTION_TIME).document("0");
+        userRef.set(createClass("Lesson 10", "Compound interest"), SetOptions.merge());
+        userRef = mFirebaseFirestore.collection(Constants.USERS).document(email).collection(Constants.ACTION_TIME).document("1");
+        userRef.set(createClass("Lesson 11", "Let`s talk about fixed income"), SetOptions.merge());
+        userRef = mFirebaseFirestore.collection(Constants.USERS).document(email).collection(Constants.ACTION_TIME).document("2");
+        userRef.set(createClass("Lesson 12", "Let`s talk about equities"), SetOptions.merge());
+    }
+
+    private void addExtraModule(String email) {
+        DocumentReference userRef = mFirebaseFirestore.collection(Constants.USERS).document(email).collection(Constants.EXTRA).document("0");
+        userRef.set(createClass("Lesson 13", "Rich dad Poor dad"), SetOptions.merge());
+        userRef = mFirebaseFirestore.collection(Constants.USERS).document(email).collection(Constants.EXTRA).document("1");
+        userRef.set(createClass("Lesson 14", "The Richest Man In Babylon"), SetOptions.merge());
+    }
+
+    private Map<String, Object> createClass(String title, String description) {
+        Map<String, Object> lesson = new HashMap<>();
+        lesson.put(Constants.TITLE, title);
+        lesson.put(Constants.DESCRIPTION, description);
+        lesson.put(Constants.CLASS_DONE, false);
+        return lesson;
     }
 
     @Override
@@ -141,8 +198,12 @@ public class FirebaseServiceImpl implements FirebaseService {
     }
 
     @Override
-    public void setUserByEmail(String email) {
-        mFirebaseFirestore.collection(Constants.USERS).document(email)
+    public void setUserByEmail() {
+        FirebaseUser user = mAuth.getCurrentUser();
+
+        if (TextUtils.isEmpty(user.getEmail())) return;
+
+        mFirebaseFirestore.collection(Constants.USERS).document(user.getEmail())
                 .get().addOnSuccessListener(document -> {
                     if (document.exists()) {
                         mAppPreferences.setCurrentUser(getUser(document));
@@ -181,7 +242,7 @@ public class FirebaseServiceImpl implements FirebaseService {
         reference.putFile(uri).addOnSuccessListener(task -> {
             task.getStorage().getDownloadUrl().addOnCompleteListener(uri1 -> {
                 if (uri1.isSuccessful()) {
-                    String  downloadUri= uri1.getResult().toString();
+                    String downloadUri = uri1.getResult().toString();
                     HashMap<String, Object> map = new HashMap<>();
                     map.put(Constants.PHOTO, downloadUri);
                     mFirebaseFirestore.collection(Constants.USERS).document(user.getEmail())
@@ -204,8 +265,12 @@ public class FirebaseServiceImpl implements FirebaseService {
 
     @Override
     public void updateUser(User user) {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if (currentUser == null) return;
+
         String userPoints = String.valueOf(user.getPoints());
-        mFirebaseFirestore.collection(Constants.USERS).document(user.getEmail())
+        mFirebaseFirestore.collection(Constants.USERS).document(currentUser.getUid())
                 .update(Constants.POINTS, userPoints).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         mAppPreferences.setCurrentUser(user);
@@ -216,20 +281,24 @@ public class FirebaseServiceImpl implements FirebaseService {
     @Override
     public void getClassesByModule(String module, LoadClassesCallback callback) {
         List<ClassAdapter.ClassItem> classItemList = new ArrayList<>();
-        mFirebaseFirestore.collection(module).get().addOnCompleteListener(task -> {
-            if (task.isComplete()) {
-                for (DocumentSnapshot x : task.getResult().getDocuments()) {
-                    ClassAdapter.ClassItem classItem = new ClassAdapter.ClassItem();
-                    classItem.setTitle(x.getString(Constants.TITLE));
-                    classItem.setDescription(x.getString(Constants.DESCRIPTION));
-                    classItem.setIsDone(Boolean.TRUE.equals(x.getBoolean(Constants.CLASS_DONE)));
-                    classItemList.add(classItem);
-                }
-                callback.onSuccess(classItemList);
-                return;
-            }
-            callback.onFailure("Classes not loaded");
-        });
+
+        User user = mAppPreferences.getCurrentUser();
+
+        mFirebaseFirestore.collection(Constants.USERS).document(user.getEmail())
+                .collection(module).get().addOnCompleteListener(task -> {
+                    if (task.isComplete()) {
+                        for (DocumentSnapshot x : task.getResult().getDocuments()) {
+                            ClassAdapter.ClassItem classItem = new ClassAdapter.ClassItem();
+                            classItem.setTitle(x.getString(Constants.TITLE));
+                            classItem.setDescription(x.getString(Constants.DESCRIPTION));
+                            classItem.setIsDone(Boolean.TRUE.equals(x.getBoolean(Constants.CLASS_DONE)));
+                            classItemList.add(classItem);
+                        }
+                        callback.onSuccess(classItemList);
+                        return;
+                    }
+                    callback.onFailure("Classes not loaded");
+                });
     }
 
     @Override
@@ -257,6 +326,7 @@ public class FirebaseServiceImpl implements FirebaseService {
             }
             callback.onFailure("Users not loaded");
         });
+
     }
 
     private User getUser(DocumentSnapshot document) {
@@ -268,14 +338,5 @@ public class FirebaseServiceImpl implements FirebaseService {
         user.setPoints(Integer.parseInt(document.getString(Constants.POINTS)));
         user.setPhoto(document.getString(Constants.PHOTO));
         return user;
-    }
-
-    private void checkUserExist(String email, UserExistCallback callBack) {
-        mFirebaseFirestore.collection(Constants.USERS)
-                .document(email).addSnapshotListener((value, error) -> {
-                    if (value != null) {
-                        callBack.exist(value.getString(Constants.PASSWORD));
-                    }
-                });
     }
 }

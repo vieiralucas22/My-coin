@@ -115,5 +115,14 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHol
         public void setIsDone(boolean mIsDone) {
             this.mIsDone = mIsDone;
         }
+
+        @Override
+        public String toString() {
+            return "ClassItem{" +
+                    "mTitle='" + mTitle + '\'' +
+                    ", mDescription='" + mDescription + '\'' +
+                    ", mIsDone=" + mIsDone +
+                    '}';
+        }
     }
 }
