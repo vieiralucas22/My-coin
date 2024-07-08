@@ -115,16 +115,15 @@ public class FirebaseServiceImpl implements FirebaseService {
         newUser.put(Constants.PASSWORD, user.getPassword());
         newUser.put(Constants.BIRTHDATE, user.getBirthDate());
         newUser.put(Constants.PHOTO, "");
-        newUser.put(Constants.POINTS, "");
+        newUser.put(Constants.POINTS, "0");
 
         DocumentReference userRef = mFirebaseFirestore.collection("Users").document(user.getEmail());
-        userRef.set(user).addOnSuccessListener(aVoid -> {
-                    System.out.println("User added with email ID: " + user.getEmail());
-
+        userRef.set(newUser).addOnSuccessListener(aVoid -> {
+                    Log.i(TAG,"User added with email ID: " + user.getEmail());
                     addSubCollections(user.getEmail());
                 })
                 .addOnFailureListener(e -> {
-                    System.err.println("Error adding user: " + e.getMessage());
+                    Log.e(TAG,"Error adding user: " + e.getMessage());
                 });
     }
 

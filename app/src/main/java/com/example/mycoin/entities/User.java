@@ -7,7 +7,7 @@ public class User {
     private String mBirthDate;
     private String mPassword;
     private String mPhoto;
-    private int mPoints = 0;
+    private int mPoints;
 
     public User() {
     }
