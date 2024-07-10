@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.example.mycoin.R;
 import com.example.mycoin.databinding.FragmentRankingBinding;
+import com.example.mycoin.databinding.NavigationMenuBinding;
 import com.example.mycoin.fragments.BaseFragment;
 
 import com.example.mycoin.utils.ListUtil;
@@ -24,6 +26,7 @@ public class RankingFragment extends BaseFragment implements View.OnClickListene
 
     private RankingListAdapter mAdapter;
     private FragmentRankingBinding mBinding;
+    private NavigationMenuBinding mMenuNavigation;
 
     private RankingViewModel mViewModel;
 
@@ -41,6 +44,7 @@ public class RankingFragment extends BaseFragment implements View.OnClickListene
 
         mViewModel = getViewModel(RankingViewModel.class);
 
+        mMenuNavigation = mBinding.navigationMenu;
         initUI();
         initListeners();
         initObservers();
@@ -54,6 +58,8 @@ public class RankingFragment extends BaseFragment implements View.OnClickListene
 
     private void initListeners() {
         mBinding.buttonBack.setOnClickListener(this);
+        mMenuNavigation.viewHome.setOnClickListener(this);
+        mMenuNavigation.viewPerson.setOnClickListener(this);
     }
 
     private void initObservers() {
@@ -70,10 +76,24 @@ public class RankingFragment extends BaseFragment implements View.OnClickListene
         }
     }
 
+    private void goHomeScreen(View v) {
+        Navigation.findNavController(v)
+                .navigate(R.id.action_rankingFragment_to_homeFragment);
+    }
+
+    private void goEditProfileScreen(View v) {
+        Navigation.findNavController(v)
+                .navigate(R.id.action_rankingFragment_to_generalProfileFragment);
+    }
+
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.button_back) {
             backScreen(v);
+        } else if (v.getId() == R.id.view_person) {
+            goEditProfileScreen(v);
+        } else if (v.getId() == R.id.view_home) {
+            goHomeScreen(v);
         }
     }
 }

@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 
 import com.example.mycoin.R;
 import com.example.mycoin.databinding.FragmentVideoPlayerBinding;
+import com.example.mycoin.databinding.NavigationMenuBinding;
 import com.example.mycoin.fragments.BaseFragment;
 import com.example.mycoin.utils.LogcatUtil;
 
@@ -27,6 +28,7 @@ public class VideoPlayerFragment extends BaseFragment implements View.OnClickLis
     private View mButtonQuiz;
     private View mView;
     private FragmentVideoPlayerBinding mBinding;
+    private NavigationMenuBinding mMenuNavigation;
 
     private VideoPlayerViewModel mViewModel;
 
@@ -61,6 +63,7 @@ public class VideoPlayerFragment extends BaseFragment implements View.OnClickLis
 
     private void initComponents() {
         mViewModel = getViewModel(VideoPlayerViewModel.class);
+        mMenuNavigation = mBinding.navigationMenu;
         mWebView = mBinding.videoView;
         mView = mBinding.view2;
         mProgressBar = mBinding.progressBar;
@@ -69,12 +72,35 @@ public class VideoPlayerFragment extends BaseFragment implements View.OnClickLis
 
     private void initListeners() {
         mButtonQuiz.setOnClickListener(this);
+        mMenuNavigation.viewHome.setOnClickListener(this);
+        mMenuNavigation.viewPerson.setOnClickListener(this);
+        mMenuNavigation.viewRanking.setOnClickListener(this);
+    }
+
+    private void goRankingScreen(View v) {
+        Navigation.findNavController(v).navigate(R.id.action_videoPlayerFragment_to_rankingFragment);
+    }
+
+    private void goHomeScreen(View v) {
+        Navigation.findNavController(v)
+                .navigate(R.id.action_videoPlayerFragment_to_homeFragment);
+    }
+
+    private void goEditProfileScreen(View v) {
+        Navigation.findNavController(v)
+                .navigate(R.id.action_videoPlayerFragment_to_generalProfileFragment);
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.button_quiz) {
             Navigation.findNavController(v).navigate(R.id.action_introductionVideoPlayerFragment_to_quizFragment);
+        } else if (v.getId() == R.id.view_person) {
+            goEditProfileScreen(v);
+        } else if (v.getId() == R.id.view_ranking) {
+            goRankingScreen(v);
+        } else if (v.getId() == R.id.view_home) {
+            goHomeScreen(v);
         }
     }
 }

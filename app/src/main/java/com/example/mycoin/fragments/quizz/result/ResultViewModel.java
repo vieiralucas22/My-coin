@@ -1,4 +1,4 @@
-package com.example.mycoin.fragments.classes.result;
+package com.example.mycoin.fragments.quizz.result;
 
 import androidx.lifecycle.ViewModel;
 

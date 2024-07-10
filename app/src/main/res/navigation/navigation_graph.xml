@@ -85,6 +85,14 @@
         <action
             android:id="@+id/action_generalProfileFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_generalProfileFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_generalProfileFragment_to_rankingFragment"
+            app:destination="@id/rankingFragment" />
     </fragment>
     <fragment
         android:id="@+id/editUserProfileFragment"
@@ -109,6 +117,17 @@
             android:name="module"
             app:argType="string"
             android:defaultValue="Introduction" />
+        <action
+            android:id="@+id/action_classesFragment_to_rankingFragment"
+            app:destination="@id/rankingFragment" />
+        <action
+            android:id="@+id/action_classesFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_classesFragment_to_generalProfileFragment"
+            app:destination="@id/generalProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/videoPlayerFragment"
@@ -118,10 +137,21 @@
         <action
             android:id="@+id/action_introductionVideoPlayerFragment_to_quizFragment"
             app:destination="@id/quizFragment" />
+        <action
+            android:id="@+id/action_videoPlayerFragment_to_rankingFragment"
+            app:destination="@id/rankingFragment" />
+        <action
+            android:id="@+id/action_videoPlayerFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_videoPlayerFragment_to_generalProfileFragment"
+            app:destination="@id/generalProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/resultFragment"
-        android:name="com.example.mycoin.fragments.classes.result.ResultFragment"
+        android:name="com.example.mycoin.fragments.quizz.result.ResultFragment"
         android:label="fragment_result"
         tools:layout="@layout/fragment_result" >
         <action
@@ -147,10 +177,13 @@
             app:destination="@id/generalProfileFragment"
             app:popUpTo="@id/classesFragment"
             app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_resultFragment_to_rankingFragment"
+            app:destination="@id/rankingFragment" />
     </fragment>
     <fragment
         android:id="@+id/quizFragment"
-        android:name="com.example.mycoin.fragments.classes.quiz.QuizFragment"
+        android:name="com.example.mycoin.fragments.quizz.QuizFragment"
         android:label="fragment_quiz"
         tools:layout="@layout/fragment_quiz" >
         <action
@@ -163,5 +196,14 @@
         android:id="@+id/rankingFragment"
         android:name="com.example.mycoin.fragments.ranking.RankingFragment"
         android:label="fragment_ranking"
-        tools:layout="@layout/fragment_ranking" />
+        tools:layout="@layout/fragment_ranking" >
+        <action
+            android:id="@+id/action_rankingFragment_to_generalProfileFragment"
+            app:destination="@id/generalProfileFragment" />
+        <action
+            android:id="@+id/action_rankingFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
 </navigation>

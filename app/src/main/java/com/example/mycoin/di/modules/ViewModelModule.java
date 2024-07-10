@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.mycoin.di.ViewModelKey;
 import com.example.mycoin.fragments.classes.allclasses.ClassesViewModel;
-import com.example.mycoin.fragments.classes.result.ResultViewModel;
+import com.example.mycoin.fragments.quizz.result.ResultViewModel;
 import com.example.mycoin.fragments.classes.videoclasses.VideoPlayerViewModel;
 import com.example.mycoin.fragments.confirmcode.ConfirmCodeViewModel;
 import com.example.mycoin.fragments.forgotpassword.ForgotPasswordViewModel;
@@ -65,7 +65,7 @@ public interface ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(VideoPlayerViewModel.class)
-    ViewModel bindsIntroductionVideoPlayerViewModel(VideoPlayerViewModel viewModel);
+    ViewModel bindsVideoPlayerViewModel(VideoPlayerViewModel viewModel);
 
     @Binds
     @IntoMap

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background_quiz"
     android:padding="15dp"
-    tools:context=".fragments.classes.quiz.QuizFragment">
+    tools:context=".fragments.quizz.QuizFragment">
 
     <Button
         android:id="@+id/button_back"

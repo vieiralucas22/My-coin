@@ -282,10 +282,10 @@ public class FirebaseServiceImpl implements FirebaseService {
     public void updateUser(User user) {
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        if (currentUser == null) return;
+        if (currentUser.getEmail() == null) return;
 
         String userPoints = String.valueOf(user.getPoints());
-        mFirebaseFirestore.collection(USERS).document(currentUser.getUid())
+        mFirebaseFirestore.collection(USERS).document(currentUser.getEmail())
                 .update(Constants.POINTS, userPoints).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         mAppPreferences.setCurrentUser(user);

@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.example.mycoin.R;
 import com.example.mycoin.databinding.FragmentGeneralProfileBinding;
+import com.example.mycoin.databinding.NavigationMenuBinding;
 import com.example.mycoin.fragments.BaseFragment;
 import com.example.mycoin.utils.LogcatUtil;
 import com.squareup.picasso.Picasso;
@@ -39,6 +40,7 @@ public class GeneralProfileFragment  extends BaseFragment implements View.OnClic
     private Dialog mDialog;
 
     private FragmentGeneralProfileBinding mBinding;
+    private NavigationMenuBinding mMenuNavigation;
 
     private GeneralProfileViewModel mViewModel;
 
@@ -73,6 +75,7 @@ public class GeneralProfileFragment  extends BaseFragment implements View.OnClic
     }
 
     private void initComponents() {
+        mMenuNavigation = mBinding.navigationMenu;
         mButtonBack = mBinding.buttonBack;
         mEditUserProfileArea = mBinding.editProfileArea;
         mChangePasswordArea = mBinding.changePasswordArea;
@@ -93,6 +96,8 @@ public class GeneralProfileFragment  extends BaseFragment implements View.OnClic
         mButtonCamera.setOnClickListener(this);
         mButtonCancel.setOnClickListener(this);
         mButtonConfirm.setOnClickListener(this);
+        mMenuNavigation.viewHome.setOnClickListener(this);
+        mMenuNavigation.viewRanking.setOnClickListener(this);
     }
 
     @SuppressLint("SetTextI18n")
@@ -143,6 +148,16 @@ public class GeneralProfileFragment  extends BaseFragment implements View.OnClic
         pickPhotoResultLauncher.launch(intent);
     }
 
+    private void goRankingScreen(View v) {
+        Navigation.findNavController(v)
+                .navigate(R.id.action_generalProfileFragment_to_rankingFragment);
+    }
+
+    private void goHomeScreen(View v) {
+        Navigation.findNavController(v)
+                .navigate(R.id.action_generalProfileFragment_to_homeFragment);
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -165,6 +180,10 @@ public class GeneralProfileFragment  extends BaseFragment implements View.OnClic
             mDialog.cancel();
         } else if (v.getId() == R.id.button_confirm_logout) {
             logout();
+        } else if (v.getId() == R.id.view_ranking) {
+            goRankingScreen(v);
+        } else if (v.getId() == R.id.view_home) {
+            goHomeScreen(v);
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.example.mycoin.fragments.classes.quiz;
+package com.example.mycoin.fragments.quizz;
 
 import android.os.Bundle;
 
@@ -53,7 +53,6 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
     private ProgressBar mProgressBar;
     private List<Question> mQuestionItems;
     private FragmentQuizBinding mBinding;
-    private QuizViewModel mViewModel;
     private CountDownTimer mCountDownTimer;
     private int mCurrentQuestion;
     private int correct = 0;

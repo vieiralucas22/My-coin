@@ -1,4 +1,4 @@
-package com.example.mycoin.fragments.classes.result;
+package com.example.mycoin.fragments.quizz.result;
 
 import android.os.Bundle;
 
@@ -26,7 +26,6 @@ public class ResultFragment extends BaseFragment implements View.OnClickListener
     private FragmentResultBinding mBinding;
     private ResultViewModel mViewModel;
     private NavigationMenuBinding mMenuNavigation;
-    private View mViewTarget, mViewHome, mViewProfile, mViewRanking;
 
     private int mPoints = 0;
 
@@ -54,10 +53,6 @@ public class ResultFragment extends BaseFragment implements View.OnClickListener
         mTextQuestionsWrong = mBinding.textNumberWrong;
         mTextPoints = mBinding.textPoints;
         mMenuNavigation = mBinding.navigationMenu;
-        mViewTarget = mMenuNavigation.viewTarget;
-        mViewHome = mMenuNavigation.viewHome;
-        mViewProfile = mMenuNavigation.viewPerson;
-        mViewRanking = mMenuNavigation.viewRanking;
     }
 
     private ResultFragmentArgs getArgs() {
@@ -69,6 +64,7 @@ public class ResultFragment extends BaseFragment implements View.OnClickListener
     private void initListeners() {
         mMenuNavigation.viewHome.setOnClickListener(this);
         mMenuNavigation.viewPerson.setOnClickListener(this);
+        mMenuNavigation.viewRanking.setOnClickListener(this);
     }
 
     private void setUpUI() {
@@ -86,10 +82,15 @@ public class ResultFragment extends BaseFragment implements View.OnClickListener
                 .navigate(R.id.action_resultFragment_to_generalProfileFragment);
     }
 
-    private void goHomeTab(View v) {
+    private void goHomeScreen(View v) {
         Navigation.findNavController(v)
                 .navigate(R.id.action_resultFragment_to_homeFragment);
     }
+
+    private void goRankingScreen(View v) {
+        Navigation.findNavController(v).navigate(R.id.action_resultFragment_to_rankingFragment);
+    }
+
 
     @Override
     public void onDestroy() {
@@ -100,9 +101,11 @@ public class ResultFragment extends BaseFragment implements View.OnClickListener
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.view_home) {
-            goHomeTab(v);
+            goHomeScreen(v);
         } else if (v.getId() == R.id.view_person) {
             goEditProfileTab(v);
+        } else if (v.getId() == R.id.view_ranking) {
+            goRankingScreen(v);
         }
     }
 }
