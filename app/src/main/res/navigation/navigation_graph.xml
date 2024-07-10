@@ -66,7 +66,7 @@
             app:destination="@id/generalProfileFragment" />
         <action
             android:id="@+id/action_homeFragment_to_introductionClassesFragment"
-            app:destination="@id/introductionClassesFragment" />
+            app:destination="@id/classesFragment" />
         <action
             android:id="@+id/action_homeFragment_to_rankingFragment"
             app:destination="@id/rankingFragment" />
@@ -97,13 +97,13 @@
         android:label="fragment_change_user_password"
         tools:layout="@layout/fragment_change_user_password" />
     <fragment
-        android:id="@+id/introductionClassesFragment"
+        android:id="@+id/classesFragment"
         android:name="com.example.mycoin.fragments.classes.allclasses.ClassesFragment"
         android:label="fragment_introduction_classes"
         tools:layout="@layout/fragment_all_classes" >
         <action
-            android:id="@+id/action_classesFragment_to_introductionVideoPlayerFragment"
-            app:destination="@id/introductionVideoPlayerFragment" />
+            android:id="@+id/action_classesFragment_to_videoPlayerFragment"
+            app:destination="@id/videoPlayerFragment" />
 
         <argument
             android:name="module"
@@ -111,7 +111,7 @@
             android:defaultValue="Introduction" />
     </fragment>
     <fragment
-        android:id="@+id/introductionVideoPlayerFragment"
+        android:id="@+id/videoPlayerFragment"
         android:name="com.example.mycoin.fragments.classes.videoclasses.VideoPlayerFragment"
         android:label="fragment_introduction_video_player"
         tools:layout="@layout/fragment_video_player" >
@@ -145,7 +145,7 @@
         <action
             android:id="@+id/action_resultFragment_to_generalProfileFragment"
             app:destination="@id/generalProfileFragment"
-            app:popUpTo="@id/introductionClassesFragment"
+            app:popUpTo="@id/classesFragment"
             app:popUpToInclusive="true"/>
     </fragment>
     <fragment

@@ -35,12 +35,13 @@
 
     <TextView
         android:id="@+id/sub_message"
-        android:layout_width="270dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="5sp"
         android:text="@string/the_best_place_to_learn_about_financial_education"
         android:textColor="@color/white"
         android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/view"
         app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -99,28 +100,6 @@
             android:textSize="22sp"
             android:textStyle="bold" />
 
-        <ProgressBar
-            android:id="@+id/progress_bar_introduction"
-            style="@style/ProgressBarClasses"
-            android:layout_width="120sp"
-            android:layout_height="5dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="20sp"
-            android:background="@drawable/progress_bar_background" />
-
-        <TextView
-            android:id="@+id/text_introduction_percentage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/progress_bar_introduction"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="-6dp"
-            android:layout_toEndOf="@+id/progress_bar_introduction"
-            android:text="0%"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            android:textStyle="bold" />
-
     </RelativeLayout>
 
     <RelativeLayout
@@ -147,27 +126,6 @@
             android:textSize="22sp"
             android:textStyle="bold" />
 
-        <ProgressBar
-            android:id="@+id/progress_bar_manage_financial"
-            style="@style/ProgressBarClasses"
-            android:layout_width="120sp"
-            android:layout_height="5dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="20sp"
-            android:background="@drawable/progress_bar_background" />
-
-        <TextView
-            android:id="@+id/text_organize_home"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/progress_bar_manage_financial"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="-6dp"
-            android:layout_toEndOf="@+id/progress_bar_manage_financial"
-            android:text="0%"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            android:textStyle="bold" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -195,27 +153,6 @@
             android:textSize="22sp"
             android:textStyle="bold" />
 
-        <ProgressBar
-            android:id="@+id/progress_bar_target_goals"
-            style="@style/ProgressBarClasses"
-            android:layout_width="120sp"
-            android:layout_height="5dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="20sp"
-            android:background="@drawable/progress_bar_background" />
-
-        <TextView
-            android:id="@+id/text_action_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/progress_bar_target_goals"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="-6dp"
-            android:layout_toEndOf="@+id/progress_bar_target_goals"
-            android:text="0%"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            android:textStyle="bold" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -242,27 +179,6 @@
             android:textSize="22sp"
             android:textStyle="bold" />
 
-        <ProgressBar
-            android:id="@+id/progress_bar_extra"
-            style="@style/ProgressBarClasses"
-            android:layout_width="120sp"
-            android:layout_height="5dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="20sp"
-            android:background="@drawable/progress_bar_background" />
-
-        <TextView
-            android:id="@+id/text_extra"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/progress_bar_extra"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="-6dp"
-            android:layout_toEndOf="@+id/progress_bar_extra"
-            android:text="0%"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            android:textStyle="bold" />
     </RelativeLayout>
 
     <include

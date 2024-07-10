@@ -22,11 +22,14 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHol
     private final ClassRepository mClassRepository;
     private List<ClassItem> mListClasses;
     private String mModule;
+    private ClassesViewModel mClassesViewModel;
 
-    public ClassAdapter(List<ClassItem> listClasses, ClassRepository classRepository, String module) {
+    public ClassAdapter(List<ClassItem> listClasses, ClassRepository classRepository,
+                        String module, ClassesViewModel viewModel) {
         mListClasses = listClasses;
         mClassRepository = classRepository;
         mModule = module;
+        mClassesViewModel = viewModel;
     }
 
     @NonNull
@@ -69,11 +72,13 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHol
 
             mBinding.getRoot().setOnClickListener(view -> {
                 Navigation.findNavController(view)
-                        .navigate(R.id.action_classesFragment_to_introductionVideoPlayerFragment);
+                        .navigate(R.id.action_classesFragment_to_videoPlayerFragment);
             });
 
             mBinding.checkboxClassDone.setOnClickListener(view -> {
-                mClassRepository.updateClassState(position, mBinding.checkboxClassDone.isChecked(), mModule);
+                mClassRepository.updateClassState(position,
+                        mBinding.checkboxClassDone.isChecked(), mModule);
+                mClassesViewModel.updatePercentage(mModule);
             });
         }
     }

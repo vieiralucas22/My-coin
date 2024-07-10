@@ -34,6 +34,7 @@ public class ClassesViewModel extends ViewModel {
     private List<ClassAdapter.ClassItem> mClassList;
 
     private MutableLiveData<Boolean> mLoadData = new MutableLiveData<>();
+    private MutableLiveData<Integer> mProgress = new MutableLiveData<>();
 
     @Inject
     public ClassesViewModel(ClassRepository classRepository, Context context) {
@@ -48,7 +49,9 @@ public class ClassesViewModel extends ViewModel {
             @Override
             public void onSuccess(List<ClassAdapter.ClassItem> list) {
                 mClassList = list;
-                mLoadData.postValue(true);            }
+                mLoadData.postValue(true);
+                mProgress.setValue(getPercentage(list));
+            }
 
             @Override
             public void onFailure(String message) {
@@ -58,6 +61,21 @@ public class ClassesViewModel extends ViewModel {
 
     }
 
+    private int getPercentage(List<ClassAdapter.ClassItem> list) {
+        int percentage = 0;
+        int progressStep = 100 / list.size();
+        for (ClassAdapter.ClassItem classItem : list) {
+            if (classItem.isDone()) {
+                percentage += progressStep;
+            }
+        }
+        return percentage;
+    }
+
+    public void updatePercentage(String module) {
+        loadClassesInBD(module);
+    }
+
     public LiveData<Boolean> getLoadData() {
         return mLoadData;
     }
@@ -65,4 +83,8 @@ public class ClassesViewModel extends ViewModel {
     public List<ClassAdapter.ClassItem> getClassList() {
         return mClassList;
     }
+    public LiveData<Integer> getProgress() {
+        return mProgress;
+    }
+
 }

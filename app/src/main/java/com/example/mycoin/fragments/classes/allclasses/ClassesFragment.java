@@ -1,5 +1,7 @@
 package com.example.mycoin.fragments.classes.allclasses;
 
+import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,12 +19,14 @@ import com.example.mycoin.di.modules.AppModule;
 import com.example.mycoin.fragments.BaseFragment;
 import com.example.mycoin.gateway.repository.ClassRepository;
 import com.example.mycoin.utils.ListUtil;
+import com.google.android.material.progressindicator.CircularProgressIndicator;
 
 import javax.inject.Inject;
 
 public class ClassesFragment extends BaseFragment implements View.OnClickListener {
 
     private FragmentAllClassesBinding mBinding;
+    private CircularProgressIndicator mCircularProgressIndicator;
 
     private ClassesViewModel mViewModel;
     private RecyclerView mRecyclerView;
@@ -56,8 +60,10 @@ public class ClassesFragment extends BaseFragment implements View.OnClickListene
 
     private void initComponents() {
         mRecyclerView = mBinding.recyclerView;
+        mCircularProgressIndicator = mBinding.progressClasses;
         loadClassesByModule();
-        mAdapter = new ClassAdapter(mViewModel.getClassList(), classRepository, mModule);
+        mBinding.textTitle.setText(mModule);
+        mAdapter = new ClassAdapter(mViewModel.getClassList(), classRepository, mModule, mViewModel);
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -65,8 +71,18 @@ public class ClassesFragment extends BaseFragment implements View.OnClickListene
         mBinding.buttonBack.setOnClickListener(this);
     }
 
+    @SuppressLint("SetTextI18n")
     private void initObservers() {
         mViewModel.getLoadData().observe(getViewLifecycleOwner(), this::showClasses);
+        mViewModel.getProgress().observe(getViewLifecycleOwner(), percentage -> {
+            ObjectAnimator progressAnimator = ObjectAnimator.ofInt(mCircularProgressIndicator,
+                    "progress", mCircularProgressIndicator.getProgress(), percentage);
+            progressAnimator.setDuration(300); // Duração da animação em milissegundos
+            progressAnimator.start();
+            String totalProgress = String.valueOf(percentage);
+            mBinding.textPercentage.setText(totalProgress + "%");
+            mBinding.progressClasses.setProgress(percentage);
+        });
     }
 
     private void showClasses(Boolean isLoad) {

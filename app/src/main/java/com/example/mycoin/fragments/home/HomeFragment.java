@@ -49,11 +49,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         Log.i(TAG, "Entered in home fragment");
 
         mViewModel = getViewModel(HomeViewModel.class);
-        mViewModel.getModuleProgress();
         initComponents();
         initListeners();
         setCurrentUserData();
-        initObservers();
     }
 
     private void initComponents() {
@@ -67,40 +65,18 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void initListeners() {
-    mViewProfile.setOnClickListener(this);
-    mViewRanking.setOnClickListener(this);
-    mCardIntroduction.setOnClickListener(this);
-    mBinding.cardManageFinancial.setOnClickListener(this);
-    mBinding.cardTargetGoals.setOnClickListener(this);
-    mBinding.cardExtra.setOnClickListener(this);
+        mViewProfile.setOnClickListener(this);
+        mViewRanking.setOnClickListener(this);
+        mCardIntroduction.setOnClickListener(this);
+        mBinding.cardManageFinancial.setOnClickListener(this);
+        mBinding.cardTargetGoals.setOnClickListener(this);
+        mBinding.cardExtra.setOnClickListener(this);
     }
 
     private void setCurrentUserData() {
         mViewModel.setCurrentUser();
         mUserName.setText(mViewModel.getUserName());
         mBinding.userPoints.setText(mViewModel.getUserPoints());
-    }
-
-    private void initObservers() {
-        mViewModel.getProgressIntroduction().observe(getViewLifecycleOwner(), percentage -> {
-            mBinding.progressBarIntroduction.setProgress(percentage, true);
-            mBinding.textIntroductionPercentage.setText(percentage + "%");
-        });
-
-        mViewModel.getProgressOrganizeHome().observe(getViewLifecycleOwner(), percentage -> {
-            mBinding.progressBarManageFinancial.setProgress(percentage, true);
-            mBinding.textOrganizeHome.setText(percentage + "%");
-        });
-
-        mViewModel.getProgressActionTime().observe(getViewLifecycleOwner(), percentage -> {
-            mBinding.progressBarTargetGoals.setProgress(percentage, true);
-            mBinding.textActionTime.setText(percentage + "%");
-        });
-
-        mViewModel.getProgressExtra().observe(getViewLifecycleOwner(), percentage -> {
-            mBinding.progressBarExtra.setProgress(percentage, true);
-            mBinding.textExtra.setText(percentage + "%");
-        });
     }
 
     private void goEditProfileTab(View v) {
