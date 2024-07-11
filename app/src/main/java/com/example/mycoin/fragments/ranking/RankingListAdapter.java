@@ -100,5 +100,14 @@ public class RankingListAdapter
         public void setPoints(String mPoints) {
             this.mPoints = mPoints;
         }
+
+        @Override
+        public String toString() {
+            return "RankingItem{" +
+                    "mPlayerPhoto='" + mPlayerPhoto + '\'' +
+                    ", mName='" + mName + '\'' +
+                    ", mPoints='" + mPoints + '\'' +
+                    '}';
+        }
     }
 }

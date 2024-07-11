@@ -72,9 +72,21 @@ public class ResultFragment extends BaseFragment implements View.OnClickListener
 
         mPoints = getArgs().getTotalPoints();
 
-        mTextQuestionsRight.setText(String.valueOf(getArgs().getTotalRightQuestions()));
-        mTextQuestionsWrong.setText(String.valueOf(getArgs().getTotalWrongQuestions()));
+        int rightQuestions = getArgs().getTotalRightQuestions();
+        int wrongQuestions = getArgs().getTotalWrongQuestions();
+
+        mTextQuestionsRight.setText(String.valueOf(rightQuestions));
+        mTextQuestionsWrong.setText(String.valueOf(wrongQuestions));
         mTextPoints.setText(String.valueOf(mPoints));
+
+        if (rightQuestions > wrongQuestions) {
+            mImageSad.setVisibility(View.INVISIBLE);
+            mImageSmile.setVisibility(View.VISIBLE);
+        } else {
+            mImageSad.setVisibility(View.VISIBLE);
+            mImageSmile.setVisibility(View.INVISIBLE);
+        }
+
     }
 
     private void goEditProfileTab(View v) {

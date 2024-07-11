@@ -1,5 +1,7 @@
 package com.example.mycoin.fragments.ranking;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -10,6 +12,7 @@ import com.example.mycoin.utils.LogcatUtil;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Consumer;
 
 import javax.inject.Inject;
 
@@ -37,7 +40,12 @@ public class RankingViewModel extends ViewModel {
 
             @Override
             public void onSuccess(List<RankingListAdapter.RankingItem> list) {
-                list.sort((o1, o2) -> o2.getPoints().compareTo(o1.getPoints()));
+                list.sort((o1, o2) -> {
+                    int firstUserPoint = Integer.parseInt(o2.getPoints());
+                    int secondUserPoint = Integer.parseInt(o1.getPoints());
+                    return Integer.compare(firstUserPoint, secondUserPoint);
+                });
+
                 mRankingItems = list;
                 mUsersLoaded.postValue(true);
             }
