@@ -67,137 +67,44 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/next_classes" />
 
-    <RelativeLayout
-        android:id="@+id/lesson_2"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/background_classes_item"
         android:paddingHorizontal="15dp"
-        android:paddingVertical="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/next_classes">
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@+id/navigation_menu"
+        app:layout_constraintTop_toBottomOf="@+id/next_classes"
+        tools:itemCount="3"
+        tools:listitem="@layout/next_class_item" />
 
-        <ImageView
-            android:id="@+id/image_2"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:contentDescription="@string/video_icon"
-            android:src="@drawable/video_icon" />
-
-        <TextView
-            android:id="@+id/class_title_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_toEndOf="@+id/image_2"
-            android:text="@string/lesson_2"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/text_subtitle2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/class_title_2"
-            android:layout_marginStart="15dp"
-            android:layout_toEndOf="@+id/image_2"
-            android:text="@string/how_can_we_start"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
-
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/lesson_3"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/no_classes"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/background_classes_item"
-        android:paddingHorizontal="15dp"
-        android:paddingVertical="10dp"
+        android:text="@string/no_next_class_message"
+        android:textColor="@color/subtitlesColor"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        android:paddingHorizontal="20dp"
+        app:layout_constraintVertical_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="invisible"
+        app:layout_constraintTop_toBottomOf="@+id/next_classes"
+        app:layout_constraintBottom_toTopOf="@+id/navigation_menu"
+        />
+
+    <ImageView
+        android:id="@+id/smile"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/ic_smile"
+        android:layout_marginTop="10dp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lesson_2">
-
-        <ImageView
-            android:id="@+id/image_3"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:contentDescription="@string/video_icon"
-            android:src="@drawable/video_icon" />
-
-        <TextView
-            android:id="@+id/class_title_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_toEndOf="@+id/image_3"
-            android:text="@string/lesson_3"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/text_subtitle3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/class_title_3"
-            android:layout_marginStart="15dp"
-            android:layout_toEndOf="@+id/image_3"
-            android:text="@string/organize_your_home"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
-
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/lesson_4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/background_classes_item"
-        android:paddingHorizontal="15dp"
-        android:paddingVertical="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lesson_3">
-
-        <ImageView
-            android:id="@+id/image_4"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:contentDescription="@string/video_icon"
-            android:src="@drawable/video_icon" />
-
-        <TextView
-            android:id="@+id/class_title_4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_toEndOf="@+id/image_4"
-            android:text="@string/lesson_4"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/text_subtitle4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/class_title_4"
-            android:layout_marginStart="15dp"
-            android:layout_toEndOf="@+id/image_4"
-            android:text="@string/define_your_target"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
-
-
-    </RelativeLayout>
+        app:layout_constraintTop_toBottomOf="@+id/no_classes" />
 
     <include
         android:id="@+id/navigation_menu"

@@ -67,7 +67,8 @@ public class ClassesFragment extends BaseFragment implements View.OnClickListene
         mCircularProgressIndicator = mBinding.progressClasses;
         loadClassesByModule();
         mBinding.textTitle.setText(mModule);
-        mAdapter = new ClassAdapter(mViewModel.getClassList(), classRepository, mModule, mViewModel);
+        mAdapter = new ClassAdapter(mViewModel.getClassList(), classRepository,
+                mModule, true, mViewModel);
         mRecyclerView.setAdapter(mAdapter);
     }
 

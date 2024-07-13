@@ -2,15 +2,19 @@ package com.example.mycoin.fragments.classes.allclasses;
 
 import static android.view.LayoutInflater.from;
 
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mycoin.R;
 import com.example.mycoin.databinding.ClassItemBinding;
+import com.example.mycoin.fragments.classes.videoclasses.VideoPlayerFragmentArgs;
+import com.example.mycoin.fragments.classes.videoclasses.VideoPlayerFragmentDirections;
 import com.example.mycoin.gateway.repository.ClassRepository;
 import com.example.mycoin.utils.LogcatUtil;
 
@@ -22,14 +26,24 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHol
     private final ClassRepository mClassRepository;
     private List<ClassItem> mListClasses;
     private String mModule;
+    private boolean mIsAllClassesFragment;
     private ClassesViewModel mClassesViewModel;
 
     public ClassAdapter(List<ClassItem> listClasses, ClassRepository classRepository,
-                        String module, ClassesViewModel viewModel) {
+                        String module, boolean isAllClasses, ClassesViewModel viewModel) {
         mListClasses = listClasses;
         mClassRepository = classRepository;
         mModule = module;
+        mIsAllClassesFragment = isAllClasses;
         mClassesViewModel = viewModel;
+    }
+
+    public ClassAdapter(List<ClassItem> listClasses, ClassRepository classRepository,
+                        String module, boolean isAllClasses) {
+        mListClasses = listClasses;
+        mClassRepository = classRepository;
+        mModule = module;
+        mIsAllClassesFragment = isAllClasses;
     }
 
     @NonNull
@@ -44,7 +58,7 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHol
 
     @Override
     public void onBindViewHolder(@NonNull ClassViewHolder holder, int position) {
-        holder.bind(mListClasses.get(position), position, mListClasses.size());
+        holder.bind(mListClasses.get(position), position);
     }
 
     @Override
@@ -65,21 +79,39 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHol
             mBinding = binding;
         }
 
-        public void bind(ClassItem classItem, int position, int size) {
+        public void bind(ClassItem classItem, int position) {
             mBinding.classTitle.setText(classItem.getTitle());
             mBinding.textSubtitle.setText(classItem.getDescription());
             mBinding.checkboxClassDone.setChecked(classItem.isDone());
 
-            mBinding.getRoot().setOnClickListener(view -> {
-                Navigation.findNavController(view)
-                        .navigate(R.id.action_classesFragment_to_videoPlayerFragment);
-            });
+            if (mIsAllClassesFragment) {
+                mBinding.getRoot().setOnClickListener(view -> {
+                    NavDirections action = ClassesFragmentDirections.
+                            actionClassesFragmentToVideoPlayerFragment()
+                            .setClassPosition(position)
+                            .setModule(mModule);
 
-            mBinding.checkboxClassDone.setOnClickListener(view -> {
-                mClassRepository.updateClassState(position,
-                        mBinding.checkboxClassDone.isChecked(), mModule);
-                mClassesViewModel.updatePercentage(mModule);
-            });
+                    Navigation.findNavController(view).navigate(action);
+                });
+
+                mBinding.checkboxClassDone.setVisibility(View.VISIBLE);
+
+                mBinding.checkboxClassDone.setOnClickListener(view -> {
+                    mClassRepository.updateClassState(position,
+                            mBinding.checkboxClassDone.isChecked(), mModule);
+                    mClassesViewModel.updatePercentage(mModule);
+                });
+            } else {
+                mBinding.getRoot().setOnClickListener(view -> {
+                    Log.d(TAG, "Poition " + position);
+                    NavDirections action = VideoPlayerFragmentDirections
+                            .actionVideoPlayerFragmentSelf()
+                            .setClassPosition(position)
+                            .setModule(mModule);
+
+                    Navigation.findNavController(view).navigate(action);
+                });
+            }
         }
     }
 

@@ -87,5 +87,6 @@
     <string name="leader_board">Leader board</string>
     <string name="all_players">All players</string>
     <string name="crown">crown</string>
+    <string name="no_next_class_message">It\'s the last class of this module, go to the next and congratulations!</string>
 
 </resources>

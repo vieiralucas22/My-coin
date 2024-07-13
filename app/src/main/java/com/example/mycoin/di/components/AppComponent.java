@@ -8,6 +8,7 @@ import com.example.mycoin.di.modules.ServicesModule;
 import com.example.mycoin.di.modules.UseCaseModule;
 import com.example.mycoin.di.modules.ViewModelModule;
 import com.example.mycoin.fragments.classes.allclasses.ClassesFragment;
+import com.example.mycoin.fragments.classes.videoclasses.VideoPlayerFragment;
 
 import javax.inject.Singleton;
 
@@ -28,4 +29,5 @@ public interface AppComponent {
     ViewModelFactory getViewModelFactory();
 
     void inject(ClassesFragment classesFragment);
+    void inject(VideoPlayerFragment videoPlayerFragment);
 }

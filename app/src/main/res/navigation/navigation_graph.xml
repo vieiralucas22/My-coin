@@ -134,6 +134,14 @@
         android:name="com.example.mycoin.fragments.classes.videoclasses.VideoPlayerFragment"
         android:label="fragment_introduction_video_player"
         tools:layout="@layout/fragment_video_player" >
+        <argument
+            android:name="class_position"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="module"
+            app:argType="string"
+            android:defaultValue="Introduction" />
         <action
             android:id="@+id/action_introductionVideoPlayerFragment_to_quizFragment"
             app:destination="@id/quizFragment" />
@@ -148,6 +156,11 @@
         <action
             android:id="@+id/action_videoPlayerFragment_to_generalProfileFragment"
             app:destination="@id/generalProfileFragment" />
+        <action
+            android:id="@+id/action_videoPlayerFragment_self"
+            app:destination="@id/videoPlayerFragment"
+            app:popUpTo="@id/classesFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
     <fragment
         android:id="@+id/resultFragment"
