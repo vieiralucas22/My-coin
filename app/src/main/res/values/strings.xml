@@ -97,4 +97,8 @@
     <string name="lesson_12">Lesson 12</string>
     <string name="lesson_13">Lesson 13</string>
     <string name="lesson_14">Lesson 14</string>
+    <string name="goals">Goals</string>
+    <string name="in_progress">In progress</string>
+    <string name="done">Done</string>
+    <string name="all_goals_were_done_congratulations">All goals were done, congratulations!</string>
 </resources>

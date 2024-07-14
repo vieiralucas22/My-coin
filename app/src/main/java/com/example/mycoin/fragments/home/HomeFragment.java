@@ -28,7 +28,6 @@ import com.example.mycoin.utils.LogcatUtil;
 public class HomeFragment extends BaseFragment implements View.OnClickListener {
     public static final String TAG = LogcatUtil.getTag(HomeFragment.class);
 
-    private View mViewTarget, mViewHome, mViewProfile, mViewRanking;
     private TextView mUserName;
     private NavigationMenuBinding mMenuNavigation;
     private RelativeLayout mCardIntroduction;
@@ -56,17 +55,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     private void initComponents() {
         mMenuNavigation = mBinding.navigationMenu;
-        mViewTarget = mMenuNavigation.viewTarget;
-        mViewHome = mMenuNavigation.viewHome;
-        mViewProfile = mMenuNavigation.viewPerson;
-        mViewRanking = mMenuNavigation.viewRanking;
         mUserName = mBinding.userName;
         mCardIntroduction = mBinding.introductionCard;
     }
 
     private void initListeners() {
-        mViewProfile.setOnClickListener(this);
-        mViewRanking.setOnClickListener(this);
+        mMenuNavigation.viewPerson.setOnClickListener(this);
+        mMenuNavigation.viewRanking.setOnClickListener(this);
+        mMenuNavigation.viewGoals.setOnClickListener(this);
         mCardIntroduction.setOnClickListener(this);
         mBinding.cardManageFinancial.setOnClickListener(this);
         mBinding.cardTargetGoals.setOnClickListener(this);
@@ -116,6 +112,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_rankingFragment);
     }
 
+    private void goGoalsScreen(View v) {
+        Navigation.findNavController(v)
+                .navigate(R.id.action_homeFragment_to_goalsFragment);
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -136,6 +137,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             goExtraModule(v);
         } else if (v.getId() == R.id.view_ranking) {
             goRankingScreen(v);
+        } else if (v.getId() == R.id.view_goals) {
+            goGoalsScreen(v);
         }
     }
 }

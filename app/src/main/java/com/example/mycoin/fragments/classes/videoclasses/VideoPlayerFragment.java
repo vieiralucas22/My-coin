@@ -121,6 +121,13 @@ public class VideoPlayerFragment extends BaseFragment implements View.OnClickLis
         mMenuNavigation.viewHome.setOnClickListener(this);
         mMenuNavigation.viewPerson.setOnClickListener(this);
         mMenuNavigation.viewRanking.setOnClickListener(this);
+        mMenuNavigation.viewGoals.setOnClickListener(this);
+    }
+
+    private VideoPlayerFragmentArgs getArgs() {
+        if (getArguments() == null) return null;
+
+        return VideoPlayerFragmentArgs.fromBundle(getArguments());
     }
 
     private void goRankingScreen(View v) {
@@ -137,10 +144,9 @@ public class VideoPlayerFragment extends BaseFragment implements View.OnClickLis
                 .navigate(R.id.action_videoPlayerFragment_to_generalProfileFragment);
     }
 
-    private VideoPlayerFragmentArgs getArgs() {
-        if (getArguments() == null) return null;
-
-        return VideoPlayerFragmentArgs.fromBundle(getArguments());
+    private void goGoalsScreen(View v) {
+        Navigation.findNavController(v)
+                .navigate(R.id.action_videoPlayerFragment_to_goalsFragment);
     }
 
     @Override
@@ -154,6 +160,8 @@ public class VideoPlayerFragment extends BaseFragment implements View.OnClickLis
             goRankingScreen(v);
         } else if (v.getId() == R.id.view_home) {
             goHomeScreen(v);
+        } else if (v.getId() == R.id.view_goals) {
+            goGoalsScreen(v);
         }
     }
 }

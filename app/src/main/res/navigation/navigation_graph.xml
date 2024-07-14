@@ -70,6 +70,9 @@
         <action
             android:id="@+id/action_homeFragment_to_rankingFragment"
             app:destination="@id/rankingFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_goalsFragment"
+            app:destination="@id/goalsFragment" />
     </fragment>
     <fragment
         android:id="@+id/generalProfileFragment"
@@ -93,6 +96,9 @@
         <action
             android:id="@+id/action_generalProfileFragment_to_rankingFragment"
             app:destination="@id/rankingFragment" />
+        <action
+            android:id="@+id/action_generalProfileFragment_to_goalsFragment"
+            app:destination="@id/goalsFragment" />
     </fragment>
     <fragment
         android:id="@+id/editUserProfileFragment"
@@ -128,6 +134,9 @@
         <action
             android:id="@+id/action_classesFragment_to_generalProfileFragment"
             app:destination="@id/generalProfileFragment" />
+        <action
+            android:id="@+id/action_classesFragment_to_goalsFragment"
+            app:destination="@id/goalsFragment" />
     </fragment>
     <fragment
         android:id="@+id/videoPlayerFragment"
@@ -161,6 +170,9 @@
             app:destination="@id/videoPlayerFragment"
             app:popUpTo="@id/videoPlayerFragment"
             app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_videoPlayerFragment_to_goalsFragment"
+            app:destination="@id/goalsFragment" />
     </fragment>
     <fragment
         android:id="@+id/resultFragment"
@@ -193,6 +205,9 @@
         <action
             android:id="@+id/action_resultFragment_to_rankingFragment"
             app:destination="@id/rankingFragment" />
+        <action
+            android:id="@+id/action_resultFragment_to_goalsFragment"
+            app:destination="@id/goalsFragment" />
     </fragment>
     <fragment
         android:id="@+id/quizFragment"
@@ -218,5 +233,25 @@
             app:destination="@id/homeFragment"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_rankingFragment_to_goalsFragment"
+            app:destination="@id/goalsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/goalsFragment"
+        android:name="com.example.mycoin.fragments.goals.GoalsFragment"
+        android:label="fragment_goals"
+        tools:layout="@layout/fragment_goals" >
+        <action
+            android:id="@+id/action_goalsFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_goalsFragment_to_rankingFragment"
+            app:destination="@id/rankingFragment" />
+        <action
+            android:id="@+id/action_goalsFragment_to_generalProfileFragment"
+            app:destination="@id/generalProfileFragment" />
     </fragment>
 </navigation>

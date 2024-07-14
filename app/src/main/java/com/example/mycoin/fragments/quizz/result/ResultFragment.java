@@ -65,6 +65,7 @@ public class ResultFragment extends BaseFragment implements View.OnClickListener
         mMenuNavigation.viewHome.setOnClickListener(this);
         mMenuNavigation.viewPerson.setOnClickListener(this);
         mMenuNavigation.viewRanking.setOnClickListener(this);
+        mMenuNavigation.viewGoals.setOnClickListener(this);
     }
 
     private void setUpUI() {
@@ -103,6 +104,10 @@ public class ResultFragment extends BaseFragment implements View.OnClickListener
         Navigation.findNavController(v).navigate(R.id.action_resultFragment_to_rankingFragment);
     }
 
+    private void goGoalsScreen(View v) {
+        Navigation.findNavController(v)
+                .navigate(R.id.action_resultFragment_to_goalsFragment);
+    }
 
     @Override
     public void onDestroy() {
@@ -118,6 +123,8 @@ public class ResultFragment extends BaseFragment implements View.OnClickListener
             goEditProfileTab(v);
         } else if (v.getId() == R.id.view_ranking) {
             goRankingScreen(v);
+        } else if (v.getId() == R.id.view_goals) {
+            goGoalsScreen(v);
         }
     }
 }

@@ -60,6 +60,7 @@ public class RankingFragment extends BaseFragment implements View.OnClickListene
         mBinding.buttonBack.setOnClickListener(this);
         mMenuNavigation.viewHome.setOnClickListener(this);
         mMenuNavigation.viewPerson.setOnClickListener(this);
+        mMenuNavigation.viewGoals.setOnClickListener(this);
     }
 
     private void initObservers() {
@@ -86,6 +87,11 @@ public class RankingFragment extends BaseFragment implements View.OnClickListene
                 .navigate(R.id.action_rankingFragment_to_generalProfileFragment);
     }
 
+    private void goGoalsScreen(View v) {
+        Navigation.findNavController(v)
+                .navigate(R.id.action_rankingFragment_to_goalsFragment);
+    }
+
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.button_back) {
@@ -94,6 +100,8 @@ public class RankingFragment extends BaseFragment implements View.OnClickListene
             goEditProfileScreen(v);
         } else if (v.getId() == R.id.view_home) {
             goHomeScreen(v);
+        } else if (v.getId() == R.id.view_goals) {
+            goGoalsScreen(v);
         }
     }
 }

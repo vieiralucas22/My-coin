@@ -21,7 +21,7 @@
             android:paddingVertical="16dp">
 
             <View
-                android:id="@+id/view_target"
+                android:id="@+id/view_goals"
                 android:layout_width="50dp"
                 android:layout_height="42dp"
                 android:background="@drawable/target_icon"
@@ -35,7 +35,7 @@
                 android:layout_height="42dp"
                 android:background="@drawable/home_icon"
                 app:layout_constraintEnd_toStartOf="@id/view_person"
-                app:layout_constraintStart_toEndOf="@+id/view_target"
+                app:layout_constraintStart_toEndOf="@+id/view_goals"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <View

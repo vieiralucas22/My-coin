@@ -113,8 +113,8 @@
 
         <ImageView
             android:id="@+id/image_manage_financial"
-            android:layout_width="65sp"
-            android:layout_height="65sp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:src="@drawable/notes" />
 
         <TextView
@@ -140,9 +140,9 @@
 
         <ImageView
             android:id="@+id/image_target_goals"
-            android:layout_width="65sp"
-            android:layout_height="65sp"
-            android:src="@drawable/target" />
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:src="@drawable/goals" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -166,8 +166,8 @@
 
         <ImageView
             android:id="@+id/image_extra"
-            android:layout_width="65sp"
-            android:layout_height="65sp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:src="@drawable/variable_income" />
 
         <TextView

@@ -98,6 +98,7 @@ public class GeneralProfileFragment  extends BaseFragment implements View.OnClic
         mButtonConfirm.setOnClickListener(this);
         mMenuNavigation.viewHome.setOnClickListener(this);
         mMenuNavigation.viewRanking.setOnClickListener(this);
+        mMenuNavigation.viewGoals.setOnClickListener(this);
     }
 
     @SuppressLint("SetTextI18n")
@@ -158,6 +159,11 @@ public class GeneralProfileFragment  extends BaseFragment implements View.OnClic
                 .navigate(R.id.action_generalProfileFragment_to_homeFragment);
     }
 
+    private void goGoalsScreen(View v) {
+        Navigation.findNavController(v)
+                .navigate(R.id.action_generalProfileFragment_to_goalsFragment);
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -184,6 +190,8 @@ public class GeneralProfileFragment  extends BaseFragment implements View.OnClic
             goRankingScreen(v);
         } else if (v.getId() == R.id.view_home) {
             goHomeScreen(v);
+        } else if (v.getId() == R.id.view_goals) {
+            goGoalsScreen(v);
         }
     }
 }
