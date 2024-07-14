@@ -88,7 +88,7 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHol
                 mBinding.getRoot().setOnClickListener(view -> {
                     NavDirections action = ClassesFragmentDirections.
                             actionClassesFragmentToVideoPlayerFragment()
-                            .setClassPosition(position)
+                            .setClassTitle(classItem.getTitle())
                             .setModule(mModule);
 
                     Navigation.findNavController(view).navigate(action);
@@ -103,10 +103,10 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHol
                 });
             } else {
                 mBinding.getRoot().setOnClickListener(view -> {
-                    Log.d(TAG, "Poition " + position);
+
                     NavDirections action = VideoPlayerFragmentDirections
                             .actionVideoPlayerFragmentSelf()
-                            .setClassPosition(position)
+                            .setClassTitle(classItem.getTitle())
                             .setModule(mModule);
 
                     Navigation.findNavController(view).navigate(action);

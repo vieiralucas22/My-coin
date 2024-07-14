@@ -39,6 +39,7 @@
         android:paddingEnd="10dp"
         android:textColor="@color/white"
         android:textSize="14sp"
+        android:maxWidth="220dp"
         app:layout_constraintStart_toStartOf="@+id/class_title"
         app:layout_constraintTop_toBottomOf="@+id/class_title"
         tools:text="@string/the_value_of_tomorrow" />

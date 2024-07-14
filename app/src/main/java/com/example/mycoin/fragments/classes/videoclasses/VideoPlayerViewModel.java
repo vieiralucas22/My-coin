@@ -1,12 +1,14 @@
 package com.example.mycoin.fragments.classes.videoclasses;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.mycoin.R;
 import com.example.mycoin.callbacks.LoadClassesCallback;
 import com.example.mycoin.constants.Constants;
 import com.example.mycoin.fragments.classes.allclasses.ClassAdapter;
@@ -27,14 +29,16 @@ public class VideoPlayerViewModel extends ViewModel {
     public static final String TAG = LogcatUtil.getTag(VideoPlayerViewModel.class);
 
     private ClassRepository mClassRepository;
+    private Context mContext;
 
     private final MutableLiveData<String> mServerResponse = new MutableLiveData<>();
     private MutableLiveData<Boolean> mLoadNextClasses = new MutableLiveData<>();
     private List<ClassAdapter.ClassItem> mNextClasses;
 
     @Inject
-    public VideoPlayerViewModel(ClassRepository classRepository) {
+    public VideoPlayerViewModel(ClassRepository classRepository, Context context) {
         mClassRepository = classRepository;
+        mContext = context;
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -63,7 +67,7 @@ public class VideoPlayerViewModel extends ViewModel {
         return mServerResponse;
     }
 
-    public void showNextClasses(int classPosition, String module) {
+    public void showNextClasses(String classTitle, String module) {
         mNextClasses = new ArrayList<>();
         mClassRepository.getAllClassesByModule(module, new LoadClassesCallback() {
             @Override
@@ -71,16 +75,16 @@ public class VideoPlayerViewModel extends ViewModel {
 
                 switch (module) {
                     case Constants.INTRODUCTION:
-                        defineNextIntroductionClasses(classPosition, list);
+                        defineNextIntroductionClasses(classTitle, list);
                         break;
                     case Constants.ORGANIZE_HOME:
-                        defineNextOrganizeHomeClasses(classPosition, list);
+                        defineNextOrganizeHomeClasses(classTitle, list);
                         break;
                     case Constants.ACTION_TIME:
-                        defineNextActionTimeClasses(classPosition, list);
+                        defineNextActionTimeClasses(classTitle, list);
                         break;
                     case Constants.EXTRA:
-                        defineNextExtraClasses(classPosition, list);
+                        defineNextExtraClasses(classTitle, list);
                         break;
                 }
             }
@@ -92,50 +96,50 @@ public class VideoPlayerViewModel extends ViewModel {
         });
     }
 
-    private void defineNextIntroductionClasses(int classPosition, List<ClassAdapter.ClassItem> list) {
-        if (classPosition == 0) {
+    private void defineNextIntroductionClasses(String classTitle, List<ClassAdapter.ClassItem> list) {
+        if (classTitle.equals(mContext.getString(R.string.lesson_1))) {
             mNextClasses.add(list.get(1));
             mNextClasses.add(list.get(2));
             mNextClasses.add(list.get(3));
-        } else if (classPosition == 1) {
+        } else if (classTitle.equals(mContext.getString(R.string.lesson_2))) {
             mNextClasses.add(list.get(2));
             mNextClasses.add(list.get(3));
             mNextClasses.add(list.get(4));
-        } else if (classPosition == 2) {
+        } else if (classTitle.equals(mContext.getString(R.string.lesson_3))) {
             mNextClasses.add(list.get(3));
             mNextClasses.add(list.get(4));
-        } else if (classPosition == 3) {
+        } else if (classTitle.equals(mContext.getString(R.string.lesson_4))) {
             mNextClasses.add(list.get(4));
         }
         mLoadNextClasses.postValue(true);
     }
 
-    private void defineNextOrganizeHomeClasses(int classPosition, List<ClassAdapter.ClassItem> list) {
-        if (classPosition == 0) {
+    private void defineNextOrganizeHomeClasses(String classTitle, List<ClassAdapter.ClassItem> list) {
+        if (classTitle.equals(mContext.getString(R.string.lesson_6))) {
             mNextClasses.add(list.get(1));
             mNextClasses.add(list.get(2));
             mNextClasses.add(list.get(3));
-        } else if (classPosition == 1) {
+        } else if (classTitle.equals(mContext.getString(R.string.lesson_7))) {
             mNextClasses.add(list.get(2));
             mNextClasses.add(list.get(3));
-        } else if (classPosition == 2) {
+        } else if (classTitle.equals(mContext.getString(R.string.lesson_8))) {
             mNextClasses.add(list.get(3));
         }
         mLoadNextClasses.postValue(true);
     }
 
-    private void defineNextActionTimeClasses(int classPosition, List<ClassAdapter.ClassItem> list) {
-        if (classPosition == 0) {
+    private void defineNextActionTimeClasses(String classTitle, List<ClassAdapter.ClassItem> list) {
+        if (classTitle.equals(mContext.getString(R.string.lesson_10))) {
             mNextClasses.add(list.get(1));
             mNextClasses.add(list.get(2));
-        } else if (classPosition == 1) {
+        } else if (classTitle.equals(mContext.getString(R.string.lesson_11))) {
             mNextClasses.add(list.get(2));
         }
         mLoadNextClasses.postValue(true);
     }
 
-    private void defineNextExtraClasses(int classPosition, List<ClassAdapter.ClassItem> list) {
-        if (classPosition == 0) {
+    private void defineNextExtraClasses(String classTitle, List<ClassAdapter.ClassItem> list) {
+        if (classTitle.equals(mContext.getString(R.string.lesson_13))) {
             mNextClasses.add(list.get(1));
         }
         mLoadNextClasses.postValue(true);

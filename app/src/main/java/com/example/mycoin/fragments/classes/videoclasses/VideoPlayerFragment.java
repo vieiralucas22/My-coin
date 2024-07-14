@@ -73,10 +73,10 @@ public class VideoPlayerFragment extends BaseFragment implements View.OnClickLis
     private void setUpNextClasses() {
         if (getArgs() == null) return;
 
-        int classPosition = getArgs().getClassPosition();
+        String classTitle = getArgs().getClassTitle();
         mModule = getArgs().getModule();
 
-        mViewModel.showNextClasses(classPosition, mModule);
+        mViewModel.showNextClasses(classTitle, mModule);
     }
 
     @SuppressLint("SetJavaScriptEnabled")
