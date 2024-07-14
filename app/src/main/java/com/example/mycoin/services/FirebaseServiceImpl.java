@@ -10,6 +10,7 @@ import android.util.Log;
 import com.example.mycoin.R;
 import com.example.mycoin.callbacks.ChangePasswordCallback;
 import com.example.mycoin.callbacks.LoadClassesCallback;
+import com.example.mycoin.callbacks.LoadGoalsCallback;
 import com.example.mycoin.callbacks.LoadUsersCallback;
 import com.example.mycoin.callbacks.LoginCallback;
 import com.example.mycoin.callbacks.RegisterCallback;
@@ -18,6 +19,7 @@ import com.example.mycoin.callbacks.UserDataChangeCallback;
 import com.example.mycoin.constants.Constants;
 import com.example.mycoin.entities.User;
 import com.example.mycoin.fragments.classes.allclasses.ClassAdapter;
+import com.example.mycoin.fragments.goals.GoalsAdapter;
 import com.example.mycoin.fragments.ranking.RankingListAdapter;
 import com.example.mycoin.gateway.services.FirebaseService;
 import com.example.mycoin.preferences.AppPreferences;
@@ -138,6 +140,7 @@ public class FirebaseServiceImpl implements FirebaseService {
         addObjectiveModule(email);
         addActionModule(email);
         addExtraModule(email);
+        addGoalsCollection(email);
     }
 
     private void addIntroductionModule(String email) {
@@ -194,12 +197,41 @@ public class FirebaseServiceImpl implements FirebaseService {
         userRef.set(createClass(mContext.getString(R.string.lesson_14), "The Richest Man In Babylon"), SetOptions.merge());
     }
 
+    private void addGoalsCollection(String email) {
+        DocumentReference userRef = mFirebaseFirestore.collection(USERS).document(email)
+                .collection(Constants.GOALS).document("0");
+        userRef.set(createGoal(mContext.getString(R.string.goal_one), "10"), SetOptions.merge());
+        userRef = mFirebaseFirestore.collection(USERS).document(email)
+                .collection(Constants.GOALS).document("1");
+        userRef.set(createGoal(mContext.getString(R.string.goal_two), "20"), SetOptions.merge());
+        userRef = mFirebaseFirestore.collection(USERS).document(email)
+                .collection(Constants.GOALS).document("2");
+        userRef.set(createGoal(mContext.getString(R.string.goal_three), "20"), SetOptions.merge());
+        userRef = mFirebaseFirestore.collection(USERS).document(email)
+                .collection(Constants.GOALS).document("3");
+        userRef.set(createGoal(mContext.getString(R.string.goal_four), "20"), SetOptions.merge());
+        userRef = mFirebaseFirestore.collection(USERS).document(email)
+                .collection(Constants.GOALS).document("4");
+        userRef.set(createGoal(mContext.getString(R.string.goal_five), "50"), SetOptions.merge());
+        userRef = mFirebaseFirestore.collection(USERS).document(email)
+                .collection(Constants.GOALS).document("5");
+        userRef.set(createGoal(mContext.getString(R.string.goal_six), "50"), SetOptions.merge());
+    }
+
     private Map<String, Object> createClass(String title, String description) {
         Map<String, Object> lesson = new HashMap<>();
         lesson.put(Constants.TITLE, title);
         lesson.put(Constants.DESCRIPTION, description);
         lesson.put(Constants.CLASS_DONE, false);
         return lesson;
+    }
+
+    private Map<String, Object> createGoal(String goalTitle, String points) {
+        Map<String, Object> goal = new HashMap<>();
+        goal.put(Constants.GOAL, goalTitle);
+        goal.put(Constants.POINTS, points);
+        goal.put(Constants.GOAL_DONE, false);
+        return goal;
     }
 
     @Override
@@ -349,6 +381,29 @@ public class FirebaseServiceImpl implements FirebaseService {
             callback.onFailure("Users not loaded");
         });
 
+    }
+
+    @Override
+    public void getAllGoals(LoadGoalsCallback loadGoalsCallback) {
+        List<GoalsAdapter.GoalItem> goalList = new ArrayList<>();
+
+        User user = mAppPreferences.getCurrentUser();
+
+        mFirebaseFirestore.collection(USERS).document(user.getEmail())
+                .collection(Constants.GOALS).get().addOnCompleteListener(task -> {
+                    if (task.isComplete()) {
+                        for (DocumentSnapshot item : task.getResult().getDocuments()) {
+                            GoalsAdapter.GoalItem goalItem = new GoalsAdapter.GoalItem();
+                            goalItem.setGoalTitle(item.getString(Constants.GOAL));
+                            goalItem.setPoints(item.getString(Constants.POINTS));
+                            goalItem.setIsDone(Boolean.TRUE.equals(item.getBoolean(Constants.GOAL_DONE)));
+                            goalList.add(goalItem);
+                        }
+                        loadGoalsCallback.onSuccess(goalList);
+                        return;
+                    }
+                    loadGoalsCallback.onFailure("Goals not loaded");
+                });
     }
 
     private User getUser(DocumentSnapshot document) {

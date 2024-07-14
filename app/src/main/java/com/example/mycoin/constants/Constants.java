@@ -42,4 +42,7 @@ public class Constants {
     public static final String TITLE = "title";
     public static final String DESCRIPTION = "description";
     public static final String CLASS_DONE = "isDone";
+    public static final String GOALS = "Goals";
+    public static final String GOAL = "Goal";
+    public static final String GOAL_DONE = "Goal_done";
 }

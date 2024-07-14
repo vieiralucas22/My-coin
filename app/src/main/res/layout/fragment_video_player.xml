@@ -76,7 +76,7 @@
         app:layout_constraintBottom_toTopOf="@+id/navigation_menu"
         app:layout_constraintTop_toBottomOf="@+id/next_classes"
         tools:itemCount="3"
-        tools:listitem="@layout/next_class_item" />
+        tools:listitem="@layout/class_item" />
 
     <TextView
         android:id="@+id/no_classes"

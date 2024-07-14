@@ -14,13 +14,17 @@ import com.example.mycoin.R;
 import com.example.mycoin.databinding.FragmentGoalsBinding;
 import com.example.mycoin.databinding.NavigationMenuBinding;
 import com.example.mycoin.fragments.BaseFragment;
+import com.example.mycoin.utils.ListUtil;
+import com.example.mycoin.utils.LogcatUtil;
 
 public class GoalsFragment extends BaseFragment implements View.OnClickListener {
+    private static final String TAG = LogcatUtil.getTag(GoalsFragment.class);
 
     private FragmentGoalsBinding mBinding;
     private NavigationMenuBinding mMenuNavigation;
 
     private GoalsViewModel mViewModel;
+    private GoalsAdapter mAdapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -32,9 +36,14 @@ public class GoalsFragment extends BaseFragment implements View.OnClickListener 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mViewModel = getViewModel(GoalsViewModel.class);
 
         initComponents();
         initListeners();
+        initObservers();
+        mViewModel.loadGoals();
+        mAdapter = new GoalsAdapter(mViewModel.getGoalsList());
+        mBinding.recyclerView.setAdapter(mAdapter);
     }
 
     private void initComponents() {
@@ -46,6 +55,10 @@ public class GoalsFragment extends BaseFragment implements View.OnClickListener 
         mMenuNavigation.viewHome.setOnClickListener(this);
         mMenuNavigation.viewPerson.setOnClickListener(this);
         mMenuNavigation.viewRanking.setOnClickListener(this);
+    }
+
+    private void initObservers() {
+        mViewModel.getLoadData().observe(getViewLifecycleOwner(), this::showGoals);
     }
 
     private void goRankingScreen(View v) {
@@ -60,6 +73,12 @@ public class GoalsFragment extends BaseFragment implements View.OnClickListener 
     private void goEditProfileScreen(View v) {
         Navigation.findNavController(v)
                 .navigate(R.id.action_goalsFragment_to_generalProfileFragment);
+    }
+
+    private void showGoals(Boolean isLoad) {
+        if (isLoad && !ListUtil.isEmpty(mViewModel.getGoalsList())) {
+            mAdapter.setItems(mViewModel.getGoalsList());
+        }
     }
 
     @Override

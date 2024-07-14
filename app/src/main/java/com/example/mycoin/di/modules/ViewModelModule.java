@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.mycoin.di.ViewModelKey;
 import com.example.mycoin.fragments.classes.allclasses.ClassesViewModel;
+import com.example.mycoin.fragments.goals.GoalsViewModel;
 import com.example.mycoin.fragments.quizz.result.ResultViewModel;
 import com.example.mycoin.fragments.classes.videoclasses.VideoPlayerViewModel;
 import com.example.mycoin.fragments.confirmcode.ConfirmCodeViewModel;
@@ -81,5 +82,10 @@ public interface ViewModelModule {
     @IntoMap
     @ViewModelKey(RankingViewModel.class)
     ViewModel bindsRankingViewModel(RankingViewModel viewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(GoalsViewModel.class)
+    ViewModel bindsGoalsViewModel(GoalsViewModel viewModel);
 
 }

@@ -4,6 +4,7 @@ import android.net.Uri;
 
 import com.example.mycoin.callbacks.ChangePasswordCallback;
 import com.example.mycoin.callbacks.LoadClassesCallback;
+import com.example.mycoin.callbacks.LoadGoalsCallback;
 import com.example.mycoin.callbacks.LoadUsersCallback;
 import com.example.mycoin.callbacks.LoginCallback;
 import com.example.mycoin.callbacks.RegisterCallback;
@@ -23,4 +24,5 @@ public interface FirebaseService {
     void getClassesByModule(String module, LoadClassesCallback callback);
     void updateClassState(int position, boolean checked, String module);
     void getAllUsers(LoadUsersCallback loadUsersCallback);
+    void getAllGoals(LoadGoalsCallback loadGoalsCallback);
 }
