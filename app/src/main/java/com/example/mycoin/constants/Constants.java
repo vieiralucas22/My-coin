@@ -49,6 +49,6 @@ public class Constants {
     public static final String GOAL_ORGANIZE_MODULE_COMPLETED = "Finish organize home module";
     public static final String GOAL_ACTION_MODULE_COMPLETED = "Finish action time module";
     public static final String GOAL_EXTRA_MODULE_COMPLETED = "Finish extra module";
-    public static final String GOAL_FIRST_CLASS_COMPLETED = "Complete a class";
-    public static final String GOAL_FIRST_QUIZ = "Play a quiz match online";
+    public static final String GOAL_FIRST_QUIZ = "You have a good result on your first quiz";
+    public static final String GOAL_FIRST_MATCH_QUIZ= "Play a quiz match online";
 }

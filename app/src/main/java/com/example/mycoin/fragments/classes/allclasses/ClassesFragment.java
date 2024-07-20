@@ -4,10 +4,12 @@ import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -53,6 +55,7 @@ public class ClassesFragment extends BaseFragment implements View.OnClickListene
         return mBinding.getRoot();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -98,15 +101,15 @@ public class ClassesFragment extends BaseFragment implements View.OnClickListene
                     "progress", mCircularProgressIndicator.getProgress(), percentage);
             progressAnimator.setDuration(300); // Duração da animação em milissegundos
             progressAnimator.start();
+
             String totalProgress = String.valueOf(percentage);
             mBinding.textPercentage.setText(totalProgress + "%");
             mBinding.progressClasses.setProgress(percentage);
-            if (percentage >= 99) {
-                if (getContext() == null) return;
 
+            if (percentage >= 99) {
                 Intent intent = new Intent(InternalIntents.ACTION_GOAL_COMPLETED);
                 intent.putExtra(Constants.GOAL_DONE, getGoalCompleted());
-                getContext().sendBroadcast(intent);
+                sendBroadcast(intent);
             }
         });
     }

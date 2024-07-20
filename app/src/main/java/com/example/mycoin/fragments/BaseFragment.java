@@ -2,6 +2,7 @@ package com.example.mycoin.fragments;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.view.View;
@@ -51,6 +52,12 @@ public abstract class BaseFragment  extends Fragment {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && getContext() != null)  {
             getContext().unregisterReceiver(receiver);
         }
+    }
+
+    protected void sendBroadcast(Intent intent) {
+        if (getContext() == null) return;
+
+        getContext().sendBroadcast(intent);
     }
 
 }

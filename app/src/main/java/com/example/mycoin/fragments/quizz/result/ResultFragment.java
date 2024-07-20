@@ -1,9 +1,13 @@
 package com.example.mycoin.fragments.quizz.result;
 
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
@@ -12,10 +16,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.mycoin.InternalIntents;
 import com.example.mycoin.R;
+import com.example.mycoin.constants.Constants;
 import com.example.mycoin.databinding.FragmentResultBinding;
 import com.example.mycoin.databinding.NavigationMenuBinding;
 import com.example.mycoin.fragments.BaseFragment;
+import com.example.mycoin.receivers.GoalCompletedReceiver;
 import com.example.mycoin.utils.LogcatUtil;
 
 public class ResultFragment extends BaseFragment implements View.OnClickListener {
@@ -26,6 +33,7 @@ public class ResultFragment extends BaseFragment implements View.OnClickListener
     private FragmentResultBinding mBinding;
     private ResultViewModel mViewModel;
     private NavigationMenuBinding mMenuNavigation;
+    private GoalCompletedReceiver mReceiver = new GoalCompletedReceiver();
 
     private int mPoints = 0;
 
@@ -36,10 +44,14 @@ public class ResultFragment extends BaseFragment implements View.OnClickListener
         return mBinding.getRoot();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mViewModel = getViewModel(ResultViewModel.class);
+
+        registerReceiver(mReceiver, new IntentFilter(InternalIntents.ACTION_GOAL_COMPLETED));
+
         initComponents();
         initListeners();
         setUpUI();
@@ -83,6 +95,9 @@ public class ResultFragment extends BaseFragment implements View.OnClickListener
         if (rightQuestions > wrongQuestions) {
             mImageSad.setVisibility(View.INVISIBLE);
             mImageSmile.setVisibility(View.VISIBLE);
+            Intent intent = new Intent(InternalIntents.ACTION_GOAL_COMPLETED);
+            intent.putExtra(Constants.GOAL_DONE, Constants.GOAL_FIRST_QUIZ);
+            sendBroadcast(intent);
         } else {
             mImageSad.setVisibility(View.VISIBLE);
             mImageSmile.setVisibility(View.INVISIBLE);
@@ -113,6 +128,12 @@ public class ResultFragment extends BaseFragment implements View.OnClickListener
     public void onDestroy() {
         super.onDestroy();
         mBinding = null;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unregisterReceiver(mReceiver);
     }
 
     @Override

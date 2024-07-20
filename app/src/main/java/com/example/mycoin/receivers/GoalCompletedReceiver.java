@@ -79,6 +79,16 @@ public class GoalCompletedReceiver extends BroadcastReceiver {
                 Toast.makeText(context, "Extra module is completed", Toast.LENGTH_SHORT).show();
                 break;
             }
+
+            case Constants.GOAL_FIRST_QUIZ: {
+                Toast.makeText(context, "Good resul!!", Toast.LENGTH_SHORT).show();
+                break;
+            }
+
+            case Constants.GOAL_FIRST_MATCH_QUIZ: {
+                //TODO
+                break;
+            }
         }
     }
 }
