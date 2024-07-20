@@ -9,6 +9,7 @@ import com.example.mycoin.di.modules.UseCaseModule;
 import com.example.mycoin.di.modules.ViewModelModule;
 import com.example.mycoin.fragments.classes.allclasses.ClassesFragment;
 import com.example.mycoin.fragments.classes.videoclasses.VideoPlayerFragment;
+import com.example.mycoin.receivers.GoalCompletedReceiver;
 
 import javax.inject.Singleton;
 
@@ -30,4 +31,5 @@ public interface AppComponent {
 
     void inject(ClassesFragment classesFragment);
     void inject(VideoPlayerFragment videoPlayerFragment);
+    void inject(GoalCompletedReceiver goalCompletedReceiver);
 }

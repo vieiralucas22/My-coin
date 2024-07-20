@@ -2,6 +2,8 @@ package com.example.mycoin.fragments.classes.allclasses;
 
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,13 +15,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.mycoin.InternalIntents;
 import com.example.mycoin.R;
+import com.example.mycoin.constants.Constants;
 import com.example.mycoin.databinding.FragmentAllClassesBinding;
 import com.example.mycoin.databinding.NavigationMenuBinding;
 import com.example.mycoin.di.components.DaggerAppComponent;
 import com.example.mycoin.di.modules.AppModule;
 import com.example.mycoin.fragments.BaseFragment;
 import com.example.mycoin.gateway.repository.ClassRepository;
+import com.example.mycoin.receivers.GoalCompletedReceiver;
 import com.example.mycoin.utils.ListUtil;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 
@@ -34,6 +39,8 @@ public class ClassesFragment extends BaseFragment implements View.OnClickListene
     private ClassesViewModel mViewModel;
     private RecyclerView mRecyclerView;
     private ClassAdapter mAdapter;
+
+    private GoalCompletedReceiver mReceiver = new GoalCompletedReceiver();
     private String mModule;
 
     @Inject
@@ -56,6 +63,9 @@ public class ClassesFragment extends BaseFragment implements View.OnClickListene
                 .inject(this);
 
         mViewModel = getViewModel(ClassesViewModel.class);
+
+        registerReceiver(mReceiver, new IntentFilter(InternalIntents.ACTION_GOAL_COMPLETED));
+
         initComponents();
         initListeners();
         initObservers();
@@ -91,7 +101,35 @@ public class ClassesFragment extends BaseFragment implements View.OnClickListene
             String totalProgress = String.valueOf(percentage);
             mBinding.textPercentage.setText(totalProgress + "%");
             mBinding.progressClasses.setProgress(percentage);
+            if (percentage >= 99) {
+                if (getContext() == null) return;
+
+                Intent intent = new Intent(InternalIntents.ACTION_GOAL_COMPLETED);
+                intent.putExtra(Constants.GOAL_DONE, getGoalCompleted());
+                getContext().sendBroadcast(intent);
+            }
         });
+    }
+
+    private String getGoalCompleted() {
+        switch (mModule) {
+                case Constants.INTRODUCTION:{
+                    return Constants.GOAL_INTRODUCTION_MODULE_COMPLETED;
+                }
+
+                case Constants.ORGANIZE_HOME:{
+                    return Constants.GOAL_ORGANIZE_MODULE_COMPLETED;
+                }
+
+                case Constants.ACTION_TIME:{
+                    return Constants.GOAL_ACTION_MODULE_COMPLETED;
+                }
+
+                case Constants.EXTRA:{
+                    return Constants.GOAL_EXTRA_MODULE_COMPLETED;
+                }
+        }
+        return "Unknown";
     }
 
     private void showClasses(Boolean isLoad) {
@@ -131,6 +169,12 @@ public class ClassesFragment extends BaseFragment implements View.OnClickListene
     private void goGoalsScreen(View v) {
         Navigation.findNavController(v)
                 .navigate(R.id.action_classesFragment_to_goalsFragment);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unregisterReceiver(mReceiver);
     }
 
     @Override

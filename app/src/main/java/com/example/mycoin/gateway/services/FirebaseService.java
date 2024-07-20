@@ -3,6 +3,7 @@ package com.example.mycoin.gateway.services;
 import android.net.Uri;
 
 import com.example.mycoin.callbacks.ChangePasswordCallback;
+import com.example.mycoin.callbacks.GoalCallback;
 import com.example.mycoin.callbacks.LoadClassesCallback;
 import com.example.mycoin.callbacks.LoadGoalsCallback;
 import com.example.mycoin.callbacks.LoadUsersCallback;
@@ -25,4 +26,6 @@ public interface FirebaseService {
     void updateClassState(int position, boolean checked, String module);
     void getAllUsers(LoadUsersCallback loadUsersCallback);
     void getAllGoals(LoadGoalsCallback loadGoalsCallback);
+    void completeUserGoal(String goal);
+    void getGoal(String goal, GoalCallback goalCallback);
 }

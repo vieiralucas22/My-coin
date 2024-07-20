@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.example.mycoin.R;
 import com.example.mycoin.callbacks.ChangePasswordCallback;
+import com.example.mycoin.callbacks.GoalCallback;
 import com.example.mycoin.callbacks.LoadClassesCallback;
 import com.example.mycoin.callbacks.LoadGoalsCallback;
 import com.example.mycoin.callbacks.LoadUsersCallback;
@@ -17,6 +18,7 @@ import com.example.mycoin.callbacks.RegisterCallback;
 import com.example.mycoin.callbacks.UploadPhotoCallback;
 import com.example.mycoin.callbacks.UserDataChangeCallback;
 import com.example.mycoin.constants.Constants;
+import com.example.mycoin.entities.Goal;
 import com.example.mycoin.entities.User;
 import com.example.mycoin.fragments.classes.allclasses.ClassAdapter;
 import com.example.mycoin.fragments.goals.GoalsAdapter;
@@ -212,7 +214,7 @@ public class FirebaseServiceImpl implements FirebaseService {
         userRef.set(createGoal(mContext.getString(R.string.goal_four), "20"), SetOptions.merge());
         userRef = mFirebaseFirestore.collection(USERS).document(email)
                 .collection(Constants.GOALS).document("4");
-        userRef.set(createGoal(mContext.getString(R.string.goal_five), "50"), SetOptions.merge());
+        userRef.set(createGoal(mContext.getString(R.string.goal_five), "20"), SetOptions.merge());
         userRef = mFirebaseFirestore.collection(USERS).document(email)
                 .collection(Constants.GOALS).document("5");
         userRef.set(createGoal(mContext.getString(R.string.goal_six), "50"), SetOptions.merge());
@@ -403,6 +405,47 @@ public class FirebaseServiceImpl implements FirebaseService {
                         return;
                     }
                     loadGoalsCallback.onFailure("Goals not loaded");
+                });
+    }
+
+    @Override
+    public void completeUserGoal(String goalCompleted) {
+        User user = mAppPreferences.getCurrentUser();
+
+        mFirebaseFirestore.collection(USERS).document(user.getEmail())
+                .collection(Constants.GOALS).get().addOnCompleteListener(task -> {
+                    if (task.isComplete()) {
+                        for (DocumentSnapshot goal : task.getResult().getDocuments()) {
+                           if (goal.getString(Constants.GOAL).equals(goalCompleted)) {
+                               mFirebaseFirestore.collection(USERS).document(user.getEmail())
+                                       .collection(Constants.GOALS).document(goal.getId())
+                                       .update(Constants.GOAL_DONE, true);
+                           }
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void getGoal(String goalCompleted, GoalCallback goalCallback) {
+        Goal goal = new Goal();
+
+        User user = mAppPreferences.getCurrentUser();
+
+        mFirebaseFirestore.collection(USERS).document(user.getEmail())
+                .collection(Constants.GOALS).get().addOnCompleteListener(task -> {
+                    if (task.isComplete()) {
+                        for (DocumentSnapshot item : task.getResult().getDocuments()) {
+                            if (item.getString(Constants.GOAL).equals(goalCompleted)) {
+                                goal.setDescription(item.getString(Constants.GOAL));
+                                goal.setPoints(Integer.parseInt(item.getString(Constants.POINTS)));
+                                goal.setIsDone(Boolean.TRUE.equals(item.getBoolean(Constants.GOAL_DONE)));
+                            }
+                        }
+                        goalCallback.onSuccess(goal);
+                        return;
+                    }
+                    goalCallback.onFailure();
                 });
     }
 

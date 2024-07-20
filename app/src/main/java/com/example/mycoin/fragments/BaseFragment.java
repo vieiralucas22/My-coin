@@ -1,22 +1,18 @@
 package com.example.mycoin.fragments;
 
 import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.IntentFilter;
-import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.os.Build;
 import android.view.View;
-import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
-import androidx.viewbinding.ViewBinding;
 
-import com.example.mycoin.databinding.FragmentLoginBinding;
 import com.example.mycoin.di.ViewModelFactory;
 import com.example.mycoin.di.components.DaggerAppComponent;
 import com.example.mycoin.di.modules.AppModule;
@@ -44,7 +40,17 @@ public abstract class BaseFragment  extends Fragment {
         return provider.get(clazz);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
     protected void registerReceiver(BroadcastReceiver receiver, IntentFilter filter) {
-        requireActivity().registerReceiver(receiver, filter);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && getContext() != null)  {
+            getContext().registerReceiver(receiver, filter, Context.RECEIVER_NOT_EXPORTED);
+        }
     }
+
+    protected void unregisterReceiver(BroadcastReceiver receiver) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && getContext() != null)  {
+            getContext().unregisterReceiver(receiver);
+        }
+    }
+
 }
