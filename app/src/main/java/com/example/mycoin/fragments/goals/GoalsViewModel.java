@@ -18,15 +18,19 @@ public class GoalsViewModel extends ViewModel {
 
     private GoalRepository mGoalRepository;
     private List<GoalsAdapter.GoalItem> mListGoals;
-    private MutableLiveData<Boolean> mLoadData = new MutableLiveData<>();
+    private MutableLiveData<List<GoalsAdapter.GoalItem>> mLoadData = new MutableLiveData<>();
 
     @Inject
     public GoalsViewModel(GoalRepository goalRepository) {
         mGoalRepository = goalRepository;
     }
 
-    public LiveData<Boolean> getLoadData() {
+    public LiveData<List<GoalsAdapter.GoalItem>> getLoadData() {
         return mLoadData;
+    }
+
+    public List<GoalsAdapter.GoalItem> getGoalsList() {
+        return mListGoals;
     }
 
     public void loadGoals() {
@@ -36,7 +40,7 @@ public class GoalsViewModel extends ViewModel {
             @Override
             public void onSuccess(List<GoalsAdapter.GoalItem> list) {
                 mListGoals = list;
-                mLoadData.postValue(true);
+                mLoadData.postValue(list);
             }
 
             @Override
@@ -46,7 +50,27 @@ public class GoalsViewModel extends ViewModel {
         });
     }
 
-    public List<GoalsAdapter.GoalItem> getGoalsList() {
-        return mListGoals;
+    public void loadGoalsCompleted() {
+        List<GoalsAdapter.GoalItem> goalsCompleted = new ArrayList<>();
+
+        for (GoalsAdapter.GoalItem goal : mListGoals) {
+            if (goal.isDone()) {
+                goalsCompleted.add(goal);
+            }
+        }
+
+        mLoadData.postValue(goalsCompleted);
+    }
+
+    public void loadGoalsInProgress() {
+        List<GoalsAdapter.GoalItem> goalsInProgress = new ArrayList<>();
+
+        for (GoalsAdapter.GoalItem goal : mListGoals) {
+            if (!goal.isDone()) {
+                goalsInProgress.add(goal);
+            }
+        }
+
+        mLoadData.postValue(goalsInProgress);
     }
 }

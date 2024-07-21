@@ -47,4 +47,16 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="10pts" />
 
+    <ImageView
+        android:id="@+id/image_goal_check"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:contentDescription="Check icon"
+        android:src="@drawable/ic_check"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/text_points"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,6 +17,8 @@ import com.example.mycoin.fragments.BaseFragment;
 import com.example.mycoin.utils.ListUtil;
 import com.example.mycoin.utils.LogcatUtil;
 
+import java.util.List;
+
 public class GoalsFragment extends BaseFragment implements View.OnClickListener {
     private static final String TAG = LogcatUtil.getTag(GoalsFragment.class);
 
@@ -55,6 +57,8 @@ public class GoalsFragment extends BaseFragment implements View.OnClickListener 
         mMenuNavigation.viewHome.setOnClickListener(this);
         mMenuNavigation.viewPerson.setOnClickListener(this);
         mMenuNavigation.viewRanking.setOnClickListener(this);
+        mBinding.buttonDone.setOnClickListener(this);
+        mBinding.buttonInProgress.setOnClickListener(this);
     }
 
     private void initObservers() {
@@ -75,9 +79,9 @@ public class GoalsFragment extends BaseFragment implements View.OnClickListener 
                 .navigate(R.id.action_goalsFragment_to_generalProfileFragment);
     }
 
-    private void showGoals(Boolean isLoad) {
-        if (isLoad && !ListUtil.isEmpty(mViewModel.getGoalsList())) {
-            mAdapter.setItems(mViewModel.getGoalsList());
+    private void showGoals(List<GoalsAdapter.GoalItem> goalList) {
+        if (!ListUtil.isEmpty(goalList)) {
+            mAdapter.setItems(goalList);
         }
     }
 
@@ -91,6 +95,10 @@ public class GoalsFragment extends BaseFragment implements View.OnClickListener 
             goRankingScreen(v);
         } else if (v.getId() == R.id.view_home) {
             goHomeScreen(v);
+        } else if (v.getId() == R.id.button_done) {
+            mViewModel.loadGoalsCompleted();
+        } else if (v.getId() == R.id.button_in_progress) {
+            mViewModel.loadGoalsInProgress();
         }
     }
 }

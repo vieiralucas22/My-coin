@@ -11,7 +11,10 @@ import com.example.mycoin.constants.Constants;
 import com.example.mycoin.di.components.DaggerAppComponent;
 import com.example.mycoin.di.modules.AppModule;
 import com.example.mycoin.entities.Goal;
+import com.example.mycoin.entities.User;
 import com.example.mycoin.gateway.repository.GoalRepository;
+import com.example.mycoin.gateway.repository.UserRepository;
+import com.example.mycoin.preferences.AppPreferences;
 import com.example.mycoin.utils.LogcatUtil;
 
 import javax.inject.Inject;
@@ -21,6 +24,10 @@ public class GoalCompletedReceiver extends BroadcastReceiver {
 
     @Inject
     GoalRepository goalRepository;
+    @Inject
+    UserRepository userRepository;
+    @Inject
+    AppPreferences appPreferences;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -44,8 +51,11 @@ public class GoalCompletedReceiver extends BroadcastReceiver {
         goalRepository.getGoal(goal, new GoalCallback() {
             @Override
             public void onSuccess(Goal goal) {
+                if (goal.isDone()) return;
+
                 showNotificationAccordingGoal(goal, context);
                 goalRepository.updateGoalAsCompleted(goal.getDescription());
+                givePointsToUser(goal.getPoints());
             }
 
             @Override
@@ -57,8 +67,6 @@ public class GoalCompletedReceiver extends BroadcastReceiver {
     }
 
     private void showNotificationAccordingGoal(Goal goal, Context context) {
-        if (goal.isDone()) return;
-
         switch (goal.getDescription()) {
             case Constants.GOAL_INTRODUCTION_MODULE_COMPLETED: {
                 Toast.makeText(context, "Introduction module is completed", Toast.LENGTH_SHORT).show();
@@ -90,5 +98,12 @@ public class GoalCompletedReceiver extends BroadcastReceiver {
                 break;
             }
         }
+    }
+
+    private void givePointsToUser(int points) {
+        User user = appPreferences.getCurrentUser();
+        int newUserPoints = user.getPoints() + points;
+        user.setPoints(newUserPoints);
+        userRepository.updateCurrentUser(user);
     }
 }

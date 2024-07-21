@@ -43,7 +43,7 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
     public static final String TAG = LogcatUtil.getTag(QuizFragment.class);
 
     private final long QUESTION_TIME = TimeConstants.ONE_MINUTE;
-    private final long POINTS_PER_QUESTION = 10;
+    private final int POINTS_PER_QUESTION = 10;
 
     private RadioButton mRadioA, mRadioB, mRadioC, mRadioD;
     private RadioGroup mRadioGroup;
@@ -54,6 +54,8 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
     private List<Question> mQuestionItems;
     private FragmentQuizBinding mBinding;
     private CountDownTimer mCountDownTimer;
+    private QuizViewModel mViewModel;
+
     private int mCurrentQuestion;
     private int correct = 0;
     private int wrong = 0;
@@ -68,6 +70,8 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mViewModel = getViewModel(QuizViewModel.class);
+
         mCurrentQuestion = 0;
         initComponents();
         initCountdownTimer();
@@ -202,6 +206,7 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
         if (checkIfQuestionIsCorrect(view)) {
             correct++;
             mImageRight.setVisibility(View.VISIBLE);
+            mViewModel.saveUserPoints(POINTS_PER_QUESTION);
             return;
         }
         wrong++;

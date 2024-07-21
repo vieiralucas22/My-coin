@@ -31,7 +31,6 @@ public class ResultFragment extends BaseFragment implements View.OnClickListener
     private ImageView mImageSmile, mImageSad;
     private TextView mTextQuestionsRight, mTextQuestionsWrong, mTextPoints;
     private FragmentResultBinding mBinding;
-    private ResultViewModel mViewModel;
     private NavigationMenuBinding mMenuNavigation;
     private GoalCompletedReceiver mReceiver = new GoalCompletedReceiver();
 
@@ -48,14 +47,12 @@ public class ResultFragment extends BaseFragment implements View.OnClickListener
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mViewModel = getViewModel(ResultViewModel.class);
 
         registerReceiver(mReceiver, new IntentFilter(InternalIntents.ACTION_GOAL_COMPLETED));
 
         initComponents();
         initListeners();
         setUpUI();
-        mViewModel.saveUserPoints(mPoints);
     }
 
     private void initComponents() {

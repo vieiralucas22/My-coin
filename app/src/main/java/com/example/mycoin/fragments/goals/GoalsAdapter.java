@@ -33,7 +33,7 @@ public class GoalsAdapter extends RecyclerView.Adapter<GoalsAdapter.GoalsViewHol
 
     @Override
     public void onBindViewHolder(@NonNull GoalsViewHolder holder, int position) {
-        holder.bind(mListGoals.get(position), position);
+        holder.bind(mListGoals.get(position));
     }
 
     @Override
@@ -55,11 +55,11 @@ public class GoalsAdapter extends RecyclerView.Adapter<GoalsAdapter.GoalsViewHol
             mBinding = binding;
         }
 
-        public void bind(GoalItem item, int position) {
+        public void bind(GoalItem item) {
             mBinding.goalTitle.setText(item.getGoalTitle());
+            mBinding.imageGoalCheck.setVisibility(item.isDone() ? View.VISIBLE : View.INVISIBLE);
+            mBinding.textPoints.setVisibility(item.isDone() ? View.INVISIBLE : View.VISIBLE);
             mBinding.textPoints.setText(item.getPoints() + " pts");
-
-            mBinding.getRoot().setOnLongClickListener(v -> false);
         }
     }
 
@@ -95,7 +95,7 @@ public class GoalsAdapter extends RecyclerView.Adapter<GoalsAdapter.GoalsViewHol
             this.mPoints = mPoints;
         }
 
-        public boolean isIsDone() {
+        public boolean isDone() {
             return mIsDone;
         }
 

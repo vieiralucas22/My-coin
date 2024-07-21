@@ -1,4 +1,4 @@
-package com.example.mycoin.fragments.quizz.result;
+package com.example.mycoin.fragments.quizz;
 
 import androidx.lifecycle.ViewModel;
 
@@ -8,13 +8,13 @@ import com.example.mycoin.preferences.AppPreferences;
 
 import javax.inject.Inject;
 
-public class ResultViewModel extends ViewModel {
+public class QuizViewModel extends ViewModel {
 
-    private AppPreferences mAppPreferences;
-    private UserRepository mUserRepository;
+    private final AppPreferences mAppPreferences;
+    private final UserRepository mUserRepository;
 
     @Inject
-    public ResultViewModel(AppPreferences appPreferences, UserRepository userRepository) {
+    public QuizViewModel(AppPreferences appPreferences, UserRepository userRepository) {
         mAppPreferences = appPreferences;
         mUserRepository = userRepository;
     }
