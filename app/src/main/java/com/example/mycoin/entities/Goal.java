@@ -32,4 +32,13 @@ public class Goal {
     public void setIsDone(boolean mIsDone) {
         this.mIsDone = mIsDone;
     }
+
+    @Override
+    public String toString() {
+        return "Goal{" +
+                "mDescription='" + mDescription + '\'' +
+                ", mPoints=" + mPoints +
+                ", mIsDone=" + mIsDone +
+                '}';
+    }
 }

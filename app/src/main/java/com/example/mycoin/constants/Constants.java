@@ -45,10 +45,10 @@ public class Constants {
     public static final String GOALS = "Goals";
     public static final String GOAL = "Goal";
     public static final String GOAL_DONE = "Goal_done";
-    public static final String GOAL_INTRODUCTION_MODULE_COMPLETED = "Finish introduction module";
-    public static final String GOAL_ORGANIZE_MODULE_COMPLETED = "Finish organize home module";
-    public static final String GOAL_ACTION_MODULE_COMPLETED = "Finish action time module";
-    public static final String GOAL_EXTRA_MODULE_COMPLETED = "Finish extra module";
-    public static final String GOAL_FIRST_QUIZ = "You have a good result on your first quiz";
-    public static final String GOAL_FIRST_MATCH_QUIZ= "Play a quiz match online";
+    public static final String GOAL_INTRODUCTION_MODULE_COMPLETED = "You finish introduction module, congratulation! You gained 20 points!";
+    public static final String GOAL_ORGANIZE_MODULE_COMPLETED = "You finish organize home module, congratulation! You gained 20 points!";
+    public static final String GOAL_ACTION_MODULE_COMPLETED = "You finish action time module, congratulation! You gained 20 points!";
+    public static final String GOAL_EXTRA_MODULE_COMPLETED = "You finish extra module, congratulation! You gained 20 points!";
+    public static final String GOAL_FIRST_QUIZ = "You had a good result on your first quiz, congratulation! You gained 10 points!";
+    public static final String GOAL_FIRST_MATCH_QUIZ= "You played a quiz match online! You gained 50 points!";
 }

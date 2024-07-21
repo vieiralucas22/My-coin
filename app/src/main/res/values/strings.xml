@@ -100,11 +100,12 @@
     <string name="goals">Goals</string>
     <string name="in_progress">In progress</string>
     <string name="done">Done</string>
-    <string name="goal_one">You have a good result on your first quiz</string>
-    <string name="goal_two">Finish introduction module</string>
-    <string name="goal_three">Finish organize home module</string>
-    <string name="goal_four">Finish action time module</string>
-    <string name="goal_five">Finish extra module</string>
-    <string name="goal_six">Play a quiz match online</string>
+    <string name="goal_one">You had a good result on your first quiz, congratulation! You gained 10 points!</string>
+    <string name="goal_two">You finish introduction module, congratulation! You gained 20 points!</string>
+    <string name="goal_three">You finish organize home module, congratulation! You gained 20 points!</string>
+    <string name="goal_four">You finish action time module, congratulation! You gained 20 points!</string>
+    <string name="goal_five">You finish extra module, congratulation! You gained 20 points!</string>
+    <string name="goal_six">You played a quiz match online! You gained 50 points!</string>
     <string name="all_goals_were_done_congratulations">All goals were done, congratulations!</string>
+    <string name="goal_notification_title">Goal completed</string>
 </resources>

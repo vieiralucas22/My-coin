@@ -3,9 +3,10 @@ package com.example.mycoin.receivers;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.widget.Toast;
 
 import com.example.mycoin.InternalIntents;
+import com.example.mycoin.NotificationHelper;
+import com.example.mycoin.R;
 import com.example.mycoin.callbacks.GoalCallback;
 import com.example.mycoin.constants.Constants;
 import com.example.mycoin.di.components.DaggerAppComponent;
@@ -69,33 +70,38 @@ public class GoalCompletedReceiver extends BroadcastReceiver {
     private void showNotificationAccordingGoal(Goal goal, Context context) {
         switch (goal.getDescription()) {
             case Constants.GOAL_INTRODUCTION_MODULE_COMPLETED: {
-                Toast.makeText(context, "Introduction module is completed", Toast.LENGTH_SHORT).show();
+                NotificationHelper.createNotification(context,
+                        context.getString(R.string.goal_notification_title), context.getString(R.string.goal_two));
                 break;
             }
 
             case Constants.GOAL_ORGANIZE_MODULE_COMPLETED: {
-                Toast.makeText(context, "Organize home module is completed", Toast.LENGTH_SHORT).show();
+                NotificationHelper.createNotification(context,
+                        context.getString(R.string.goal_notification_title), context.getString(R.string.goal_three));
                 break;
             }
 
             case Constants.GOAL_ACTION_MODULE_COMPLETED: {
-                Toast.makeText(context, "Action time module is completed", Toast.LENGTH_SHORT).show();
+                NotificationHelper.createNotification(context,
+                        context.getString(R.string.goal_notification_title), context.getString(R.string.goal_four));
                 break;
             }
 
             case Constants.GOAL_EXTRA_MODULE_COMPLETED: {
-                Toast.makeText(context, "Extra module is completed", Toast.LENGTH_SHORT).show();
+                NotificationHelper.createNotification(context,
+                        context.getString(R.string.goal_notification_title), context.getString(R.string.goal_five));
                 break;
             }
 
             case Constants.GOAL_FIRST_QUIZ: {
-                Toast.makeText(context, "Good resul!!", Toast.LENGTH_SHORT).show();
+                NotificationHelper.createNotification(context,
+                        context.getString(R.string.goal_notification_title), context.getString(R.string.goal_one));
                 break;
             }
 
             case Constants.GOAL_FIRST_MATCH_QUIZ: {
-                //TODO
-                break;
+                NotificationHelper.createNotification(context,
+                        context.getString(R.string.goal_notification_title), context.getString(R.string.goal_six));                break;
             }
         }
     }
