@@ -2,6 +2,8 @@ package com.example.mycoin.fragments.login;
 
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.navigation.Navigation;
@@ -19,6 +21,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.mycoin.R;
+import com.example.mycoin.constants.PermissionsConstants;
 import com.example.mycoin.databinding.FragmentLoginBinding;
 import com.example.mycoin.fragments.BaseFragment;
 import com.example.mycoin.utils.LogcatUtil;
@@ -49,6 +52,8 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mViewModel = getViewModel(LoginViewModel.class);
+
+        checkIfNotificationPermissionIsGranted();
 
         if (mViewModel.rememberMeWasChecked()) goHomeScreen(view);
 
@@ -135,6 +140,22 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
 
     private void goSignUpScreen(View v) {
         Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_signUpFragment);
+    }
+
+    private void checkIfNotificationPermissionIsGranted() {
+        if (!mViewModel.isNecessaryRequestNotificationPermission()) return;
+
+        ActivityResultLauncher<String> requestNotificationPermissionLauncher;
+
+        requestNotificationPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+            if (isGranted) {
+                Log.d(TAG, "Notification Permission granted");
+            } else {
+                Log.d(TAG, "Notification Permission not granted");
+            }
+        });
+
+        requestNotificationPermissionLauncher.launch(PermissionsConstants.POST_NOTIFICATION);
     }
 
     @Override

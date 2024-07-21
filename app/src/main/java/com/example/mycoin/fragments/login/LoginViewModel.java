@@ -1,13 +1,15 @@
 package com.example.mycoin.fragments.login;
 
 import android.content.Context;
-import android.text.TextUtils;
+import android.content.pm.PackageManager;
+import android.os.Build;
 
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.mycoin.R;
 import com.example.mycoin.callbacks.LoginCallback;
+import com.example.mycoin.constants.PermissionsConstants;
 import com.example.mycoin.preferences.AppPreferences;
 import com.example.mycoin.usecases.interfaces.Login;
 import com.example.mycoin.fragments.signup.SignUpViewModel;
@@ -65,5 +67,11 @@ public class LoginViewModel extends ViewModel {
 
     public boolean rememberMeWasChecked() {
         return mAppPreferences.getRememberMe();
+    }
+
+    public boolean isNecessaryRequestNotificationPermission() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
+                && !(ContextCompat.checkSelfPermission(mContext, PermissionsConstants.POST_NOTIFICATION)
+                == PackageManager.PERMISSION_GRANTED);
     }
 }
