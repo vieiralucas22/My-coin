@@ -101,7 +101,8 @@ public class GoalCompletedReceiver extends BroadcastReceiver {
 
             case Constants.GOAL_FIRST_MATCH_QUIZ: {
                 NotificationHelper.createNotification(context,
-                        context.getString(R.string.goal_notification_title), context.getString(R.string.goal_six));                break;
+                        context.getString(R.string.goal_notification_title), context.getString(R.string.goal_six));
+                break;
             }
         }
     }

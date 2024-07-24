@@ -91,6 +91,7 @@ public class ClassesFragment extends BaseFragment implements View.OnClickListene
         mMenuNavigation.viewPerson.setOnClickListener(this);
         mMenuNavigation.viewRanking.setOnClickListener(this);
         mMenuNavigation.viewGoals.setOnClickListener(this);
+        mMenuNavigation.viewControl.setOnClickListener(this);
     }
 
     @SuppressLint("SetTextI18n")
@@ -174,6 +175,11 @@ public class ClassesFragment extends BaseFragment implements View.OnClickListene
                 .navigate(R.id.action_classesFragment_to_goalsFragment);
     }
 
+    private void goCodeMatchScreen(View v) {
+        Navigation.findNavController(v)
+                .navigate(R.id.action_classesFragment_to_codeMatchFragment);
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -192,6 +198,8 @@ public class ClassesFragment extends BaseFragment implements View.OnClickListene
             goHomeScreen(v);
         } else if (v.getId() == R.id.view_goals) {
             goGoalsScreen(v);
+        } else if (v.getId() == R.id.view_control) {
+            goCodeMatchScreen(v);
         }
     }
 }

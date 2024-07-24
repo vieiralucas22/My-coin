@@ -137,6 +137,9 @@
         <action
             android:id="@+id/action_classesFragment_to_goalsFragment"
             app:destination="@id/goalsFragment" />
+        <action
+            android:id="@+id/action_classesFragment_to_codeMatchFragment"
+            app:destination="@id/codeMatchFragment" />
     </fragment>
     <fragment
         android:id="@+id/videoPlayerFragment"
@@ -254,4 +257,9 @@
             android:id="@+id/action_goalsFragment_to_generalProfileFragment"
             app:destination="@id/generalProfileFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/codeMatchFragment"
+        android:name="com.example.mycoin.fragments.codematch.CodeMatchFragment"
+        android:label="fragment_code_match"
+        tools:layout="@layout/fragment_code_match" />
 </navigation>
