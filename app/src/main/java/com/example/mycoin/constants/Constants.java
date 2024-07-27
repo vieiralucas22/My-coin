@@ -51,4 +51,9 @@ public class Constants {
     public static final String GOAL_EXTRA_MODULE_COMPLETED = "You finish extra module, congratulation! You gained 20 points!";
     public static final String GOAL_FIRST_QUIZ = "You had a good result on your first quiz, congratulation! You gained 10 points!";
     public static final String GOAL_FIRST_MATCH_QUIZ= "You played a quiz match online! You gained 50 points!";
+    public static final String ROOMS = "rooms";
+    public static final String WINNER = "winner";
+    public static final String PLAYER_ONE_POINTS = "player_one_points";
+    public static final String PLAYER_TWO_POINTS = "player_two_points";
+    public static final String SHOULD_SHOW_NEXT_QUESTION = "should_show_next_question";
 }

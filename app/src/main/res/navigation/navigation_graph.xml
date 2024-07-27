@@ -217,6 +217,11 @@
         android:name="com.example.mycoin.fragments.quizz.QuizFragment"
         android:label="fragment_quiz"
         tools:layout="@layout/fragment_quiz" >
+        <argument
+            android:name="roomCode"
+            app:argType="integer"
+            android:defaultValue="0" />
+
         <action
             android:id="@+id/action_quizFragment_to_resultFragment"
             app:destination="@id/resultFragment"
@@ -261,5 +266,9 @@
         android:id="@+id/codeMatchFragment"
         android:name="com.example.mycoin.fragments.codematch.CodeMatchFragment"
         android:label="fragment_code_match"
-        tools:layout="@layout/fragment_code_match" />
+        tools:layout="@layout/fragment_code_match" >
+        <action
+            android:id="@+id/action_codeMatchFragment_to_quizFragment"
+            app:destination="@id/quizFragment" />
+    </fragment>
 </navigation>

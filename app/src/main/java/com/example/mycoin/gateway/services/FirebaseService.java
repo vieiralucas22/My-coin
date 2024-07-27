@@ -9,6 +9,7 @@ import com.example.mycoin.callbacks.LoadGoalsCallback;
 import com.example.mycoin.callbacks.LoadUsersCallback;
 import com.example.mycoin.callbacks.LoginCallback;
 import com.example.mycoin.callbacks.RegisterCallback;
+import com.example.mycoin.callbacks.RoomCreatedCallback;
 import com.example.mycoin.callbacks.UploadPhotoCallback;
 import com.example.mycoin.callbacks.UserDataChangeCallback;
 import com.example.mycoin.entities.User;
@@ -28,4 +29,5 @@ public interface FirebaseService {
     void getAllGoals(LoadGoalsCallback loadGoalsCallback);
     void completeUserGoal(String goal);
     void getGoal(String goal, GoalCallback goalCallback);
+    void createRoomInFirebase(int roomCode, RoomCreatedCallback roomCreatedCallback);
 }

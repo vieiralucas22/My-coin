@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +37,7 @@ public class CodeMatchFragment extends BaseFragment implements View.OnClickListe
         mViewModel = getViewModel(CodeMatchViewModel.class);
         initComponents();
         initListeners();
+        initObservers();
     }
 
     private void initComponents() {
@@ -47,6 +50,13 @@ public class CodeMatchFragment extends BaseFragment implements View.OnClickListe
         mMenuNavigation.viewPerson.setOnClickListener(this);
         mMenuNavigation.viewRanking.setOnClickListener(this);
         mMenuNavigation.viewGoals.setOnClickListener(this);
+        mBinding.buttonCreateRoom.setOnClickListener(this);
+    }
+
+    private void initObservers() {
+        mViewModel.getLoadRoomCode().observe(getViewLifecycleOwner(), roomCode -> {
+            goQuizScreen(getView(), roomCode);
+        });
     }
 
     private void goGoalsScreen(View v) {
@@ -61,6 +71,13 @@ public class CodeMatchFragment extends BaseFragment implements View.OnClickListe
     private void goEditProfileScreen(View v) {
     }
 
+    private void goQuizScreen(View v, int roomCode) {
+        NavDirections action = CodeMatchFragmentDirections.actionCodeMatchFragmentToQuizFragment()
+                        .setRoomCode(roomCode);
+
+        Navigation.findNavController(v).navigate(action);
+    }
+
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.button_back) {
@@ -73,6 +90,8 @@ public class CodeMatchFragment extends BaseFragment implements View.OnClickListe
             goHomeScreen(v);
         } else if (v.getId() == R.id.view_goals) {
             goGoalsScreen(v);
+        } else if (v.getId() == R.id.button_create_room) {
+            mViewModel.createRoom();
         }
     }
 

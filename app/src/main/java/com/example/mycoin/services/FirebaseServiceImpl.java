@@ -15,6 +15,7 @@ import com.example.mycoin.callbacks.LoadGoalsCallback;
 import com.example.mycoin.callbacks.LoadUsersCallback;
 import com.example.mycoin.callbacks.LoginCallback;
 import com.example.mycoin.callbacks.RegisterCallback;
+import com.example.mycoin.callbacks.RoomCreatedCallback;
 import com.example.mycoin.callbacks.UploadPhotoCallback;
 import com.example.mycoin.callbacks.UserDataChangeCallback;
 import com.example.mycoin.constants.Constants;
@@ -446,6 +447,27 @@ public class FirebaseServiceImpl implements FirebaseService {
                         return;
                     }
                     goalCallback.onFailure();
+                });
+    }
+
+    @Override
+    public void createRoomInFirebase(int roomCode, RoomCreatedCallback roomCreatedCallback) {
+        String roomDocument = String.valueOf(roomCode);
+
+        Map<String, Object> newRoom = new HashMap<>();
+        newRoom.put(Constants.WINNER, "");
+        newRoom.put(Constants.PLAYER_ONE_POINTS, 0);
+        newRoom.put(Constants.PLAYER_TWO_POINTS, 0);
+        newRoom.put(Constants.SHOULD_SHOW_NEXT_QUESTION, false);
+
+        mFirebaseFirestore.collection(Constants.ROOMS).document(roomDocument)
+                .set(newRoom).addOnCompleteListener( task -> {
+                    if (task.isComplete()) {
+                        Log.d(TAG, "Room " + roomCode + " created!");
+                        roomCreatedCallback.onSuccess(roomCode);
+                        return;
+                    }
+                    roomCreatedCallback.onFailure();
                 });
     }
 
