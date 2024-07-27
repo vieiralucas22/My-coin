@@ -1,5 +1,6 @@
 package com.example.mycoin.fragments.quizz;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -74,6 +75,7 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
 
         mCurrentQuestion = 0;
         initComponents();
+        setUpUI();
         initCountdownTimer();
         loadAllQuestions();
         Collections.shuffle(mQuestionItems);
@@ -96,10 +98,10 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
         mProgressBar = mBinding.progressBarQuiz;
         mTextQuestion = mBinding.textQuestion;
         mRadioGroup = mBinding.radioGroup;
-        mTextNumberOfQuestions.setText((mCurrentQuestion + 1) + "/4");
     }
 
     private void initCountdownTimer() {
+        if (!isOfflineQuiz()) return;
         mCountDownTimer = new CountDownTimer(QUESTION_TIME, TimeConstants.ONE_SECOND) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -125,6 +127,7 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
         }.start();
     }
 
+    @SuppressLint("SimpleDateFormat")
     private String formatTime(long millisUntilFinished) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm:ss");
         return simpleDateFormat.format(millisUntilFinished);
@@ -187,6 +190,7 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
         mButtonBack.setOnClickListener(this);
     }
 
+    @SuppressLint("SetTextI18n")
     private void showQuestions() {
         if (hasMoreQuestions()) {
             mCurrentQuestion++;
@@ -237,6 +241,8 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void goResultScreen() {
+        if (getView() == null) return;
+
         int totalPointsEarned = (int) (POINTS_PER_QUESTION * correct);
 
         NavDirections action = QuizFragmentDirections.actionQuizFragmentToResultFragment()
@@ -247,11 +253,57 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
         Navigation.findNavController(getView()).navigate(action);
     }
 
+    @SuppressLint("SetTextI18n")
+    private void setUpUI() {
+        if (isOfflineQuiz()) {
+            mBinding.currentAndTotalQuestions.setVisibility(View.VISIBLE);
+            mBinding.cardTimer.setVisibility(View.VISIBLE);
+            mBinding.progressBarQuiz.setVisibility(View.VISIBLE);
+            mBinding.textQuestion.setVisibility(View.VISIBLE);
+            mBinding.cardAnswers.setVisibility(View.VISIBLE);
+            mBinding.logo.setVisibility(View.INVISIBLE);
+            mBinding.appTitle.setVisibility(View.INVISIBLE);
+            mBinding.textRoomCode.setVisibility(View.INVISIBLE);
+            mBinding.textWaiting.setVisibility(View.INVISIBLE);
+            mBinding.buttonStartGame.setVisibility(View.INVISIBLE);
+            mBinding.logoHuge.setVisibility(View.INVISIBLE);
+            mTextNumberOfQuestions.setText((mCurrentQuestion + 1) + "/4");
+        } else {
+            mBinding.currentAndTotalQuestions.setVisibility(View.INVISIBLE);
+            mBinding.cardTimer.setVisibility(View.INVISIBLE);
+            mBinding.progressBarQuiz.setVisibility(View.INVISIBLE);
+            mBinding.textQuestion.setVisibility(View.INVISIBLE);
+            mBinding.cardAnswers.setVisibility(View.INVISIBLE);
+            mBinding.logo.setVisibility(View.VISIBLE);
+            mBinding.appTitle.setVisibility(View.VISIBLE);
+            mBinding.textRoomCode.setVisibility(View.VISIBLE);
+            mBinding.textWaiting.setVisibility(View.VISIBLE);
+            mBinding.buttonStartGame.setVisibility(View.VISIBLE);
+            mBinding.logoHuge.setVisibility(View.VISIBLE);
+            mBinding.textRoomCode.setText(getContext().getString(
+                    R.string.the_code_room_is, getArgs().getRoomCode()));
+        }
+    }
+
+    private QuizFragmentArgs getArgs() {
+        if (getArguments() == null) return null;
+
+        return QuizFragmentArgs.fromBundle(getArguments());
+    }
+
+    private boolean isOfflineQuiz() {
+        if (getArgs() == null) return false;
+
+        return getArgs().getRoomCode() == -1;
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
         mBinding = null;
-        mCountDownTimer.cancel();
+        if (mCountDownTimer != null) {
+            mCountDownTimer.cancel();
+        }
     }
 
     @Override

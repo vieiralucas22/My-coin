@@ -22,6 +22,7 @@ public class CodeMatchFragment extends BaseFragment implements View.OnClickListe
     private NavigationMenuBinding mMenuNavigation;
 
     private CodeMatchViewModel mViewModel;
+    private int mPreviousRoomCode = 0;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -55,6 +56,8 @@ public class CodeMatchFragment extends BaseFragment implements View.OnClickListe
 
     private void initObservers() {
         mViewModel.getLoadRoomCode().observe(getViewLifecycleOwner(), roomCode -> {
+            if (mPreviousRoomCode == roomCode) return;
+            mPreviousRoomCode = roomCode;
             goQuizScreen(getView(), roomCode);
         });
     }
@@ -73,7 +76,7 @@ public class CodeMatchFragment extends BaseFragment implements View.OnClickListe
 
     private void goQuizScreen(View v, int roomCode) {
         NavDirections action = CodeMatchFragmentDirections.actionCodeMatchFragmentToQuizFragment()
-                        .setRoomCode(roomCode);
+                .setRoomCode(roomCode);
 
         Navigation.findNavController(v).navigate(action);
     }

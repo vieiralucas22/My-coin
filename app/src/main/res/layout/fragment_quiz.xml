@@ -16,6 +16,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <View
+        android:id="@+id/logo"
+        android:layout_width="100dp"
+        android:layout_height="86dp"
+        android:background="@drawable/logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/app_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo" />
+
     <TextView
         android:id="@+id/current_and_total_questions"
         android:layout_width="wrap_content"
@@ -23,6 +44,7 @@
         android:layout_marginTop="25dp"
         android:textColor="@color/white"
         android:textSize="16sp"
+        android:visibility="invisible"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/button_back"
         app:layout_constraintTop_toBottomOf="@+id/button_back"
@@ -35,14 +57,17 @@
         android:layout_height="12dp"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="25dp"
+        android:visibility="invisible"
         android:background="@drawable/progress_bar_background"
         app:layout_constraintStart_toStartOf="@+id/current_and_total_questions"
         app:layout_constraintTop_toBottomOf="@+id/current_and_total_questions" />
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/card_timer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/background_black_40"
+        android:visibility="invisible"
         app:cardCornerRadius="30dp"
         app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="@+id/current_and_total_questions"
@@ -66,11 +91,11 @@
                 android:id="@+id/timer_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="@+id/timer_icon"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_margin="10dp"
                 android:textColor="@color/white"
                 android:textSize="16sp"
-                android:layout_margin="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/timer_icon"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/timer_icon"
                 app:layout_constraintTop_toTopOf="@+id/timer_icon"
                 tools:text="1 min" />
@@ -86,16 +111,70 @@
         android:layout_marginBottom="30dp"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/materialCardView"
-        app:layout_constraintStart_toStartOf="@+id/materialCardView"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/card_answers"
+        app:layout_constraintStart_toStartOf="@+id/card_answers"
         tools:text="Q1 - What`s fixed income?" />
 
+    <TextView
+        android:id="@+id/text_room_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/subtitlesColor"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_question"
+        tools:text="Room Code: 2707" />
+
+    <TextView
+        android:id="@+id/text_waiting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/waiting_another_player"
+        android:textColor="@color/subtitlesColor"
+        android:layout_marginTop="10dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_room_code" />
+
+    <LinearLayout
+        android:id="@+id/button_start_game"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/background_button_submit"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_waiting">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:text="@string/start_game"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <View
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/ic_play" />
+    </LinearLayout>
+
     <androidx.cardview.widget.CardView
-        android:id="@+id/materialCardView"
+        android:id="@+id/card_answers"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
         android:layout_marginTop="90dp"
+        android:visibility="invisible"
         app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -191,6 +270,16 @@
         android:contentDescription="@string/wrong_answer"
         android:src="@drawable/wrong_answer"
         android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/logo_huge"
+        android:layout_width="300dp"
+        android:layout_height="286dp"
+        android:background="@drawable/logo"
+        android:rotation="-45"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
