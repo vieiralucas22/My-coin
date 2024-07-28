@@ -37,6 +37,13 @@ public class CodeMatchViewModel extends ViewModel {
         });
     }
 
+    public void joinRoom(String code) {
+
+        int roomCode = Integer.parseInt(code);
+
+        mMatchRepository.joinRoom(roomCode);
+    }
+
     public MutableLiveData<Integer> getLoadRoomCode() {
         return mLoadRoomCode;
     }

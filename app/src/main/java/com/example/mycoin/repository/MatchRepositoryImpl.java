@@ -17,11 +17,11 @@ public class MatchRepositoryImpl implements MatchRepository {
 
     @Override
     public void createRoom(int roomCode, RoomCreatedCallback roomCreatedCallback) {
-        mFirebaseService.createRoomInFirebase(roomCode, roomCreatedCallback);
+        mFirebaseService.addRoom(roomCode, roomCreatedCallback);
     }
 
     @Override
-    public void joinRoom() {
-
+    public void joinRoom(int roomCode) {
+        mFirebaseService.addUserInRoom(roomCode);
     }
 }

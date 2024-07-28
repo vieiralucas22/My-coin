@@ -38,6 +38,8 @@ import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -417,11 +419,11 @@ public class FirebaseServiceImpl implements FirebaseService {
                 .collection(Constants.GOALS).get().addOnCompleteListener(task -> {
                     if (task.isComplete()) {
                         for (DocumentSnapshot goal : task.getResult().getDocuments()) {
-                           if (goal.getString(Constants.GOAL).equals(goalCompleted)) {
-                               mFirebaseFirestore.collection(USERS).document(user.getEmail())
-                                       .collection(Constants.GOALS).document(goal.getId())
-                                       .update(Constants.GOAL_DONE, true);
-                           }
+                            if (goal.getString(Constants.GOAL).equals(goalCompleted)) {
+                                mFirebaseFirestore.collection(USERS).document(user.getEmail())
+                                        .collection(Constants.GOALS).document(goal.getId())
+                                        .update(Constants.GOAL_DONE, true);
+                            }
                         }
                     }
                 });
@@ -451,23 +453,41 @@ public class FirebaseServiceImpl implements FirebaseService {
     }
 
     @Override
-    public void createRoomInFirebase(int roomCode, RoomCreatedCallback roomCreatedCallback) {
+    public void addRoom(int roomCode, RoomCreatedCallback roomCreatedCallback) {
         String roomDocument = String.valueOf(roomCode);
+
+        List<String> users = Collections.singletonList(mAppPreferences.getCurrentUser().getEmail());
 
         Map<String, Object> newRoom = new HashMap<>();
         newRoom.put(Constants.WINNER, "");
         newRoom.put(Constants.PLAYER_ONE_POINTS, 0);
         newRoom.put(Constants.PLAYER_TWO_POINTS, 0);
         newRoom.put(Constants.SHOULD_SHOW_NEXT_QUESTION, false);
+        newRoom.put(Constants.PLAYERS, users);
 
         mFirebaseFirestore.collection(Constants.ROOMS).document(roomDocument)
-                .set(newRoom).addOnCompleteListener( task -> {
+                .set(newRoom).addOnCompleteListener(task -> {
                     if (task.isComplete()) {
                         Log.d(TAG, "Room " + roomCode + " created!");
                         roomCreatedCallback.onSuccess(roomCode);
                         return;
                     }
                     roomCreatedCallback.onFailure();
+                });
+    }
+
+    @Override
+    public void addUserInRoom(int roomCode) {
+        String roomDocument = String.valueOf(roomCode);
+
+        User currentUser = mAppPreferences.getCurrentUser();
+
+        mFirebaseFirestore.collection(Constants.ROOMS).document(roomDocument)
+                .get().addOnCompleteListener(task -> {
+                    DocumentSnapshot data = task.getResult();
+                    List<String> players = (List<String>) data.get(Constants.PLAYERS);
+                    players.add(currentUser.getEmail());
+                    mFirebaseFirestore.collection(Constants.ROOMS).document(roomDocument).update(Constants.PLAYERS, players);
                 });
     }
 

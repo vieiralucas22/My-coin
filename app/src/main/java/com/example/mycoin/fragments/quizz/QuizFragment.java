@@ -315,6 +315,8 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
             mCountDownTimer.start();
         } else if (v.getId() == R.id.button_back) {
             backScreen(v);
+        } else if (v.getId() == R.id.button_start_game) {
+            mViewModel.startGame();
         }
     }
 }

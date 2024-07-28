@@ -56,4 +56,5 @@ public class Constants {
     public static final String PLAYER_ONE_POINTS = "player_one_points";
     public static final String PLAYER_TWO_POINTS = "player_two_points";
     public static final String SHOULD_SHOW_NEXT_QUESTION = "should_show_next_question";
+    public static final String PLAYERS = "players";
 }

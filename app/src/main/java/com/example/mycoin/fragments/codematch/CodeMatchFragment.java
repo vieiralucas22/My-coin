@@ -52,6 +52,7 @@ public class CodeMatchFragment extends BaseFragment implements View.OnClickListe
         mMenuNavigation.viewRanking.setOnClickListener(this);
         mMenuNavigation.viewGoals.setOnClickListener(this);
         mBinding.buttonCreateRoom.setOnClickListener(this);
+        mBinding.buttonJoin.setOnClickListener(this);
     }
 
     private void initObservers() {
@@ -95,7 +96,16 @@ public class CodeMatchFragment extends BaseFragment implements View.OnClickListe
             goGoalsScreen(v);
         } else if (v.getId() == R.id.button_create_room) {
             mViewModel.createRoom();
+        } else if (v.getId() == R.id.button_join) {
+            joinRoom();
         }
+    }
+
+    private void joinRoom() {
+
+        String codeRoom = mBinding.editRoomCode.getText().toString();
+
+        mViewModel.joinRoom(codeRoom);
     }
 
 }

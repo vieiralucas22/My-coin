@@ -25,4 +25,14 @@ public class QuizViewModel extends ViewModel {
         user.setPoints(newUserPoints);
         mUserRepository.updateCurrentUser(user);
     }
+
+    public void startGame() {
+
+        if (hasMinimumPlayersInRoom()) {}
+
+    }
+
+    private boolean hasMinimumPlayersInRoom () {
+        return false;
+    }
 }

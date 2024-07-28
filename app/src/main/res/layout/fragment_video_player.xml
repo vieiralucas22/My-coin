@@ -56,7 +56,8 @@
         android:textColor="@color/subtitlesColor"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/view2"
+        android:layout_marginStart="15dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view2" />
 
     <View
@@ -64,6 +65,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/controle"
+        android:layout_marginEnd="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/next_classes" />
 
@@ -76,6 +78,7 @@
         app:layout_constraintBottom_toTopOf="@+id/navigation_menu"
         app:layout_constraintTop_toBottomOf="@+id/next_classes"
         tools:itemCount="3"
+        tools:layout_editor_absoluteX="10dp"
         tools:listitem="@layout/class_item" />
 
     <TextView
