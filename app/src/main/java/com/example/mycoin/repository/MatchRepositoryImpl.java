@@ -1,5 +1,6 @@
 package com.example.mycoin.repository;
 
+import com.example.mycoin.callbacks.JoinRoomCallback;
 import com.example.mycoin.callbacks.RoomCreatedCallback;
 import com.example.mycoin.gateway.repository.MatchRepository;
 import com.example.mycoin.gateway.services.FirebaseService;
@@ -21,7 +22,7 @@ public class MatchRepositoryImpl implements MatchRepository {
     }
 
     @Override
-    public void joinRoom(int roomCode) {
-        mFirebaseService.addUserInRoom(roomCode);
+    public void joinRoom(int roomCode, JoinRoomCallback joinRoomCallback) {
+        mFirebaseService.addUserInRoom(roomCode, joinRoomCallback);
     }
 }

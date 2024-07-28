@@ -222,6 +222,11 @@
             app:argType="integer"
             android:defaultValue="-1" />
 
+        <argument
+            android:name="OwnerRoom"
+            app:argType="boolean"
+            android:defaultValue="false" />
+
         <action
             android:id="@+id/action_quizFragment_to_resultFragment"
             app:destination="@id/resultFragment"

@@ -4,6 +4,7 @@ import android.net.Uri;
 
 import com.example.mycoin.callbacks.ChangePasswordCallback;
 import com.example.mycoin.callbacks.GoalCallback;
+import com.example.mycoin.callbacks.JoinRoomCallback;
 import com.example.mycoin.callbacks.LoadClassesCallback;
 import com.example.mycoin.callbacks.LoadGoalsCallback;
 import com.example.mycoin.callbacks.LoadUsersCallback;
@@ -30,5 +31,5 @@ public interface FirebaseService {
     void completeUserGoal(String goal);
     void getGoal(String goal, GoalCallback goalCallback);
     void addRoom(int roomCode, RoomCreatedCallback roomCreatedCallback);
-    void addUserInRoom(int roomCode);
+    void addUserInRoom(int roomCode, JoinRoomCallback joinRoomCallback);
 }

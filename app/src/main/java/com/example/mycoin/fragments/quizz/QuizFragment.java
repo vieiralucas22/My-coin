@@ -28,6 +28,7 @@ import com.example.mycoin.databinding.FragmentQuizBinding;
 import com.example.mycoin.entities.Question;
 import com.example.mycoin.fragments.BaseFragment;
 import com.example.mycoin.utils.LogcatUtil;
+import com.example.mycoin.utils.MessageUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -60,6 +61,7 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
     private int mCurrentQuestion;
     private int correct = 0;
     private int wrong = 0;
+    private int mRoomCode = -1;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -75,13 +77,13 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
 
         mCurrentQuestion = 0;
         initComponents();
-        setUpUI();
+        setListeners();
+        initObservers();
+        mViewModel.initFirebaseStoreObserve();
         initCountdownTimer();
         loadAllQuestions();
         Collections.shuffle(mQuestionItems);
         setQuestionsScreen();
-
-        setListeners();
     }
 
     private void initComponents() {
@@ -98,10 +100,13 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
         mProgressBar = mBinding.progressBarQuiz;
         mTextQuestion = mBinding.textQuestion;
         mRadioGroup = mBinding.radioGroup;
+        mRoomCode = getArgs().getRoomCode();
+        mViewModel.setIsOnlineMatch(mRoomCode);
+        setUpUI();
     }
 
     private void initCountdownTimer() {
-        if (!isOfflineQuiz()) return;
+        if (mViewModel.isOnlineMatch()) return;
         mCountDownTimer = new CountDownTimer(QUESTION_TIME, TimeConstants.ONE_SECOND) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -135,6 +140,7 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
 
 
     private void loadAllQuestions() {
+
         mQuestionItems = new ArrayList<>();
         String jsonQuiz = loadJsonFromAsset("questions.json");
 
@@ -188,6 +194,7 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
     private void setListeners() {
         mButtonSubmit.setOnClickListener(this);
         mButtonBack.setOnClickListener(this);
+        mBinding.buttonStartGame.setOnClickListener(this);
     }
 
     @SuppressLint("SetTextI18n")
@@ -243,7 +250,7 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
     private void goResultScreen() {
         if (getView() == null) return;
 
-        int totalPointsEarned = (int) (POINTS_PER_QUESTION * correct);
+        int totalPointsEarned = (POINTS_PER_QUESTION * correct);
 
         NavDirections action = QuizFragmentDirections.actionQuizFragmentToResultFragment()
                 .setTotalRightQuestions(correct)
@@ -255,7 +262,7 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
 
     @SuppressLint("SetTextI18n")
     private void setUpUI() {
-        if (isOfflineQuiz()) {
+        if (!mViewModel.isOnlineMatch()) {
             mBinding.currentAndTotalQuestions.setVisibility(View.VISIBLE);
             mBinding.cardTimer.setVisibility(View.VISIBLE);
             mBinding.progressBarQuiz.setVisibility(View.VISIBLE);
@@ -278,10 +285,14 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
             mBinding.appTitle.setVisibility(View.VISIBLE);
             mBinding.textRoomCode.setVisibility(View.VISIBLE);
             mBinding.textWaiting.setVisibility(View.VISIBLE);
-            mBinding.buttonStartGame.setVisibility(View.VISIBLE);
+            mBinding.buttonStartGame.setVisibility(getArgs().getOwnerRoom()? View.VISIBLE : View.INVISIBLE);
+            mBinding.textWaiting.setText(getArgs().getOwnerRoom()
+                    ? getContext().getString(R.string.waiting_another_player)
+                    : getContext().getString(R.string.waiting_owner_start_game));
             mBinding.logoHuge.setVisibility(View.VISIBLE);
             mBinding.textRoomCode.setText(getContext().getString(
                     R.string.the_code_room_is, getArgs().getRoomCode()));
+            mViewModel.setRoomCode(getArgs().getRoomCode());
         }
     }
 
@@ -291,10 +302,23 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
         return QuizFragmentArgs.fromBundle(getArguments());
     }
 
-    private boolean isOfflineQuiz() {
-        if (getArgs() == null) return false;
+    private void initObservers() {
+        mViewModel.hasMinimumPlayersInRoom().observe(getViewLifecycleOwner(), hasMinimumPlayers -> {
+            mBinding.buttonStartGame.setBackground(getDrawable(hasMinimumPlayers ?
+                    R.drawable.background_button_submit : R.drawable.background_button_disabled));
+            if (getArgs().getOwnerRoom()) {
+                mBinding.textWaiting.setText(getContext().getString(hasMinimumPlayers
+                        ? R.string.player_arrived : R.string.waiting_another_player));
+            }
 
-        return getArgs().getRoomCode() == -1;
+        });
+
+        mViewModel.isRoomRemoved().observe(getViewLifecycleOwner(), isRoomRemoved -> {
+            if (isRoomRemoved && !getArgs().getOwnerRoom()) {
+                backScreen(getView());
+                MessageUtil.showToast(getContext(), R.string.owner_exit_room);
+            }
+        });
     }
 
     @Override
@@ -304,6 +328,8 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
         if (mCountDownTimer != null) {
             mCountDownTimer.cancel();
         }
+
+        mViewModel.handleExitRoom(getArgs().getOwnerRoom());
     }
 
     @Override

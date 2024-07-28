@@ -10,6 +10,7 @@ import android.util.Log;
 import com.example.mycoin.R;
 import com.example.mycoin.callbacks.ChangePasswordCallback;
 import com.example.mycoin.callbacks.GoalCallback;
+import com.example.mycoin.callbacks.JoinRoomCallback;
 import com.example.mycoin.callbacks.LoadClassesCallback;
 import com.example.mycoin.callbacks.LoadGoalsCallback;
 import com.example.mycoin.callbacks.LoadUsersCallback;
@@ -38,7 +39,6 @@ import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -463,6 +463,7 @@ public class FirebaseServiceImpl implements FirebaseService {
         newRoom.put(Constants.PLAYER_ONE_POINTS, 0);
         newRoom.put(Constants.PLAYER_TWO_POINTS, 0);
         newRoom.put(Constants.SHOULD_SHOW_NEXT_QUESTION, false);
+        newRoom.put(Constants.GAME_STARTED, false);
         newRoom.put(Constants.PLAYERS, users);
 
         mFirebaseFirestore.collection(Constants.ROOMS).document(roomDocument)
@@ -477,7 +478,7 @@ public class FirebaseServiceImpl implements FirebaseService {
     }
 
     @Override
-    public void addUserInRoom(int roomCode) {
+    public void addUserInRoom(int roomCode, JoinRoomCallback joinRoomCallback) {
         String roomDocument = String.valueOf(roomCode);
 
         User currentUser = mAppPreferences.getCurrentUser();
@@ -487,7 +488,9 @@ public class FirebaseServiceImpl implements FirebaseService {
                     DocumentSnapshot data = task.getResult();
                     List<String> players = (List<String>) data.get(Constants.PLAYERS);
                     players.add(currentUser.getEmail());
-                    mFirebaseFirestore.collection(Constants.ROOMS).document(roomDocument).update(Constants.PLAYERS, players);
+                    mFirebaseFirestore.collection(Constants.ROOMS)
+                            .document(roomDocument).update(Constants.PLAYERS, players);
+                    joinRoomCallback.onSuccess(roomCode);
                 });
     }
 

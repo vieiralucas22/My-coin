@@ -1,9 +1,11 @@
 package com.example.mycoin.fragments;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.view.View;
 
@@ -56,8 +58,11 @@ public abstract class BaseFragment  extends Fragment {
 
     protected void sendBroadcast(Intent intent) {
         if (getContext() == null) return;
-
         getContext().sendBroadcast(intent);
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
+    protected Drawable getDrawable(int drawableId) {
+        return requireContext().getDrawable(drawableId);
+    }
 }

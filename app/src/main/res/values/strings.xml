@@ -116,4 +116,7 @@
     <string name="waiting_another_player">Waiting another player...</string>
     <string name="start_game">Start game</string>
     <string name="the_code_room_is">Room Code: %d</string>
+    <string name="player_arrived">Player arrived, start game!</string>
+    <string name="waiting_owner_start_game">Waiting owner room start game!</string>
+    <string name="owner_exit_room">Owner exit room, sorry! :(</string>
 </resources>

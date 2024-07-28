@@ -59,7 +59,13 @@ public class CodeMatchFragment extends BaseFragment implements View.OnClickListe
         mViewModel.getLoadRoomCode().observe(getViewLifecycleOwner(), roomCode -> {
             if (mPreviousRoomCode == roomCode) return;
             mPreviousRoomCode = roomCode;
-            goQuizScreen(getView(), roomCode);
+            goQuizScreen(getView(), roomCode, true);
+        });
+
+        mViewModel.getJoinRoom().observe(getViewLifecycleOwner(), roomCode -> {
+            if (!mViewModel.canNavigate()) return;
+            mViewModel.setCanNavigate(false);
+            goQuizScreen(getView(), roomCode, false);
         });
     }
 
@@ -75,9 +81,10 @@ public class CodeMatchFragment extends BaseFragment implements View.OnClickListe
     private void goEditProfileScreen(View v) {
     }
 
-    private void goQuizScreen(View v, int roomCode) {
+    private void goQuizScreen(View v, int roomCode, boolean isOwnerRoom) {
         NavDirections action = CodeMatchFragmentDirections.actionCodeMatchFragmentToQuizFragment()
-                .setRoomCode(roomCode);
+                .setRoomCode(roomCode)
+                .setOwnerRoom(isOwnerRoom);
 
         Navigation.findNavController(v).navigate(action);
     }
@@ -102,9 +109,9 @@ public class CodeMatchFragment extends BaseFragment implements View.OnClickListe
     }
 
     private void joinRoom() {
-
         String codeRoom = mBinding.editRoomCode.getText().toString();
 
+        mViewModel.setCanNavigate(true);
         mViewModel.joinRoom(codeRoom);
     }
 
