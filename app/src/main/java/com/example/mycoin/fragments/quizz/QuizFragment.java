@@ -80,10 +80,6 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
         setListeners();
         initObservers();
         mViewModel.initFirebaseStoreObserve();
-        initCountdownTimer();
-        loadAllQuestions();
-        Collections.shuffle(mQuestionItems);
-        setQuestionsScreen();
     }
 
     private void initComponents() {
@@ -127,7 +123,6 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
                     return;
                 }
                 goResultScreen();
-
             }
         }.start();
     }
@@ -140,7 +135,6 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
 
 
     private void loadAllQuestions() {
-
         mQuestionItems = new ArrayList<>();
         String jsonQuiz = loadJsonFromAsset("questions.json");
 
@@ -263,36 +257,9 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
     @SuppressLint("SetTextI18n")
     private void setUpUI() {
         if (!mViewModel.isOnlineMatch()) {
-            mBinding.currentAndTotalQuestions.setVisibility(View.VISIBLE);
-            mBinding.cardTimer.setVisibility(View.VISIBLE);
-            mBinding.progressBarQuiz.setVisibility(View.VISIBLE);
-            mBinding.textQuestion.setVisibility(View.VISIBLE);
-            mBinding.cardAnswers.setVisibility(View.VISIBLE);
-            mBinding.logo.setVisibility(View.INVISIBLE);
-            mBinding.appTitle.setVisibility(View.INVISIBLE);
-            mBinding.textRoomCode.setVisibility(View.INVISIBLE);
-            mBinding.textWaiting.setVisibility(View.INVISIBLE);
-            mBinding.buttonStartGame.setVisibility(View.INVISIBLE);
-            mBinding.logoHuge.setVisibility(View.INVISIBLE);
-            mTextNumberOfQuestions.setText((mCurrentQuestion + 1) + "/4");
+            mViewModel.startGame();
         } else {
-            mBinding.currentAndTotalQuestions.setVisibility(View.INVISIBLE);
-            mBinding.cardTimer.setVisibility(View.INVISIBLE);
-            mBinding.progressBarQuiz.setVisibility(View.INVISIBLE);
-            mBinding.textQuestion.setVisibility(View.INVISIBLE);
-            mBinding.cardAnswers.setVisibility(View.INVISIBLE);
-            mBinding.logo.setVisibility(View.VISIBLE);
-            mBinding.appTitle.setVisibility(View.VISIBLE);
-            mBinding.textRoomCode.setVisibility(View.VISIBLE);
-            mBinding.textWaiting.setVisibility(View.VISIBLE);
-            mBinding.buttonStartGame.setVisibility(getArgs().getOwnerRoom()? View.VISIBLE : View.INVISIBLE);
-            mBinding.textWaiting.setText(getArgs().getOwnerRoom()
-                    ? getContext().getString(R.string.waiting_another_player)
-                    : getContext().getString(R.string.waiting_owner_start_game));
-            mBinding.logoHuge.setVisibility(View.VISIBLE);
-            mBinding.textRoomCode.setText(getContext().getString(
-                    R.string.the_code_room_is, getArgs().getRoomCode()));
-            mViewModel.setRoomCode(getArgs().getRoomCode());
+            setUpWaitingPlayerUI();
         }
     }
 
@@ -319,6 +286,56 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
                 MessageUtil.showToast(getContext(), R.string.owner_exit_room);
             }
         });
+
+        mViewModel.getGameStarted().observe(getViewLifecycleOwner(), gameStarted -> {
+            if (gameStarted) {
+                Log.d(TAG, "Game started!");
+                setUpGameStartedUI();
+                initQuiz();
+            }
+        });
+    }
+
+    private void initQuiz() {
+        initCountdownTimer();
+        loadAllQuestions();
+        Collections.shuffle(mQuestionItems);
+        setQuestionsScreen();
+    }
+
+    private void setUpGameStartedUI() {
+        mBinding.currentAndTotalQuestions.setVisibility(View.VISIBLE);
+        mBinding.cardTimer.setVisibility(View.VISIBLE);
+        mBinding.progressBarQuiz.setVisibility(View.VISIBLE);
+        mBinding.textQuestion.setVisibility(View.VISIBLE);
+        mBinding.cardAnswers.setVisibility(View.VISIBLE);
+        mBinding.logo.setVisibility(View.INVISIBLE);
+        mBinding.appTitle.setVisibility(View.INVISIBLE);
+        mBinding.textRoomCode.setVisibility(View.INVISIBLE);
+        mBinding.textWaiting.setVisibility(View.INVISIBLE);
+        mBinding.buttonStartGame.setVisibility(View.INVISIBLE);
+        mBinding.logoHuge.setVisibility(View.INVISIBLE);
+        mTextNumberOfQuestions.setText((mCurrentQuestion + 1) + "/4");
+    }
+
+    private void setUpWaitingPlayerUI() {
+        mBinding.currentAndTotalQuestions.setVisibility(View.INVISIBLE);
+        mBinding.cardTimer.setVisibility(View.INVISIBLE);
+        mBinding.progressBarQuiz.setVisibility(View.INVISIBLE);
+        mBinding.textQuestion.setVisibility(View.INVISIBLE);
+        mBinding.cardAnswers.setVisibility(View.INVISIBLE);
+        mBinding.logo.setVisibility(View.VISIBLE);
+        mBinding.appTitle.setVisibility(View.VISIBLE);
+        mBinding.textRoomCode.setVisibility(View.VISIBLE);
+        mBinding.textWaiting.setVisibility(View.VISIBLE);
+        mBinding.buttonStartGame.setVisibility(getArgs().getOwnerRoom()? View.VISIBLE : View.INVISIBLE);
+        mBinding.textWaiting.setText(getArgs().getOwnerRoom()
+                ? getContext().getString(R.string.waiting_another_player)
+                : getContext().getString(R.string.waiting_owner_start_game));
+        mBinding.logoHuge.setVisibility(View.VISIBLE);
+        mBinding.textRoomCode.setText(getContext().getString(
+                R.string.the_code_room_is, getArgs().getRoomCode()));
+        mViewModel.setRoomCode(getArgs().getRoomCode());
     }
 
     @Override

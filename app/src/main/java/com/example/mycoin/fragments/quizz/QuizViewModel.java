@@ -23,19 +23,20 @@ public class QuizViewModel extends ViewModel {
 
     private final AppPreferences mAppPreferences;
     private final UserRepository mUserRepository;
-    private final FirebaseFirestore mFirebaseFirestore;
+    private final FirebaseFirestore mFirebaseFireStore;
 
     private String mRoomCode;
     private Boolean mIsOnlineMatch;
     private MutableLiveData<Boolean> mHasTwoPlayers = new MutableLiveData<>();
     private MutableLiveData<Boolean> mIsRoomRemoved = new MutableLiveData<>();
+    private MutableLiveData<Boolean> mGameStarted = new MutableLiveData<>();
 
     @Inject
     public QuizViewModel(AppPreferences appPreferences, UserRepository userRepository,
                          FirebaseFirestore firebaseFirestore) {
         mAppPreferences = appPreferences;
         mUserRepository = userRepository;
-        mFirebaseFirestore = firebaseFirestore;
+        mFirebaseFireStore = firebaseFirestore;
     }
 
     public void saveUserPoints(int pointsGained) {
@@ -46,7 +47,14 @@ public class QuizViewModel extends ViewModel {
     }
 
     public void startGame() {
+        if (mIsOnlineMatch) {
+            mFirebaseFireStore.collection(Constants.ROOMS).document(mRoomCode)
+                    .update(Constants.GAME_STARTED, true);
+        }
+    }
 
+    public void finishGame() {
+        mGameStarted.postValue(false);
     }
 
     public LiveData<Boolean> hasMinimumPlayersInRoom() {
@@ -55,8 +63,9 @@ public class QuizViewModel extends ViewModel {
 
     public void initFirebaseStoreObserve() {
         if (!mIsOnlineMatch) return;
-        mFirebaseFirestore.collection(Constants.ROOMS).document(mRoomCode).addSnapshotListener(
+        mFirebaseFireStore.collection(Constants.ROOMS).document(mRoomCode).addSnapshotListener(
                 (value, error) -> {
+                    Log.d(TAG, "Changes in Firebase!");
                     if (value == null) return;
 
                     if (!value.exists()) {
@@ -67,7 +76,13 @@ public class QuizViewModel extends ViewModel {
 
                     List<String> players = (List<String>) value.get(Constants.PLAYERS);
 
+                    if (ListUtil.isEmpty(players)) return;
+
                     mHasTwoPlayers.postValue(players.size() == 2);
+
+                    if (Boolean.TRUE.equals(value.getBoolean(Constants.GAME_STARTED))) {
+                        mGameStarted.postValue(true);
+                    }
 
                 });
     }
@@ -80,16 +95,16 @@ public class QuizViewModel extends ViewModel {
         if (!mIsOnlineMatch) return;
 
         if (ownerRoom) {
-            mFirebaseFirestore.collection(Constants.ROOMS).document(mRoomCode).delete();
+            mFirebaseFireStore.collection(Constants.ROOMS).document(mRoomCode).delete();
         } else {
-            mFirebaseFirestore.collection(Constants.ROOMS).document(mRoomCode).get().addOnCompleteListener( task -> {
+            mFirebaseFireStore.collection(Constants.ROOMS).document(mRoomCode).get().addOnCompleteListener( task -> {
                if (task.isComplete()) {
                    List<String> players = (List<String>) task.getResult().get(Constants.PLAYERS);
 
                    if (ListUtil.isEmpty(players)) return;
 
                    players.remove(players.size()-1);
-                   mFirebaseFirestore.collection(Constants.ROOMS)
+                   mFirebaseFireStore.collection(Constants.ROOMS)
                            .document(mRoomCode).update(Constants.PLAYERS, players);
                }
             });
@@ -107,4 +122,9 @@ public class QuizViewModel extends ViewModel {
     public LiveData<Boolean> isRoomRemoved() {
         return mIsRoomRemoved;
     }
+
+    public MutableLiveData<Boolean> getGameStarted() {
+        return mGameStarted;
+    }
+
 }
