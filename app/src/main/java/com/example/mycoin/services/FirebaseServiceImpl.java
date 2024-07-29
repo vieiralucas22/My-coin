@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.example.mycoin.GameStatus;
 import com.example.mycoin.R;
 import com.example.mycoin.callbacks.ChangePasswordCallback;
 import com.example.mycoin.callbacks.GoalCallback;
@@ -463,7 +464,7 @@ public class FirebaseServiceImpl implements FirebaseService {
         newRoom.put(Constants.PLAYER_ONE_POINTS, 0);
         newRoom.put(Constants.PLAYER_TWO_POINTS, 0);
         newRoom.put(Constants.SHOULD_SHOW_NEXT_QUESTION, false);
-        newRoom.put(Constants.GAME_STARTED, false);
+        newRoom.put(Constants.GAME_STATUS, GameStatus.NOT_STARTED);
         newRoom.put(Constants.PLAYERS, users);
 
         mFirebaseFirestore.collection(Constants.ROOMS).document(roomDocument)

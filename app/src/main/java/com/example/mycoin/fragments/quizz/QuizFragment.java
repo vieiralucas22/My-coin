@@ -21,6 +21,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.example.mycoin.GameStatus;
 import com.example.mycoin.R;
 import com.example.mycoin.constants.Constants;
 import com.example.mycoin.constants.TimeConstants;
@@ -102,7 +103,6 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void initCountdownTimer() {
-        if (mViewModel.isOnlineMatch()) return;
         mCountDownTimer = new CountDownTimer(QUESTION_TIME, TimeConstants.ONE_SECOND) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -287,8 +287,8 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
             }
         });
 
-        mViewModel.getGameStarted().observe(getViewLifecycleOwner(), gameStarted -> {
-            if (gameStarted) {
+        mViewModel.getGameStatus().observe(getViewLifecycleOwner(), gameStatus -> {
+            if (gameStatus.equals(GameStatus.STARTED)) {
                 Log.d(TAG, "Game started!");
                 setUpGameStartedUI();
                 initQuiz();

@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.mycoin.GameStatus;
 import com.example.mycoin.constants.Constants;
 import com.example.mycoin.entities.User;
 import com.example.mycoin.gateway.repository.UserRepository;
@@ -15,6 +16,7 @@ import com.example.mycoin.utils.LogcatUtil;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -29,7 +31,7 @@ public class QuizViewModel extends ViewModel {
     private Boolean mIsOnlineMatch;
     private MutableLiveData<Boolean> mHasTwoPlayers = new MutableLiveData<>();
     private MutableLiveData<Boolean> mIsRoomRemoved = new MutableLiveData<>();
-    private MutableLiveData<Boolean> mGameStarted = new MutableLiveData<>();
+    private MutableLiveData<GameStatus> mGameStatus = new MutableLiveData<>();
 
     @Inject
     public QuizViewModel(AppPreferences appPreferences, UserRepository userRepository,
@@ -49,12 +51,12 @@ public class QuizViewModel extends ViewModel {
     public void startGame() {
         if (mIsOnlineMatch) {
             mFirebaseFireStore.collection(Constants.ROOMS).document(mRoomCode)
-                    .update(Constants.GAME_STARTED, true);
+                    .update(Constants.GAME_STATUS, GameStatus.STARTED);
         }
     }
 
     public void finishGame() {
-        mGameStarted.postValue(false);
+        mGameStatus.postValue(GameStatus.FINISHED);
     }
 
     public LiveData<Boolean> hasMinimumPlayersInRoom() {
@@ -80,8 +82,8 @@ public class QuizViewModel extends ViewModel {
 
                     mHasTwoPlayers.postValue(players.size() == 2);
 
-                    if (Boolean.TRUE.equals(value.getBoolean(Constants.GAME_STARTED))) {
-                        mGameStarted.postValue(true);
+                    if (Objects.equals(value.getString(Constants.GAME_STATUS), GameStatus.STARTED.toString())) {
+                        mGameStatus.postValue(GameStatus.STARTED);
                     }
 
                 });
@@ -123,8 +125,12 @@ public class QuizViewModel extends ViewModel {
         return mIsRoomRemoved;
     }
 
-    public MutableLiveData<Boolean> getGameStarted() {
-        return mGameStarted;
+    public MutableLiveData<GameStatus> getGameStatus() {
+        return mGameStatus;
+    }
+
+    public void setGameStatus(GameStatus status) {
+        mGameStatus.postValue(status);
     }
 
 }
