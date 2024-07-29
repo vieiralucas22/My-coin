@@ -73,6 +73,9 @@
         <action
             android:id="@+id/action_homeFragment_to_goalsFragment"
             app:destination="@id/goalsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_codeMatchFragment"
+            app:destination="@id/codeMatchFragment" />
     </fragment>
     <fragment
         android:id="@+id/generalProfileFragment"

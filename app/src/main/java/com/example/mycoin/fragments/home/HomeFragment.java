@@ -63,6 +63,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         mMenuNavigation.viewPerson.setOnClickListener(this);
         mMenuNavigation.viewRanking.setOnClickListener(this);
         mMenuNavigation.viewGoals.setOnClickListener(this);
+        mMenuNavigation.viewControl.setOnClickListener(this);
         mCardIntroduction.setOnClickListener(this);
         mBinding.cardManageFinancial.setOnClickListener(this);
         mBinding.cardTargetGoals.setOnClickListener(this);
@@ -117,6 +118,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 .navigate(R.id.action_homeFragment_to_goalsFragment);
     }
 
+    private void goCodeMatchScreen(View v) {
+        Navigation.findNavController(v)
+                .navigate(R.id.action_homeFragment_to_codeMatchFragment);
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -139,6 +145,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             goRankingScreen(v);
         } else if (v.getId() == R.id.view_goals) {
             goGoalsScreen(v);
+        } else if (v.getId() == R.id.view_control) {
+            goCodeMatchScreen(v);
         }
     }
 }

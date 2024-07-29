@@ -10,6 +10,7 @@ import com.example.mycoin.constants.Constants;
 import com.example.mycoin.entities.User;
 import com.example.mycoin.gateway.repository.UserRepository;
 import com.example.mycoin.preferences.AppPreferences;
+import com.example.mycoin.utils.ListUtil;
 import com.example.mycoin.utils.LogcatUtil;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -84,6 +85,9 @@ public class QuizViewModel extends ViewModel {
             mFirebaseFirestore.collection(Constants.ROOMS).document(mRoomCode).get().addOnCompleteListener( task -> {
                if (task.isComplete()) {
                    List<String> players = (List<String>) task.getResult().get(Constants.PLAYERS);
+
+                   if (ListUtil.isEmpty(players)) return;
+
                    players.remove(players.size()-1);
                    mFirebaseFirestore.collection(Constants.ROOMS)
                            .document(mRoomCode).update(Constants.PLAYERS, players);
