@@ -56,6 +56,8 @@ public class QuizViewModel extends ViewModel {
         if (mIsOnlineMatch) {
             mFirebaseFireStore.collection(Constants.ROOMS).document(mRoomCode)
                     .update(Constants.GAME_STATUS, GameStatus.STARTED);
+        } else {
+            mGameStatus.postValue(GameStatus.STARTED);
         }
     }
 
@@ -96,8 +98,6 @@ public class QuizViewModel extends ViewModel {
         setMinimumPlayersInRoom(players.size() == 2);
 
         User user = mAppPreferences.getCurrentUser();
-
-        Log.d(TAG, String.valueOf(players.get(0).equals(user.getEmail())));
 
         mIsOwnerRoom.postValue(players.get(0).equals(user.getEmail()));
     }
@@ -189,8 +189,10 @@ public class QuizViewModel extends ViewModel {
     }
 
     public void defineGameStatusAsRunning() {
-        mFirebaseFireStore.collection(Constants.ROOMS).document(mRoomCode)
-                .update(Constants.GAME_STATUS, GameStatus.RUNNING);
+        if (isOnlineMatch()) {
+            mFirebaseFireStore.collection(Constants.ROOMS).document(mRoomCode)
+                    .update(Constants.GAME_STATUS, GameStatus.RUNNING);
+        }
     }
 
     public void handleLastQuestionAnswer(boolean ownerRoom) {
