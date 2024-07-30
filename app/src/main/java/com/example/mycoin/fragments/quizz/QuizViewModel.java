@@ -13,10 +13,10 @@ import com.example.mycoin.gateway.repository.UserRepository;
 import com.example.mycoin.preferences.AppPreferences;
 import com.example.mycoin.utils.ListUtil;
 import com.example.mycoin.utils.LogcatUtil;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
-import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -27,11 +27,15 @@ public class QuizViewModel extends ViewModel {
     private final UserRepository mUserRepository;
     private final FirebaseFirestore mFirebaseFireStore;
 
+    private MutableLiveData<Boolean> mIsOwnerRoom = new MutableLiveData<>();
+    private MutableLiveData<GameStatus> mGameStatus = new MutableLiveData<>();
+
     private String mRoomCode;
     private Boolean mIsOnlineMatch;
-    private MutableLiveData<Boolean> mHasTwoPlayers = new MutableLiveData<>();
-    private MutableLiveData<Boolean> mIsRoomRemoved = new MutableLiveData<>();
-    private MutableLiveData<GameStatus> mGameStatus = new MutableLiveData<>();
+    private Boolean mHasMinimumPLayersInRoom;
+    private int mCorrectQuestions = 0;
+    private int mWrongQuestions = 0;
+
 
     @Inject
     public QuizViewModel(AppPreferences appPreferences, UserRepository userRepository,
@@ -59,9 +63,14 @@ public class QuizViewModel extends ViewModel {
         mGameStatus.postValue(GameStatus.FINISHED);
     }
 
-    public LiveData<Boolean> hasMinimumPlayersInRoom() {
-        return mHasTwoPlayers;
+    public boolean hasMinimumPlayersInRoom() {
+        return mHasMinimumPLayersInRoom;
     }
+
+    public void setMinimumPlayersInRoom(boolean minimumPlayersInRoom) {
+        mHasMinimumPLayersInRoom = minimumPlayersInRoom;
+    }
+
 
     public void initFirebaseStoreObserve() {
         if (!mIsOnlineMatch) return;
@@ -70,23 +79,52 @@ public class QuizViewModel extends ViewModel {
                     Log.d(TAG, "Changes in Firebase!");
                     if (value == null) return;
 
-                    if (!value.exists()) {
-                        Log.d(TAG, "Owner exit room!");
-                        mIsRoomRemoved.postValue(true);
-                        return;
-                    }
-
                     List<String> players = (List<String>) value.get(Constants.PLAYERS);
 
                     if (ListUtil.isEmpty(players)) return;
 
-                    mHasTwoPlayers.postValue(players.size() == 2);
+                    handleWithInitGame(players);
 
-                    if (Objects.equals(value.getString(Constants.GAME_STATUS), GameStatus.STARTED.toString())) {
-                        mGameStatus.postValue(GameStatus.STARTED);
-                    }
+                    checkIfMatchIsDone(value);
+
+                    handleWithGameStatus(value.getString(Constants.GAME_STATUS));
 
                 });
+    }
+
+    private void handleWithInitGame(List<String> players) {
+        setMinimumPlayersInRoom(players.size() == 2);
+
+        User user = mAppPreferences.getCurrentUser();
+
+        Log.d(TAG, String.valueOf(players.get(0).equals(user.getEmail())));
+
+        mIsOwnerRoom.postValue(players.get(0).equals(user.getEmail()));
+    }
+
+    private void handleWithGameStatus(String gameStatus) {
+
+        switch (gameStatus) {
+
+            case "NOT_STARTED": {
+                Log.d(TAG, "Not Started!");
+                break;
+            }
+            case "STARTED": {
+                Log.d(TAG, "Game Started!");
+                mGameStatus.postValue(GameStatus.STARTED);
+                break;
+            }
+            case "RUNNING": {
+                Log.d(TAG, "Game is running!");
+                break;
+            }
+            case "FINISHED": {
+                Log.d(TAG, "Game is finished!");
+                break;
+            }
+        }
+
     }
 
     public void setRoomCode(int code) {
@@ -96,21 +134,20 @@ public class QuizViewModel extends ViewModel {
     public void handleExitRoom(boolean ownerRoom) {
         if (!mIsOnlineMatch) return;
 
-        if (ownerRoom) {
-            mFirebaseFireStore.collection(Constants.ROOMS).document(mRoomCode).delete();
-        } else {
-            mFirebaseFireStore.collection(Constants.ROOMS).document(mRoomCode).get().addOnCompleteListener( task -> {
-               if (task.isComplete()) {
-                   List<String> players = (List<String>) task.getResult().get(Constants.PLAYERS);
+        User user = mAppPreferences.getCurrentUser();
 
-                   if (ListUtil.isEmpty(players)) return;
+        mFirebaseFireStore.collection(Constants.ROOMS).document(mRoomCode).get().addOnCompleteListener(task -> {
+            if (task.isComplete()) {
+                List<String> players = (List<String>) task.getResult().get(Constants.PLAYERS);
 
-                   players.remove(players.size()-1);
-                   mFirebaseFireStore.collection(Constants.ROOMS)
-                           .document(mRoomCode).update(Constants.PLAYERS, players);
-               }
-            });
-        }
+                if (ListUtil.isEmpty(players)) return;
+
+                players.remove(user.getEmail());
+                mFirebaseFireStore.collection(Constants.ROOMS)
+                        .document(mRoomCode).update(Constants.PLAYERS, players);
+            }
+        });
+
     }
 
     public void setIsOnlineMatch(int mRoomCode) {
@@ -121,16 +158,58 @@ public class QuizViewModel extends ViewModel {
         return mIsOnlineMatch;
     }
 
-    public LiveData<Boolean> isRoomRemoved() {
-        return mIsRoomRemoved;
-    }
-
     public MutableLiveData<GameStatus> getGameStatus() {
         return mGameStatus;
     }
 
-    public void setGameStatus(GameStatus status) {
-        mGameStatus.postValue(status);
+    public int getCorrectQuestions() {
+        return mCorrectQuestions;
     }
 
+    public void incrementCorrectQuestions(boolean ownerRoom) {
+        mCorrectQuestions++;
+
+        String player = ownerRoom ? Constants.PLAYER_ONE_POINTS : Constants.PLAYER_TWO_POINTS;
+
+        mFirebaseFireStore.collection(Constants.ROOMS)
+                .document(mRoomCode).update(player, getPointsObtained());
+        mGameStatus.postValue(GameStatus.RUNNING);
+    }
+
+    public int getWrongQuestions() {
+        return mWrongQuestions;
+    }
+
+    public void incrementWrongQuestions() {
+        mWrongQuestions++;
+    }
+
+    private int getPointsObtained() {
+        return mCorrectQuestions * 10;
+    }
+
+    public void defineGameStatusAsRunning() {
+        mFirebaseFireStore.collection(Constants.ROOMS).document(mRoomCode)
+                .update(Constants.GAME_STATUS, GameStatus.RUNNING);
+    }
+
+    public void handleLastQuestionAnswer(boolean ownerRoom) {
+        String player = ownerRoom ? Constants.PLAYER_ONE_FINISH_GAME
+                : Constants.PLAYER_TWO_FINISH_GAME;
+
+        mFirebaseFireStore.collection(Constants.ROOMS)
+                .document(mRoomCode).update(player, true);
+    }
+
+    private void checkIfMatchIsDone(DocumentSnapshot value) {
+        if (Boolean.TRUE.equals(value.getBoolean(Constants.PLAYER_ONE_FINISH_GAME))
+                && Boolean.TRUE.equals(value.getBoolean(Constants.PLAYER_TWO_FINISH_GAME))) {
+            mFirebaseFireStore.collection(Constants.ROOMS).document(mRoomCode)
+                    .update(Constants.GAME_STATUS, GameStatus.FINISHED);
+        }
+    }
+
+    public LiveData<Boolean> getIsOwnerRoom() {
+        return mIsOwnerRoom;
+    }
 }

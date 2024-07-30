@@ -58,4 +58,6 @@ public class Constants {
     public static final String SHOULD_SHOW_NEXT_QUESTION = "should_show_next_question";
     public static final String PLAYERS = "players";
     public static final String GAME_STATUS = "game_status";
+    public static final String PLAYER_ONE_FINISH_GAME = "player_one_finish_game";
+    public static final String PLAYER_TWO_FINISH_GAME = "player_two_finish_game";
 }

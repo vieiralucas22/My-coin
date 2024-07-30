@@ -15,6 +15,7 @@ import com.example.mycoin.fragments.login.LoginViewModel;
 import com.example.mycoin.fragments.profile.changeuserpassword.ChangeUserPasswordViewModel;
 import com.example.mycoin.fragments.profile.editprofile.EditUserProfileViewModel;
 import com.example.mycoin.fragments.profile.generalprofile.GeneralProfileViewModel;
+import com.example.mycoin.fragments.quizz.result.ResultFragmentViewModel;
 import com.example.mycoin.fragments.ranking.RankingViewModel;
 import com.example.mycoin.fragments.signup.SignUpViewModel;
 
@@ -93,5 +94,10 @@ public interface ViewModelModule {
     @IntoMap
     @ViewModelKey(CodeMatchViewModel.class)
     ViewModel bindsCodeMatchViewModel(CodeMatchViewModel viewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ResultFragmentViewModel.class)
+    ViewModel bindsResultFragmentViewModel(ResultFragmentViewModel viewModel);
 
 }

@@ -203,6 +203,10 @@
             android:name="total_points"
             app:argType="integer"
             android:defaultValue="0" />
+        <argument
+            android:name="room_code"
+            app:argType="integer"
+            android:defaultValue="-1" />
         <action
             android:id="@+id/action_resultFragment_to_generalProfileFragment"
             app:destination="@id/generalProfileFragment"

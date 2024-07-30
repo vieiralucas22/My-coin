@@ -60,8 +60,6 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
     private QuizViewModel mViewModel;
 
     private int mCurrentQuestion;
-    private int correct = 0;
-    private int wrong = 0;
     private int mRoomCode = -1;
 
     @Override
@@ -122,7 +120,12 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
                     showQuestions();
                     return;
                 }
-                goResultScreen();
+
+                if (mViewModel.isOnlineMatch()) {
+
+                } else {
+                    goResultScreen();
+                }
             }
         }.start();
     }
@@ -204,17 +207,23 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
             }, 500);
             return;
         }
-        goResultScreen();
+
+        if (mViewModel.isOnlineMatch()) {
+            mViewModel.handleLastQuestionAnswer(getArgs().getOwnerRoom());
+            goResultScreen();
+        } else {
+            goResultScreen();
+        }
     }
 
     private void handleWithQuestionAnswer(View view) {
         if (checkIfQuestionIsCorrect(view)) {
-            correct++;
+            mViewModel.incrementCorrectQuestions(getArgs().getOwnerRoom());
             mImageRight.setVisibility(View.VISIBLE);
             mViewModel.saveUserPoints(POINTS_PER_QUESTION);
             return;
         }
-        wrong++;
+        mViewModel.incrementWrongQuestions();
         mImageWrong.setVisibility(View.VISIBLE);
     }
 
@@ -244,12 +253,13 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
     private void goResultScreen() {
         if (getView() == null) return;
 
-        int totalPointsEarned = (POINTS_PER_QUESTION * correct);
+        int totalPointsEarned = (POINTS_PER_QUESTION * mViewModel.getCorrectQuestions());
 
         NavDirections action = QuizFragmentDirections.actionQuizFragmentToResultFragment()
-                .setTotalRightQuestions(correct)
-                .setTotalWrongQuestions(wrong)
-                .setTotalPoints(totalPointsEarned);
+                .setTotalRightQuestions(mViewModel.getCorrectQuestions())
+                .setTotalWrongQuestions(mViewModel.getWrongQuestions())
+                .setTotalPoints(totalPointsEarned)
+                .setRoomCode(mRoomCode);
 
         Navigation.findNavController(getView()).navigate(action);
     }
@@ -270,28 +280,22 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void initObservers() {
-        mViewModel.hasMinimumPlayersInRoom().observe(getViewLifecycleOwner(), hasMinimumPlayers -> {
-            mBinding.buttonStartGame.setBackground(getDrawable(hasMinimumPlayers ?
+        mViewModel.getIsOwnerRoom().observe(getViewLifecycleOwner(), isOwner -> {
+            mBinding.buttonStartGame.setBackground(getDrawable(mViewModel.hasMinimumPlayersInRoom() ?
                     R.drawable.background_button_submit : R.drawable.background_button_disabled));
-            if (getArgs().getOwnerRoom()) {
-                mBinding.textWaiting.setText(getContext().getString(hasMinimumPlayers
+            if (isOwner) {
+                mBinding.textWaiting.setText(getContext().getString(mViewModel.hasMinimumPlayersInRoom()
                         ? R.string.player_arrived : R.string.waiting_another_player));
+                mBinding.buttonStartGame.setVisibility(View.VISIBLE);
             }
 
-        });
-
-        mViewModel.isRoomRemoved().observe(getViewLifecycleOwner(), isRoomRemoved -> {
-            if (isRoomRemoved && !getArgs().getOwnerRoom()) {
-                backScreen(getView());
-                MessageUtil.showToast(getContext(), R.string.owner_exit_room);
-            }
         });
 
         mViewModel.getGameStatus().observe(getViewLifecycleOwner(), gameStatus -> {
             if (gameStatus.equals(GameStatus.STARTED)) {
-                Log.d(TAG, "Game started!");
                 setUpGameStartedUI();
                 initQuiz();
+                mViewModel.defineGameStatusAsRunning();
             }
         });
     }

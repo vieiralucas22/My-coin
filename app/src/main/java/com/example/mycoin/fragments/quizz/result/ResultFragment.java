@@ -34,6 +34,8 @@ public class ResultFragment extends BaseFragment implements View.OnClickListener
     private NavigationMenuBinding mMenuNavigation;
     private GoalCompletedReceiver mReceiver = new GoalCompletedReceiver();
 
+    private ResultFragmentViewModel mViewModel;
+
     private int mPoints = 0;
 
     @Override
@@ -47,11 +49,15 @@ public class ResultFragment extends BaseFragment implements View.OnClickListener
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mViewModel = getViewModel(ResultFragmentViewModel.class);
 
         registerReceiver(mReceiver, new IntentFilter(InternalIntents.ACTION_GOAL_COMPLETED));
 
         initComponents();
         initListeners();
+
+        mViewModel.initFirebaseListener(getArgs().getRoomCode());
+
         setUpUI();
     }
 

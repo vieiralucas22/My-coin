@@ -463,7 +463,8 @@ public class FirebaseServiceImpl implements FirebaseService {
         newRoom.put(Constants.WINNER, "");
         newRoom.put(Constants.PLAYER_ONE_POINTS, 0);
         newRoom.put(Constants.PLAYER_TWO_POINTS, 0);
-        newRoom.put(Constants.SHOULD_SHOW_NEXT_QUESTION, false);
+        newRoom.put(Constants.PLAYER_ONE_FINISH_GAME, false);
+        newRoom.put(Constants.PLAYER_TWO_FINISH_GAME, false);
         newRoom.put(Constants.GAME_STATUS, GameStatus.NOT_STARTED);
         newRoom.put(Constants.PLAYERS, users);
 
