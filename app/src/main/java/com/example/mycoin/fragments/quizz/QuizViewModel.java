@@ -87,8 +87,6 @@ public class QuizViewModel extends ViewModel {
 
                     handleWithInitGame(players);
 
-                    checkIfMatchIsDone(value);
-
                     handleWithGameStatus(value.getString(Constants.GAME_STATUS));
 
                 });
@@ -131,7 +129,7 @@ public class QuizViewModel extends ViewModel {
         mRoomCode = String.valueOf(code);
     }
 
-    public void handleExitRoom(boolean ownerRoom) {
+    public void handleExitRoom() {
         if (!mIsOnlineMatch) return;
 
         User user = mAppPreferences.getCurrentUser();
@@ -143,8 +141,16 @@ public class QuizViewModel extends ViewModel {
                 if (ListUtil.isEmpty(players)) return;
 
                 players.remove(user.getEmail());
+
                 mFirebaseFireStore.collection(Constants.ROOMS)
                         .document(mRoomCode).update(Constants.PLAYERS, players);
+
+                if (!hasMinimumPlayersInRoom()) return;
+
+                if (user.getEmail().equals(task.getResult().getString(Constants.PLAYER_ONE))) {
+                    mFirebaseFireStore.collection(Constants.ROOMS)
+                            .document(mRoomCode).update(Constants.PLAYER_ONE, players.get(0));
+                }
             }
         });
 
@@ -169,11 +175,12 @@ public class QuizViewModel extends ViewModel {
     public void incrementCorrectQuestions(boolean ownerRoom) {
         mCorrectQuestions++;
 
-        String player = ownerRoom ? Constants.PLAYER_ONE_POINTS : Constants.PLAYER_TWO_POINTS;
-
-        mFirebaseFireStore.collection(Constants.ROOMS)
-                .document(mRoomCode).update(player, getPointsObtained());
-        mGameStatus.postValue(GameStatus.RUNNING);
+        if (isOnlineMatch()) {
+            String player = ownerRoom ? Constants.PLAYER_ONE_POINTS : Constants.PLAYER_TWO_POINTS;
+            mFirebaseFireStore.collection(Constants.ROOMS)
+                    .document(mRoomCode).update(player, getPointsObtained());
+            mGameStatus.postValue(GameStatus.RUNNING);
+        }
     }
 
     public int getWrongQuestions() {
@@ -196,18 +203,12 @@ public class QuizViewModel extends ViewModel {
     }
 
     public void handleLastQuestionAnswer(boolean ownerRoom) {
-        String player = ownerRoom ? Constants.PLAYER_ONE_FINISH_GAME
-                : Constants.PLAYER_TWO_FINISH_GAME;
+        if (isOnlineMatch()) {
+            String player = ownerRoom ? Constants.PLAYER_ONE_FINISH_GAME
+                    : Constants.PLAYER_TWO_FINISH_GAME;
 
-        mFirebaseFireStore.collection(Constants.ROOMS)
-                .document(mRoomCode).update(player, true);
-    }
-
-    private void checkIfMatchIsDone(DocumentSnapshot value) {
-        if (Boolean.TRUE.equals(value.getBoolean(Constants.PLAYER_ONE_FINISH_GAME))
-                && Boolean.TRUE.equals(value.getBoolean(Constants.PLAYER_TWO_FINISH_GAME))) {
-            mFirebaseFireStore.collection(Constants.ROOMS).document(mRoomCode)
-                    .update(Constants.GAME_STATUS, GameStatus.FINISHED);
+            mFirebaseFireStore.collection(Constants.ROOMS)
+                    .document(mRoomCode).update(player, true);
         }
     }
 

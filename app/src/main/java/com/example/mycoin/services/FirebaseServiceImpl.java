@@ -467,6 +467,8 @@ public class FirebaseServiceImpl implements FirebaseService {
         newRoom.put(Constants.PLAYER_TWO_FINISH_GAME, false);
         newRoom.put(Constants.GAME_STATUS, GameStatus.NOT_STARTED);
         newRoom.put(Constants.PLAYERS, users);
+        newRoom.put(Constants.PLAYER_ONE, mAppPreferences.getCurrentUser().getEmail());
+        newRoom.put(Constants.PLAYER_TWO, "");
 
         mFirebaseFirestore.collection(Constants.ROOMS).document(roomDocument)
                 .set(newRoom).addOnCompleteListener(task -> {

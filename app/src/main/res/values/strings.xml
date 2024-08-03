@@ -119,4 +119,7 @@
     <string name="player_arrived">Player arrived, start game!</string>
     <string name="waiting_owner_start_game">Waiting owner room start game!</string>
     <string name="owner_exit_room">Owner exit room, sorry! :(</string>
+    <string name="game_result">Game Result</string>
+    <string name="winner">Winner</string>
+    <string name="winner_description">You win, Congratulation!</string>
 </resources>

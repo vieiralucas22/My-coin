@@ -350,7 +350,7 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
             mCountDownTimer.cancel();
         }
 
-        mViewModel.handleExitRoom(getArgs().getOwnerRoom());
+        mViewModel.handleExitRoom();
     }
 
     @Override

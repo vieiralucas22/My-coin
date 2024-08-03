@@ -2,6 +2,7 @@ package com.example.mycoin.fragments.quizz.result;
 
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -21,9 +22,15 @@ import com.example.mycoin.R;
 import com.example.mycoin.constants.Constants;
 import com.example.mycoin.databinding.FragmentResultBinding;
 import com.example.mycoin.databinding.NavigationMenuBinding;
+import com.example.mycoin.di.components.DaggerAppComponent;
+import com.example.mycoin.di.modules.AppModule;
 import com.example.mycoin.fragments.BaseFragment;
+import com.example.mycoin.preferences.AppPreferences;
 import com.example.mycoin.receivers.GoalCompletedReceiver;
 import com.example.mycoin.utils.LogcatUtil;
+import com.google.firebase.firestore.DocumentSnapshot;
+
+import javax.inject.Inject;
 
 public class ResultFragment extends BaseFragment implements View.OnClickListener {
     public static final String TAG = LogcatUtil.getTag(ResultFragment.class);
@@ -38,6 +45,9 @@ public class ResultFragment extends BaseFragment implements View.OnClickListener
 
     private int mPoints = 0;
 
+    @Inject
+    AppPreferences preferences;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -51,10 +61,16 @@ public class ResultFragment extends BaseFragment implements View.OnClickListener
         super.onViewCreated(view, savedInstanceState);
         mViewModel = getViewModel(ResultFragmentViewModel.class);
 
+        DaggerAppComponent.builder()
+                .applicationModule(new AppModule(getContext()))
+                .build()
+                .inject(this);
+
         registerReceiver(mReceiver, new IntentFilter(InternalIntents.ACTION_GOAL_COMPLETED));
 
         initComponents();
         initListeners();
+        initObservers();
 
         mViewModel.initFirebaseListener(getArgs().getRoomCode());
 
@@ -84,28 +100,11 @@ public class ResultFragment extends BaseFragment implements View.OnClickListener
     }
 
     private void setUpUI() {
-        if (getArgs() == null) return;
-
-        mPoints = getArgs().getTotalPoints();
-
-        int rightQuestions = getArgs().getTotalRightQuestions();
-        int wrongQuestions = getArgs().getTotalWrongQuestions();
-
-        mTextQuestionsRight.setText(String.valueOf(rightQuestions));
-        mTextQuestionsWrong.setText(String.valueOf(wrongQuestions));
-        mTextPoints.setText(String.valueOf(mPoints));
-
-        if (rightQuestions > wrongQuestions) {
-            mImageSad.setVisibility(View.INVISIBLE);
-            mImageSmile.setVisibility(View.VISIBLE);
-            Intent intent = new Intent(InternalIntents.ACTION_GOAL_COMPLETED);
-            intent.putExtra(Constants.GOAL_DONE, Constants.GOAL_FIRST_QUIZ);
-            sendBroadcast(intent);
+        if (mViewModel.isOnlineMatch()) {
+            setUpOnlineUI();
         } else {
-            mImageSad.setVisibility(View.VISIBLE);
-            mImageSmile.setVisibility(View.INVISIBLE);
+            setUpOfflineUI();
         }
-
     }
 
     private void goEditProfileTab(View v) {
@@ -125,6 +124,55 @@ public class ResultFragment extends BaseFragment implements View.OnClickListener
     private void goGoalsScreen(View v) {
         Navigation.findNavController(v)
                 .navigate(R.id.action_resultFragment_to_goalsFragment);
+    }
+
+    private void initObservers() {
+        mViewModel.getIsGameDone().observe(getViewLifecycleOwner(), gameResult -> {
+            setUpOnlineUI();
+
+            mBinding.textResultMatch.setText(checkIfPlayerWin(gameResult) ? "Winner" : "Loser");
+        });
+    }
+
+    private boolean checkIfPlayerWin(DocumentSnapshot gameResult) {
+        return preferences.getCurrentUser().getEmail()
+                .equals(gameResult.getString(Constants.WINNER));
+    }
+
+    private void setUpOnlineUI() {
+        mImageSmile.setVisibility(View.GONE);
+        mImageSad.setVisibility(View.GONE);
+        mBinding.userImage.setVisibility(View.VISIBLE);
+        mBinding.userImage.setImageURI(Uri.parse(preferences.getCurrentUser().getPhoto()));
+        mBinding.textWaitingDescription.setVisibility(View.VISIBLE);
+        mBinding.progressBar.setVisibility(View.VISIBLE);
+        mBinding.textTitle.setText(getString(R.string.game_result));
+        mBinding.textResultMatch.setVisibility(View.VISIBLE);
+    }
+
+    private void setUpOfflineUI() {
+        if (getArgs() == null) return;
+
+        mPoints = getArgs().getTotalPoints();
+
+        int rightQuestions = getArgs().getTotalRightQuestions();
+        int wrongQuestions = getArgs().getTotalWrongQuestions();
+
+        mTextQuestionsRight.setText(String.valueOf(rightQuestions));
+        mTextQuestionsWrong.setText(String.valueOf(wrongQuestions));
+        mTextPoints.setText(String.valueOf(mPoints));
+        mBinding.textTitle.setText(getString(R.string.quiz_result));
+
+        if (rightQuestions >= wrongQuestions) {
+            mImageSad.setVisibility(View.INVISIBLE);
+            mImageSmile.setVisibility(View.VISIBLE);
+            Intent intent = new Intent(InternalIntents.ACTION_GOAL_COMPLETED);
+            intent.putExtra(Constants.GOAL_DONE, Constants.GOAL_FIRST_QUIZ);
+            sendBroadcast(intent);
+        } else {
+            mImageSad.setVisibility(View.VISIBLE);
+            mImageSmile.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override
