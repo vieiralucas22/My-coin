@@ -6,6 +6,9 @@ import android.content.Context;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import com.example.mycoin.GameStatus;
 import com.example.mycoin.R;
@@ -28,7 +31,9 @@ import com.example.mycoin.fragments.goals.GoalsAdapter;
 import com.example.mycoin.fragments.ranking.RankingListAdapter;
 import com.example.mycoin.gateway.services.FirebaseService;
 import com.example.mycoin.preferences.AppPreferences;
+import com.example.mycoin.utils.ListUtil;
 import com.example.mycoin.utils.LogcatUtil;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
@@ -489,12 +494,20 @@ public class FirebaseServiceImpl implements FirebaseService {
 
         mFirebaseFirestore.collection(Constants.ROOMS).document(roomDocument)
                 .get().addOnCompleteListener(task -> {
-                    DocumentSnapshot data = task.getResult();
-                    List<String> players = (List<String>) data.get(Constants.PLAYERS);
-                    players.add(currentUser.getEmail());
-                    mFirebaseFirestore.collection(Constants.ROOMS)
-                            .document(roomDocument).update(Constants.PLAYERS, players);
-                    joinRoomCallback.onSuccess(roomCode);
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot data = task.getResult();
+                        List<String> players = (List<String>) data.get(Constants.PLAYERS);
+
+                        if (ListUtil.isEmpty(players)) {
+                            joinRoomCallback.onFailure();
+                            return;
+                        }
+
+                        players.add(currentUser.getEmail());
+                        mFirebaseFirestore.collection(Constants.ROOMS)
+                                .document(roomDocument).update(Constants.PLAYERS, players);
+                        joinRoomCallback.onSuccess(roomCode);
+                    }
                 });
     }
 

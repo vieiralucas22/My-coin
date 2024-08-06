@@ -20,6 +20,7 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mycoin.GameStatus;
 import com.example.mycoin.R;
@@ -363,7 +364,11 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
         } else if (v.getId() == R.id.button_back) {
             backScreen(v);
         } else if (v.getId() == R.id.button_start_game) {
-            mViewModel.startGame();
+            if (mViewModel.hasMinimumPlayersInRoom()) {
+                mViewModel.startGame();
+            } else {
+                Toast.makeText(getContext(), "Wait another player to start game!", Toast.LENGTH_LONG).show();
+            }
         }
     }
 }
