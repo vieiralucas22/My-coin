@@ -57,6 +57,7 @@ public class GoalsFragment extends BaseFragment implements View.OnClickListener 
         mMenuNavigation.viewHome.setOnClickListener(this);
         mMenuNavigation.viewPerson.setOnClickListener(this);
         mMenuNavigation.viewRanking.setOnClickListener(this);
+        mMenuNavigation.viewControl.setOnClickListener(this);
         mBinding.buttonDone.setOnClickListener(this);
         mBinding.buttonInProgress.setOnClickListener(this);
     }
@@ -79,6 +80,11 @@ public class GoalsFragment extends BaseFragment implements View.OnClickListener 
                 .navigate(R.id.action_goalsFragment_to_generalProfileFragment);
     }
 
+    private void goCodeMatchScreen(View v) {
+        Navigation.findNavController(v)
+                .navigate(R.id.action_goalsFragment_to_codeMatchFragment);
+    }
+
     private void showGoals(List<GoalsAdapter.GoalItem> goalList) {
         if (!ListUtil.isEmpty(goalList)) {
             mAdapter.setItems(goalList);
@@ -95,6 +101,8 @@ public class GoalsFragment extends BaseFragment implements View.OnClickListener 
             goRankingScreen(v);
         } else if (v.getId() == R.id.view_home) {
             goHomeScreen(v);
+        } else if (v.getId() == R.id.view_control) {
+            goCodeMatchScreen(v);
         } else if (v.getId() == R.id.button_done) {
             mViewModel.loadGoalsCompleted();
         } else if (v.getId() == R.id.button_in_progress) {

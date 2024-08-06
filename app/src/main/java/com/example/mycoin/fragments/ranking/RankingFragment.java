@@ -61,6 +61,7 @@ public class RankingFragment extends BaseFragment implements View.OnClickListene
         mMenuNavigation.viewHome.setOnClickListener(this);
         mMenuNavigation.viewPerson.setOnClickListener(this);
         mMenuNavigation.viewGoals.setOnClickListener(this);
+        mMenuNavigation.viewControl.setOnClickListener(this);
     }
 
     private void initObservers() {
@@ -92,6 +93,11 @@ public class RankingFragment extends BaseFragment implements View.OnClickListene
                 .navigate(R.id.action_rankingFragment_to_goalsFragment);
     }
 
+    private void goCodeMatchScreen(View v) {
+        Navigation.findNavController(v)
+                .navigate(R.id.action_rankingFragment_to_codeMatchFragment);
+    }
+
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.button_back) {
@@ -102,6 +108,8 @@ public class RankingFragment extends BaseFragment implements View.OnClickListene
             goHomeScreen(v);
         } else if (v.getId() == R.id.view_goals) {
             goGoalsScreen(v);
+        } else if (v.getId() == R.id.view_control) {
+            goCodeMatchScreen(v);
         }
     }
 }

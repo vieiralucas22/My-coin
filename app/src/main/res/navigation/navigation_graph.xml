@@ -102,6 +102,9 @@
         <action
             android:id="@+id/action_generalProfileFragment_to_goalsFragment"
             app:destination="@id/goalsFragment" />
+        <action
+            android:id="@+id/action_generalProfileFragment_to_codeMatchFragment"
+            app:destination="@id/codeMatchFragment" />
     </fragment>
     <fragment
         android:id="@+id/editUserProfileFragment"
@@ -179,6 +182,9 @@
         <action
             android:id="@+id/action_videoPlayerFragment_to_goalsFragment"
             app:destination="@id/goalsFragment" />
+        <action
+            android:id="@+id/action_videoPlayerFragment_to_codeMatchFragment"
+            app:destination="@id/codeMatchFragment" />
     </fragment>
     <fragment
         android:id="@+id/resultFragment"
@@ -218,6 +224,9 @@
         <action
             android:id="@+id/action_resultFragment_to_goalsFragment"
             app:destination="@id/goalsFragment" />
+        <action
+            android:id="@+id/action_resultFragment_to_codeMatchFragment"
+            app:destination="@id/codeMatchFragment" />
     </fragment>
     <fragment
         android:id="@+id/quizFragment"
@@ -256,6 +265,9 @@
         <action
             android:id="@+id/action_rankingFragment_to_goalsFragment"
             app:destination="@id/goalsFragment" />
+        <action
+            android:id="@+id/action_rankingFragment_to_codeMatchFragment"
+            app:destination="@id/codeMatchFragment" />
     </fragment>
     <fragment
         android:id="@+id/goalsFragment"
@@ -273,6 +285,9 @@
         <action
             android:id="@+id/action_goalsFragment_to_generalProfileFragment"
             app:destination="@id/generalProfileFragment" />
+        <action
+            android:id="@+id/action_goalsFragment_to_codeMatchFragment"
+            app:destination="@id/codeMatchFragment" />
     </fragment>
     <fragment
         android:id="@+id/codeMatchFragment"
@@ -282,5 +297,19 @@
         <action
             android:id="@+id/action_codeMatchFragment_to_quizFragment"
             app:destination="@id/quizFragment" />
+        <action
+            android:id="@+id/action_codeMatchFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_codeMatchFragment_to_goalsFragment"
+            app:destination="@id/goalsFragment" />
+        <action
+            android:id="@+id/action_codeMatchFragment_to_generalProfileFragment"
+            app:destination="@id/generalProfileFragment" />
+        <action
+            android:id="@+id/action_codeMatchFragment_to_rankingFragment"
+            app:destination="@id/rankingFragment" />
     </fragment>
 </navigation>

@@ -99,6 +99,7 @@ public class GeneralProfileFragment  extends BaseFragment implements View.OnClic
         mMenuNavigation.viewHome.setOnClickListener(this);
         mMenuNavigation.viewRanking.setOnClickListener(this);
         mMenuNavigation.viewGoals.setOnClickListener(this);
+        mMenuNavigation.viewControl.setOnClickListener(this);
     }
 
     @SuppressLint("SetTextI18n")
@@ -126,6 +127,11 @@ public class GeneralProfileFragment  extends BaseFragment implements View.OnClic
         if (getView() == null) return;
         Navigation.findNavController(getView())
                 .navigate(R.id.action_generalProfileFragment_to_loginFragment);
+    }
+
+    private void goCodeMatchScreen(View v) {
+        Navigation.findNavController(v)
+                .navigate(R.id.action_generalProfileFragment_to_codeMatchFragment);
     }
 
     private void logout() {
@@ -192,6 +198,8 @@ public class GeneralProfileFragment  extends BaseFragment implements View.OnClic
             goHomeScreen(v);
         } else if (v.getId() == R.id.view_goals) {
             goGoalsScreen(v);
+        } else if (v.getId() == R.id.view_control) {
+            goCodeMatchScreen(v);
         }
     }
 }

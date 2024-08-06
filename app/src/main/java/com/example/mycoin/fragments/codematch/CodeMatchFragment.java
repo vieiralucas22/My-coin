@@ -70,15 +70,19 @@ public class CodeMatchFragment extends BaseFragment implements View.OnClickListe
     }
 
     private void goGoalsScreen(View v) {
+        Navigation.findNavController(v).navigate(R.id.action_codeMatchFragment_to_goalsFragment);
     }
 
     private void goHomeScreen(View v) {
+        Navigation.findNavController(v).navigate(R.id.action_codeMatchFragment_to_homeFragment);
     }
 
     private void goRankingScreen(View v) {
+        Navigation.findNavController(v).navigate(R.id.action_codeMatchFragment_to_rankingFragment);
     }
 
     private void goEditProfileScreen(View v) {
+        Navigation.findNavController(v).navigate(R.id.action_codeMatchFragment_to_generalProfileFragment);
     }
 
     private void goQuizScreen(View v, int roomCode, boolean isOwnerRoom) {

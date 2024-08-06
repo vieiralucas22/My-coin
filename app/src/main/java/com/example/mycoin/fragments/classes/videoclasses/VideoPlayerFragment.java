@@ -122,6 +122,7 @@ public class VideoPlayerFragment extends BaseFragment implements View.OnClickLis
         mMenuNavigation.viewPerson.setOnClickListener(this);
         mMenuNavigation.viewRanking.setOnClickListener(this);
         mMenuNavigation.viewGoals.setOnClickListener(this);
+        mMenuNavigation.viewControl.setOnClickListener(this);
     }
 
     private VideoPlayerFragmentArgs getArgs() {
@@ -149,6 +150,11 @@ public class VideoPlayerFragment extends BaseFragment implements View.OnClickLis
                 .navigate(R.id.action_videoPlayerFragment_to_goalsFragment);
     }
 
+    private void goCodeMatchScreen(View v) {
+        Navigation.findNavController(v)
+                .navigate(R.id.action_videoPlayerFragment_to_codeMatchFragment);
+    }
+
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.button_quiz) {
@@ -162,6 +168,8 @@ public class VideoPlayerFragment extends BaseFragment implements View.OnClickLis
             goHomeScreen(v);
         } else if (v.getId() == R.id.view_goals) {
             goGoalsScreen(v);
+        } else if (v.getId() == R.id.view_control) {
+            goCodeMatchScreen(v);
         }
     }
 }
