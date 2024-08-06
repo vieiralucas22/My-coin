@@ -17,6 +17,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -33,6 +34,7 @@ public class QuizViewModel extends ViewModel {
     private String mRoomCode;
     private Boolean mIsOnlineMatch;
     private Boolean mHasMinimumPLayersInRoom;
+    private Boolean mIsPlayerOne;
     private int mCorrectQuestions = 0;
     private int mWrongQuestions = 0;
 
@@ -61,10 +63,6 @@ public class QuizViewModel extends ViewModel {
         }
     }
 
-    public void finishGame() {
-        mGameStatus.postValue(GameStatus.FINISHED);
-    }
-
     public boolean hasMinimumPlayersInRoom() {
         return mHasMinimumPLayersInRoom;
     }
@@ -72,7 +70,6 @@ public class QuizViewModel extends ViewModel {
     public void setMinimumPlayersInRoom(boolean minimumPlayersInRoom) {
         mHasMinimumPLayersInRoom = minimumPlayersInRoom;
     }
-
 
     public void initFirebaseStoreObserve() {
         if (!mIsOnlineMatch) return;
@@ -85,19 +82,19 @@ public class QuizViewModel extends ViewModel {
 
                     if (ListUtil.isEmpty(players)) return;
 
-                    handleWithInitGame(players);
+                    handleWithInitGame(players, value);
 
                     handleWithGameStatus(value.getString(Constants.GAME_STATUS));
 
                 });
     }
 
-    private void handleWithInitGame(List<String> players) {
+    private void handleWithInitGame(List<String> players, DocumentSnapshot value) {
         setMinimumPlayersInRoom(players.size() == 2);
 
         User user = mAppPreferences.getCurrentUser();
 
-        mIsOwnerRoom.postValue(players.get(0).equals(user.getEmail()));
+        mIsOwnerRoom.postValue(Objects.equals(value.getString(Constants.PLAYER_ONE), user.getEmail()));
     }
 
     private void handleWithGameStatus(String gameStatus) {
@@ -148,6 +145,8 @@ public class QuizViewModel extends ViewModel {
                 if (!hasMinimumPlayersInRoom()) return;
 
                 if (user.getEmail().equals(task.getResult().getString(Constants.PLAYER_ONE))) {
+
+                    if (Boolean.TRUE.equals(task.getResult().getBoolean(Constants.PLAYER_ONE_FINISH_GAME))) return;
                     mFirebaseFireStore.collection(Constants.ROOMS)
                             .document(mRoomCode).update(Constants.PLAYER_ONE, players.get(0));
                 }
@@ -176,7 +175,9 @@ public class QuizViewModel extends ViewModel {
         mCorrectQuestions++;
 
         if (isOnlineMatch()) {
-            String player = ownerRoom ? Constants.PLAYER_ONE_POINTS : Constants.PLAYER_TWO_POINTS;
+
+            String player = Boolean.TRUE.equals(mIsOwnerRoom.getValue())
+                    ? Constants.PLAYER_ONE_POINTS : Constants.PLAYER_TWO_POINTS;
             mFirebaseFireStore.collection(Constants.ROOMS)
                     .document(mRoomCode).update(player, getPointsObtained());
             mGameStatus.postValue(GameStatus.RUNNING);
@@ -204,8 +205,8 @@ public class QuizViewModel extends ViewModel {
 
     public void handleLastQuestionAnswer(boolean ownerRoom) {
         if (isOnlineMatch()) {
-            String player = ownerRoom ? Constants.PLAYER_ONE_FINISH_GAME
-                    : Constants.PLAYER_TWO_FINISH_GAME;
+            String player = Boolean.TRUE.equals(mIsOwnerRoom.getValue())
+                    ? Constants.PLAYER_ONE_FINISH_GAME : Constants.PLAYER_TWO_FINISH_GAME;
 
             mFirebaseFireStore.collection(Constants.ROOMS)
                     .document(mRoomCode).update(player, true);

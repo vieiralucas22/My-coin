@@ -128,22 +128,19 @@ public class ResultFragment extends BaseFragment implements View.OnClickListener
 
     private void initObservers() {
         mViewModel.getIsGameDone().observe(getViewLifecycleOwner(), gameResult -> {
-            setUpOnlineUI();
-
-            mBinding.textResultMatch.setText(checkIfPlayerWin(gameResult) ? "Winner" : "Loser");
+            mBinding.textResultMatch.setText(checkIfPlayerWin(mViewModel.getWinner(gameResult)) ? "Winner" : "Loser");
+            mBinding.progressBar.setVisibility(View.INVISIBLE);
+            mBinding.textWaitingDescription.setVisibility(View.INVISIBLE);
         });
     }
 
-    private boolean checkIfPlayerWin(DocumentSnapshot gameResult) {
-        return preferences.getCurrentUser().getEmail()
-                .equals(gameResult.getString(Constants.WINNER));
+    private boolean checkIfPlayerWin(String winner) {
+        return preferences.getCurrentUser().getEmail().equals(winner);
     }
 
     private void setUpOnlineUI() {
         mImageSmile.setVisibility(View.GONE);
         mImageSad.setVisibility(View.GONE);
-        mBinding.userImage.setVisibility(View.VISIBLE);
-        mBinding.userImage.setImageURI(Uri.parse(preferences.getCurrentUser().getPhoto()));
         mBinding.textWaitingDescription.setVisibility(View.VISIBLE);
         mBinding.progressBar.setVisibility(View.VISIBLE);
         mBinding.textTitle.setText(getString(R.string.game_result));

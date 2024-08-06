@@ -1,10 +1,15 @@
 package com.example.mycoin.fragments.quizz.result;
 
+import android.text.TextUtils;
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.mycoin.GameStatus;
 import com.example.mycoin.constants.Constants;
+import com.example.mycoin.entities.User;
+import com.example.mycoin.preferences.AppPreferences;
 import com.example.mycoin.utils.ListUtil;
 import com.example.mycoin.utils.LogcatUtil;
 
@@ -19,14 +24,16 @@ public class ResultFragmentViewModel extends ViewModel {
     public static final String TAG = LogcatUtil.getTag(ResultFragmentViewModel.class);
 
     private final FirebaseFirestore mFirebaseFireStore;
+    private final AppPreferences mAppPreferences;
     private MutableLiveData<DocumentSnapshot> mIsGameDone = new MutableLiveData<>();
 
     private String mRoomCode;
     private Boolean mIsOnlineMatch;
 
     @Inject
-    public ResultFragmentViewModel(FirebaseFirestore firebaseFirestore) {
+    public ResultFragmentViewModel(FirebaseFirestore firebaseFirestore, AppPreferences appPreferences) {
         mFirebaseFireStore = firebaseFirestore;
+        mAppPreferences = appPreferences;
     }
 
     public void initFirebaseListener(int roomCode) {
@@ -49,25 +56,32 @@ public class ResultFragmentViewModel extends ViewModel {
                 && Boolean.TRUE.equals(value.getBoolean(Constants.PLAYER_TWO_FINISH_GAME))) {
             mFirebaseFireStore.collection(Constants.ROOMS).document(mRoomCode)
                     .update(Constants.GAME_STATUS, GameStatus.FINISHED);
-            mFirebaseFireStore.collection(Constants.ROOMS).document(mRoomCode)
-                    .update(Constants.WINNER, getWinner(value));
 
             mIsGameDone.postValue(value);
         }
     }
 
-    private String getWinner(DocumentSnapshot value) {
-        String winner = "Draw";
+    public String getWinner(DocumentSnapshot value) {
+        String winner = "";
         long pointsPlayerOne = (long) value.get(Constants.PLAYER_ONE_POINTS);
-        long pointsPlayerTwo = (long) value.get(Constants.PLAYER_ONE_POINTS);
-        List<String> players = (List<String>) value.get(Constants.PLAYERS);
+        long pointsPlayerTwo = (long) value.get(Constants.PLAYER_TWO_POINTS);
+        String playerOne =  value.getString(Constants.PLAYER_ONE);
+        User user =mAppPreferences.getCurrentUser();
 
-        if (ListUtil.isEmpty(players)) return winner;
+        Log.d(TAG, "(pointsPlayerOne) - "+(pointsPlayerOne));
+        Log.d(TAG, "(pointsPlayerTwo) - "+(pointsPlayerTwo));
+        Log.d(TAG, "(playerOne) - " + (playerOne));
+        Log.d(TAG, "(mAppPreferences.getCurrentUser().getEmail()) - " + (mAppPreferences.getCurrentUser().getEmail()));
+        Log.d(TAG, "(mAppPreferences.getCurrentUser().getEmail().equals(playerOne)) - "+(mAppPreferences.getCurrentUser().getEmail().equals(playerOne)));
 
         if (pointsPlayerOne > pointsPlayerTwo) {
-            winner = players.get(0);
-        } else {
-            winner = players.get(1);
+            if(user.getEmail().equals(playerOne)) {
+                winner = user.getEmail();
+            }
+        } else if (pointsPlayerOne < pointsPlayerTwo) {
+            if(!user.getEmail().equals(playerOne)) {
+                winner = user.getEmail();
+            }
         }
 
         return winner;
