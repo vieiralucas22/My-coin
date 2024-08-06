@@ -34,7 +34,6 @@ public class QuizViewModel extends ViewModel {
     private String mRoomCode;
     private Boolean mIsOnlineMatch;
     private Boolean mHasMinimumPLayersInRoom;
-    private Boolean mIsPlayerOne;
     private int mCorrectQuestions = 0;
     private int mWrongQuestions = 0;
 

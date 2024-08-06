@@ -33,5 +33,4 @@ public interface AppComponent {
     void inject(ClassesFragment classesFragment);
     void inject(VideoPlayerFragment videoPlayerFragment);
     void inject(GoalCompletedReceiver goalCompletedReceiver);
-    void inject(ResultFragment resultFragment);
 }

@@ -68,12 +68,6 @@ public class ResultFragmentViewModel extends ViewModel {
         String playerOne =  value.getString(Constants.PLAYER_ONE);
         User user =mAppPreferences.getCurrentUser();
 
-        Log.d(TAG, "(pointsPlayerOne) - "+(pointsPlayerOne));
-        Log.d(TAG, "(pointsPlayerTwo) - "+(pointsPlayerTwo));
-        Log.d(TAG, "(playerOne) - " + (playerOne));
-        Log.d(TAG, "(mAppPreferences.getCurrentUser().getEmail()) - " + (mAppPreferences.getCurrentUser().getEmail()));
-        Log.d(TAG, "(mAppPreferences.getCurrentUser().getEmail().equals(playerOne)) - "+(mAppPreferences.getCurrentUser().getEmail().equals(playerOne)));
-
         if (pointsPlayerOne > pointsPlayerTwo) {
             if(user.getEmail().equals(playerOne)) {
                 winner = user.getEmail();
@@ -97,5 +91,9 @@ public class ResultFragmentViewModel extends ViewModel {
 
     public boolean isOnlineMatch() {
         return mIsOnlineMatch;
+    }
+
+    public boolean checkIfPlayerWin(String winner) {
+        return mAppPreferences.getCurrentUser().getEmail().equals(winner);
     }
 }

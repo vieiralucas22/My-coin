@@ -2,7 +2,6 @@ package com.example.mycoin.fragments.quizz.result;
 
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -22,15 +21,9 @@ import com.example.mycoin.R;
 import com.example.mycoin.constants.Constants;
 import com.example.mycoin.databinding.FragmentResultBinding;
 import com.example.mycoin.databinding.NavigationMenuBinding;
-import com.example.mycoin.di.components.DaggerAppComponent;
-import com.example.mycoin.di.modules.AppModule;
 import com.example.mycoin.fragments.BaseFragment;
-import com.example.mycoin.preferences.AppPreferences;
 import com.example.mycoin.receivers.GoalCompletedReceiver;
 import com.example.mycoin.utils.LogcatUtil;
-import com.google.firebase.firestore.DocumentSnapshot;
-
-import javax.inject.Inject;
 
 public class ResultFragment extends BaseFragment implements View.OnClickListener {
     public static final String TAG = LogcatUtil.getTag(ResultFragment.class);
@@ -45,9 +38,6 @@ public class ResultFragment extends BaseFragment implements View.OnClickListener
 
     private int mPoints = 0;
 
-    @Inject
-    AppPreferences preferences;
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -60,11 +50,6 @@ public class ResultFragment extends BaseFragment implements View.OnClickListener
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mViewModel = getViewModel(ResultFragmentViewModel.class);
-
-        DaggerAppComponent.builder()
-                .applicationModule(new AppModule(getContext()))
-                .build()
-                .inject(this);
 
         registerReceiver(mReceiver, new IntentFilter(InternalIntents.ACTION_GOAL_COMPLETED));
 
@@ -128,14 +113,14 @@ public class ResultFragment extends BaseFragment implements View.OnClickListener
 
     private void initObservers() {
         mViewModel.getIsGameDone().observe(getViewLifecycleOwner(), gameResult -> {
-            mBinding.textResultMatch.setText(checkIfPlayerWin(mViewModel.getWinner(gameResult)) ? "Winner" : "Loser");
+            boolean currentPlayerWin = mViewModel.checkIfPlayerWin(mViewModel.getWinner(gameResult));
+            mBinding.textResultMatch.setText(currentPlayerWin ? "Winner" : "Loser");
+            mImageSmile.setVisibility(currentPlayerWin ? View.VISIBLE: View.INVISIBLE);
+            mImageSad.setVisibility(currentPlayerWin ? View.INVISIBLE: View.VISIBLE);
             mBinding.progressBar.setVisibility(View.INVISIBLE);
             mBinding.textWaitingDescription.setVisibility(View.INVISIBLE);
+            showPointsOnline();
         });
-    }
-
-    private boolean checkIfPlayerWin(String winner) {
-        return preferences.getCurrentUser().getEmail().equals(winner);
     }
 
     private void setUpOnlineUI() {
@@ -170,6 +155,19 @@ public class ResultFragment extends BaseFragment implements View.OnClickListener
             mImageSad.setVisibility(View.VISIBLE);
             mImageSmile.setVisibility(View.INVISIBLE);
         }
+    }
+
+    public void showPointsOnline() {
+        if (getArgs() == null) return;
+
+        mPoints = getArgs().getTotalPoints();
+
+        int rightQuestions = getArgs().getTotalRightQuestions();
+        int wrongQuestions = getArgs().getTotalWrongQuestions();
+
+        mTextQuestionsRight.setText(String.valueOf(rightQuestions));
+        mTextQuestionsWrong.setText(String.valueOf(wrongQuestions));
+        mTextPoints.setText(String.valueOf(mPoints));
     }
 
     @Override
