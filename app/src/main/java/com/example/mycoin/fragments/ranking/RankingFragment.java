@@ -13,22 +13,30 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mycoin.R;
+import com.example.mycoin.constants.Constants;
 import com.example.mycoin.databinding.FragmentRankingBinding;
 import com.example.mycoin.databinding.NavigationMenuBinding;
 import com.example.mycoin.fragments.BaseFragment;
 
+import com.example.mycoin.fragments.customview.skeleton.SkeletonAdapter;
 import com.example.mycoin.utils.ListUtil;
 import com.example.mycoin.utils.LogcatUtil;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RankingFragment extends BaseFragment implements View.OnClickListener {
     public static final String TAG = LogcatUtil.getTag(RankingFragment.class);
 
     private RankingListAdapter mAdapter;
+    private SkeletonAdapter mSkeletonAdapter;
     private FragmentRankingBinding mBinding;
     private NavigationMenuBinding mMenuNavigation;
 
     private RankingViewModel mViewModel;
+
+    private List<Boolean> mSkeletonList;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -52,8 +60,8 @@ public class RankingFragment extends BaseFragment implements View.OnClickListene
 
     private void initUI() {
         mViewModel.loadAllPlayer();
+        initSkeletonAdapter();
         mAdapter = new RankingListAdapter(mViewModel.getRankingItems());
-        mBinding.recyclerView.setAdapter(mAdapter);
     }
 
     private void initListeners() {
@@ -96,6 +104,19 @@ public class RankingFragment extends BaseFragment implements View.OnClickListene
     private void goCodeMatchScreen(View v) {
         Navigation.findNavController(v)
                 .navigate(R.id.action_rankingFragment_to_codeMatchFragment);
+    }
+
+    private void initSkeletonAdapter() {
+        mSkeletonList = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            mSkeletonList.add(true);
+        }
+        mSkeletonAdapter = new SkeletonAdapter(mSkeletonList, Constants.SKELETON_PLAYERS);
+        mBinding.recyclerView.setAdapter(mSkeletonAdapter);
+
+        mBinding.recyclerView.postDelayed(() -> {
+            mBinding.recyclerView.setAdapter(mAdapter);
+        }, 1000);
     }
 
     @Override

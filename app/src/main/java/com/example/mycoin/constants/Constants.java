@@ -62,4 +62,8 @@ public class Constants {
     public static final String PLAYER_TWO_FINISH_GAME = "player_two_finish_game";
     public static final String PLAYER_ONE = "player_one";
     public static final String PLAYER_TWO = "player_two";
+    public static final String SKELETON_CLASSES = "skeleton_classes";
+    public static final String SKELETON_GOALS = "skeleton_goal";
+    public static final String SKELETON_PLAYERS = "skeleton_players";
+    public static final String SKELETON_PHOTO = "skeleton_photo";
 }

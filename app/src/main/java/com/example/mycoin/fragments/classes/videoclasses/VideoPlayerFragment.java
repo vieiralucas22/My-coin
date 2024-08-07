@@ -16,15 +16,20 @@ import android.webkit.WebView;
 import android.widget.ProgressBar;
 
 import com.example.mycoin.R;
+import com.example.mycoin.constants.Constants;
 import com.example.mycoin.databinding.FragmentVideoPlayerBinding;
 import com.example.mycoin.databinding.NavigationMenuBinding;
 import com.example.mycoin.di.components.DaggerAppComponent;
 import com.example.mycoin.di.modules.AppModule;
 import com.example.mycoin.fragments.BaseFragment;
 import com.example.mycoin.fragments.classes.allclasses.ClassAdapter;
+import com.example.mycoin.fragments.customview.skeleton.SkeletonAdapter;
 import com.example.mycoin.gateway.repository.ClassRepository;
 import com.example.mycoin.utils.ListUtil;
 import com.example.mycoin.utils.LogcatUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -38,9 +43,11 @@ public class VideoPlayerFragment extends BaseFragment implements View.OnClickLis
     private FragmentVideoPlayerBinding mBinding;
     private NavigationMenuBinding mMenuNavigation;
     private ClassAdapter mAdapter;
+    private SkeletonAdapter mSkeletonAdapter;
     private String mModule;
 
     private VideoPlayerViewModel mViewModel;
+    private List<Boolean> mSkeletonList;
 
     @Inject
     ClassRepository classRepository;
@@ -111,9 +118,9 @@ public class VideoPlayerFragment extends BaseFragment implements View.OnClickLis
         mView = mBinding.view2;
         mProgressBar = mBinding.progressBar;
         mButtonQuiz = mBinding.buttonQuiz;
+        initSkeletonAdapter();
         mAdapter = new ClassAdapter(mViewModel.getNextClasses(),
                 classRepository, mModule, false);
-        mBinding.recyclerView.setAdapter(mAdapter);
     }
 
     private void initListeners() {
@@ -153,6 +160,19 @@ public class VideoPlayerFragment extends BaseFragment implements View.OnClickLis
     private void goCodeMatchScreen(View v) {
         Navigation.findNavController(v)
                 .navigate(R.id.action_videoPlayerFragment_to_codeMatchFragment);
+    }
+
+    private void initSkeletonAdapter() {
+        mSkeletonList = new ArrayList<>();
+        for (int i = 0; i < 2; i++) {
+            mSkeletonList.add(true);
+        }
+        mSkeletonAdapter = new SkeletonAdapter(mSkeletonList, Constants.SKELETON_CLASSES);
+        mBinding.recyclerView.setAdapter(mSkeletonAdapter);
+
+        mBinding.recyclerView.postDelayed(() -> {
+            mBinding.recyclerView.setAdapter(mAdapter);
+        }, 1000);
     }
 
     @Override

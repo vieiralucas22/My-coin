@@ -11,12 +11,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mycoin.R;
+import com.example.mycoin.constants.Constants;
 import com.example.mycoin.databinding.FragmentGoalsBinding;
 import com.example.mycoin.databinding.NavigationMenuBinding;
 import com.example.mycoin.fragments.BaseFragment;
+import com.example.mycoin.fragments.customview.skeleton.SkeletonAdapter;
 import com.example.mycoin.utils.ListUtil;
 import com.example.mycoin.utils.LogcatUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GoalsFragment extends BaseFragment implements View.OnClickListener {
@@ -27,6 +30,8 @@ public class GoalsFragment extends BaseFragment implements View.OnClickListener 
 
     private GoalsViewModel mViewModel;
     private GoalsAdapter mAdapter;
+    private SkeletonAdapter mSkeletonAdapter;
+    private List<Boolean> mSkeletonList;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -44,8 +49,8 @@ public class GoalsFragment extends BaseFragment implements View.OnClickListener 
         initListeners();
         initObservers();
         mViewModel.loadGoals();
+        initSkeletonAdapter();
         mAdapter = new GoalsAdapter(mViewModel.getGoalsList());
-        mBinding.recyclerView.setAdapter(mAdapter);
     }
 
     private void initComponents() {
@@ -89,6 +94,19 @@ public class GoalsFragment extends BaseFragment implements View.OnClickListener 
         if (!ListUtil.isEmpty(goalList)) {
             mAdapter.setItems(goalList);
         }
+    }
+
+    private void initSkeletonAdapter() {
+        mSkeletonList = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            mSkeletonList.add(true);
+        }
+        mSkeletonAdapter = new SkeletonAdapter(mSkeletonList, Constants.SKELETON_GOALS);
+        mBinding.recyclerView.setAdapter(mSkeletonAdapter);
+
+        mBinding.recyclerView.postDelayed(() -> {
+            mBinding.recyclerView.setAdapter(mAdapter);
+        }, 1000);
     }
 
     @Override

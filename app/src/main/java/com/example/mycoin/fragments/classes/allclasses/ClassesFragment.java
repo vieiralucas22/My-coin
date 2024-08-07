@@ -25,10 +25,14 @@ import com.example.mycoin.databinding.NavigationMenuBinding;
 import com.example.mycoin.di.components.DaggerAppComponent;
 import com.example.mycoin.di.modules.AppModule;
 import com.example.mycoin.fragments.BaseFragment;
+import com.example.mycoin.fragments.customview.skeleton.SkeletonAdapter;
 import com.example.mycoin.gateway.repository.ClassRepository;
 import com.example.mycoin.receivers.GoalCompletedReceiver;
 import com.example.mycoin.utils.ListUtil;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -41,9 +45,11 @@ public class ClassesFragment extends BaseFragment implements View.OnClickListene
     private ClassesViewModel mViewModel;
     private RecyclerView mRecyclerView;
     private ClassAdapter mAdapter;
+    private SkeletonAdapter mSkeletonAdapter;
 
     private GoalCompletedReceiver mReceiver = new GoalCompletedReceiver();
     private String mModule;
+    private List<Boolean> mSkeletonList;
 
     @Inject
     ClassRepository classRepository;
@@ -80,9 +86,22 @@ public class ClassesFragment extends BaseFragment implements View.OnClickListene
         mCircularProgressIndicator = mBinding.progressClasses;
         loadClassesByModule();
         mBinding.textTitle.setText(mModule);
+        initSkeletonAdapter();
         mAdapter = new ClassAdapter(mViewModel.getClassList(), classRepository,
                 mModule, true, mViewModel);
-        mRecyclerView.setAdapter(mAdapter);
+    }
+
+    private void initSkeletonAdapter() {
+        mSkeletonList = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            mSkeletonList.add(true);
+        }
+        mSkeletonAdapter = new SkeletonAdapter(mSkeletonList, Constants.SKELETON_CLASSES);
+        mRecyclerView.setAdapter(mSkeletonAdapter);
+
+        mRecyclerView.postDelayed(() -> {
+            mRecyclerView.setAdapter(mAdapter);
+        }, 1000);
     }
 
     private void initListeners() {
