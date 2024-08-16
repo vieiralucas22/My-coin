@@ -122,4 +122,5 @@
     <string name="game_result">Game Result</string>
     <string name="winner">Winner</string>
     <string name="winner_description">You win, Congratulation!</string>
+    <string name="what_s_your_question">What´s your question?</string>
 </resources>
