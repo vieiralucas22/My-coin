@@ -9,8 +9,8 @@ import com.example.mycoin.di.modules.UseCaseModule;
 import com.example.mycoin.di.modules.ViewModelModule;
 import com.example.mycoin.fragments.classes.allclasses.ClassesFragment;
 import com.example.mycoin.fragments.classes.videoclasses.VideoPlayerFragment;
-import com.example.mycoin.fragments.quizz.result.ResultFragment;
 import com.example.mycoin.receivers.GoalCompletedReceiver;
+import com.example.mycoin.receivers.LocaleChangeReceiver;
 
 import javax.inject.Singleton;
 
@@ -33,4 +33,5 @@ public interface AppComponent {
     void inject(ClassesFragment classesFragment);
     void inject(VideoPlayerFragment videoPlayerFragment);
     void inject(GoalCompletedReceiver goalCompletedReceiver);
+    void inject(LocaleChangeReceiver localeChangeReceiver);
 }

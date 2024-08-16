@@ -2,6 +2,7 @@ package com.example.mycoin.fragments.goals;
 
 import static android.view.LayoutInflater.from;
 
+import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -16,9 +17,11 @@ import java.util.List;
 public class GoalsAdapter extends RecyclerView.Adapter<GoalsAdapter.GoalsViewHolder> {
 
     private List<GoalItem> mListGoals;
+    private Context mContext;
 
-    public GoalsAdapter(List<GoalItem> listGoals) {
+    public GoalsAdapter(List<GoalItem> listGoals, Context context) {
         mListGoals = listGoals;
+        mContext = context;
     }
 
     @NonNull

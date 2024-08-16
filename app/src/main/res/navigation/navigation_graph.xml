@@ -162,7 +162,9 @@
             android:defaultValue="Introduction" />
         <action
             android:id="@+id/action_introductionVideoPlayerFragment_to_quizFragment"
-            app:destination="@id/quizFragment" />
+            app:destination="@id/quizFragment"
+            app:popUpTo="@id/classesFragment"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_videoPlayerFragment_to_rankingFragment"
             app:destination="@id/rankingFragment" />

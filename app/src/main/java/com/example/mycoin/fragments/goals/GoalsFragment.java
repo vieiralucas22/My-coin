@@ -50,7 +50,7 @@ public class GoalsFragment extends BaseFragment implements View.OnClickListener 
         initObservers();
         mViewModel.loadGoals();
         initSkeletonAdapter();
-        mAdapter = new GoalsAdapter(mViewModel.getGoalsList());
+        mAdapter = new GoalsAdapter(mViewModel.getGoalsList(), getContext());
     }
 
     private void initComponents() {

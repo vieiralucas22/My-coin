@@ -32,4 +32,5 @@ public interface FirebaseService {
     void getGoal(String goal, GoalCallback goalCallback);
     void addRoom(int roomCode, RoomCreatedCallback roomCreatedCallback);
     void addUserInRoom(int roomCode, JoinRoomCallback joinRoomCallback);
+    void updateDataLanguage();
 }

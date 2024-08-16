@@ -88,15 +88,15 @@ public class VideoPlayerFragment extends BaseFragment implements View.OnClickLis
 
     @SuppressLint("SetJavaScriptEnabled")
     private void initObservers() {
-        mViewModel.getServerResponse().observe(getViewLifecycleOwner(), response -> {
+       // mViewModel.getServerResponse().observe(getViewLifecycleOwner(), response -> {
             mProgressBar.setVisibility(View.GONE);
             mView.setVisibility(View.INVISIBLE);
             mWebView.setVisibility(View.VISIBLE);
 
             WebSettings webSettings = mWebView.getSettings();
             webSettings.setJavaScriptEnabled(true);
-            mWebView.loadData(response, "text/html", "utf-8");
-        });
+            mWebView.loadData("<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/CB5zuxQl5ro?si=pORLWs29a5TUyu7y\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen ></iframe>\n", "text/html", "utf-8");
+       // });
 
         mViewModel.getLoadNextClasses().observe(getViewLifecycleOwner(), this::showNextClasses);
     }

@@ -33,7 +33,6 @@ import com.example.mycoin.gateway.services.FirebaseService;
 import com.example.mycoin.preferences.AppPreferences;
 import com.example.mycoin.utils.ListUtil;
 import com.example.mycoin.utils.LogcatUtil;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
@@ -224,9 +223,6 @@ public class FirebaseServiceImpl implements FirebaseService {
         userRef = mFirebaseFirestore.collection(USERS).document(email)
                 .collection(Constants.GOALS).document("4");
         userRef.set(createGoal(mContext.getString(R.string.goal_five), "20"), SetOptions.merge());
-        userRef = mFirebaseFirestore.collection(USERS).document(email)
-                .collection(Constants.GOALS).document("5");
-        userRef.set(createGoal(mContext.getString(R.string.goal_six), "50"), SetOptions.merge());
     }
 
     private Map<String, Object> createClass(String title, String description) {
@@ -509,6 +505,22 @@ public class FirebaseServiceImpl implements FirebaseService {
                         joinRoomCallback.onSuccess(roomCode);
                     }
                 });
+    }
+
+    @Override
+    public void updateDataLanguage() {
+        User user = mAppPreferences.getCurrentUser();
+        Log.d(TAG, mContext.getString(R.string.goal_one));
+        mFirebaseFirestore.collection(USERS).document(user.getEmail())
+                .collection(Constants.GOALS).document("0").update(Constants.GOAL, mContext.getString(R.string.goal_one));
+        mFirebaseFirestore.collection(USERS).document(user.getEmail())
+                .collection(Constants.GOALS).document("1").update(Constants.GOAL, mContext.getString(R.string.goal_two));
+        mFirebaseFirestore.collection(USERS).document(user.getEmail())
+                .collection(Constants.GOALS).document("2").update(Constants.GOAL, mContext.getString(R.string.goal_three));
+        mFirebaseFirestore.collection(USERS).document(user.getEmail())
+                .collection(Constants.GOALS).document("3").update(Constants.GOAL, mContext.getString(R.string.goal_four));
+        mFirebaseFirestore.collection(USERS).document(user.getEmail())
+                .collection(Constants.GOALS).document("4").update(Constants.GOAL, mContext.getString(R.string.goal_five));
     }
 
     private User getUser(DocumentSnapshot document) {

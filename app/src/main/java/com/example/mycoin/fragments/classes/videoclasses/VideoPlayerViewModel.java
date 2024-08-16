@@ -97,49 +97,49 @@ public class VideoPlayerViewModel extends ViewModel {
     }
 
     private void defineNextIntroductionClasses(String classTitle, List<ClassAdapter.ClassItem> list) {
-        if (classTitle.equals(mContext.getString(R.string.lesson_1))) {
+        if (classTitle.equals(list.get(0).getTitle())) {
             mNextClasses.add(list.get(1));
             mNextClasses.add(list.get(2));
             mNextClasses.add(list.get(3));
-        } else if (classTitle.equals(mContext.getString(R.string.lesson_2))) {
+        } else if (classTitle.equals(list.get(1).getTitle())) {
             mNextClasses.add(list.get(2));
             mNextClasses.add(list.get(3));
             mNextClasses.add(list.get(4));
-        } else if (classTitle.equals(mContext.getString(R.string.lesson_3))) {
+        } else if (classTitle.equals(list.get(2).getTitle())) {
             mNextClasses.add(list.get(3));
             mNextClasses.add(list.get(4));
-        } else if (classTitle.equals(mContext.getString(R.string.lesson_4))) {
+        } else if (classTitle.equals(list.get(3).getTitle())) {
             mNextClasses.add(list.get(4));
         }
         mLoadNextClasses.postValue(true);
     }
 
     private void defineNextOrganizeHomeClasses(String classTitle, List<ClassAdapter.ClassItem> list) {
-        if (classTitle.equals(mContext.getString(R.string.lesson_6))) {
+        if (classTitle.equals(list.get(0).getTitle())) {
             mNextClasses.add(list.get(1));
             mNextClasses.add(list.get(2));
             mNextClasses.add(list.get(3));
-        } else if (classTitle.equals(mContext.getString(R.string.lesson_7))) {
+        } else if (classTitle.equals(list.get(1).getTitle())) {
             mNextClasses.add(list.get(2));
             mNextClasses.add(list.get(3));
-        } else if (classTitle.equals(mContext.getString(R.string.lesson_8))) {
+        } else if (classTitle.equals(list.get(2).getTitle())) {
             mNextClasses.add(list.get(3));
         }
         mLoadNextClasses.postValue(true);
     }
 
     private void defineNextActionTimeClasses(String classTitle, List<ClassAdapter.ClassItem> list) {
-        if (classTitle.equals(mContext.getString(R.string.lesson_10))) {
+        if (classTitle.equals(list.get(0).getTitle())) {
             mNextClasses.add(list.get(1));
             mNextClasses.add(list.get(2));
-        } else if (classTitle.equals(mContext.getString(R.string.lesson_11))) {
+        } else if (classTitle.equals(list.get(1).getTitle())) {
             mNextClasses.add(list.get(2));
         }
         mLoadNextClasses.postValue(true);
     }
 
     private void defineNextExtraClasses(String classTitle, List<ClassAdapter.ClassItem> list) {
-        if (classTitle.equals(mContext.getString(R.string.lesson_13))) {
+        if (classTitle.equals(list.get(0).getTitle())) {
             mNextClasses.add(list.get(1));
         }
         mLoadNextClasses.postValue(true);
