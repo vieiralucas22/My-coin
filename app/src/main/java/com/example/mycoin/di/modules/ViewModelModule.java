@@ -3,6 +3,7 @@ package com.example.mycoin.di.modules;
 import androidx.lifecycle.ViewModel;
 
 import com.example.mycoin.di.ViewModelKey;
+import com.example.mycoin.fragments.chat.ChatViewModel;
 import com.example.mycoin.fragments.classes.allclasses.ClassesViewModel;
 import com.example.mycoin.fragments.codematch.CodeMatchViewModel;
 import com.example.mycoin.fragments.goals.GoalsViewModel;
@@ -99,5 +100,10 @@ public interface ViewModelModule {
     @IntoMap
     @ViewModelKey(ResultFragmentViewModel.class)
     ViewModel bindsResultFragmentViewModel(ResultFragmentViewModel viewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ChatViewModel.class)
+    ViewModel bindsChatViewModel(ChatViewModel viewModel);
 
 }

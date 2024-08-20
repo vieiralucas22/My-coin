@@ -76,6 +76,9 @@
         <action
             android:id="@+id/action_homeFragment_to_codeMatchFragment"
             app:destination="@id/codeMatchFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
     </fragment>
     <fragment
         android:id="@+id/generalProfileFragment"
@@ -314,4 +317,9 @@
             android:id="@+id/action_codeMatchFragment_to_rankingFragment"
             app:destination="@id/rankingFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.example.mycoin.fragments.chat.ChatFragment"
+        android:label="fragment_chat"
+        tools:layout="@layout/fragment_chat" />
 </navigation>

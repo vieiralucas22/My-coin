@@ -4,24 +4,29 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.mycoin.R;
 import com.example.mycoin.databinding.FragmentChatBinding;
 import com.example.mycoin.fragments.BaseFragment;
 import com.example.mycoin.utils.LogcatUtil;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ChatFragment extends BaseFragment implements View.OnClickListener {
     public static final String TAG = LogcatUtil.getTag(ChatFragment.class);
-
 
     private FragmentChatBinding mBinding;
 
     private ChatViewModel mViewModel;
+    private List<MessageAdapter.Message> messageList;
+    private MessageAdapter mMessageAdapter;
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -33,11 +38,41 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mViewModel = getViewModel(ChatViewModel.class);
+        messageList = new ArrayList<>();
+
+        mMessageAdapter = new MessageAdapter(messageList);
+        mBinding.recyclerView.setAdapter(mMessageAdapter);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setStackFromEnd(true);
+        mBinding.recyclerView.setLayoutManager(layoutManager);
+
         initListeners();
+        initObservers();
     }
 
     private void initListeners() {
         mBinding.buttonSend.setOnClickListener(this);
+        mBinding.buttonBack.setOnClickListener(this);
+    }
+
+    private void initObservers() {
+        mViewModel.getLoadMessage().observe(getViewLifecycleOwner(), this::addResponse);
+    }
+
+    private void addMessageToChat(String message, String sentBy) {
+        messageList.add(new MessageAdapter.Message(message, sentBy));
+        mMessageAdapter.notifyDataSetChanged();
+        mBinding.recyclerView.smoothScrollToPosition(mMessageAdapter.getItemCount());
+    }
+
+    void addResponse(String response) {
+        //messageList.remove(messageList.size()-1);
+        addMessageToChat(response, MessageAdapter.Message.SENT_BY_BOT);
+    }
+
+    private void callAPI(String question) {
+        mViewModel.handleWithQuestion(question);
     }
 
     @Override
@@ -45,7 +80,10 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
         if (v.getId() == R.id.button_back) {
             backScreen(v);
         } else if (v.getId() == R.id.button_send) {
-            Toast.makeText(getContext(), "Mensagem envida", Toast.LENGTH_SHORT).show();
+            String message = mBinding.editMessage.getText().toString();
+            mBinding.editMessage.setText("");
+            addMessageToChat(message, MessageAdapter.Message.SENT_BY_ME);
+            callAPI(message);
         }
     }
 }

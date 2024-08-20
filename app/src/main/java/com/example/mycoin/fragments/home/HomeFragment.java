@@ -68,6 +68,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         mBinding.cardManageFinancial.setOnClickListener(this);
         mBinding.cardTargetGoals.setOnClickListener(this);
         mBinding.cardExtra.setOnClickListener(this);
+        mBinding.fab.setOnClickListener(this);
     }
 
     private void setCurrentUserData() {
@@ -123,6 +124,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 .navigate(R.id.action_homeFragment_to_codeMatchFragment);
     }
 
+    private void goChatScreen(View v) {
+        Navigation.findNavController(v)
+                .navigate(R.id.action_homeFragment_to_chatFragment);
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -147,6 +153,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             goGoalsScreen(v);
         } else if (v.getId() == R.id.view_control) {
             goCodeMatchScreen(v);
+        } else if (v.getId() == R.id.fab) {
+            goChatScreen(v);
         }
     }
 }

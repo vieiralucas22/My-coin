@@ -181,6 +181,17 @@
 
     </RelativeLayout>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:src="@drawable/chat_ic"
+        android:tint="@color/white"
+        app:backgroundTint="#3722BB"
+        app:layout_constraintBottom_toTopOf="@+id/navigation_menu"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <include
         android:id="@+id/navigation_menu"
         layout="@layout/navigation_menu"
