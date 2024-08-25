@@ -41,4 +41,16 @@ public class Question {
     public String getIsRight() {
         return mCorrectAnswer;
     }
+
+    @Override
+    public String toString() {
+        return "Question{" +
+                "mQuestion='" + mQuestion + '\'' +
+                ", mAnswer1='" + mAnswer1 + '\'' +
+                ", mAnswer2='" + mAnswer2 + '\'' +
+                ", mAnswer3='" + mAnswer3 + '\'' +
+                ", mAnswer4='" + mAnswer4 + '\'' +
+                ", mCorrectAnswer='" + mCorrectAnswer + '\'' +
+                '}';
+    }
 }

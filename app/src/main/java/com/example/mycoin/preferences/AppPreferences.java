@@ -1,6 +1,7 @@
 package com.example.mycoin.preferences;
 
 import static com.example.mycoin.constants.Constants.CONFIRMATION_CODE_KEY;
+import static com.example.mycoin.constants.Constants.CURRENT_CLASS_KEY;
 import static com.example.mycoin.constants.Constants.CURRENT_USER_BIRTH;
 import static com.example.mycoin.constants.Constants.CURRENT_USER_EMAIL;
 import static com.example.mycoin.constants.Constants.CURRENT_USER_NAME;
@@ -101,5 +102,13 @@ public class AppPreferences {
         mSharedPreferences.edit().remove(CURRENT_USER_PASSWORD).apply();
         mSharedPreferences.edit().remove(CURRENT_USER_POINTS).apply();
         mSharedPreferences.edit().remove(CURRENT_USER_PHOTO).apply();
+    }
+
+    public void setCurrentClass(String value) {
+        mSharedPreferences.edit().putString(CURRENT_CLASS_KEY, value).apply();
+    }
+
+    public String getCurrentClass() {
+        return mSharedPreferences.getString(CURRENT_CLASS_KEY, "0");
     }
 }

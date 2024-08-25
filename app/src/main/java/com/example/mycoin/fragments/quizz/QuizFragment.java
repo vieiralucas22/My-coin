@@ -140,7 +140,7 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
 
     private void loadAllQuestions() {
         mQuestionItems = new ArrayList<>();
-        String jsonQuiz = loadJsonFromAsset("questions.json");
+        String jsonQuiz = loadJsonFromAsset(getQuestionFile());
 
         try {
             JSONObject jsonObject = new JSONObject(jsonQuiz);
@@ -232,17 +232,25 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
         if (view == null) return false;
 
         if (mRadioA.isChecked()) {
-            return mQuestionItems.get(mCurrentQuestion).getAnswer1()
-                    .equals(mQuestionItems.get(mCurrentQuestion).getIsRight());
+            char firstCharacter = mQuestionItems.get(mCurrentQuestion).getAnswer1().charAt(0);
+            char responseCharacter = mQuestionItems.get(mCurrentQuestion).getIsRight().charAt(0);
+
+            return firstCharacter == responseCharacter;
         } else if (mRadioB.isChecked()) {
-            return mQuestionItems.get(mCurrentQuestion).getAnswer2()
-                    .equals(mQuestionItems.get(mCurrentQuestion).getIsRight());
+            char firstCharacter = mQuestionItems.get(mCurrentQuestion).getAnswer2().charAt(0);
+            char responseCharacter = mQuestionItems.get(mCurrentQuestion).getIsRight().charAt(0);
+
+            return firstCharacter == responseCharacter;
         } else if (mRadioC.isChecked()) {
-            return mQuestionItems.get(mCurrentQuestion).getAnswer3()
-                    .equals(mQuestionItems.get(mCurrentQuestion).getIsRight());
+            char firstCharacter = mQuestionItems.get(mCurrentQuestion).getAnswer3().charAt(0);
+            char responseCharacter = mQuestionItems.get(mCurrentQuestion).getIsRight().charAt(0);
+
+            return firstCharacter == responseCharacter;
         } else if (mRadioD.isChecked()) {
-            return mQuestionItems.get(mCurrentQuestion).getAnswer4()
-                    .equals(mQuestionItems.get(mCurrentQuestion).getIsRight());
+            char firstCharacter = mQuestionItems.get(mCurrentQuestion).getAnswer4().charAt(0);
+            char responseCharacter = mQuestionItems.get(mCurrentQuestion).getIsRight().charAt(0);
+
+            return firstCharacter == responseCharacter;
         }
         return false;
     }
@@ -304,7 +312,6 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
     private void initQuiz() {
         initCountdownTimer();
         loadAllQuestions();
-        Collections.shuffle(mQuestionItems);
         setQuestionsScreen();
     }
 
@@ -341,6 +348,10 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
         mBinding.textRoomCode.setText(getContext().getString(
                 R.string.the_code_room_is, getArgs().getRoomCode()));
         mViewModel.setRoomCode(getArgs().getRoomCode());
+    }
+
+    private String getQuestionFile() {
+        return mViewModel.getQuestions();
     }
 
     @Override

@@ -1,0 +1,36 @@
+{
+  "questions": [
+    {
+      "question": "Qual é o foco principal do livro *O Homem Mais Rico da Babilônia*?",
+      "answer1": "A) Ensinar princípios fundamentais para alcançar a prosperidade financeira.",
+      "answer2": "B) Discutir técnicas avançadas de investimentos em ações.",
+      "answer3": "C) Explicar a história da Babilônia antiga e sua cultura.",
+      "answer4": "D) Analisar as políticas econômicas da Babilônia antiga.",
+      "correctAnswer": "A"
+    },
+    {
+      "question": "Qual é uma das 'Sete Curas para uma Bolsa Vazia' mencionadas no livro?",
+      "answer1": "A) Comprar imóveis apenas em áreas de alto valor.",
+      "answer2": "B) Investir em criptomoedas como a primeira prioridade.",
+      "answer3": "C) Guardar 10% de tudo o que você ganha.",
+      "answer4": "D) Usar crédito para adquirir ativos rapidamente.",
+      "correctAnswer": "C"
+    },
+    {
+      "question": "Quem é Arkad no livro *O Homem Mais Rico da Babilônia*?",
+      "answer1": "A) O rei da Babilônia que introduziu novas leis fiscais.",
+      "answer2": "B) O homem mais rico da Babilônia que começou como um simples escriba e acumulou uma grande fortuna.",
+      "answer3": "C) Um comerciante que ensinou técnicas de comércio para outros.",
+      "answer4": "D) Um sacerdote que ofereceu conselhos sobre finanças pessoais.",
+      "correctAnswer": "B"
+    },
+    {
+      "question": "Como o livro sugere aplicar seus ensinamentos na vida real?",
+      "answer1": "A) Economize regularmente, tenha um orçamento e invista em educação financeira.",
+      "answer2": "B) Invista todo o seu dinheiro em imóveis sem diversificar.",
+      "answer3": "C) Foque exclusivamente em investimentos de alto risco.",
+      "answer4": "D) Evite qualquer forma de investimento e mantenha o dinheiro em poupança.",
+      "correctAnswer": "A"
+    }
+  ]
+}

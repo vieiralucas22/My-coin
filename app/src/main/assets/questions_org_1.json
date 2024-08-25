@@ -1,0 +1,36 @@
+{
+  "questions": [
+    {
+      "question": "O que é considerado receita, segundo o vídeo?",
+      "answer1": "A) Todo o dinheiro que entra na sua conta, como salário, trabalho extra, ou investimentos.",
+      "answer2": "B) Apenas o dinheiro que você recebe como salário.",
+      "answer3": "C) Apenas o dinheiro que vem de investimentos.",
+      "answer4": "D) Apenas o dinheiro que você recebe de presentes.",
+      "correctAnswer": "A"
+    },
+    {
+      "question": "O que é uma despesa, de acordo com o vídeo?",
+      "answer1": "A) Apenas o dinheiro que você gasta em lazer.",
+      "answer2": "B) Somente os pagamentos de contas fixas, como aluguel.",
+      "answer3": "C) Apenas o dinheiro usado para pagar dívidas.",
+      "answer4": "D) Todo o dinheiro que sai da sua conta, incluindo contas fixas e gastos variáveis.",
+      "correctAnswer": "D"
+    },
+    {
+      "question": "O que são despesas adicionais?",
+      "answer1": "A) Gastos que não estavam previstos, como manutenção do carro ou problemas de saúde.",
+      "answer2": "B) Qualquer gasto extra em lazer, como ir ao cinema.",
+      "answer3": "C) Somente gastos com presentes e doações.",
+      "answer4": "D) Somente as contas fixas que variam de mês para mês.",
+      "correctAnswer": "A"
+    },
+    {
+      "question": "Qual é o segredo para uma vida financeira saudável, conforme explicado no vídeo?",
+      "answer1": "A) Gastar mais do que ganha para manter o estilo de vida desejado.",
+      "answer2": "B) Apenas focar em aumentar as receitas sem se preocupar com as despesas.",
+      "answer3": "C) Evitar completamente qualquer tipo de despesa adicional.",
+      "answer4": "D) Equilibrar suas receitas e despesas, mantendo as despesas menores que as receitas e poupando.",
+      "correctAnswer": "D"
+    }
+  ]
+}

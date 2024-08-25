@@ -1,0 +1,36 @@
+{
+  "questions": [
+    {
+      "question": "O que caracteriza um investimento em renda variável?",
+      "answer1": "A) O valor do investimento é fixo e não sofre alterações.",
+      "answer2": "B) O retorno é garantido e previsível, com pouca variação ao longo do tempo.",
+      "answer3": "C) O investimento oferece um retorno fixo e seguro.",
+      "answer4": "D) O retorno é imprevisível e pode variar significativamente ao longo do tempo.",
+      "correctAnswer": "D"
+    },
+    {
+      "question": "Quais são alguns exemplos de investimentos em renda variável?",
+      "answer1": "A) Ações de empresas, fundos imobiliários, ETFs e criptomoedas.",
+      "answer2": "B) Certificados de depósito e contas de poupança.",
+      "answer3": "C) CDBs, Tesouro Direto, LCI/LCA e Debêntures.",
+      "answer4": "D) Poupança e fundos de renda fixa.",
+      "correctAnswer": "A"
+    },
+    {
+      "question": "Qual é uma das principais vantagens da renda variável?",
+      "answer1": "A) Estabilidade total em qualquer condição econômica.",
+      "answer2": "B) Retorno garantido e previsível com baixa volatilidade.",
+      "answer3": "C) Menor risco e alta segurança em comparação com outros tipos de investimentos.",
+      "answer4": "D) Potencial para grandes retornos, especialmente em momentos de alta do mercado.",
+      "correctAnswer": "D"
+    },
+    {
+      "question": "O que deve ser considerado ao escolher um ativo de renda variável?",
+      "answer1": "A) Desempenho passado, cenário econômico e fatores externos como notícias e eventos políticos.",
+      "answer2": "B) Apenas o retorno esperado e a liquidez do ativo.",
+      "answer3": "C) Exclusivamente a segurança e a falta de volatilidade.",
+      "answer4": "D) A taxa de administração e os custos de transação.",
+      "correctAnswer": "A"
+    }
+  ]
+}

@@ -12,6 +12,7 @@ import com.example.mycoin.callbacks.LoadClassesCallback;
 import com.example.mycoin.constants.Constants;
 import com.example.mycoin.entities.Question;
 import com.example.mycoin.gateway.repository.ClassRepository;
+import com.example.mycoin.preferences.AppPreferences;
 import com.example.mycoin.utils.LogcatUtil;
 import com.example.mycoin.utils.MessageUtil;
 
@@ -31,15 +32,17 @@ public class ClassesViewModel extends ViewModel {
 
     private final ClassRepository mClassRepository;
     private final Context mContext;
+    private final AppPreferences mAppPreferences;
     private List<ClassAdapter.ClassItem> mClassList;
 
     private MutableLiveData<Boolean> mLoadData = new MutableLiveData<>();
     private MutableLiveData<Integer> mProgress = new MutableLiveData<>();
 
     @Inject
-    public ClassesViewModel(ClassRepository classRepository, Context context) {
+    public ClassesViewModel(ClassRepository classRepository, Context context, AppPreferences appPreferences) {
         mClassRepository = classRepository;
         mContext = context;
+        mAppPreferences = appPreferences;
     }
 
     public void loadClassesInBD(String module) {
@@ -85,6 +88,10 @@ public class ClassesViewModel extends ViewModel {
     }
     public LiveData<Integer> getProgress() {
         return mProgress;
+    }
+
+    public void setActualClass(String classIndex) {
+        mAppPreferences.setCurrentClass(classIndex);
     }
 
 }

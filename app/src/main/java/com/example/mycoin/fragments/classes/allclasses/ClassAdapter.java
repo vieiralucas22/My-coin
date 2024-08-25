@@ -86,6 +86,7 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHol
 
             if (mIsAllClassesFragment) {
                 mBinding.getRoot().setOnClickListener(view -> {
+                    mClassesViewModel.setActualClass(classItem.getId());
                     NavDirections action = ClassesFragmentDirections.
                             actionClassesFragmentToVideoPlayerFragment()
                             .setClassTitle(classItem.getTitle())
@@ -116,6 +117,7 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHol
     }
 
     public static class ClassItem {
+        private String mId;
         private String mTitle;
         private String mDescription;
         private boolean mIsDone;
@@ -151,6 +153,14 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHol
 
         public void setIsDone(boolean mIsDone) {
             this.mIsDone = mIsDone;
+        }
+
+        public String getId() {
+            return mId;
+        }
+
+        public void setId(String id) {
+            mId = id;
         }
 
         @Override

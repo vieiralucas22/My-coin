@@ -1,0 +1,36 @@
+{
+  "questions": [
+    {
+      "question": "O que são juros compostos?",
+      "answer1": "A) Juros calculados apenas sobre o valor inicial investido.",
+      "answer2": "B) Juros calculados sobre o valor inicial e também sobre os juros acumulados anteriormente.",
+      "answer3": "C) Juros que são aplicados apenas uma vez e não se acumulam.",
+      "answer4": "D) Juros que não são aplicados a investimentos, apenas a dívidas.",
+      "correctAnswer": "B"
+    },
+    {
+      "question": "Como o tempo afeta o crescimento dos juros compostos?",
+      "answer1": "A) Quanto mais tempo você deixar o dinheiro investido, maior será o crescimento devido ao efeito dos juros compostos.",
+      "answer2": "B) O tempo não afeta o crescimento dos juros compostos.",
+      "answer3": "C) Juros compostos só crescem se o investimento for de curto prazo.",
+      "answer4": "D) O tempo reduz a eficácia dos juros compostos.",
+      "correctAnswer": "A"
+    },
+    {
+      "question": "Onde os juros compostos são frequentemente aplicados?",
+      "answer1": "A) Exclusivamente em dívidas como empréstimos e cartões de crédito.",
+      "answer2": "B) Apenas em contas de poupança.",
+      "answer3": "C) Em investimentos como cadernetas de poupança, CDBs, e fundos de investimento, e também em dívidas como empréstimos e cartões de crédito.",
+      "answer4": "D) Apenas em investimentos de curto prazo.",
+      "correctAnswer": "C"
+    },
+    {
+      "question": "Qual é uma estratégia para aproveitar melhor os juros compostos?",
+      "answer1": "A) Retirar os juros ganhos ao invés de reinvesti-los.",
+      "answer2": "B) Adiar o início dos investimentos até ter um montante significativo.",
+      "answer3": "C) Investir apenas uma vez e não fazer mais contribuições.",
+      "answer4": "D) Começar a investir o quanto antes, fazer contribuições regulares, e reinvestir os juros ganhos.",
+      "correctAnswer": "D"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "questions": [
+    {
+      "question": "O que caracteriza um investimento em renda fixa?",
+      "answer1": "A) Você sabe ou tem uma ideia aproximada de quanto vai receber no futuro, oferecendo maior segurança.",
+      "answer2": "B) O valor final do investimento é imprevisível e pode variar amplamente.",
+      "answer3": "C) O investimento tem uma alta volatilidade e não oferece previsibilidade.",
+      "answer4": "D) O investimento é exclusivamente de curto prazo e não oferece retorno garantido.",
+      "correctAnswer": "A"
+    },
+    {
+      "question": "Quais são alguns exemplos de investimentos em renda fixa?",
+      "answer1": "A) CDBs, Tesouro Direto, LCI/LCA e Debêntures.",
+      "answer2": "B) Ações, fundos de investimento e criptomoedas.",
+      "answer3": "C) Commodities e imóveis.",
+      "answer4": "D) Startups e investimentos em ouro.",
+      "correctAnswer": "A"
+    },
+    {
+      "question": "Qual é uma das principais vantagens da renda fixa?",
+      "answer1": "A) Alta rentabilidade e potencial de grandes ganhos a curto prazo.",
+      "answer2": "B) Previsibilidade dos retornos e maior segurança.",
+      "answer3": "C) Alta volatilidade e possibilidades de ganhos imprevisíveis.",
+      "answer4": "D) Flexibilidade total sem necessidade de planejamento a longo prazo.",
+      "correctAnswer": "B"
+    },
+    {
+      "question": "O que deve ser considerado ao escolher um investimento em renda fixa?",
+      "answer1": "A) Exclusivamente a segurança do investimento.",
+      "answer2": "B) A taxa de administração e o tipo de ativo.",
+      "answer3": "C) Apenas o retorno esperado e a liquidez.",
+      "answer4": "D) Prazo de investimento, retorno esperado e risco associado.",
+      "correctAnswer": "D"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "questions": [
+    {
+      "question": "O que é educação financeira segundo a definição apresentada no vídeo?",
+      "answer1": "A) Conjunto de conhecimentos e habilidades para tomar decisões informadas sobre finanças.",
+      "answer2": "B) Um curso sobre como investir na bolsa de valores",
+      "answer3": "C) Uma forma de ganhar dinheiro rapidamente",
+      "answer4": "D) Apenas um conceito teórico sem aplicação prática",
+      "correctAnswer": "A"
+    },
+    {
+      "question": "Por que a educação financeira é considerada importante?",
+      "answer1": "A) Porque ensina a ganhar dinheiro sem precisar trabalhar",
+      "answer2": "B) Porque ajuda a alcançar objetivos de vida e evitar dívidas",
+      "answer3": "C) Porque permite comprar tudo o que se deseja sem planejamento",
+      "answer4": "D) Porque é uma moda passageira sem relevância prática",
+      "correctAnswer": "B"
+    },
+    {
+      "question": "Quais são as áreas-chave da educação financeira mencionadas no vídeo?",
+      "answer1": "A) Compras, crédito, empréstimos, cartões de crédito, loteria",
+      "answer2": "B) Gastos com lazer, compras online, viagens, moda, entretenimento",
+      "answer3": "C) Orçamento, poupança, investimento, dívida, aposentadoria",
+      "answer4": "D) Somente investimentos e economia de curto prazo",
+      "correctAnswer": "C"
+    },
+    {
+      "question": "Quais são os benefícios de dominar a educação financeira, de acordo com o vídeo?",
+      "answer1": "A) Riqueza instantânea, fama, luxo",
+      "answer2": "B) Ter mais dívidas, gastar sem controle, não poupar",
+      "answer3": "C) Ter sempre dinheiro sobrando para gastar em qualquer coisa",
+      "answer4": "D) Segurança, liberdade, realização",
+      "correctAnswer": "D"
+    }
+  ]
+}

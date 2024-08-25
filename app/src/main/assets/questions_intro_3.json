@@ -1,0 +1,36 @@
+{
+  "questions": [
+    {
+      "question": "Qual é o primeiro passo para melhorar sua situação financeira, segundo o vídeo?",
+      "answer1": "A) Investir todo o seu dinheiro em ações.",
+      "answer2": "B) Cancelar todas as suas assinaturas de streaming.",
+      "answer3": "C) Comprar uma casa imediatamente.",
+      "answer4": "D) Revisar seus gastos e anotar tudo o que você gastou e ganhou.",
+      "correctAnswer": "D"
+    },
+    {
+      "question": "O que o vídeo sugere fazer após revisar os gastos?",
+      "answer1": "A) Ignorar os gastos supérfluos.",
+      "answer2": "B) Identificar onde você está exagerando, como em pequenos luxos diários.",
+      "answer3": "C) Comprar produtos de luxo.",
+      "answer4": "D) Aumentar seus gastos para melhorar seu estilo de vida.",
+      "correctAnswer": "B"
+    },
+    {
+      "question": "Como o vídeo sugere dividir seus gastos?",
+      "answer1": "A) 70% para poupança e 30% para desejos.",
+      "answer2": "B) 80% para desejos, 10% para necessidades e 10% para poupança.",
+      "answer3": "C) 50% para necessidades, 30% para desejos e 20% para poupança.",
+      "answer4": "D) 100% para necessidades, sem considerar poupança ou desejos.",
+      "correctAnswer": "C"
+    },
+    {
+      "question": "Qual exemplo prático é dado no vídeo para economizar dinheiro?",
+      "answer1": "A) Reduzir o gasto com alimentação fora de casa de R$ 1.000 para R$ 400.",
+      "answer2": "B) Comprar um carro novo para economizar em transporte.",
+      "answer3": "C) Gastar mais dinheiro em hobbies.",
+      "answer4": "D) Evitar qualquer gasto com lazer ou entretenimento.",
+      "correctAnswer": "A"
+    }
+  ]
+}

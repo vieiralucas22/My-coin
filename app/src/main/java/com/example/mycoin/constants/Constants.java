@@ -32,6 +32,7 @@ public class Constants {
     public static final String CURRENT_USER_PASSWORD = "current_user_password";
     public static final String CURRENT_USER_POINTS = "current_user_points";
     public static final String CURRENT_USER_PHOTO = "current_user_photo";
+    public static final String CURRENT_CLASS_KEY = "current_class_key";
 
     /// Modules
     public static final int TOTAL_PROGRESS_BAR = 100;
@@ -66,4 +67,5 @@ public class Constants {
     public static final String SKELETON_GOALS = "skeleton_goal";
     public static final String SKELETON_PLAYERS = "skeleton_players";
     public static final String SKELETON_PHOTO = "skeleton_photo";
+    public static final String ID = "id";
 }

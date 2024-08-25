@@ -156,55 +156,50 @@ public class FirebaseServiceImpl implements FirebaseService {
     private void addIntroductionModule(String email) {
         DocumentReference userRef = mFirebaseFirestore.collection(USERS).document(email)
                 .collection(Constants.INTRODUCTION).document("0");
-        userRef.set(createClass(mContext.getString(R.string.lesson_1), "What`s financial education?"), SetOptions.merge());
+        userRef.set(createClass(mContext.getString(R.string.lesson_1), "What`s financial education?", "0"), SetOptions.merge());
         userRef = mFirebaseFirestore.collection(USERS).document(email)
                 .collection(Constants.INTRODUCTION).document("1");
-        userRef.set(createClass(mContext.getString(R.string.lesson_2), "How can we start?"), SetOptions.merge());
+        userRef.set(createClass(mContext.getString(R.string.lesson_2), "How can we start?", "1"), SetOptions.merge());
         userRef = mFirebaseFirestore.collection(USERS).document(email)
                 .collection(Constants.INTRODUCTION).document("2");
-        userRef.set(createClass(mContext.getString(R.string.lesson_3), "Organize your home"), SetOptions.merge());
+        userRef.set(createClass(mContext.getString(R.string.lesson_3), "Organize your home", "2"), SetOptions.merge());
         userRef = mFirebaseFirestore.collection(USERS).document(email)
                 .collection(Constants.INTRODUCTION).document("3");
-        userRef.set(createClass(mContext.getString(R.string.lesson_4), "Define your target"), SetOptions.merge());
-        userRef = mFirebaseFirestore.collection(USERS).document(email)
-                .collection(Constants.INTRODUCTION).document("4");
-        userRef.set(createClass(mContext.getString(R.string.lesson_5), "The value of tomorrow"), SetOptions.merge());
+        userRef.set(createClass(mContext.getString(R.string.lesson_4), "Define your target", "3"), SetOptions.merge());
+
     }
 
     private void addObjectiveModule(String email) {
         DocumentReference userRef = mFirebaseFirestore.collection(USERS).document(email)
                 .collection(Constants.ORGANIZE_HOME).document("0");
-        userRef.set(createClass(mContext.getString(R.string.lesson_6), "Basic concepts about financial education"), SetOptions.merge());
+        userRef.set(createClass(mContext.getString(R.string.lesson_5), "Basic concepts about financial education", "4"), SetOptions.merge());
         userRef = mFirebaseFirestore.collection(USERS).document(email)
                 .collection(Constants.ORGANIZE_HOME).document("1");
-        userRef.set(createClass(mContext.getString(R.string.lesson_7), "Let`s organize your home"), SetOptions.merge());
+        userRef.set(createClass(mContext.getString(R.string.lesson_6), "Let`s organize your home", "5"), SetOptions.merge());
         userRef = mFirebaseFirestore.collection(USERS).document(email)
                 .collection(Constants.ORGANIZE_HOME).document("2");
-        userRef.set(createClass(mContext.getString(R.string.lesson_8), "Define your goal"), SetOptions.merge());
-        userRef = mFirebaseFirestore.collection(USERS).document(email)
-                .collection(Constants.ORGANIZE_HOME).document("3");
-        userRef.set(createClass(mContext.getString(R.string.lesson_9), "Define your goal example"), SetOptions.merge());
+        userRef.set(createClass(mContext.getString(R.string.lesson_7), "Define your goal", "6"), SetOptions.merge());
     }
 
     private void addActionModule(String email) {
         DocumentReference userRef = mFirebaseFirestore.collection(USERS).document(email)
                 .collection(Constants.ACTION_TIME).document("0");
-        userRef.set(createClass(mContext.getString(R.string.lesson_10), "Compound interest"), SetOptions.merge());
+        userRef.set(createClass(mContext.getString(R.string.lesson_8), "Compound interest", "7"), SetOptions.merge());
         userRef = mFirebaseFirestore.collection(USERS).document(email)
                 .collection(Constants.ACTION_TIME).document("1");
-        userRef.set(createClass(mContext.getString(R.string.lesson_11), "Let`s talk about fixed income"), SetOptions.merge());
+        userRef.set(createClass(mContext.getString(R.string.lesson_9), "Let`s talk about fixed income", "8"), SetOptions.merge());
         userRef = mFirebaseFirestore.collection(USERS).document(email)
                 .collection(Constants.ACTION_TIME).document("2");
-        userRef.set(createClass(mContext.getString(R.string.lesson_12), "Let`s talk about equities"), SetOptions.merge());
+        userRef.set(createClass(mContext.getString(R.string.lesson_10), "Let`s talk about equities", "9"), SetOptions.merge());
     }
 
     private void addExtraModule(String email) {
         DocumentReference userRef = mFirebaseFirestore.collection(USERS).document(email)
                 .collection(Constants.EXTRA).document("0");
-        userRef.set(createClass(mContext.getString(R.string.lesson_13), "Rich dad Poor dad"), SetOptions.merge());
+        userRef.set(createClass(mContext.getString(R.string.lesson_11), "Rich dad Poor dad", "10"), SetOptions.merge());
         userRef = mFirebaseFirestore.collection(USERS).document(email)
                 .collection(Constants.EXTRA).document("1");
-        userRef.set(createClass(mContext.getString(R.string.lesson_14), "The Richest Man In Babylon"), SetOptions.merge());
+        userRef.set(createClass(mContext.getString(R.string.lesson_12), "The Richest Man In Babylon", "11"), SetOptions.merge());
     }
 
     private void addGoalsCollection(String email) {
@@ -225,11 +220,12 @@ public class FirebaseServiceImpl implements FirebaseService {
         userRef.set(createGoal(mContext.getString(R.string.goal_five), "20"), SetOptions.merge());
     }
 
-    private Map<String, Object> createClass(String title, String description) {
+    private Map<String, Object> createClass(String title, String description, String id) {
         Map<String, Object> lesson = new HashMap<>();
         lesson.put(Constants.TITLE, title);
         lesson.put(Constants.DESCRIPTION, description);
         lesson.put(Constants.CLASS_DONE, false);
+        lesson.put(Constants.ID, id);
         return lesson;
     }
 
@@ -350,6 +346,8 @@ public class FirebaseServiceImpl implements FirebaseService {
                             classItem.setTitle(x.getString(Constants.TITLE));
                             classItem.setDescription(x.getString(Constants.DESCRIPTION));
                             classItem.setIsDone(Boolean.TRUE.equals(x.getBoolean(Constants.CLASS_DONE)));
+                            Log.d(TAG, "ID - " + x.get(Constants.ID));
+                            classItem.setId(x.getString(Constants.ID));
                             classItemList.add(classItem);
                         }
                         callback.onSuccess(classItemList);

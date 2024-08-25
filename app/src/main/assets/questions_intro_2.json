@@ -1,0 +1,36 @@
+{
+  "questions": [
+    {
+      "question": "Qual é o foco principal do vídeo sobre gestão financeira?",
+      "answer1": "A) Como ganhar mais dinheiro rapidamente",
+      "answer2": "B) Saber quanto você ganha, quanto gasta e onde quer chegar financeiramente",
+      "answer3": "C) Investir em ações de risco",
+      "answer4": "D) Evitar todos os gastos desnecessários",
+      "correctAnswer": "B"
+    },
+    {
+      "question": "Question 2",
+      "answer1": "A) Para poder gastar sem preocupações",
+      "answer2": "B) Para poder investir todo o dinheiro em um único ativo",
+      "answer3": "C) Para tomar decisões informadas e evitar surpresas desagradáveis",
+      "answer4": "D) Para não precisar se preocupar com o futuro financeiro",
+      "correctAnswer": "C"
+    },
+    {
+      "question": "O que o vídeo sugere que você faça após entender suas finanças atuais?",
+      "answer1": "A) Definir metas financeiras claras, como comprar uma casa ou se aposentar",
+      "answer2": "B) Gastar o dinheiro com o que você quiser sem planejar",
+      "answer3": "C) Guardar todo o dinheiro embaixo do colchão",
+      "answer4": "D) Comprar itens de luxo para mostrar seu sucessoD",
+      "correctAnswer": "A"
+    },
+    {
+      "question": "Como o vídeo compara o planejamento financeiro a uma viagem?",
+      "answer1": "A) É como seguir sempre em linha reta sem ajustes",
+      "answer2": "B) É como comprar um bilhete de loteria",
+      "answer3": "C) É como tomar decisões sem informações",
+      "answer4": "D) É como definir o ponto de partida e o destino",
+      "correctAnswer": "D"
+    }
+  ]
+}

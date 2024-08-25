@@ -1,0 +1,36 @@
+{
+  "questions": [
+    {
+      "question": "Por que é importante ter metas financeiras, segundo o vídeo?",
+      "answer1": "A) Para gastar todo o dinheiro sem preocupação.",
+      "answer2": "B) Para poder pedir empréstimos bancários.",
+      "answer3": "C) Para parar de economizar e aproveitar o presente.",
+      "answer4": "D) Para ter um destino claro e evitar se perder ou gastar mais do que deveria.",
+      "correctAnswer": "D"
+    },
+    {
+      "question": "Quais são as três perguntas que você deve responder ao definir uma meta clara?",
+      "answer1": "A) Quanto custa? Em quanto tempo? Como alcançar?",
+      "answer2": "B) Onde comprar? Quem vai pagar? Qual o desconto?",
+      "answer3": "C) Qual o prazo de validade? Quanto posso gastar agora? Preciso disso?",
+      "answer4": "D) Quem pode ajudar? Onde investir? Qual a taxa de juros?",
+      "correctAnswer": "A"
+    },
+    {
+      "question": "No exemplo prático do vídeo, quanto é necessário economizar por mês para comprar um carro de R$ 40.000 em 5 anos?",
+      "answer1": "A) R$ 500,00 por mês.",
+      "answer2": "B) R$ 833,33 por mês.",
+      "answer3": "C) R$ 1.000,00 por mês.",
+      "answer4": "D) R$ 666,67 por mês.",
+      "correctAnswer": "D"
+    },
+    {
+      "question": "O que o vídeo sugere fazer se você precisar economizar mais para alcançar sua meta?",
+      "answer1": "A) Parar de poupar para investir mais.",
+      "answer2": "B) Reduzir gastos em outras áreas ou aumentar sua renda com um trabalho extra.",
+      "answer3": "C) Ignorar a meta e gastar normalmente.",
+      "answer4": "D) Pedir dinheiro emprestado a familiares e amigos.",
+      "correctAnswer": "B"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "questions": [
+    {
+      "question": "Qual é o foco principal do livro *Pai Rico, Pai Pobre*?",
+      "answer1": "A) Técnicas de vendas",
+      "answer2": "B) Educação financeira e construção de riqueza",
+      "answer3": "C) Dietas e saúde",
+      "answer4": "D) História da economia global",
+      "correctAnswer": "B"
+    },
+    {
+      "question": "Qual foi a principal diferença entre o 'Pai Pobre' e o 'Pai Rico' no livro?",
+      "answer1": "A) O 'Pai Pobre' acreditava em segurança e estabilidade, enquanto o 'Pai Rico' focava em entender como o dinheiro funciona e criar renda passiva.",
+      "answer2": "B) O 'Pai Pobre' não estudava, enquanto o 'Pai Rico' era um acadêmico.",
+      "answer3": "C) O 'Pai Pobre' usava métodos tradicionais de investimento, enquanto o 'Pai Rico' investia apenas em criptomoedas.",
+      "answer4": "D) O 'Pai Pobre' era um investidor, enquanto o 'Pai Rico' trabalhava apenas como empregado.",
+      "correctAnswer": "A"
+    },
+    {
+      "question": "Qual é uma das principais lições de *Pai Rico, Pai Pobre*?",
+      "answer1": "A) A importância da educação financeira para se tornar um investidor ou empreendedor.",
+      "answer2": "B) A necessidade de trabalhar em um único emprego para alcançar a estabilidade.",
+      "answer3": "C) A ideia de que investir em imóveis é sempre arriscado.",
+      "answer4": "D) A crença de que a educação tradicional é suficiente para alcançar sucesso financeiro.",
+      "correctAnswer": "A"
+    },
+    {
+      "question": "Como *Pai Rico, Pai Pobre* impactou seus leitores globalmente?",
+      "answer1": "A) Inspirou muitas pessoas a investir, abrir negócios e buscar independência financeira.",
+      "answer2": "B) Apenas serviu como um guia para investir em ações específicas.",
+      "answer3": "C) Foi criticado por não ter impacto algum na vida dos leitores.",
+      "answer4": "D) Foi desconsiderado por especialistas financeiros devido à sua falta de profundidade.",
+      "correctAnswer": "A"
+    }
+  ]
+}

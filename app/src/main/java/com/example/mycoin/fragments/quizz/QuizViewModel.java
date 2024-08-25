@@ -215,4 +215,32 @@ public class QuizViewModel extends ViewModel {
     public LiveData<Boolean> getIsOwnerRoom() {
         return mIsOwnerRoom;
     }
+
+    public String getQuestions() {
+        switch (mAppPreferences.getCurrentClass()) {
+            case "0":
+                return "questions_intro_1.json";
+            case "1":
+            case "5":
+                return "questions_intro_2.json";
+            case "2":
+            case "6":
+                return "questions_intro_3.json";
+            case "3":
+                return "questions_intro_4.json";
+            case "4":
+                return "questions_org_1.json";
+            case "7":
+                return "questions_action_1.json";
+            case "8":
+                return "questions_action_2.json";
+            case "9":
+                return "questions_action_3.json";
+            case "10":
+                return "questions_extra_1.json";
+            case "11":
+                return "questions_extra_2.json";
+        }
+        return "questions_intro_1.json";
+    }
 }
