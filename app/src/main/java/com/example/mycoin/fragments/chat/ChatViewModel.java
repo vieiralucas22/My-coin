@@ -52,6 +52,7 @@ public class ChatViewModel extends ViewModel {
 
             // Criando o array de mensagens
             JSONArray messagesArray = new JSONArray();
+            question += "Apenas responda caso seja uma pergunta relacionada a educação financeira, se não for apenas diga que não pode ajudar e peça para perguntar algo de educação financeira";
             messagesArray.put(new JSONObject().put("role", "user").put("content", question));
 
             jsonBody.put("messages", messagesArray);
@@ -72,7 +73,7 @@ public class ChatViewModel extends ViewModel {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 mLoadMessage.postValue("Failed to load response, please try again in few seconds" +
-                        " ;). \n Possible reason2: " + e.getMessage());
+                        " ;). \n Possible reason: " + e.getMessage());
             }
 
             @Override
@@ -88,8 +89,6 @@ public class ChatViewModel extends ViewModel {
                         e.printStackTrace();
                     }
                 } else {
-                    int statusCode = response.code();  // Obtém o código de status
-
                     Log.d(TAG, response.body().string());
                 }
             }

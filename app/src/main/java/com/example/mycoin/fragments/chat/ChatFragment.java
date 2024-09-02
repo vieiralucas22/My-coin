@@ -1,5 +1,7 @@
 package com.example.mycoin.fragments.chat;
 
+import static com.example.mycoin.fragments.chat.MessageAdapter.Message.SENT_BY_BOT;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -67,11 +69,12 @@ public class ChatFragment extends BaseFragment implements View.OnClickListener {
     }
 
     void addResponse(String response) {
-        //messageList.remove(messageList.size()-1);
-        addMessageToChat(response, MessageAdapter.Message.SENT_BY_BOT);
+        messageList.remove(messageList.size()-1);
+        addMessageToChat(response, SENT_BY_BOT);
     }
 
     private void callAPI(String question) {
+        addMessageToChat("Typing...", SENT_BY_BOT);
         mViewModel.handleWithQuestion(question);
     }
 
