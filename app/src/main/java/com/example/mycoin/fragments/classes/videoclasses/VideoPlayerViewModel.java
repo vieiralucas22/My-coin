@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.mycoin.R;
 import com.example.mycoin.callbacks.LoadClassesCallback;
+import com.example.mycoin.callbacks.VideosCallback;
 import com.example.mycoin.constants.Constants;
 import com.example.mycoin.fragments.classes.allclasses.ClassAdapter;
 import com.example.mycoin.gateway.repository.ClassRepository;
@@ -104,12 +105,8 @@ public class VideoPlayerViewModel extends ViewModel {
         } else if (classTitle.equals(list.get(1).getTitle())) {
             mNextClasses.add(list.get(2));
             mNextClasses.add(list.get(3));
-            mNextClasses.add(list.get(4));
         } else if (classTitle.equals(list.get(2).getTitle())) {
             mNextClasses.add(list.get(3));
-            mNextClasses.add(list.get(4));
-        } else if (classTitle.equals(list.get(3).getTitle())) {
-            mNextClasses.add(list.get(4));
         }
         mLoadNextClasses.postValue(true);
     }
@@ -118,12 +115,8 @@ public class VideoPlayerViewModel extends ViewModel {
         if (classTitle.equals(list.get(0).getTitle())) {
             mNextClasses.add(list.get(1));
             mNextClasses.add(list.get(2));
-            mNextClasses.add(list.get(3));
         } else if (classTitle.equals(list.get(1).getTitle())) {
             mNextClasses.add(list.get(2));
-            mNextClasses.add(list.get(3));
-        } else if (classTitle.equals(list.get(2).getTitle())) {
-            mNextClasses.add(list.get(3));
         }
         mLoadNextClasses.postValue(true);
     }
@@ -152,4 +145,43 @@ public class VideoPlayerViewModel extends ViewModel {
     public LiveData<Boolean> getLoadNextClasses() {
         return mLoadNextClasses;
     }
+
+    public void initClass(String module, String classTitle) {
+        mClassRepository.getAllVideosByModule(module, new VideosCallback() {
+            @Override
+            public void onSuccess(List<String> list) {
+                if (classTitle.equals(mContext.getString(R.string.lesson_1))) {
+                    mServerResponse.postValue(list.get(0));
+                } else if (classTitle.equals(mContext.getString(R.string.lesson_2))) {
+                    mServerResponse.postValue(list.get(4));
+                } else if (classTitle.equals(mContext.getString(R.string.lesson_3))) {
+                    mServerResponse.postValue(list.get(5));
+                } else if (classTitle.equals(mContext.getString(R.string.lesson_4))) {
+                    mServerResponse.postValue(list.get(6));
+                } else if (classTitle.equals(mContext.getString(R.string.lesson_5))) {
+                    mServerResponse.postValue(list.get(7));
+                } else if (classTitle.equals(mContext.getString(R.string.lesson_6))) {
+                    mServerResponse.postValue(list.get(8));
+                } else if (classTitle.equals(mContext.getString(R.string.lesson_7))) {
+                    mServerResponse.postValue(list.get(9));
+                } else if (classTitle.equals(mContext.getString(R.string.lesson_8))) {
+                    mServerResponse.postValue(list.get(10));
+                } else if (classTitle.equals(mContext.getString(R.string.lesson_9))) {
+                    mServerResponse.postValue(list.get(11));
+                } else if (classTitle.equals(mContext.getString(R.string.lesson_10))) {
+                    mServerResponse.postValue(list.get(1));
+                } else if (classTitle.equals(mContext.getString(R.string.lesson_11))) {
+                    mServerResponse.postValue(list.get(2));
+                } else if (classTitle.equals(mContext.getString(R.string.lesson_12))) {
+                    mServerResponse.postValue(list.get(3));
+                }
+            }
+
+            @Override
+            public void onFailure(String message) {
+
+            }
+        });
+    }
+
 }

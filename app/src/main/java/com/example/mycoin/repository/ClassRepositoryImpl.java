@@ -1,6 +1,7 @@
 package com.example.mycoin.repository;
 
 import com.example.mycoin.callbacks.LoadClassesCallback;
+import com.example.mycoin.callbacks.VideosCallback;
 import com.example.mycoin.gateway.repository.ClassRepository;
 import com.example.mycoin.gateway.services.FirebaseService;
 import com.example.mycoin.utils.LogcatUtil;
@@ -25,5 +26,10 @@ public class ClassRepositoryImpl implements ClassRepository {
     @Override
     public void updateClassState(int position, boolean checked, String module) {
         mFirebaseService.updateClassState(position, checked, module);
+    }
+
+    @Override
+    public void getAllVideosByModule(String module, VideosCallback videosCallback) {
+        mFirebaseService.getVideosByModule(module, videosCallback);
     }
 }

@@ -1,14 +1,12 @@
 package com.example.mycoin.services;
 
+import static com.example.mycoin.constants.Constants.CLASSES;
 import static com.example.mycoin.constants.Constants.USERS;
 
 import android.content.Context;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
 
 import com.example.mycoin.GameStatus;
 import com.example.mycoin.R;
@@ -23,6 +21,7 @@ import com.example.mycoin.callbacks.RegisterCallback;
 import com.example.mycoin.callbacks.RoomCreatedCallback;
 import com.example.mycoin.callbacks.UploadPhotoCallback;
 import com.example.mycoin.callbacks.UserDataChangeCallback;
+import com.example.mycoin.callbacks.VideosCallback;
 import com.example.mycoin.constants.Constants;
 import com.example.mycoin.entities.Goal;
 import com.example.mycoin.entities.User;
@@ -519,6 +518,22 @@ public class FirebaseServiceImpl implements FirebaseService {
                 .collection(Constants.GOALS).document("3").update(Constants.GOAL, mContext.getString(R.string.goal_four));
         mFirebaseFirestore.collection(USERS).document(user.getEmail())
                 .collection(Constants.GOALS).document("4").update(Constants.GOAL, mContext.getString(R.string.goal_five));
+    }
+
+    @Override
+    public void getVideosByModule(String module, VideosCallback videosCallback) {
+        List<String> videos = new ArrayList<>();
+        mFirebaseFirestore.collection(CLASSES).get().addOnCompleteListener(task -> {
+            if (task.isComplete()) {
+                for (DocumentSnapshot video : task.getResult().getDocuments()) {
+                    videos.add(video.getString(Constants.LINK));
+                }
+
+                videosCallback.onSuccess(videos);
+                return;
+            }
+            videosCallback.onFailure("Users not loaded");
+        });
     }
 
     private User getUser(DocumentSnapshot document) {

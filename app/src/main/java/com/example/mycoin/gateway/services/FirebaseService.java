@@ -13,6 +13,7 @@ import com.example.mycoin.callbacks.RegisterCallback;
 import com.example.mycoin.callbacks.RoomCreatedCallback;
 import com.example.mycoin.callbacks.UploadPhotoCallback;
 import com.example.mycoin.callbacks.UserDataChangeCallback;
+import com.example.mycoin.callbacks.VideosCallback;
 import com.example.mycoin.entities.User;
 
 public interface FirebaseService {
@@ -33,4 +34,5 @@ public interface FirebaseService {
     void addRoom(int roomCode, RoomCreatedCallback roomCreatedCallback);
     void addUserInRoom(int roomCode, JoinRoomCallback joinRoomCallback);
     void updateDataLanguage();
+    void getVideosByModule(String module, VideosCallback videosCallback);
 }

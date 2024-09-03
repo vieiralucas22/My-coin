@@ -68,4 +68,6 @@ public class Constants {
     public static final String SKELETON_PLAYERS = "skeleton_players";
     public static final String SKELETON_PHOTO = "skeleton_photo";
     public static final String ID = "id";
+    public static final String CLASSES = "Classes";
+    public static final String LINK = "Link";
 }
