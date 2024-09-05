@@ -123,7 +123,8 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
                 }
 
                 if (mViewModel.isOnlineMatch()) {
-
+                    mViewModel.handleLastQuestionAnswer(getArgs().getOwnerRoom());
+                    goResultScreen();
                 } else {
                     goResultScreen();
                 }
@@ -351,7 +352,8 @@ public class QuizFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private String getQuestionFile() {
-        return mViewModel.getQuestions();
+        if (!mViewModel.isOnlineMatch()) return mViewModel.getQuestions();
+        return mViewModel.getQuestionsByTheme();
     }
 
     @Override

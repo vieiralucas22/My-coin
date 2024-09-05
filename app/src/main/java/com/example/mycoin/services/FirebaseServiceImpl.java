@@ -452,7 +452,7 @@ public class FirebaseServiceImpl implements FirebaseService {
     }
 
     @Override
-    public void addRoom(int roomCode, RoomCreatedCallback roomCreatedCallback) {
+    public void addRoom(String theme, int roomCode, RoomCreatedCallback roomCreatedCallback) {
         String roomDocument = String.valueOf(roomCode);
 
         List<String> users = Collections.singletonList(mAppPreferences.getCurrentUser().getEmail());
@@ -467,6 +467,7 @@ public class FirebaseServiceImpl implements FirebaseService {
         newRoom.put(Constants.PLAYERS, users);
         newRoom.put(Constants.PLAYER_ONE, mAppPreferences.getCurrentUser().getEmail());
         newRoom.put(Constants.PLAYER_TWO, "");
+        newRoom.put(Constants.THEME, theme);
 
         mFirebaseFirestore.collection(Constants.ROOMS).document(roomDocument)
                 .set(newRoom).addOnCompleteListener(task -> {

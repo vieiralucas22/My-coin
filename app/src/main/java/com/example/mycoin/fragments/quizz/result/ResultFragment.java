@@ -82,6 +82,7 @@ public class ResultFragment extends BaseFragment implements View.OnClickListener
         mMenuNavigation.viewPerson.setOnClickListener(this);
         mMenuNavigation.viewRanking.setOnClickListener(this);
         mMenuNavigation.viewGoals.setOnClickListener(this);
+        mMenuNavigation.viewControl.setOnClickListener(this);
     }
 
     private void setUpUI() {
@@ -109,6 +110,11 @@ public class ResultFragment extends BaseFragment implements View.OnClickListener
     private void goGoalsScreen(View v) {
         Navigation.findNavController(v)
                 .navigate(R.id.action_resultFragment_to_goalsFragment);
+    }
+
+    private void goCodeMatchScreen(View v) {
+        Navigation.findNavController(v)
+                .navigate(R.id.action_resultFragment_to_codeMatchFragment);
     }
 
     private void initObservers() {
@@ -192,6 +198,8 @@ public class ResultFragment extends BaseFragment implements View.OnClickListener
             goRankingScreen(v);
         } else if (v.getId() == R.id.view_goals) {
             goGoalsScreen(v);
+        } else if (v.getId() == R.id.view_control) {
+            goCodeMatchScreen(v);
         }
     }
 }

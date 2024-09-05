@@ -111,7 +111,7 @@
     <string name="room_code">Room code</string>
     <string name="create_a_quiz_room">Create a quiz room</string>
     <string name="or">Or</string>
-    <string name="create">Create</string>
+    <string name="create">Create room</string>
     <string name="join">Join</string>
     <string name="waiting_another_player">Waiting another player...</string>
     <string name="start_game">Start game</string>
@@ -123,4 +123,6 @@
     <string name="winner">Winner</string>
     <string name="winner_description">You win, Congratulation!</string>
     <string name="what_s_your_question">What´s your question?</string>
+    <string name="choose_theme">Choose theme</string>
+    <string name="select_option">Select option</string>
 </resources>

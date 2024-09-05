@@ -248,6 +248,11 @@
             app:argType="boolean"
             android:defaultValue="false" />
 
+        <argument
+            android:name="ThemeRoom"
+            app:argType="string"
+            android:defaultValue="" />
+
         <action
             android:id="@+id/action_quizFragment_to_resultFragment"
             app:destination="@id/resultFragment"

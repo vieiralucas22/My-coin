@@ -31,7 +31,7 @@ public interface FirebaseService {
     void getAllGoals(LoadGoalsCallback loadGoalsCallback);
     void completeUserGoal(String goal);
     void getGoal(String goal, GoalCallback goalCallback);
-    void addRoom(int roomCode, RoomCreatedCallback roomCreatedCallback);
+    void addRoom(String mItemSelected, int roomCode, RoomCreatedCallback roomCreatedCallback);
     void addUserInRoom(int roomCode, JoinRoomCallback joinRoomCallback);
     void updateDataLanguage();
     void getVideosByModule(String module, VideosCallback videosCallback);

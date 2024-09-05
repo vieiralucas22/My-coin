@@ -70,4 +70,5 @@ public class Constants {
     public static final String ID = "id";
     public static final String CLASSES = "Classes";
     public static final String LINK = "Link";
+    public static final String THEME = "theme";
 }

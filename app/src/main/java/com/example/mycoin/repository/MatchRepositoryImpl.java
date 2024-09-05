@@ -17,8 +17,8 @@ public class MatchRepositoryImpl implements MatchRepository {
     }
 
     @Override
-    public void createRoom(int roomCode, RoomCreatedCallback roomCreatedCallback) {
-        mFirebaseService.addRoom(roomCode, roomCreatedCallback);
+    public void createRoom(String mItemSelected, int roomCode, RoomCreatedCallback roomCreatedCallback) {
+        mFirebaseService.addRoom(mItemSelected, roomCode, roomCreatedCallback);
     }
 
     @Override

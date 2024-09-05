@@ -31,10 +31,10 @@ public class CodeMatchViewModel extends ViewModel {
         mContext = context;
     }
 
-    public void createRoom() {
+    public void createRoom(String mItemSelected) {
         Random random = new Random();
         int roomCode = random.nextInt(5000);
-        mMatchRepository.createRoom(roomCode, new RoomCreatedCallback() {
+        mMatchRepository.createRoom(mItemSelected, roomCode, new RoomCreatedCallback() {
             @Override
             public void onSuccess(int roomCode) {
                 mLoadRoomCode.postValue(roomCode);

@@ -123,4 +123,7 @@
     <string name="game_result">Resultado do jogo</string>
     <string name="winner">Vencedor</string>
     <string name="winner_description">Você venceu, parabéns!</string>
+    <string name="what_s_your_question">Qual a próxima questão?</string>
+    <string name="choose_theme">Escolha o tema</string>
+    <string name="select_option">Selecione a opção</string>
 </resources>

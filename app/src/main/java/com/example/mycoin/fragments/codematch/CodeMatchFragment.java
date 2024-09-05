@@ -7,11 +7,16 @@ import androidx.annotation.Nullable;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListPopupWindow;
+import android.widget.Toast;
 
 import com.example.mycoin.R;
+import com.example.mycoin.constants.Constants;
 import com.example.mycoin.databinding.FragmentCodeMatchBinding;
 import com.example.mycoin.databinding.NavigationMenuBinding;
 import com.example.mycoin.fragments.BaseFragment;
@@ -23,6 +28,7 @@ public class CodeMatchFragment extends BaseFragment implements View.OnClickListe
 
     private CodeMatchViewModel mViewModel;
     private int mPreviousRoomCode = 0;
+    private String mItemSelected;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -42,6 +48,7 @@ public class CodeMatchFragment extends BaseFragment implements View.OnClickListe
     }
 
     private void initComponents() {
+        mItemSelected = "";
         mMenuNavigation = mBinding.navigationMenu;
     }
 
@@ -53,13 +60,19 @@ public class CodeMatchFragment extends BaseFragment implements View.OnClickListe
         mMenuNavigation.viewGoals.setOnClickListener(this);
         mBinding.buttonCreateRoom.setOnClickListener(this);
         mBinding.buttonJoin.setOnClickListener(this);
+        mBinding.menu.setOnClickListener(this);
     }
 
     private void initObservers() {
         mViewModel.getLoadRoomCode().observe(getViewLifecycleOwner(), roomCode -> {
             if (mPreviousRoomCode == roomCode) return;
             mPreviousRoomCode = roomCode;
-            goQuizScreen(getView(), roomCode, true);
+
+            if (!TextUtils.isEmpty(mItemSelected)) {
+                goQuizScreen(getView(), roomCode, true);
+            } else {
+                Toast.makeText(getContext(), "Select a theme to create a game", Toast.LENGTH_LONG).show();
+            }
         });
 
         mViewModel.getJoinRoom().observe(getViewLifecycleOwner(), roomCode -> {
@@ -93,6 +106,34 @@ public class CodeMatchFragment extends BaseFragment implements View.OnClickListe
         Navigation.findNavController(v).navigate(action);
     }
 
+    private void joinRoom() {
+        String codeRoom = mBinding.editRoomCode.getText().toString();
+
+        mViewModel.setCanNavigate(true);
+        mViewModel.joinRoom(codeRoom);
+    }
+
+    private void openDropdown() {
+        String[] itemsDropdown = {Constants.INTRODUCTION, Constants.ORGANIZE_HOME,
+                Constants.ACTION_TIME, Constants.EXTRA};
+
+        ListPopupWindow listPopupWindow = new ListPopupWindow(getContext());
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item, itemsDropdown);
+        listPopupWindow.setAdapter(adapter);
+        listPopupWindow.setAnchorView(mBinding.renderArea);
+        listPopupWindow.setBackgroundDrawable(getDrawable(R.drawable.corners_24));
+        listPopupWindow.setVerticalOffset(30);
+        listPopupWindow.setOnItemClickListener((parent, view, position, id) -> {
+            mItemSelected = itemsDropdown[position];
+            mBinding.optionSelectedText.setText(mItemSelected);
+
+            listPopupWindow.dismiss();
+        });
+
+        listPopupWindow.show();
+
+    }
+
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.button_back) {
@@ -106,17 +147,11 @@ public class CodeMatchFragment extends BaseFragment implements View.OnClickListe
         } else if (v.getId() == R.id.view_goals) {
             goGoalsScreen(v);
         } else if (v.getId() == R.id.button_create_room) {
-            mViewModel.createRoom();
+            mViewModel.createRoom(mItemSelected);
         } else if (v.getId() == R.id.button_join) {
             joinRoom();
+        } else if (v.getId() == R.id.menu) {
+            openDropdown();
         }
     }
-
-    private void joinRoom() {
-        String codeRoom = mBinding.editRoomCode.getText().toString();
-
-        mViewModel.setCanNavigate(true);
-        mViewModel.joinRoom(codeRoom);
-    }
-
 }

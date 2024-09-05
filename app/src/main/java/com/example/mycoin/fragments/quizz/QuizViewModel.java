@@ -18,6 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 import javax.inject.Inject;
 
@@ -36,6 +37,7 @@ public class QuizViewModel extends ViewModel {
     private Boolean mHasMinimumPLayersInRoom;
     private int mCorrectQuestions = 0;
     private int mWrongQuestions = 0;
+    private String mTheme;
 
 
     @Inject
@@ -92,6 +94,8 @@ public class QuizViewModel extends ViewModel {
         setMinimumPlayersInRoom(players.size() == 2);
 
         User user = mAppPreferences.getCurrentUser();
+
+        mTheme = value.getString(Constants.THEME);
 
         mIsOwnerRoom.postValue(Objects.equals(value.getString(Constants.PLAYER_ONE), user.getEmail()));
     }
@@ -242,5 +246,45 @@ public class QuizViewModel extends ViewModel {
                 return "questions_extra_2.json";
         }
         return "questions_intro_1.json";
+    }
+
+    public String getQuestionsByTheme() {
+        String questionsFile = "";
+        Random random = new Random();
+
+        switch (mTheme) {
+            case Constants.INTRODUCTION:{
+                int classIndex = random.nextInt(6);
+                if (classIndex == 4) classIndex = 3;
+                mAppPreferences.setCurrentClass(String.valueOf(classIndex));
+                questionsFile = getQuestions();
+                break;
+            }
+
+            case Constants.ORGANIZE_HOME: {
+                questionsFile = "questions_org_1.json";
+                break;
+            }
+
+            case Constants.ACTION_TIME: {
+                double classIndex = (int) Math.floor(Math.random() * ((9-7)+1) + 7);
+                String first = String.valueOf(String.valueOf(classIndex).charAt(0));
+                Log.d(TAG, "classIndex ACTION_TIME " + first);
+                mAppPreferences.setCurrentClass(first);
+                questionsFile = getQuestions();
+                break;
+            }
+
+            case Constants.EXTRA: {
+                double classIndex = (int) Math.floor(Math.random() * ((11-10)+1) + 11);
+                String first = String.valueOf(String.valueOf(classIndex).charAt(0));
+                Log.d(TAG, "classIndex EXTRA " + first);
+                mAppPreferences.setCurrentClass(first);
+                questionsFile = getQuestions();
+                break;
+            }
+        }
+
+        return questionsFile;
     }
 }
