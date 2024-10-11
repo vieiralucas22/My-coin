@@ -131,6 +131,7 @@ public class VideoPlayerFragment extends BaseFragment implements View.OnClickLis
         mMenuNavigation.viewRanking.setOnClickListener(this);
         mMenuNavigation.viewGoals.setOnClickListener(this);
         mMenuNavigation.viewControl.setOnClickListener(this);
+        mBinding.buttonBack.setOnClickListener(this);
     }
 
     private VideoPlayerFragmentArgs getArgs() {
@@ -191,6 +192,8 @@ public class VideoPlayerFragment extends BaseFragment implements View.OnClickLis
             goGoalsScreen(v);
         } else if (v.getId() == R.id.view_control) {
             goCodeMatchScreen(v);
+        } else if (v.getId() == R.id.button_back) {
+            backScreen(v);
         }
     }
 }

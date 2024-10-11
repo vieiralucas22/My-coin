@@ -75,6 +75,7 @@ public class EditUserProfileFragment extends BaseFragment implements View.OnClic
         mCardDatePicker.setOnClickListener(this);
         mButtonDatePicker.setOnClickListener(this);
         mButtonEditProfile.setOnClickListener(this);
+        mBinding.buttonBack.setOnClickListener(this);
     }
 
     private void loadUserData() {
@@ -139,6 +140,8 @@ public class EditUserProfileFragment extends BaseFragment implements View.OnClic
             mViewModel.editUserData(name, dataBirth);
         } else if (id == R.id.edit_profile_date_birth_card || id == R.id.button_calendar) {
             showDatePicker();
+        } else if (id == R.id.button_back) {
+            backScreen(v);
         }
     }
 
